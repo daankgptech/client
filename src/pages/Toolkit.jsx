@@ -34,10 +34,10 @@ const Toolkit = () => {
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`px-4 py-2 rounded-md font-medium transition duration-300 ${
+              className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
                 activeTab === key
-                  ? "bg-red-400 text-white dark:bg-gray-700"
-                  : "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-red-300 hover:text-white"
+                  ? "bg-red-400 dark:bg-red-800 text-white "
+                  : "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-red-300 dark:hover:bg-red-900 hover:text-white"
               }`}
             >
               {label}

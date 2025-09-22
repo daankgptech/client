@@ -44,10 +44,10 @@ const TopPerformers = () => {
           <button
             key={year}
             onClick={() => setActiveYear(year)}
-            className={`px-4 py-2 rounded-md font-medium ${
+            className={`px-4 py-2 rounded-md font-medium transition-all duration-300  ${
               activeYear === year
-                ? "bg-red-500 text-gray-100 dark:bg-red-900 dark:text-gray-200"
-                : "bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+                ? "bg-red-400 dark:bg-red-800 text-white "
+                : "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-red-300 dark:hover:bg-red-900 hover:text-white"
             }`}
           >
             {yearLabels[year]}

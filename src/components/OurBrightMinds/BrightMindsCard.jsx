@@ -8,8 +8,7 @@ const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
 
     {position && colour && (
       <div
-        className="absolute top-2 right-2 rounded-full font-bold text-white 
-               text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2"
+        className="absolute top-2 right-2 px-2 py-1 md:px-4 md:py-2 rounded-full text-sm shadow bg-gradient-to-r from-yellow-400 to-orange-500 text-white"
         style={{ background: colour }}
       >
         {position}

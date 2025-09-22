@@ -23,10 +23,11 @@ const baseData = {
 
 // Map positions to colours
 const colour = [
-  "linear-gradient(45deg, #FFD700, #FFC107)", // 1st
-  "linear-gradient(45deg, #C0C0C0, #B0BEC5)", // 2nd
-  "linear-gradient(45deg, #CD7F32, #D2691E)", // 3rd
+  "linear-gradient(to right, #FBBF24, #F97316)", // 1st: yellow → orange
+  "linear-gradient(to right, #60A5FA, #4F46E5)", // 2nd: blue → indigo
+  "linear-gradient(to right, #EC4899, #8B5CF6)", // 3rd: pink → purple
 ];
+
 
 const TopPerformersData = Object.fromEntries(
   Object.entries(baseData).map(([year, students]) => [

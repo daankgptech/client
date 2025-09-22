@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { NavbarLinks } from "../Navbar/JSFiles/NavbarData";
 import { HiX } from "react-icons/hi"; // Close icon
 
-const ResponsiveMenu = ({ showMenu, setShowMenu, visitorCount }) => {
+const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
   const menuRef = useRef(null);
 
   // Close menu on outside click
@@ -79,11 +79,6 @@ const ResponsiveMenu = ({ showMenu, setShowMenu, visitorCount }) => {
             </li>
           ))}
         </ul>
-
-        {/* Visitor count */}
-        <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-          Total Visitors: {visitorCount !== null ? visitorCount : "Loading..."}
-        </p>
       </nav>
     </div>
   );

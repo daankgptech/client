@@ -2,10 +2,14 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
+import formsData from "../components/Forms/formsData";
+
 const Forms = () => {
   useEffect(() => {
     document.title = "Our Forms | DAAN KGP";
   }, []);
+
+  const now = new Date(); // current time in browser (auto-handles timezone)
 
   return (
     <div className="min-h-[80vh] bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-400">
@@ -20,33 +24,59 @@ const Forms = () => {
         <h1 className="my-8 border-l-8 border-red-300 py-2 pl-2 text-3xl font-bold">
           Our Forms
         </h1>
-        <div className="flex justify-center items-center gap-4 container">
-          <Link
-            to="/tshirt-form"
-            className="block max-w-xs mx-auto my-4 bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-red-400 transition-all duration-300 overflow-hidden"
-          >
-            {/* Image Preview */}
-            <div className="w-full h-40 overflow-hidden">
-              <img
-                src="https://res.cloudinary.com/dcwwptwzt/image/upload/v1758206325/tshirt-form_g8yz8e.avif"
-                alt="T-Shirt Registration 2025"
-                className="w-full h-full object-cover"
-              />
-            </div>
+        <div className="flex flex-wrap justify-center items-center gap-4 container">
+          {formsData.map((item, index) => {
+            const deadlineDate = new Date(item.deadline); // deadline with correct IST offset
+            const isExceeded = now > deadlineDate;
 
-            {/* Text Content */}
-            <div className="p-4">
-              <h2 className="text-lg font-semibold text-red-600 dark:text-red-400">
-                T-Shirt Registration 2025
-              </h2>
-              <p className="text-gray-700 dark:text-gray-400 mt-1 text-sm">
-                Your Dakshana T-shirt is waiting! Register now and claim yours.
-              </p>
-              <p className="text-gray-800 dark:text-gray-400 mt-4 text-sm font-bold">
-                Deadline : 23 Sept, 2025
-              </p>
-            </div>
-          </Link>
+            return (
+              <div
+                key={index}
+                className={`relative block max-w-xs mx-auto my-4 rounded-lg shadow-md border transition-all duration-300 overflow-hidden
+                  ${isExceeded
+                    ? "bg-gray-300 dark:bg-gray-700 border-gray-400 dark:border-gray-600 cursor-not-allowed"
+                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-red-400"
+                  }
+                `}
+              >
+                <Link
+                  to={isExceeded ? "#" : item.to}
+                  className={`block ${isExceeded ? "pointer-events-none" : ""}`}
+                >
+                  {/* Image Preview */}
+                  <div className="w-full h-40 overflow-hidden">
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="p-4">
+                    <h2 className="text-lg font-semibold text-red-600 dark:text-red-400">
+                      {item.title}
+                    </h2>
+                    <p className="text-gray-700 dark:text-gray-400 mt-1 text-sm">
+                      {item.desc}
+                    </p>
+                    <p className="text-gray-800 dark:text-gray-400 mt-4 text-sm font-bold">
+                      Deadline: {deadlineDate.toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </p>
+                    {isExceeded && (
+                      <p className="text-red-600 mt-2 text-sm font-bold">
+                        Too Late!
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

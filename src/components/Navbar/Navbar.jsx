@@ -5,13 +5,18 @@ import { Helmet } from "react-helmet";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { NavbarLinks } from "./JSFiles/NavbarData";
 import ThemeToggle from "../../utils/ThemeToggle";
+import VisitorManager from "../../utils/VisitorManager";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(null);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-gray-50 dark:bg-gray-900 backdrop-blur-sm text-gray-900 dark:text-gray-200 shadow-md dark:shadow-lg">
+       <VisitorManager onCountUpdate={setVisitorCount} />
       {/* Top Marquee */}
+
+      
       <div className="bg-gradient-to-r from-red-600 to-red-400 dark:from-gray-900 dark:to-gray-600 text-gray-200 dark:text-gray-300 sm:block hidden">
         <div className="container py-[2px]">
           <div className="animate-marquee whitespace-nowrap">
@@ -108,7 +113,11 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <ResponsiveMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+      <ResponsiveMenu
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          visitorCount={visitorCount}
+        />
     </nav>
   );
 };

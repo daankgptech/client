@@ -77,7 +77,7 @@ const Tshirt = () => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    if (name === "rollNo") value = value.toUpperCase();
+    if (name === "rollNo") value = value.toUpperCase().trim();
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 

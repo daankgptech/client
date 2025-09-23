@@ -29,8 +29,7 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
         onClick={() => setShowMenu(false)}
         className="absolute top-4 right-4 p-2 pb-4 rounded-full text-gray-900 dark:text-gray-400 transition-all duration-300"
         aria-label="Close menu"
-      >
-        <HiX size={24} />
+      ><HiX size={24} />
       </button>
 
       {/* Header Links (Dakshana + ERP) */}

@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 import formsData from "../components/Forms/formsData";
+import ResponsePercentage from "../components/Forms/ResponsePercentage";
 
 const Forms = () => {
   useEffect(() => {
@@ -28,14 +29,17 @@ const Forms = () => {
           {formsData.map((item, index) => {
             const deadlineDate = new Date(item.deadline); // deadline with correct IST offset
             const isExceeded = now > deadlineDate;
+            const tshirtForm = formsData[0];
+            const [open, setOpen] = useState(false); // toggle state
 
             return (
               <div
                 key={index}
                 className={`relative block max-w-xs mx-auto my-4 rounded-lg shadow-md border transition-all duration-300 overflow-hidden
-                  ${isExceeded
-                    ? "bg-gray-300 dark:bg-gray-700 border-gray-400 dark:border-gray-600 cursor-not-allowed"
-                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-red-400"
+                  ${
+                    isExceeded
+                      ? "bg-gray-300 dark:bg-gray-700 border-gray-400 dark:border-gray-600 cursor-not-allowed"
+                      : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-red-400"
                   }
                 `}
               >
@@ -61,7 +65,8 @@ const Forms = () => {
                       {item.desc}
                     </p>
                     <p className="text-gray-800 dark:text-gray-400 mt-4 text-sm font-bold">
-                      Deadline: {deadlineDate.toLocaleDateString("en-GB", {
+                      Deadline:{" "}
+                      {deadlineDate.toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
                         year: "numeric",
@@ -74,6 +79,15 @@ const Forms = () => {
                     )}
                   </div>
                 </Link>
+                <div>
+                  <h2
+                    className="text-lg font-semibold text-center mb-4 cursor-pointer select-none hover:scale-105 transition-all duration-300 hover:text-blue-600"
+                    onClick={() => setOpen((prev) => !prev)} // toggle on click
+                  >
+                    Get Response %
+                  </h2>
+                  {open && <ResponsePercentage formData={tshirtForm} />}
+                </div>
               </div>
             );
           })}

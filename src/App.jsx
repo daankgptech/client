@@ -58,7 +58,7 @@ export default function App() {
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
-          <Route path="forms/tshirt-form" element={<Tshirt />} />
+          <Route path="forms/tshirt" element={<Tshirt />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

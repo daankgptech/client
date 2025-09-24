@@ -33,7 +33,7 @@ const ResponsePercentage = ({
           <YAxis domain={[0, 100]} tickFormatter={(val) => `${val}%`} />
           <Tooltip formatter={(val) => `${val}%`} />
           <Legend />
-          <Bar dataKey={valueKey} fill="#DC2626" name="Response %" />
+          <Bar dataKey={valueKey} fill="#DC2626" name="Response" />
         </BarChart>
       </ResponsiveContainer>
     </div>

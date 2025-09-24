@@ -11,7 +11,7 @@ const Intake2022Data = [
   {
     id: 1,
     name: "Mr. Avinash Meena",
-    dept: "EE",
+    dept: "IE",
     mail: "khatria.avinash1729@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289706/Avinash_Meena_ahixh3_hgsqlx.avif",
     linkedIn: "",
@@ -74,11 +74,11 @@ const Intake2022Data = [
   {
     id: 8,
     name: "Mr. Jeevan Kumar Korra",
-    dept: "ME",
+    dept: "MF",
     mail: "jeevankumarkorra@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289708/Jeevan_Kumar_ieja6e_nxx1bs.avif",
     linkedIn: "https://www.linkedin.com/in/jkkorra/",
-    hall: ""
+    hall: "MS"
   },
   {
     id: 9,
@@ -110,7 +110,7 @@ const Intake2022Data = [
   {
     id: 12,
     name: "Mr. Mutahhir Azam",
-    dept: "EE",
+    dept: "IE",
     mail: "mutahhir_azam@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289710/Md_Mutahhir_Azam_tosc67_qry5wg.avif",
     linkedIn: "https://www.linkedin.com/in/md-mutahhir-azam",
@@ -155,7 +155,7 @@ const Intake2022Data = [
   {
     id: 17,
     name: "Ms. Rani Kumari",
-    dept: "ME",
+    dept: "MF",
     mail: "ranikumari261998@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748104731/Rani_Kumari_tczhl5.avif",
     linkedIn: "",
@@ -204,7 +204,7 @@ const Intake2022Data = [
     mail: "sonaliverma@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289715/Sonali_Verma_usdjax_mhdvxm.avif",
     linkedIn: "",
-    hall: ""
+    hall: "SNVH"
   },
   {
     id: 23,

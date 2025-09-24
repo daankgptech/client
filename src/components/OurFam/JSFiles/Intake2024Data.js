@@ -329,7 +329,7 @@ const Intake2024Data = [
   {
     index: 36,
     name: "Mr. Shivam Ahirwar",
-    dept: "EE",
+    dept: "IE",
     mail: "ahirwarshivam7049@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Shivam_Ahirwar_x9m9ox_o3y2d2.avif",
     linkedIn:
@@ -366,7 +366,7 @@ const Intake2024Data = [
   {
     index: 40,
     name: "Mr. Uttam Meghwal",
-    dept: "EE",
+    dept: "IE",
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
     linkedIn: "",

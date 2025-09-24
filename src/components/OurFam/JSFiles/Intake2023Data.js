@@ -38,7 +38,7 @@ const Intake2023Data = [
   {
     index: 4,
     name: "Mr. Animesh Mondal",
-    dept: "EE",
+    dept: "IE",
     mail: "animeshtxt@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288495/Animesh_Mondal_ncvp4c_fxgjyh.avif",
     linkedIn: "https://www.linkedin.com/in/animesh-mondal-4b702527a/",
@@ -56,7 +56,7 @@ const Intake2023Data = [
   {
     index: 6,
     name: "Mr. Anushesh Jumale",
-    dept: "EE",
+    dept: "IE",
     mail: "Anushesh@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288496/Anushesh_Jumale_wyjwp1_cfuwj5.avif",
     linkedIn: "",
@@ -128,7 +128,7 @@ const Intake2023Data = [
   {
     index: 14,
     name: "Ms. Jyoti Hembram",
-    dept: "EE",
+    dept: "IE",
     mail: "jyotihembram.studyat@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288501/Jyoti_Hembram_jly0hq_gpnrkm.avif",
     linkedIn: "https://www.linkedin.com/in/jyoti-hembram-341512288",

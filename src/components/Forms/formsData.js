@@ -1,6 +1,6 @@
 const formsData = [
     {
-        to:"/forms/tshirt-form",
+        to:"/forms/tshirt",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1758206325/tshirt-form_g8yz8e.avif",
         title:"T-Shirt Registration 2025",
         desc:"Your Dakshana T-shirt is waiting! Register now and claim yours.",

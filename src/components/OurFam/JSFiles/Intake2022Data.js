@@ -19,6 +19,24 @@ const Intake2022Data = [
   },
   {
     id: 2,
+    name: "Mr. Ayush Rajratan",
+    dept: "EE",
+    mail: "ayushrajratan@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "LLR"
+  },
+  {
+    id: 3,
+    name: "Mr. Baloji Naik Mudavath",
+    dept: "EX",
+    mail: "balojinaikmudavath@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "RP"
+  },
+  {
+    id: 4,
     name: "Mr. Bhukya Chintu",
     dept: "EE",
     mail: "bhukyachintu2003@kgpian.iitkgp.ac.in",
@@ -27,7 +45,7 @@ const Intake2022Data = [
     hall: "MS"
   },
   {
-    id: 3,
+    id: 5,
     name: "Mr. Ganjai Saiteja",
     dept: "MT",
     mail: "saiteja2097nani@gmail.com",
@@ -36,7 +54,7 @@ const Intake2022Data = [
     hall: "Nehru"
   },
   {
-    id: 4,
+    id: 6,
     name: "Mr. Gaurav Kumar",
     dept: "AG",
     mail: "gauravgargkumar20@gmail.com",
@@ -45,7 +63,7 @@ const Intake2022Data = [
     hall: "MMM"
   },
   {
-    id: 5,
+    id: 7,
     name: "Mr. Gopal Ji",
     dept: "CS",
     mail: "gopal357gupta@gmail.com",
@@ -54,7 +72,7 @@ const Intake2022Data = [
     hall: "MMM"
   },
   {
-    id: 6,
+    id: 8,
     name: "Mr. Jeevan Kumar Korra",
     dept: "ME",
     mail: "jeevankumarkorra@kgpian.iitkgp.ac.in",
@@ -63,8 +81,8 @@ const Intake2022Data = [
     hall: ""
   },
   {
-    id: 7,
-    name: "Mr. Karan Kumar Sethi",
+    id: 9,
+    name: "Mr. Karan Sethi",
     dept: "CS",
     mail: "karansethi@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289709/Karan_Sethi_rlqeyw_kbwzyf.avif",
@@ -72,7 +90,7 @@ const Intake2022Data = [
     hall: "RK"
   },
   {
-    id: 8,
+    id: 10,
     name: "Mr. Madhusudan Majhi",
     dept: "ME",
     mail: "madhusudan4355@gmail.com",
@@ -81,7 +99,16 @@ const Intake2022Data = [
     hall: "MMM"
   },
   {
-    id: 9,
+    id: 11,
+    name: "Mr. Manash Kanta Pradhan",
+    dept: "ME",
+    mail: "pradhanmanash614@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "RK"
+  },
+  {
+    id: 12,
     name: "Mr. Mutahhir Azam",
     dept: "EE",
     mail: "mutahhir_azam@kgpian.iitkgp.ac.in",
@@ -90,7 +117,7 @@ const Intake2022Data = [
     hall: "LLR"
   },
   {
-    id: 10,
+    id: 13,
     name: "Mr. Paramjeet Saini",
     dept: "CH",
     mail: "paramjeetsaini@kgpian.iitkgp.ac.in",
@@ -99,7 +126,7 @@ const Intake2022Data = [
     hall: "Azad"
   },
   {
-    id: 11,
+    id: 14,
     name: "Mr. Prabhat Vaidhya",
     dept: "ME",
     mail: "prabhatvaidhya2003@gmail.com",
@@ -108,7 +135,16 @@ const Intake2022Data = [
     hall: "Azad"
   },
   {
-    id: 12,
+    id: 15,
+    name: "Mr. Pradnya Ukey",
+    dept: "CH",
+    mail: "pradnyaukey6@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "SNVH"
+  },
+  {
+    id: 16,
     name: "Mr. Praveen Kumar",
     dept: "CS",
     mail: "praveenkumarjnv9120@gmail.com",
@@ -117,7 +153,7 @@ const Intake2022Data = [
     hall: "MMM"
   },
   {
-    id: 13,
+    id: 17,
     name: "Ms. Rani Kumari",
     dept: "ME",
     mail: "ranikumari261998@kgpian.iitkgp.ac.in",
@@ -126,7 +162,7 @@ const Intake2022Data = [
     hall: "SN/IG"
   },
   {
-    id: 14,
+    id: 18,
     name: "Mr. Sagar Sahu",
     dept: "NA",
     mail: "sagarsahu2907@gmail.com",
@@ -135,7 +171,16 @@ const Intake2022Data = [
     hall: "MMM"
   },
   {
-    id: 15,
+    id: 19,
+    name: "Mr. Sanju Kirade",
+    dept: "IE",
+    mail: "sanjukirade75@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "VS"
+  },
+  {
+    id: 20,
     name: "Mr. Sayan Das",
     dept: "MA",
     mail: "sayandas22@kgpian.iitkgp.ac.in",
@@ -144,7 +189,7 @@ const Intake2022Data = [
     hall: "RP"
   },
   {
-    id: 16,
+    id: 21,
     name: "Mr. Somnath Mahata",
     dept: "EC",
     mail: "somnathmahata@kgpian.iitkgp.ac.in",
@@ -153,7 +198,7 @@ const Intake2022Data = [
     hall: "RP"
   },
   {
-    id: 17,
+    id: 22,
     name: "Ms. Sonali Verma",
     dept: "MI",
     mail: "sonaliverma@kgpian.iitkgp.ac.in",
@@ -162,7 +207,16 @@ const Intake2022Data = [
     hall: ""
   },
   {
-    id: 18,
+    id: 23,
+    name: "Mr. Souvik Dutta",
+    dept: "MA",
+    mail: "psouvikdutta10@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "Nehru"
+  },
+  {
+    id: 24,
     name: "Mr. Sunny Kumar",
     dept: "IM",
     mail: "sunnykumar8544189096@kgpian.iitkgp.ac.in",
@@ -171,7 +225,7 @@ const Intake2022Data = [
     hall: "LLR"
   },
   {
-    id: 19,
+    id: 25,
     name: "Mr. Suranjan Karmakar",
     dept: "IM",
     mail: "karmakarsuranjan1207@kgpian.iitkgp.ac.in",
@@ -180,7 +234,7 @@ const Intake2022Data = [
     hall: "Azad"
   },
   {
-    id: 20,
+    id: 26,
     name: "Mr. Vedant Sewatkar",
     dept: "ME",
     mail: "vedant12@kgpian.iitkgp.ac.in",

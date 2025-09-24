@@ -28,7 +28,7 @@ const Intake2024Data = [
   },
   {
     index: 3,
-    name: "Mr. Aman rathore",
+    name: "Mr. Aman Rathore",
     dept: "CH",
     mail: "rathoreaman786.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753919/Aman_Rathore_ovgi1f_ipuiis.avif",
@@ -46,7 +46,7 @@ const Intake2024Data = [
   },
   {
     index: 5,
-    name: "Mr. Anuruddh kumar",
+    name: "Mr. Anuruddh Kumar",
     dept: "AG",
     mail: "kumarpushpendra02817.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753921/Anuruddh_Yadav_gmv5bq_aebsm0.avif",
@@ -82,7 +82,7 @@ const Intake2024Data = [
   },
   {
     index: 9,
-    name: "Mr. Ayush kumar",
+    name: "Mr. Ayush Kumar",
     dept: "MI",
     mail: "ayushkumar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753929/Ayush_Kumar_evlkss_yucqfr.avif",
@@ -100,7 +100,7 @@ const Intake2024Data = [
   },
   {
     index: 11,
-    name: "Ms. Chetna kanesh",
+    name: "Ms. Chetna Kanesh",
     dept: "AE",
     mail: "kc277e.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753930/Chetna_Kanesh_kv7cuo_m3qbkq.avif",
@@ -172,7 +172,7 @@ const Intake2024Data = [
   },
   {
     index: 19,
-    name: "Ms. Muskan varma",
+    name: "Ms. Muskan Varma",
     dept: "AE",
     mail: "muskanvarma.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Muskan_varma_hkvx52_y9qh6a.avif",
@@ -190,7 +190,7 @@ const Intake2024Data = [
   },
   {
     index: 21,
-    name: "Mr. Nisit kumar",
+    name: "Mr. Nisit Kumar",
     dept: "NA",
     mail: "nisitkumar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Nisit_Kumar_hcrotq_ssluhz.avif",
@@ -291,7 +291,7 @@ const Intake2024Data = [
   },
   {
     index: 32,
-    name: "Mr. Rishikesh kumar",
+    name: "Mr. Rishikesh Kumar",
     dept: "MI",
     mail: "rishikeshkumar53526.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Rishikesh_zypbdd_mgrace.avif",

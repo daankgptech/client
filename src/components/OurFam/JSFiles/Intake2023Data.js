@@ -199,6 +199,15 @@ const Intake2023Data = [
   },
   {
     index: 22,
+    name: "Mr. Phrithiviraj Nunisa",
+    dept: "AG",
+    mail: "nunisaphrithviraj@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    linkedIn: "",
+    hall: "LLR",
+  },
+  {
+    index: 23,
     name: "Mr. Raja Mandal",
     dept: "CS",
     mail: "rajamandal5346@kgpian.iitkgp.ac.in",
@@ -207,7 +216,7 @@ const Intake2023Data = [
     hall: "RP",
   },
   {
-    index: 23,
+    index: 24,
     name: "Mr. Ramesh Kumar Das",
     dept: "EE",
     mail: "kramesh1845@kgpian.iitkgp.ac.in",
@@ -216,7 +225,7 @@ const Intake2023Data = [
     hall: "Nehru",
   },
   {
-    index: 24,
+    index: 25,
     name: "Ms. Sangeeta Kumari Mandal",
     dept: "CS",
     mail: "sangeeta180703@kgpian.iitkgp.ac.in",
@@ -225,7 +234,7 @@ const Intake2023Data = [
     hall: "MT",
   },
   {
-    index: 25,
+    index: 26,
     name: "Mr. Shani Maurya",
     dept: "IM",
     mail: "shauryashanisaini@gmail.com",
@@ -234,7 +243,7 @@ const Intake2023Data = [
     hall: "MMM",
   },
   {
-    index: 26,
+    index: 27,
     name: "Mr. Shreyash Dhakate",
     dept: "IM",
     mail: "shreyashdhakate@kgpian.iitkgp.ac.in",
@@ -243,7 +252,7 @@ const Intake2023Data = [
     hall: "MMM",
   },
   {
-    index: 27,
+    index: 28,
     name: "Mr. Subhajit Mondal",
     dept: "IM",
     mail: "subhajit2005@kgpian.iitkgp.ac.in",
@@ -252,7 +261,7 @@ const Intake2023Data = [
     hall: "RP",
   },
   {
-    index: 28,
+    index: 29,
     name: "Mr. Subhajit Sarkar",
     dept: "EC",
     mail: "subhajit35sarkar@kgpian.iitkgp.ac.in",
@@ -261,7 +270,7 @@ const Intake2023Data = [
     hall: "MMM",
   },
   {
-    index: 29,
+    index: 30,
     name: "Mr. Sukumar Singh",
     dept: "CS",
     mail: "sukumarsingh@kgpian.iitkgp.ac.in",
@@ -270,7 +279,7 @@ const Intake2023Data = [
     hall: "MS",
   },
   {
-    index: 30,
+    index: 31,
     name: "Mr. Sunny",
     dept: "IE",
     mail: "sunnyscnt458@gmail.com",
@@ -279,7 +288,7 @@ const Intake2023Data = [
     hall: "Nehru",
   },
   {
-    index: 31,
+    index: 32,
     name: "Mr. Suvadip Bhuiya",
     dept: "CS",
     mail: "suvadipbhuiya09@kgpian.iitkgp.ac.in",
@@ -288,7 +297,7 @@ const Intake2023Data = [
     hall: "Nehru",
   },
   {
-    index: 32,
+    index: 33,
     name: "Mr. Swarup Jayaram Dhanavade",
     dept: "MI",
     mail: "swarupd@kgpian.iitkgp.ac.in",
@@ -297,7 +306,7 @@ const Intake2023Data = [
     hall: "Nehru",
   },
   {
-    index: 33,
+    index: 34,
     name: "Mr. Vikash Rathore",
     dept: "CH",
     mail: "vikashrathore@kgpian.iitkgp.ac.in",

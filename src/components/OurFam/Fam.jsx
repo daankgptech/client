@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import FamCard from "./FamCard";
+import DeptPieChart from "./PieChart";
+import DeptPolarChart from "./PolarChart";
 
 // Import data for all batches
 import Intake2020Data from "./JSFiles/Intake2020Data";
@@ -12,12 +14,42 @@ import Intake2025Data from "./JSFiles/Intake2025Data";
 
 // Map batch years
 const batchDataMap = {
-  2025: { data: Intake2025Data, label: "'25", defaultCount: 42, year: "First Years" },
-  2024: { data: Intake2024Data, label: "'24", defaultCount: 46, year: "Second Years" },
-  2023: { data: Intake2023Data, label: "'23", defaultCount: 35, year: "Third Years" },
-  2022: { data: Intake2022Data, label: "'22", defaultCount: 32, year: "Fourth Years" },
-  2021: { data: Intake2021Data, label: "'21", defaultCount: 19, year: "Fifth Years" },
-  2020: { data: Intake2020Data, label: "'20", defaultCount: 9, year: "Graduated!" },
+  2025: {
+    data: Intake2025Data,
+    label: "'25",
+    defaultCount: 42,
+    year: "First Years",
+  },
+  2024: {
+    data: Intake2024Data,
+    label: "'24",
+    defaultCount: 46,
+    year: "Second Years",
+  },
+  2023: {
+    data: Intake2023Data,
+    label: "'23",
+    defaultCount: 35,
+    year: "Third Years",
+  },
+  2022: {
+    data: Intake2022Data,
+    label: "'22",
+    defaultCount: 32,
+    year: "Fourth Years",
+  },
+  2021: {
+    data: Intake2021Data,
+    label: "'21",
+    defaultCount: 19,
+    year: "Fifth Years",
+  },
+  2020: {
+    data: Intake2020Data,
+    label: "'20",
+    defaultCount: 9,
+    year: "Graduated!",
+  },
 };
 
 const searchFields = [
@@ -60,7 +92,9 @@ const Fam = ({ yearParam }) => {
     setFilters((prev) => ({ ...prev, [key]: e.target.value }));
 
   const handleYearChange = (newYear) => {
-    navigate(`/our-fam/${newYear.toString().slice(-2)}?${searchParams.toString()}`);
+    navigate(
+      `/our-fam/${newYear.toString().slice(-2)}?${searchParams.toString()}`
+    );
   };
 
   // Guard against invalid years
@@ -124,6 +158,10 @@ const Fam = ({ yearParam }) => {
         <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-400 mb-4">
           {year}
         </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 my-14">
+          <DeptPieChart data={filteredItems} deptKey="dept" />
+          <DeptPolarChart data={filteredItems} deptKey="hall" />
+        </div>
 
         {/* Filters */}
         <div className="flex gap-2 items-center justify-center flex-wrap mb-4 container">

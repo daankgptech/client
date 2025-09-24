@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useParams, useNavigate } from "react-router-dom";
 import DownloadBtn from "../components/Toolkit/DownloadBtn";
 import ToolkitData from "../components/Toolkit/ToolkitData";
 
@@ -11,8 +11,16 @@ const tabs = [
 ];
 
 const Toolkit = () => {
-  const [activeTab, setActiveTab] = useState("erp");
+  const { tab } = useParams(); // read from URL
+  const navigate = useNavigate();
+
+  // fallback to "erp" if no param or invalid
+  const activeTab = tabs.some(({ key }) => key === tab) ? tab : "erp";
   const data = ToolkitData[activeTab] || [];
+
+  const handleTabChange = (key) => {
+    navigate(`/toolkit/${key}`); // update URL
+  };
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
@@ -33,7 +41,7 @@ const Toolkit = () => {
           {tabs.map(({ key, label }) => (
             <button
               key={key}
-              onClick={() => setActiveTab(key)}
+              onClick={() => handleTabChange(key)}
               className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
                 activeTab === key
                   ? "bg-red-400 dark:bg-red-800 text-white "

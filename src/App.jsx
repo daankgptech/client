@@ -49,18 +49,13 @@ export default function App() {
       <main className="pt-14 md:pt-20 pb-14 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
-          {scrollRoutes.map((path) => (
-            <Route key={path} path={path} element={<Home scrollTo={path} />} />
-          ))}
+          {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
           <Route path="our-fam/:year" element={<OurFam />} />
-          {/* Redirect /our-fam to latest batch */}
-          <Route
-            path="our-fam"
-            element={<Navigate to="/our-fam/25" replace />}
-          />
+          <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} />
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
-          <Route path="toolkit" element={<Toolkit />} />
+          <Route path="toolkit/:tab" element={<Toolkit />} />
+          <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
           <Route path="forms/tshirt-form" element={<Tshirt />} />

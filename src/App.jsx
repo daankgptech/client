@@ -54,7 +54,7 @@ export default function App() {
           <Route path="toolkit" element={<Toolkit />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
-          <Route path="tshirt-form" element={<Tshirt />} />
+          <Route path="forms/tshirt-form" element={<Tshirt />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

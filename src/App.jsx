@@ -28,7 +28,12 @@ export default function App() {
   const [showFlash, setShowFlash] = useState(true);
 
   useEffect(() => {
-    AOS.init({ offset: 100, duration: 900, easing: "ease-in-sine", delay: 100 });
+    AOS.init({
+      offset: 100,
+      duration: 900,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
   }, []);
 
   useEffect(() => {
@@ -48,7 +53,11 @@ export default function App() {
             <Route key={path} path={path} element={<Home scrollTo={path} />} />
           ))}
           <Route path="our-fam/:year" element={<OurFam />} />
-          <Route path="our-fam" element={<Navigate to="/our-fam/25" />} />
+          {/* Redirect /our-fam to latest batch */}
+          <Route
+            path="our-fam"
+            element={<Navigate to="/our-fam/25" replace />}
+          />
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit" element={<Toolkit />} />

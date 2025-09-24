@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import FamCard from "./FamCard";
 
 // Import data for all batches
@@ -10,51 +10,15 @@ import Intake2023Data from "./JSFiles/Intake2023Data";
 import Intake2024Data from "./JSFiles/Intake2024Data";
 import Intake2025Data from "./JSFiles/Intake2025Data";
 
-// Map batch years to { data, label, defaultCount, year }
+// Map batch years
 const batchDataMap = {
-  2025: {
-    data: Intake2025Data,
-    label: "'25",
-    defaultCount: 42,
-    year: "First Years",
-  },
-  2024: {
-    data: Intake2024Data,
-    label: "'24",
-    defaultCount: 46,
-    year: "Second Years",
-  },
-  2023: {
-    data: Intake2023Data,
-    label: "'23",
-    defaultCount: 35,
-    year: "Third Years",
-  },
-  2022: {
-    data: Intake2022Data,
-    label: "'22",
-    defaultCount: 32,
-    year: "Fourth Years",
-  },
-  2021: {
-    data: Intake2021Data,
-    label: "'21",
-    defaultCount: 19,
-    year: "Fifth Years",
-  },
-  2020: {
-    data: Intake2020Data,
-    label: "'20",
-    defaultCount: 9,
-    year: "Graduated!",
-  },
+  2025: { data: Intake2025Data, label: "'25", defaultCount: 42, year: "First Years" },
+  2024: { data: Intake2024Data, label: "'24", defaultCount: 46, year: "Second Years" },
+  2023: { data: Intake2023Data, label: "'23", defaultCount: 35, year: "Third Years" },
+  2022: { data: Intake2022Data, label: "'22", defaultCount: 32, year: "Fourth Years" },
+  2021: { data: Intake2021Data, label: "'21", defaultCount: 19, year: "Fifth Years" },
+  2020: { data: Intake2020Data, label: "'20", defaultCount: 9, year: "Graduated!" },
 };
-
-const inputClass =
-  "px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 transition-all duration-300 ease-in-out " +
-  "border-red-200 dark:border-gray-300 placeholder-red-300 text-red-600 dark:text-white dark:placeholder-gray-400 " +
-  "focus:ring-red-200 dark:focus:ring-gray-500 hover:shadow-md dark:bg-gray-800 " +
-  "w-full sm:w-[45%] md:w-[30%]";
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
@@ -62,9 +26,19 @@ const searchFields = [
   { key: "hall", placeholder: "Hall" },
 ];
 
-const IntakeYear = () => {
-  const [activeYear, setActiveYear] = useState(2025);
+const Fam = ({ yearParam }) => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Convert "25" → 2025, fallback → 2025
+  const getFullYear = (param) => (param ? 2000 + Number(param) : 2025);
+
+  const [activeYear, setActiveYear] = useState(getFullYear(yearParam));
+
+  // Update when URL param changes
+  useEffect(() => {
+    setActiveYear(getFullYear(yearParam));
+  }, [yearParam]);
 
   // Filters state initialized from query params
   const [filters, setFilters] = useState(
@@ -74,7 +48,7 @@ const IntakeYear = () => {
     )
   );
 
-  // Sync filters to URL
+  // Sync filters into URL query string
   useEffect(() => {
     const params = Object.fromEntries(
       Object.entries(filters).filter(([_, value]) => value)
@@ -85,12 +59,16 @@ const IntakeYear = () => {
   const handleChange = (key) => (e) =>
     setFilters((prev) => ({ ...prev, [key]: e.target.value }));
 
-  const {
-    data: currentData,
-    label,
-    defaultCount,
-    year,
-  } = batchDataMap[activeYear];
+  const handleYearChange = (newYear) => {
+    navigate(`/our-fam/${newYear.toString().slice(-2)}?${searchParams.toString()}`);
+  };
+
+  // Guard against invalid years
+  if (!batchDataMap[activeYear]) {
+    return <p className="text-center mt-10">Invalid year selected.</p>;
+  }
+
+  const { data: currentData, defaultCount, year } = batchDataMap[activeYear];
 
   const filteredItems = currentData.filter((item) =>
     searchFields.every(
@@ -100,7 +78,6 @@ const IntakeYear = () => {
     )
   );
 
-  // Show defaultCount if no search is applied
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
     : defaultCount;
@@ -108,7 +85,7 @@ const IntakeYear = () => {
   return (
     <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container">
       <section data-aos="fade-up" className="container py-8">
-        {/* Tabs for md+ screens */}
+        {/* Tabs */}
         <div className="hidden md:flex justify-center gap-3 flex-wrap mb-6 container">
           {Object.keys(batchDataMap)
             .sort((a, b) => b - a)
@@ -120,18 +97,18 @@ const IntakeYear = () => {
                     ? "bg-red-400 dark:bg-red-800 text-white "
                     : "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-red-300 dark:hover:bg-red-900 hover:text-white"
                 }`}
-                onClick={() => setActiveYear(Number(y))}
+                onClick={() => handleYearChange(Number(y))}
               >
                 {batchDataMap[y].label}
               </button>
             ))}
         </div>
 
-        {/* Dropdown for small screens */}
+        {/* Dropdown */}
         <div className="md:hidden flex justify-center mb-6 rounded-xl">
           <select
             value={activeYear}
-            onChange={(e) => setActiveYear(Number(e.target.value))}
+            onChange={(e) => handleYearChange(Number(e.target.value))}
             className="px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-400"
           >
             {Object.keys(batchDataMap)
@@ -166,12 +143,11 @@ const IntakeYear = () => {
           ))}
         </div>
 
-        {/* Total count */}
         <h3 className="mb-6 italic text-center">
           Total : {totalMembers} Members
         </h3>
 
-        {/* Member cards */}
+        {/* Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {filteredItems.map((item) => (
             <FamCard key={item.id} {...item} />
@@ -182,4 +158,4 @@ const IntakeYear = () => {
   );
 };
 
-export default IntakeYear;
+export default Fam;

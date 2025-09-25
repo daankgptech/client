@@ -136,7 +136,7 @@ const Intake2022Data = [
   },
   {
     id: 15,
-    name: "Mr. Pradnya Ukey",
+    name: "Ms. Pradnya Ukey",
     dept: "CH",
     mail: "pradnyaukey6@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",

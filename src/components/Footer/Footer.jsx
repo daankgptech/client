@@ -118,7 +118,7 @@ const Footer = () => (
 
       {/* Bottom Bar */}
       <div className="text-center py-5 border-t-2 border-gray-400 bg-primary dark:bg-gray-900 text-gray-900 dark:text-gray-400 flex justify-center items-center gap-2">
-        <FaRegCopyright /> Amplifier | All rights reserved.
+        <FaRegCopyright /> <Link to="https://www.instagram.com/skipper8828" target="_blank"> Amplifier</Link> | All rights reserved.
       </div>
     </div>
   </footer>

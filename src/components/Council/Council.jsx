@@ -19,7 +19,7 @@ const Council = () => (
 
       <div className="text-center mt-8">
         <a
-          href="https://docs.google.com/spreadsheets/d/1nz1CIe0N_4NcI_l0K6u6biITxJKGillizUyfkfjL_8c/edit?usp=sharing"
+          href="https://docs.google.com/spreadsheets/d/1BIJwqFV_7au6KPHp2FoAkSCFSiJT0DRD1aHl1t6pKiI/edit?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           title="DAAN Council 2024-25"

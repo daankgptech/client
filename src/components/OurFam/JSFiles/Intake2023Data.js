@@ -85,7 +85,7 @@ const Intake2023Data = [
     name: "Mr. Ashutosh Ranjan",
     dept: "ME",
     mail: "ashutoshranjan@kgpian.iitkgp.ac.in",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288498/Ashutosh_Ranjan_flro1b_mfeulw.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759170074/ashutoshRanjan_e8ddls.avif",
     linkedIn: "https://www.linkedin.com/in/ashutosh-ranjan-a33a4927a",
     hall: "RP",
   },

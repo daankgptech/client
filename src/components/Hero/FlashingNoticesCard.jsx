@@ -4,23 +4,26 @@ import { VscDiffIgnored } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const notices = [
-  {
-    text: (
-      <>
-        Register{" "}
-        <Link
-          rel="noopener noreferrer"
-          className="text-blue-900 dark:text-blue-700 hover:text-blue-500 transition-colors duration-300"
-          to="/tshirt-form"
-        >
-          here
-        </Link>{" "}
-        for Dakshana T-Shirt 2025.
-      </>
-    ),
-  },
-  { text: "Autumn Break : Sep 27-Oct 05, 2025." },
-  { text: "Dakshana Day Celebration : Oct 15, 2025." },
+  // {
+  //   text: (
+  //     <>
+  //       Register{" "}
+  //       <Link
+  //         rel="noopener noreferrer"
+  //         className="text-blue-900 dark:text-blue-700 hover:text-blue-500 transition-colors duration-300"
+  //         to="/tshirt-form"
+  //       >
+  //         here
+  //       </Link>{" "}
+  //       for Dakshana T-Shirt 2025.
+  //     </>
+  //   ),
+  // },
+  { text: "Autumn Break: Sep 27-Oct 05, 2025." },
+  { text: "Dakshana Day: Oct 15, 2025." },
+  { text: "Shaurya Sports Fest: Oct 17(AN)-Oct 19, 2025." },
+  { text: "End Sems: Nov 17-Nov 25, 2025." },
+  { text: "DST: Dec 14, 2025." },
 ];
 
 export default function FlashingNoticesCard() {
@@ -57,9 +60,12 @@ export default function FlashingNoticesCard() {
 
               <div className="space-y-3">
                 {notices.map((notice, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm md:text-md">
-                    <VscDiffIgnored className="mt-[3px]" />
-                    <div>{notice.text}</div>
+                  <div
+                    key={i}
+                    className="flex items-start gap-2 text-sm md:text-md"
+                  >
+                    {/* <VscDiffIgnored className="mt-[3px]" /> */}
+                    <div>✦ {notice.text}</div>
                   </div>
                 ))}
               </div>

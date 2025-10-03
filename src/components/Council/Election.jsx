@@ -24,24 +24,6 @@ const Election = () => {
           DAAN Council Election 2025-26
         </motion.h1>
 
-        {/* Announcement */}
-        {/* <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 mb-8"
-        >
-          <h2 className="text-2xl font-semibold mb-2 text-rose-600 dark:text-red-300">
-            Announcement for Junior Secretary Elections
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300">
-            Dear DAAN members, we are happy to announce the{" "}
-            <span className="font-semibold">
-              DAAN Council Elections 2025-26
-            </span>{" "}
-            for the post of Junior Secretaries.
-          </p>
-        </motion.div> */}
         {/* Contestants Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -76,9 +58,6 @@ const Election = () => {
                   <p className="text-sm text-rose-600 dark:text-red-300 font-medium mt-1">
                     {c.position}
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 px-2">
-                    {c.agenda}
-                  </p>
                 </div>
               </motion.div>
             ))}
@@ -88,7 +67,6 @@ const Election = () => {
         <h3 className="text-2xl font-bold text-rose-600 dark:text-red-300 mb-6">
           Election Board
         </h3>
-
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -139,8 +117,8 @@ const Election = () => {
 
         {/* Important Dates */}
         <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="mt-10 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-2xl shadow-lg p-6"

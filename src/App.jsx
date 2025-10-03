@@ -22,6 +22,7 @@ import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import CakeDesignCompetition from "./components/Forms/cakeDesignCompetition";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -50,25 +51,18 @@ export default function App() {
       <main className="pt-14 md:pt-20 pb-14 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
-          {scrollRoutes.map((path) => (
-            <Route key={path} path={path} element={<Home scrollTo={path} />} />
-          ))}
+          {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
           <Route path="council/election" element={<Election />} />
           <Route path="our-fam/:year" element={<OurFam />} />
-          <Route
-            path="our-fam"
-            element={<Navigate to="/our-fam/25" replace />}
-          />
+          <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} />
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
-          <Route
-            path="toolkit"
-            element={<Navigate to="/toolkit/erp" replace />}
-          />
+          <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
           <Route path="forms/data-update" element={<DataUpdate />} />
+          <Route path="forms/cake-design-competition" element={<CakeDesignCompetition />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

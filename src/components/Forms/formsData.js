@@ -1,5 +1,20 @@
 const formsData = [
     {
+        to:"/forms/cake-design-competition",
+        img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759532933/cakeDesignCompetition_cxxwxs.avif",
+        title:"Cake Design Competition - 25",
+        desc:"Show your creativity in the Dakshana Day Cake Design Competition 2025!",
+        deadline:"2025-10-10T23:59:00+05:30",
+        isExceeded:false,
+        responsePercentage:[
+            { batch:"'25",percentage:95.12 },
+            { batch:"'24",percentage:77.27 },
+            { batch:"'23",percentage:85.71 },
+            { batch:"'22",percentage:78.12 },
+            { batch:"'21",percentage:72.72 },
+        ]
+    },
+    {
         to:"/forms/data-update",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759526380/data-update_wvwslm.avif",
         title:"Data Updation Form",

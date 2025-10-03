@@ -25,7 +25,7 @@ const Forms = () => {
         <h1 className="my-8 border-l-8 border-red-300 py-2 pl-2 text-3xl font-bold">
           Our Forms
         </h1>
-        <div className="flex flex-wrap justify-center items-center gap-4 container">
+        <div className="flex flex-wrap justify-center items-start gap-4 container">
           {formsData.map((item, index) => {
             const deadlineDate = new Date(item.deadline); // deadline with correct IST offset
             const isExceeded = now > deadlineDate;
@@ -79,7 +79,9 @@ const Forms = () => {
                     )}
                   </div>
                 </Link>
-                <div>
+                {
+                  isExceeded && (
+                    <div>
                   <h2
                     className="text-lg font-semibold text-center mb-4 cursor-pointer select-none hover:scale-105 transition-all duration-300 hover:text-blue-600"
                     onClick={() => setOpen((prev) => !prev)} // toggle on click
@@ -88,6 +90,9 @@ const Forms = () => {
                   </h2>
                   {open && <ResponsePercentage formData={tshirtForm} />}
                 </div>
+                  )
+                }
+                
               </div>
             );
           })}

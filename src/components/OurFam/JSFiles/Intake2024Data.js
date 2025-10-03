@@ -370,7 +370,7 @@ const Intake2024Data = [
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
     linkedIn: "",
-    hall: "Nehru",
+    hall: "RK",
   },
   {
     index: 41,

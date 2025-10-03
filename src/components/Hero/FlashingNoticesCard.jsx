@@ -1,29 +1,27 @@
 "use client";
-
-import { VscDiffIgnored } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const notices = [
-  // {
-  //   text: (
-  //     <>
-  //       Register{" "}
-  //       <Link
-  //         rel="noopener noreferrer"
-  //         className="text-blue-900 dark:text-blue-700 hover:text-blue-500 transition-colors duration-300"
-  //         to="/tshirt-form"
-  //       >
-  //         here
-  //       </Link>{" "}
-  //       for Dakshana T-Shirt 2025.
-  //     </>
-  //   ),
-  // },
-  { text: "Autumn Break: Sep 27-Oct 05, 2025." },
+  {
+    text: (
+      <>
+        All about DAAN Council Election 2025-26{" "}
+        <Link
+          rel="noopener noreferrer"
+          className="text-rose-700 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
+          to="/council/election"
+        >
+          here!
+        </Link>{" "}
+      </>
+    ),
+  },
+  // { text: "Autumn Break: Sep 27-Oct 05, 2025." },
   { text: "Dakshana Day: Oct 15, 2025." },
+  { text: "DAAN Council Election Result Declaration: Oct 16, 2025." },
   { text: "Shaurya Sports Fest: Oct 17(AN)-Oct 19, 2025." },
-  { text: "End Sems: Nov 17-Nov 25, 2025." },
-  { text: "DST: Dec 14, 2025." },
+  // { text: "End Sems: Nov 17-Nov 25, 2025." },
+  // { text: "DST: Dec 14, 2025." },
 ];
 
 export default function FlashingNoticesCard() {
@@ -54,17 +52,15 @@ export default function FlashingNoticesCard() {
               data-aos-delay="900"
               className="scroll-mt-[100px] text-left"
             >
-              <h1 className="mb-2 font-semibold underline bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500">
-                Flashing Notices
+              <h1 className="mb-2 font-bold text-red-800 dark:text-red-500 text-lg md:text-xl lg:text-2xl">
+                Notices:-
               </h1>
-
               <div className="space-y-3">
                 {notices.map((notice, i) => (
                   <div
                     key={i}
                     className="flex items-start gap-2 text-sm md:text-md"
                   >
-                    {/* <VscDiffIgnored className="mt-[3px]" /> */}
                     <div>✦ {notice.text}</div>
                   </div>
                 ))}

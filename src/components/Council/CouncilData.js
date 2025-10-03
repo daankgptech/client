@@ -40,3 +40,48 @@ export const CouncilData = [
     year: "3rd",
   },
 ];
+// data.js
+export const contestants = [
+  {
+    id: 1,
+    name: "Abhinam Dutta",
+    position: "DST (JNV)",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753920/Abhinam_Dutta_rupd1f_uhbhxv.avif",
+  },
+  {
+    id: 2,
+    name: "Sachin Kumar",
+    position: "DST (Non-JNV)",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753968/Sachin_Kumar_mppltl_yffpix.avif",
+  },
+  {
+    id: 3,
+    name: "Monika Dhakad",
+    position: "Public Relations",
+    img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754602951/Monika_cxjukm.avif",
+  },
+  {
+    id: 4,
+    name: "Priyanshu Gupta",
+    position: "Inspire",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Priyanshu_Gupta_f6h8tl_uxtfwv.avif",
+  },
+  {
+    id: 5,
+    name: "Ayan Mallick",
+    position: "Freshman Assistance",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753923/Ayan_Mallick_ncv6ol_gmpg4s.avif",
+  },
+  {
+    id: 6,
+    name: "Ayush Kumar",
+    position: "Freshman Assistance",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753929/Ayush_Kumar_evlkss_yucqfr.avif",
+  },
+  {
+    id: 7,
+    name: "Bibek Vishwas",
+    position: "DAAN Khabar",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753924/Bibek_Biswas_qvz9uy_rkdxex.avif",
+  },
+];

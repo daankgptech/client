@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const FlashPage = ({ onFinish }) => {
   useEffect(() => {
-    const timer = setTimeout(onFinish, 3000);
+    const timer = setTimeout(onFinish, 2000);
     return () => clearTimeout(timer);
   }, [onFinish]);
 

@@ -82,7 +82,7 @@ const DataUpdate = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setPopup({ type: "success", message: "Data updated successfully!" });
+        setPopup({ type: "success", message: "Submitted successfully!" });
         resetForm();
       } else {
         setPopup({

@@ -1,10 +1,10 @@
 const formsData = [
     {
         to:"/forms/data-update",
-        img:"image",
+        img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759526380/data-update_wvwslm.avif",
         title:"Data Updation Form",
         desc:"Wanna rewrite infos over website! Update here.",
-        deadline:"2025-10-06T23:59:00+05:30",
+        deadline:"2025-10-05T23:59:00+05:30",
         isExceeded:false,
         responsePercentage:[
             { batch:"'25",percentage:95.12 },

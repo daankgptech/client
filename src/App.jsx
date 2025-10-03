@@ -22,7 +22,7 @@ import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import CakeDesignCompetition from "./components/Forms/cakeDesignCompetition";
+import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 

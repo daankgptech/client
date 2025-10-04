@@ -4,7 +4,7 @@ const formsData = [
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759532933/cakeDesignCompetition_cxxwxs.avif",
         title:"Cake Design Competition - 25",
         desc:"Show your creativity in the Dakshana Day Cake Design Competition 2025!",
-        deadline:"2025-10-10T23:59:00+05:30",
+        deadline:"2025-10-12T23:59:00+05:30",
         isExceeded:false,
         responsePercentage:[
             { batch:"'25",percentage:95.12 },

@@ -149,6 +149,9 @@ const DataUpdate = () => {
           <h1 className="my-8 border-l-8 border-red-300 dark:border-gray-400 py-2 pl-2 text-3xl font-bold">
             Data Updation Form
           </h1>
+          <p className="my-8 italic">
+            Enter the details you’d like to change, or leave them blank if not.
+          </p>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 max-w-lg mx-auto"

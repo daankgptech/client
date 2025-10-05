@@ -396,8 +396,8 @@ const Intake2024Data = [
     name: "Mr. Yashraj Morode",
     dept: "CS",
     mail: "yashrajmorode.24@kgpian.iitkgp.ac.in",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753975/Yashraj_Morode_rlfuch_bzpvrw.avif",
-    linkedIn: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759661217/YashrajMorode_tkd9tv.avif",
+    linkedIn: "https://www.linkedin.com/in/yashraj-morode-9616b131b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     hall: "MMM",
   },
 ];

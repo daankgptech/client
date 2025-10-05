@@ -29,11 +29,11 @@ export default function ContestantTable() {
 
               <tbody>
                 {contestants.map((c, index) => (
-                  <motion.tr
-                    key={c.id || index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                  <tr
+                    // key={c.id || index}
+                    // initial={{ opacity: 0, y: 20 }}
+                    // whileInView={{ opacity: 1, y: 0 }}
+                    // transition={{ delay: index * 0.05 }}
                     className="border-b border-rose-300/40 dark:border-rose-800 hover:bg-rose-100/70 dark:hover:bg-rose-900/40 transition-colors"
                   >
                     <td className="py-2 px-3 text-center font-semibold text-rose-700 dark:text-rose-300">
@@ -45,7 +45,7 @@ export default function ContestantTable() {
                     <td className="py-2 px-3 text-center text-rose-600 dark:text-rose-400 font-medium">
                       {c.position}
                     </td>
-                  </motion.tr>
+                  </tr>
                 ))}
               </tbody>
             </table>

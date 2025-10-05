@@ -41,7 +41,7 @@ const batchDataMap = {
   2021: {
     data: Intake2021Data,
     label: "'21",
-    defaultCount: 19,
+    defaultCount: 17,
     year: "Fifth Years",
   },
   2020: {
@@ -54,7 +54,7 @@ const batchDataMap = {
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
-  { key: "dept", placeholder: "Dept" },
+  { key: "branch", placeholder: "Branch" },
   { key: "hall", placeholder: "Hall" },
 ];
 
@@ -159,7 +159,7 @@ const Fam = ({ yearParam }) => {
           {year}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 my-14">
-          <DeptPieChart data={filteredItems} deptKey="dept" />
+          <DeptPieChart data={filteredItems} deptKey="branch" />
           <DeptPolarChart data={filteredItems} deptKey="hall" />
         </div>
 

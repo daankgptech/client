@@ -2,7 +2,7 @@ const Intake2024Data = [
   {
     index: 0,
     name: "Mr. Abhinam Dutta",
-    dept: "CH",
+    branch: "CH",
     mail: "abhinamdutta.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753920/Abhinam_Dutta_rupd1f_uhbhxv.avif",
     linkedIn: "https://www.linkedin.com/in/duttaabhinam",
@@ -11,7 +11,7 @@ const Intake2024Data = [
   {
     index: 1,
     name: "Mr. Akhilesh Dixit",
-    dept: "EE",
+    branch: "EE",
     mail: "akhileshdixit07.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753917/Akhil_Dixit_qlwruw_s0bq6w.avif",
     linkedIn: "",
@@ -20,7 +20,7 @@ const Intake2024Data = [
   {
     index: 2,
     name: "Mr. Akshat Sharma",
-    dept: "MI",
+    branch: "MI",
     mail: "akshatsharma7922.iitkgp.kgpian.ac.in@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753921/akh_xf6njp.avif",
     linkedIn: "",
@@ -29,7 +29,7 @@ const Intake2024Data = [
   {
     index: 3,
     name: "Mr. Aman Rathore",
-    dept: "CH",
+    branch: "CH",
     mail: "rathoreaman786.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753919/Aman_Rathore_ovgi1f_ipuiis.avif",
     linkedIn: "https://www.linkedin.com/in/aman-rathore-65589831a",
@@ -38,7 +38,7 @@ const Intake2024Data = [
   {
     index: 4,
     name: "Mr. Amit Kumar",
-    dept: "ME",
+    branch: "ME",
     mail: "amitkumar2024jan.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753919/Amit_Kumar_djogic_uqvcll.avif",
     linkedIn: "",
@@ -47,7 +47,7 @@ const Intake2024Data = [
   {
     index: 5,
     name: "Mr. Anuruddh Kumar",
-    dept: "AG",
+    branch: "AG",
     mail: "kumarpushpendra02817.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753921/Anuruddh_Yadav_gmv5bq_aebsm0.avif",
     linkedIn: "",
@@ -56,7 +56,7 @@ const Intake2024Data = [
   {
     index: 6,
     name: "Mr. Aryan Dhangar",
-    dept: "HS",
+    branch: "HS",
     mail: "aryandhangar000.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753920/Aryan_Dhangar_w35n18_hhlmlt.avif",
     linkedIn: "",
@@ -65,7 +65,7 @@ const Intake2024Data = [
   {
     index: 7,
     name: "Mr. Avinash Sappati",
-    dept: "AI",
+    branch: "AI",
     mail: "Avinash03.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753925/Avinash_cns2hn_eyakm7.avif",
     linkedIn: "https://www.linkedin.com/in/avinash-sappati-9435b7313",
@@ -74,7 +74,7 @@ const Intake2024Data = [
   {
     index: 8,
     name: "Mr. Ayan Mallick",
-    dept: "IE",
+    branch: "IE",
     mail: "mallikayan54.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753923/Ayan_Mallick_ncv6ol_gmpg4s.avif",
     linkedIn: "https://www.linkedin.com/in/ayan-mallick-343865312",
@@ -83,7 +83,7 @@ const Intake2024Data = [
   {
     index: 9,
     name: "Mr. Ayush Kumar",
-    dept: "MI",
+    branch: "MI",
     mail: "ayushkumar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753929/Ayush_Kumar_evlkss_yucqfr.avif",
     linkedIn: "",
@@ -92,7 +92,7 @@ const Intake2024Data = [
   {
     index: 10,
     name: "Mr. Bibek Biswas",
-    dept: "AE",
+    branch: "AE",
     mail: "biswasbibek438@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576649/BibekVishwas_pqxjh4.avif",
     linkedIn: "",
@@ -101,7 +101,7 @@ const Intake2024Data = [
   {
     index: 11,
     name: "Ms. Chetna Kanesh",
-    dept: "AE",
+    branch: "AE",
     mail: "kc277e.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753930/Chetna_Kanesh_kv7cuo_m3qbkq.avif",
     linkedIn: "",
@@ -110,7 +110,7 @@ const Intake2024Data = [
   {
     index: 12,
     name: "Mr. Deepesh",
-    dept: "EC",
+    branch: "EC",
     mail: "deepeshashthana.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753927/Deepesh_Ashthana_e39vq0_p0gfmz.avif",
     linkedIn: "",
@@ -119,7 +119,7 @@ const Intake2024Data = [
   {
     index: 13,
     name: "Mr. Dhananjay Sarkar",
-    dept: "CH",
+    branch: "CH",
     mail: "Dhananjay Sarkar",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753926/Dhananjay_Sarkar_ccwrrj_x5iiog.avif",
     linkedIn: "https://www.linkedin.com/in/dhananjay-sarkar-55aa24319",
@@ -128,7 +128,7 @@ const Intake2024Data = [
   {
     index: 14,
     name: "Mr. Golu Kumar Sagar",
-    dept: "CY",
+    branch: "CY",
     mail: "gksagar98765.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753927/Golu_Kumar_Sagar_oiwhim_bnqpfq.avif",
     linkedIn: "G.K.Sagar",
@@ -137,7 +137,7 @@ const Intake2024Data = [
   {
     index: 15,
     name: "Mr. Himanshu Malik",
-    dept: "CY",
+    branch: "CY",
     mail: "malikhimanshu.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753927/Himanshu_Malik_wmo5ud_u5yqrc.avif",
     linkedIn: "https://www.linkedin.com/in/himanshu-malik-a3aa0331a",
@@ -146,7 +146,7 @@ const Intake2024Data = [
   {
     index: 16,
     name: "Mr. Hiran Jyoti Deori",
-    dept: "MT",
+    branch: "MT",
     mail: "hiron1234deori.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753928/Hiran_Deori_d8pl4m_ioytag.avif",
     linkedIn: "",
@@ -155,7 +155,7 @@ const Intake2024Data = [
   {
     index: 17,
     name: "Mr. Mayank Singh",
-    dept: "CS",
+    branch: "CS",
     mail: "mayanksingh2007.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Mayank_Singh_aaj0dg_m6ymbr.avif",
     linkedIn: "",
@@ -164,7 +164,7 @@ const Intake2024Data = [
   {
     index: 18,
     name: "Ms. Monika Dhakad",
-    dept: "IE",
+    branch: "IE",
     mail: "monikadhakad135.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754602951/Monika_cxjukm.avif",
     linkedIn: "",
@@ -173,7 +173,7 @@ const Intake2024Data = [
   {
     index: 19,
     name: "Ms. Muskan Varma",
-    dept: "AE",
+    branch: "AE",
     mail: "muskanvarma.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Muskan_varma_hkvx52_y9qh6a.avif",
     linkedIn: "",
@@ -182,7 +182,7 @@ const Intake2024Data = [
   {
     index: 20,
     name: "Mr. Nayan Balpande",
-    dept: "IM",
+    branch: "IM",
     mail: "nayanbalpa.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Nayan_Balpande_fagifz_kbshxp.avif",
     linkedIn: "https://www.linkedin.com/in/nayan-balpande-2ba1a0326",
@@ -191,7 +191,7 @@ const Intake2024Data = [
   {
     index: 21,
     name: "Mr. Nisit Kumar",
-    dept: "NA",
+    branch: "NA",
     mail: "nisitkumar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753945/Nisit_Kumar_hcrotq_ssluhz.avif",
     linkedIn: "Nisit kumar",
@@ -200,7 +200,7 @@ const Intake2024Data = [
   {
     index: 22,
     name: "Mr. Prabhat Prajapati",
-    dept: "EE",
+    branch: "EE",
     mail: "prabhatprajapati9302.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753946/Prabhat_Prajapati_ysvqsj_nuqz0g.avif",
     linkedIn: "",
@@ -209,7 +209,7 @@ const Intake2024Data = [
   {
     index: 23,
     name: "Mr. Prabin Kumar Bhoi",
-    dept: "NA",
+    branch: "NA",
     mail: "bhoiprabin23.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576650/PrabinKumarBhoi_ocbyc1.avif",
     linkedIn: "https://www.linkedin.com/in/prabinkumarbhoi",
@@ -218,7 +218,7 @@ const Intake2024Data = [
   {
     index: 24,
     name: "Mr. Prashik Mane",
-    dept: "BT",
+    branch: "BT",
     mail: "prashikmane1412.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576650/PrashikMane_gnxo1k.avif",
     linkedIn: "https://www.linkedin.com/in/prashik-mane-126136319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -227,7 +227,7 @@ const Intake2024Data = [
   {
     index: 25,
     name: "Mr. Pratik Verma",
-    dept: "CS",
+    branch: "CS",
     mail: "pratikverma.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753949/Pratik_Verma_nirhu7_uorhgb.avif",
     linkedIn:
@@ -237,7 +237,7 @@ const Intake2024Data = [
   {
     index: 26,
     name: "Ms. Preeti Choudhary",
-    dept: "EE",
+    branch: "EE",
     mail: "preeti.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753949/Preeti_Choudhary_padnkp_fruso1.avif",
     linkedIn: "",
@@ -246,7 +246,7 @@ const Intake2024Data = [
   {
     index: 27,
     name: "Mr. Priyanshu Gautam",
-    dept: "CH",
+    branch: "CH",
     mail: "priyanshu234.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753952/Priyanshu_Gautam_vr6mku_hac98d.avif",
     linkedIn: "",
@@ -255,7 +255,7 @@ const Intake2024Data = [
   {
     index: 28,
     name: "Mr. Priyanshu Gupta",
-    dept: "IE",
+    branch: "IE",
     mail: "priyanshu.g.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Priyanshu_Gupta_f6h8tl_uxtfwv.avif",
     linkedIn:
@@ -265,7 +265,7 @@ const Intake2024Data = [
   {
     index: 29,
     name: "Mr. Rahul Borkar",
-    dept: "EE",
+    branch: "EE",
     mail: "rahul2309.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747750668/Rahul_Borkar_m15fy5.avif",
     linkedIn: "",
@@ -274,7 +274,7 @@ const Intake2024Data = [
   {
     index: 30,
     name: "Mr. Rajesh Kumar Behera",
-    dept: "MA",
+    branch: "MA",
     mail: "rajeshkumar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747750668/Rajesh_Kumar_Bahera_pjeyzk.avif",
     linkedIn: "",
@@ -283,7 +283,7 @@ const Intake2024Data = [
   {
     index: 31,
     name: "Mr. Rajmal Murmu",
-    dept: "CE",
+    branch: "CE",
     mail: "rajmalmurmu1724.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747750668/Rajmal_Murmu_jyyj2t.avif",
     linkedIn: "",
@@ -292,7 +292,7 @@ const Intake2024Data = [
   {
     index: 32,
     name: "Mr. Rishikesh Kumar",
-    dept: "MI",
+    branch: "MI",
     mail: "rishikeshkumar53526.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Rishikesh_zypbdd_mgrace.avif",
     linkedIn: "",
@@ -301,7 +301,7 @@ const Intake2024Data = [
   {
     index: 33,
     name: "Mr. Sachin Kumar",
-    dept: "CS",
+    branch: "CS",
     mail: "sachkr0810.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753968/Sachin_Kumar_mppltl_yffpix.avif",
     linkedIn:
@@ -311,7 +311,7 @@ const Intake2024Data = [
   {
     index: 34,
     name: "Mr. Sanjay Ahari",
-    dept: "CS",
+    branch: "CS",
     mail: "sanjayahari1704.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753962/Sanjay_Ahari_tcizvn_bmeieh.avif",
     linkedIn: "",
@@ -320,7 +320,7 @@ const Intake2024Data = [
   {
     index: 35,
     name: "Mr. Satyam Kumar",
-    dept: "IM",
+    branch: "IM",
     mail: "satyam.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Satyam_Kumar_jwwblm_y6n0hz.avif",
     linkedIn: "",
@@ -329,7 +329,7 @@ const Intake2024Data = [
   {
     index: 36,
     name: "Mr. Shivam Ahirwar",
-    dept: "IE",
+    branch: "IE",
     mail: "ahirwarshivam7049@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Shivam_Ahirwar_x9m9ox_o3y2d2.avif",
     linkedIn:
@@ -339,7 +339,7 @@ const Intake2024Data = [
   {
     index: 37,
     name: "Mr. Subhankar Majhi",
-    dept: "MI",
+    branch: "MI",
     mail: "subhankar.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753964/Subhankar_Majhi_tmmtmy_wfntiw.avif",
     linkedIn: "",
@@ -348,7 +348,7 @@ const Intake2024Data = [
   {
     index: 38,
     name: "Mr. Tanish Kumar",
-    dept: "EC",
+    branch: "EC",
     mail: "Tanish.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753964/Tanish_Kumar_syafjs_ee3niw.avif",
     linkedIn: "",
@@ -357,7 +357,7 @@ const Intake2024Data = [
   {
     index: 39,
     name: "Mr. Undamati Joel Aakash",
-    dept: "AE",
+    branch: "AE",
     mail: "ujaakash.24@kgpiian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753928/Joel_Aakash_Undamati_ekswpb_l0pd6y.avif",
     linkedIn: "",
@@ -366,7 +366,7 @@ const Intake2024Data = [
   {
     index: 40,
     name: "Mr. Uttam Meghwal",
-    dept: "IE",
+    branch: "IE",
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
     linkedIn: "",
@@ -375,7 +375,7 @@ const Intake2024Data = [
   {
     index: 41,
     name: "Mr. Vigyan Dev Gupta",
-    dept: "MT",
+    branch: "MT",
     mail: "vigyandevgupta.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Vigyandev_Gupta_ywhkor_jfdbzf.avif",
     linkedIn:
@@ -385,7 +385,7 @@ const Intake2024Data = [
   {
     index: 42,
     name: "Mr. Vijay Meda",
-    dept: "EC",
+    branch: "EC",
     mail: "captain.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Vijay_Meda_sg5vxy_zxugmn.avif",
     linkedIn: "",
@@ -394,7 +394,7 @@ const Intake2024Data = [
   {
     index: 43,
     name: "Mr. Yashraj Morode",
-    dept: "CS",
+    branch: "CS",
     mail: "yashrajmorode.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759661217/YashrajMorode_tkd9tv.avif",
     linkedIn: "https://www.linkedin.com/in/yashraj-morode-9616b131b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",

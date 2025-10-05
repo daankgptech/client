@@ -2,7 +2,7 @@ const Intake2021Data = [
   {
     id: 0,
     name: "Mr. Abhinaw Anand",
-    dept: "MA",
+    branch: "MA",
     mail: "abhinaw12anand@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -10,8 +10,8 @@ const Intake2021Data = [
   },
   {
     id: 1,
-    name: "Mr. Ajay Kr. Dhakad",
-    dept: "CS",
+    name: "Mr. Ajay Kr. Dhakar",
+    branch: "CS",
     mail: "ajaydhaker2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -20,7 +20,7 @@ const Intake2021Data = [
   {
     id: 2,
     name: "Mr. Akshay Sawai",
-    dept: "MI",
+    branch: "MI",
     mail: "akshaysawai252@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -29,7 +29,7 @@ const Intake2021Data = [
   {
     id: 3,
     name: "Mr. Ashutosh",
-    dept: "MA",
+    branch: "MA",
     mail: "ashutosh.daan@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748012053/Ashutosh_wvgdts.avif",
     linkedIn: "",
@@ -38,7 +38,7 @@ const Intake2021Data = [
   {
     id: 4,
     name: "Mr. Chhotoo Solanki",
-    dept: "ME",
+    branch: "ME",
     mail: "chhotoosolanki11@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -47,7 +47,7 @@ const Intake2021Data = [
   {
     id: 5,
     name: "Ms. Himanshi Gupta",
-    dept: "IE",
+    branch: "IE",
     mail: "himanshigupta@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -56,7 +56,7 @@ const Intake2021Data = [
   {
     id: 6,
     name: "Ms. Mahale Harshada Nitin",
-    dept: "EC",
+    branch: "EC",
     mail: "harshadamahale2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -65,7 +65,7 @@ const Intake2021Data = [
   {
     id: 7,
     name: "Mr. Mingma Rinzing Lepcha",
-    dept: "EC",
+    branch: "EC",
     mail: "mingmarlepcha2000@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -74,7 +74,7 @@ const Intake2021Data = [
   {
     id: 8,
     name: "Mr. Maheraman Indrasinh Rameshbhai",
-    dept: "MA",
+    branch: "MA",
     mail: "indrasinhmahera1110@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -83,7 +83,7 @@ const Intake2021Data = [
   {
     id: 9,
     name: "Mr. Neeraj Kumar",
-    dept: "MA",
+    branch: "MA",
     mail: "meenaneerajkumar148@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -92,7 +92,7 @@ const Intake2021Data = [
   {
     id: 10,
     name: "Mr. Nitin Rajvanshi",
-    dept: "MA",
+    branch: "MA",
     mail: "nkraj7266@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290244/Nitin_Rajvanshi_mbleyw.avif",
     linkedIn: "https://www.linkedin.com/in/nitinrajvanshi/",
@@ -101,7 +101,7 @@ const Intake2021Data = [
   {
     id: 11,
     name: "Mr. Prajwal Kadbe",
-    dept: "MI",
+    branch: "MI",
     mail: "kprajwal358@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -110,7 +110,7 @@ const Intake2021Data = [
   {
     id: 12,
     name: "Mr. Saurabh Kumar",
-    dept: "MI",
+    branch: "MI",
     mail: "sraj31962@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Saurabh_tez2ke.avif",
     linkedIn: "https://www.linkedin.com/in/saurabh-kumar-7692b1223?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -119,7 +119,7 @@ const Intake2021Data = [
   {
     id: 13,
     name: "Mr. Sewan Panchare",
-    dept: "MA",
+    branch: "MA",
     mail: "sevanpanchare@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -128,7 +128,7 @@ const Intake2021Data = [
   {
     id: 14,
     name: "Mr. Soumyadeep Pradhan",
-    dept: "ME",
+    branch: "ME",
     mail: "soumyadeep265@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Soumyadeep_Pradhan_txhhqi.avif",
     linkedIn: "https://in.linkedin.com/in/soumyadeep-pradhan-ab4412229",
@@ -137,7 +137,7 @@ const Intake2021Data = [
   {
     id: 15,
     name: "Mr. Suman Anand",
-    dept: "MA",
+    branch: "MA",
     mail: "ksumananand614@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
@@ -146,7 +146,7 @@ const Intake2021Data = [
   {
     id: 16,
     name: "Mr. Suraj Kumar",
-    dept: "CH",
+    branch: "CH",
     mail: "surajkumarasdf18@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",

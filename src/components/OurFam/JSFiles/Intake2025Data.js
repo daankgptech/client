@@ -2,7 +2,7 @@ const Intake2025Data = [
   {
     id: 0,
     name: "Mr. Anguluri Rajesh",
-    dept: "MT",
+    branch: "MT",
     mail: "rajeshanguluri965@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513795/Anguluri_Rajesh_qodvur.avif",
     linkedIn:
@@ -12,7 +12,7 @@ const Intake2025Data = [
   {
     id: 1,
     name: "Mr. Aniket Biswas",
-    dept: "BT",
+    branch: "BT",
     mail: "aniketrhythm2424@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513795/Aniket_Biswas_xtvakl.avif",
     linkedIn: "https://www.linkedin.com/in/aniket-biswas-47a5a2377",
@@ -21,7 +21,7 @@ const Intake2025Data = [
   {
     id: 2,
     name: "Mr. Aniket Herole",
-    dept: "MT",
+    branch: "MT",
     mail: "aniketherole9@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513796/Aniket_Herole_xmyhra.avif",
     linkedIn: "https://www.linkedin.com/in/aniket-herole-4785b7377",
@@ -30,7 +30,7 @@ const Intake2025Data = [
   {
     id: 3,
     name: "Mr. Ankit Raj",
-    dept: "CS",
+    branch: "CS",
     mail: "ankiitrazz@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513796/Ankit_Raj_g2t95v.avif",
     linkedIn: "https://www.linkedin.com/in/ankit-raj-b164b5377",
@@ -39,7 +39,7 @@ const Intake2025Data = [
   {
     id: 4,
     name: "Mr. Anurag",
-    dept: "NA",
+    branch: "NA",
     mail: "anuragchaudhari64@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513796/Anurag_aawakn.avif",
     linkedIn: "https://www.linkedin.com/in/anurag-chaudhari-bbb453373",
@@ -48,7 +48,7 @@ const Intake2025Data = [
   {
     id: 5,
     name: "Mr. Anurag Sharma",
-    dept: "EC",
+    branch: "EC",
     mail: "anurag114211817sharma@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513796/Anurag_Sharma_cpmrbh.avif",
     linkedIn: "https://www.linkedin.com/in/anurag-sharma-96aa52369",
@@ -57,7 +57,7 @@ const Intake2025Data = [
   {
     id: 6,
     name: "Mr. Arpit Turkar",
-    dept: "CS",
+    branch: "CS",
     mail: "turkararpit08@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513797/Arpit_Turkar_zt3riq.avif",
     linkedIn: "https://www.linkedin.com/in/arpit-turkar-2753a0377",
@@ -66,7 +66,7 @@ const Intake2025Data = [
   {
     id: 7,
     name: "Mr. Arpit Tuti",
-    dept: "EE",
+    branch: "EE",
     mail: "tutiarpit8@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513798/Arpit_Tuti_tmqo5r.avif",
     linkedIn: "https://www.linkedin.com/in/arpit-tuti-846333377",
@@ -75,7 +75,7 @@ const Intake2025Data = [
   {
     id: 8,
     name: "Mr. Banothu Sandeep Nani",
-    dept: "EC",
+    branch: "EC",
     mail: "sandeepbanothu056@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513798/Banothu_Sandeep_Nani_ools5s.avif",
     linkedIn: "https://www.linkedin.com/in/sandeep-nani-934976377",
@@ -84,7 +84,7 @@ const Intake2025Data = [
   {
     id: 9,
     name: "Mr. Bikash Sahis",
-    dept: "MT",
+    branch: "MT",
     mail: "bikashsahis661@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513798/Bikash_Sahis_ttltqt.avif",
     linkedIn: "https://www.linkedin.com/in/bikash-sahis-76b4b4377",
@@ -93,7 +93,7 @@ const Intake2025Data = [
   {
     id: 10,
     name: "Mr. Chandra Pal",
-    dept: "MT",
+    branch: "MT",
     mail: "chandrapalmoonmilk@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513798/Chandra_Pal_rsktgm.avif",
     linkedIn:
@@ -103,7 +103,7 @@ const Intake2025Data = [
   {
     id: 11,
     name: "Mr. Chethan",
-    dept: "IM",
+    branch: "IM",
     mail: "chethanchethu3132006@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513798/Chethan_euk1rg.avif",
     linkedIn: "https://www.linkedin.com/in/chethan-49ba4a377",
@@ -112,7 +112,7 @@ const Intake2025Data = [
   {
     id: 12,
     name: "Mr. Darshan",
-    dept: "CS",
+    branch: "CS",
     mail: "darshanrathod0810@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513799/Darshan_bq7ssz.avif",
     linkedIn: "https://www.linkedin.com/in/darshan-rathod-036083378",
@@ -121,7 +121,7 @@ const Intake2025Data = [
   {
     id: 13,
     name: "Mr. Devanand Veernapu",
-    dept: "NA",
+    branch: "NA",
     mail: "rickyeva1718@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513799/Devanand_Veernapu_ekmefl.avif",
     linkedIn: "https://www.linkedin.com/in/devanand-veernapu-3a13a7377",
@@ -130,7 +130,7 @@ const Intake2025Data = [
   {
     id: 14,
     name: "Ms. Dhananshi Rana",
-    dept: "NA",
+    branch: "NA",
     mail: "rdhananshi18@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513799/Dhananshi_Rana_qpfgcs.avif",
     linkedIn: "https://www.linkedin.com/in/dhananshi-rana-5b5599377",
@@ -139,7 +139,7 @@ const Intake2025Data = [
   {
     id: 15,
     name: "Ms. Dimpal Bagul",
-    dept: "EE",
+    branch: "EE",
     mail: "dimpalbagul2006@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513800/Dimpal_Bagul_fcahzx.avif",
     linkedIn: "https://www.linkedin.com/in/dimpal-bagul-84157a377",
@@ -148,7 +148,7 @@ const Intake2025Data = [
   {
     id: 16,
     name: "Mr. Divyanshu",
-    dept: "AG",
+    branch: "AG",
     mail: "divyanshukgp1702@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513800/Divyanshu_yukkhf.avif",
     linkedIn: "https://www.linkedin.com/in/divyanshu-kumar-84342b377",
@@ -157,7 +157,7 @@ const Intake2025Data = [
   {
     id: 17,
     name: "Mr. Ganesh Soren",
-    dept: "MA",
+    branch: "MA",
     mail: "sorenganesh2006@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513800/Ganesh_saren_dq8sg1.avif",
     linkedIn: "https://www.linkedin.com/in/ganesh-soren-784770377",
@@ -166,7 +166,7 @@ const Intake2025Data = [
   {
     id: 18,
     name: "Mr. Himanshu",
-    dept: "MT",
+    branch: "MT",
     mail: "him1572006@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513801/Himanshu_Chauhan_m2ozbh.avif",
     linkedIn: "https://www.linkedin.com/in/himanshu-chauhan-b35510377",
@@ -175,7 +175,7 @@ const Intake2025Data = [
   {
     id: 19,
     name: "Mr. Kunal Gautam",
-    dept: "AG",
+    branch: "AG",
     mail: "kunalgautam0811@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513801/Kunal_Gautam_g2dm0s.avif",
     linkedIn: "https://www.linkedin.com/in/kunal-gautam-6972b8377",
@@ -184,7 +184,7 @@ const Intake2025Data = [
   {
     id: 20,
     name: "Mr. Lunavath Koushik",
-    dept: "MT",
+    branch: "MT",
     mail: "koushiklunavath@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513801/Lunavath_Koushik_fn48yo.avif",
     linkedIn: "https://www.linkedin.com/in/lunavath-koushik-45aa01377",
@@ -193,7 +193,7 @@ const Intake2025Data = [
   {
     id: 21,
     name: "Ms. Megha Dahale",
-    dept: "AG",
+    branch: "AG",
     mail: "meghadahale02@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513802/Megha_Dahale_yk1nbj.avif",
     linkedIn: "https://www.linkedin.com/in/megha-dahale-b771b7377",
@@ -202,7 +202,7 @@ const Intake2025Data = [
   {
     id: 22,
     name: "Mr. Mohar Biswas",
-    dept: "CS",
+    branch: "CS",
     mail: "2025Mohar@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513802/Mohar_Biswas_gdrgaw.avif",
     linkedIn: "https://www.linkedin.com/in/mohar-biswas-154208377",
@@ -211,7 +211,7 @@ const Intake2025Data = [
   {
     id: 23,
     name: "Mr. Mulayam Singh Jatav",
-    dept: "EC",
+    branch: "EC",
     mail: "mulayam4427singh@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513803/Mulayam_Singh_hryesn.avif",
     linkedIn: "https://www.linkedin.com/in/mulayam-singh-34570b370",
@@ -220,7 +220,7 @@ const Intake2025Data = [
   {
     id: 24,
     name: "Mr. Pradeep",
-    dept: "GG",
+    branch: "GG",
     mail: "manunaik852@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513803/Pradeep_hr9nje.avif",
     linkedIn: "https://www.linkedin.com/in/pradeep-naik-b76540377",
@@ -229,7 +229,7 @@ const Intake2025Data = [
   {
     id: 25,
     name: "Mr. Priyansh Rathor",
-    dept: "CS",
+    branch: "CS",
     mail: "rathorpriyansh180407@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513803/Priyansh_Rathor_aexigd.avif",
     linkedIn: "https://www.linkedin.com/in/priyansh-rathor-0244b7377",
@@ -238,7 +238,7 @@ const Intake2025Data = [
   {
     id: 26,
     name: "Mr. Rahul Atram",
-    dept: "EE",
+    branch: "EE",
     mail: "atramrahul487@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513804/Rahul_Atram_bxcf4p.avif",
     linkedIn: "https://www.linkedin.com/in/rahul-atram-73b75b377",
@@ -247,7 +247,7 @@ const Intake2025Data = [
   {
     id: 27,
     name: "Mr. Rahul Rathore",
-    dept: "CH",
+    branch: "CH",
     mail: "rahulrathore27825@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576897/RahulRathore_hw0159.avif",
     linkedIn: "https://www.linkedin.com/in/rahul-rathore-2a933a377",
@@ -256,7 +256,7 @@ const Intake2025Data = [
   {
     id: 28,
     name: "Mr. Rajat",
-    dept: "ME",
+    branch: "ME",
     mail: "rajat808gothwal@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576897/Rajat_bug8sz.avif",
     linkedIn: "https://www.linkedin.com/in/rajat-gothwal-77859b377",
@@ -265,7 +265,7 @@ const Intake2025Data = [
   {
     id: 29,
     name: "Mr. Rajkumar Yadav",
-    dept: "MA",
+    branch: "MA",
     mail: "rajkumarydv25@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513805/Rajkumar_Yadav_hwhtpe.avif",
     linkedIn:
@@ -275,7 +275,7 @@ const Intake2025Data = [
   {
     id: 30,
     name: "Mr. Rinku Shakya",
-    dept: "IE",
+    branch: "IE",
     mail: "rinkooshakya625@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513805/Rinku_Shakya_xyqnx4.avif",
     linkedIn: "https://www.linkedin.com/in/rinkoo-shakya-985054301",
@@ -284,7 +284,7 @@ const Intake2025Data = [
   {
     id: 31,
     name: "Ms. Riya Vala",
-    dept: "MA",
+    branch: "MA",
     mail: "valabharat581@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513806/Riya_Vala_y41aoc.avif",
     linkedIn: "https://www.linkedin.com/in/riya-vala-b97818377",
@@ -293,7 +293,7 @@ const Intake2025Data = [
   {
     id: 32,
     name: "Ms. Routhu Amulya",
-    dept: "EE",
+    branch: "EE",
     mail: "amulyarouth12@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513806/Routhu_Amulya_ycxntm.avif",
     linkedIn: "https://www.linkedin.com/in/routhu-amulya-9451b7377",
@@ -302,7 +302,7 @@ const Intake2025Data = [
   {
     id: 33,
     name: "Ms. Sakshi Athole",
-    dept: "ME",
+    branch: "ME",
     mail: "sakshiathole286@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513806/Sakshi_Athole_xmnbhr.avif",
     linkedIn: "https://www.linkedin.com/in/sakshi-athole-689a46377",
@@ -311,7 +311,7 @@ const Intake2025Data = [
   {
     id: 34,
     name: "Mr. Sandeep Neel",
-    dept: "CI",
+    branch: "CI",
     mail: "neelsandeep05@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754531801/Sandeep_Neel_lrgkrx.avif",
     linkedIn: "https://www.linkedin.com/in/sandeep-neel-5035a2377",
@@ -320,7 +320,7 @@ const Intake2025Data = [
   {
     id: 35,
     name: "Mr. Sarban Choudhary",
-    dept: "CY",
+    branch: "CY",
     mail: "sarbanchoudhary2719@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513806/Sarban_Choudhary_eqjquw.avif",
     linkedIn: "https://www.linkedin.com/in/sarban-choudhary-a425a3377",
@@ -329,7 +329,7 @@ const Intake2025Data = [
   {
     id: 36,
     name: "Mr. Sivang",
-    dept: "IM",
+    branch: "IM",
     mail: "sivangverma822@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759576897/Sivang_o9x8qy.avif",
     linkedIn: "https://www.linkedin.com/in/sivang-53766a377",
@@ -338,7 +338,7 @@ const Intake2025Data = [
   {
     id: 37,
     name: "Mr. Swagata Mondal",
-    dept: "IM",
+    branch: "IM",
     mail: "mswagata412@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513807/Swagata_Mondal_egdwv1.avif",
     linkedIn: "https://www.linkedin.com/in/swagata-mondal-4b5592377",
@@ -347,7 +347,7 @@ const Intake2025Data = [
   {
     id: 38,
     name: "Mr. Tarun Kumar",
-    dept: "CS",
+    branch: "CS",
     mail: "omydeartarun@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513807/Tarun_Kumar_droa77.avif",
     linkedIn: "https://www.linkedin.com/in/tarun-kumar-71a91b377",
@@ -356,7 +356,7 @@ const Intake2025Data = [
   {
     id: 39,
     name: "Mr. Vidwathkalpa Gundaram",
-    dept: "AI",
+    branch: "AI",
     mail: "vidwathkalpa28@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513808/Vidwathkalpa_Gundaram_k3mzpe.avif",
     linkedIn: "https://www.linkedin.com/in/vidwathkalpa-gundaram-090331377",
@@ -365,7 +365,7 @@ const Intake2025Data = [
   {
     id: 40,
     name: "Mr. Yash Alhapuriya",
-    dept: "AI",
+    branch: "AI",
     mail: "alhapuriyayash2005@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513808/Yash_Alhapuriya_h0rezt.avif",
     linkedIn: "https://www.linkedin.com/in/yash-alhapuriya-28a204369",
@@ -374,7 +374,7 @@ const Intake2025Data = [
   {
     id: 41,
     name: "Mr. Yash Chaudhari",
-    dept: "AI",
+    branch: "AI",
     mail: "yashchaudhari1401@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513809/Yash_Chaudhari_akhenu.avif",
     linkedIn: "https://www.linkedin.com/in/yash-chaudhari-a07a4b377",

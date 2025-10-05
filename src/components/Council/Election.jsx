@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { contestants } from "./CouncilData";
+import ContestantTable from "./Contestant";
 
 const Election = () => {
   return (
@@ -35,7 +36,7 @@ const Election = () => {
           <h3 className="text-2xl font-bold text-rose-600 dark:text-red-300 mb-6">
             Contestants from KGP
           </h3>
-
+<ContestantTable/>
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {contestants.map((c, index) => (
               <motion.div

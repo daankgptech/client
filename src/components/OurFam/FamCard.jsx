@@ -1,6 +1,6 @@
 import { FaLinkedin, FaEnvelope } from "react-icons/fa";
 
-const FamCard = ({ img, name, dept, hall, mail, linkedIn }) => (
+const FamCard = ({ img, name, branch, hall, mail, linkedIn }) => (
   <div className="flex flex-col justify-around items-center p-2 md:p-3 lg:p-4 border border-gray-400 dark:border-gray-900 bg-gradient-to-tr from-gray-100 dark:from-gray-700 to-gray-200 dark:to-gray-800 rounded-2xl gap-1 md:gap-2 shadow-sm hover:shadow-red-200 dark:hover:shadow-gray-500 transition-all duration-300">
     <img
       title={`${name}'s Image`}
@@ -13,7 +13,7 @@ const FamCard = ({ img, name, dept, hall, mail, linkedIn }) => (
       {name}
     </h1>
     <div className="flex justify-between items-center gap-4 w-full">
-      <p className="text-sm md:text-lg text-gray-900 dark:text-gray-500">{dept}</p>
+      <p className="text-sm md:text-lg text-gray-900 dark:text-gray-500">{branch}</p>
       <p className="text-sm md:text-lg text-gray-900 dark:text-gray-500">{hall}</p>
     </div>
     <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full">

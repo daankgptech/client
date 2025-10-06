@@ -81,7 +81,7 @@ export const contestants = [
   },
   {
     id: 7,
-    name: "Bibek Vishwas",
+    name: "Bibek Biswas",
     position: "DAAN Khabar",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759686168/Bibek_xtegjq.avif",
   },

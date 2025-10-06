@@ -57,20 +57,21 @@ export const contestants = [
   {
     id: 3,
     name: "Monika Dhakad",
-    position: "Public Relations",
+    position: "DST (Non-JNV)",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676251/Monika_afmvu1.avif",
   },
+
   {
     id: 4,
-    name: "Priyanshu Gupta",
-    position: "Inspire",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676251/PriyanshuGupta_allqgc.avif",
+    name: "Ayan Mallick",
+    position: "Public Relations",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676250/AyanMallick_rtbl7l.avif",
   },
   {
     id: 5,
-    name: "Ayan Mallick",
-    position: "Freshman Assistance",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676250/AyanMallick_rtbl7l.avif",
+    name: "Priyanshu Gupta",
+    position: "Inspire",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676251/PriyanshuGupta_allqgc.avif",
   },
   {
     id: 6,

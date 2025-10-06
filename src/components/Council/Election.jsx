@@ -153,7 +153,7 @@ const Election = () => {
             Engineering students in their{" "}
             <span className="font-semibold">second year</span> and medical
             students from{" "}
-            <span className="font-semibold">2023 & 2024 batch</span>
+            <span className="font-semibold">2023 & 2024 batch </span>
             are eligible.
           </p>
           <p className="mt-2">

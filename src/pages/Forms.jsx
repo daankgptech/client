@@ -88,7 +88,7 @@ const Forms = () => {
                   >
                     Get Response %
                   </h2>
-                  {open && <ResponsePercentage formData={tshirtForm} />}
+                  {open && <ResponsePercentage formData={item} />}
                 </div>
                   )
                 }

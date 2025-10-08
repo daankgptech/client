@@ -7,11 +7,7 @@ const formsData = [
         deadline:"2025-10-12T23:59:00+05:30",
         isExceeded:false,
         responsePercentage:[
-            { batch:"'25",percentage:95.12 },
-            { batch:"'24",percentage:77.27 },
-            { batch:"'23",percentage:85.71 },
-            { batch:"'22",percentage:78.12 },
-            { batch:"'21",percentage:72.72 },
+            { batch:"'25",percentage:0/42 },
         ]
     },
     {
@@ -22,11 +18,11 @@ const formsData = [
         deadline:"2025-10-05T23:59:00+05:30",
         isExceeded:false,
         responsePercentage:[
-            { batch:"'25",percentage:95.12 },
-            { batch:"'24",percentage:77.27 },
-            { batch:"'23",percentage:85.71 },
-            { batch:"'22",percentage:78.12 },
-            { batch:"'21",percentage:72.72 },
+            { batch:"'25",percentage:3/42 },
+            { batch:"'24",percentage:4/46 },
+            { batch:"'23",percentage:0/35 },
+            { batch:"'22",percentage:0/32 },
+            { batch:"'21",percentage:0/17 },
         ]
     },
     {

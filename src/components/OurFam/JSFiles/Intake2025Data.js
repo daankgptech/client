@@ -101,6 +101,15 @@ const Intake2025Data = [
     hall: "LBS",
   },
   {
+    id: 41,
+    name: "Mr. Chaudhari Yash",
+    branch: "AI",
+    mail: "yashchaudhari1401@gmail.com",
+    img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513809/Yash_Chaudhari_akhenu.avif",
+    linkedIn: "https://www.linkedin.com/in/yash-chaudhari-a07a4b377",
+    hall: "LBS",
+  },
+  {
     id: 11,
     name: "Mr. Chethan",
     branch: "IM",
@@ -369,15 +378,6 @@ const Intake2025Data = [
     mail: "alhapuriyayash2005@gmail.com",
     img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513808/Yash_Alhapuriya_h0rezt.avif",
     linkedIn: "https://www.linkedin.com/in/yash-alhapuriya-28a204369",
-    hall: "LBS",
-  },
-  {
-    id: 41,
-    name: "Mr. Yash Chaudhari",
-    branch: "AI",
-    mail: "yashchaudhari1401@gmail.com",
-    img: "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513809/Yash_Chaudhari_akhenu.avif",
-    linkedIn: "https://www.linkedin.com/in/yash-chaudhari-a07a4b377",
     hall: "LBS",
   },
 ];

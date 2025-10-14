@@ -7,7 +7,7 @@ const notices = [
         All about DAAN Council Election 2025-26{" "}
         <Link
           rel="noopener noreferrer"
-          className="text-rose-700 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
+          className="text-rose-900 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
           to="/council/election"
         >
           here!
@@ -16,8 +16,22 @@ const notices = [
     ),
   },
   // { text: "Autumn Break: Sep 27-Oct 05, 2025." },
-  { text: "Dakshana Day: Oct 15, 2025." },
-  { text: "DAAN Council Election Result Declaration: Oct 16, 2025." },
+  {
+    text: (
+      <>
+        <Link
+          rel="noopener noreferrer"
+          target="_blank"
+          className="text-rose-900 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
+          to="https://res.cloudinary.com/dcwwptwzt/image/upload/v1760471353/DakshanaDay2025_ziqlgn.avif"
+        >
+          Dakshana Day: Oct 15, 2025.
+        </Link>{" "}
+      </>
+    ),
+  },
+  // { text: "Dakshana Day: Oct 15, 2025." },
+  { text: "DAAN Council Election Result Declaration: Oct 18, 2025." },
   { text: "Shaurya Sports Fest: Oct 17(AN)-Oct 19, 2025." },
   // { text: "End Sems: Nov 17-Nov 25, 2025." },
   // { text: "DST: Dec 14, 2025." },

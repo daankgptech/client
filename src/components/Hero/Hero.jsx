@@ -11,7 +11,7 @@ export default function Hero() {
     <div className="bg-transparent flex justify-center items-center p-4">
       <div className="container grid gap-4">
         {/* Heading */}
-        <div className="text-gray-900 dark:text-gray-300 text-center">
+        <div className="text-gray-900 dark:text-gray-300 text-center mb-10">
           <p
             data-aos="fade-up"
             className="text-2xl md:text-4xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-900 to-red-500"
@@ -29,7 +29,7 @@ export default function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="flex justify-center gap-3 md:gap-8 mt-8">
+        {/* <div className="flex justify-center gap-3 md:gap-8 mt-8">
           {stats.map(({ target, label }, i) => (
             <div
               key={i}
@@ -43,7 +43,7 @@ export default function Hero() {
               <p className="text-sm text-center text-gray-900">{label}</p>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Notices */}
         <FlashingNoticesCard />

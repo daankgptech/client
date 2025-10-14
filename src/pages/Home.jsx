@@ -6,6 +6,7 @@ import Council from "../components/Council/Council";
 import CR from "../components/CR/CR";
 import Banner from "../components/Banner/Banner";
 import GridBackgroundOptimized from "../components/Hero/GridBackgroundOptimized";
+import BannerTwo from "../components/Banner/CountBanner";
 
 const Home = ({ scrollTo }) => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const Home = ({ scrollTo }) => {
             <Hero />
           </div>
         </section>
+        <BannerTwo/>
 
         <CR />
         <Council />

@@ -85,8 +85,7 @@ const Forms = () => {
                   <h2
                     className="text-lg font-semibold text-center mb-4 cursor-pointer select-none hover:scale-105 transition-all duration-300 hover:text-blue-600"
                     onClick={() => setOpen((prev) => !prev)} // toggle on click
-                  >
-                    Get Response %
+                  >Response
                   </h2>
                   {open && <ResponsePercentage formData={item} />}
                 </div>

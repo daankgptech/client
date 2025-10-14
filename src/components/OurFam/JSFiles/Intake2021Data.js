@@ -6,7 +6,8 @@ const Intake2021Data = [
     mail: "abhinaw12anand@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "Nehru"
+    hall: "Nehru",
+    graduated:false,
   },
   {
     id: 1,
@@ -15,7 +16,8 @@ const Intake2021Data = [
     mail: "ajaydhaker2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "Patel"
+    hall: "Patel",
+    graduated:false,
   },
   {
     id: 2,
@@ -24,7 +26,8 @@ const Intake2021Data = [
     mail: "akshaysawai252@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 3,
@@ -33,7 +36,8 @@ const Intake2021Data = [
     mail: "ashutosh.daan@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748012053/Ashutosh_wvgdts.avif",
     linkedIn: "",
-    hall: "RK"
+    hall: "RK",
+    graduated:false,
   },
   {
     id: 4,
@@ -42,7 +46,8 @@ const Intake2021Data = [
     mail: "chhotoosolanki11@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "LBS"
+    hall: "LBS",
+    graduated:false,
   },
   {
     id: 5,
@@ -51,7 +56,8 @@ const Intake2021Data = [
     mail: "himanshigupta@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 6,
@@ -60,7 +66,8 @@ const Intake2021Data = [
     mail: "harshadamahale2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "MT"
+    hall: "MT",
+    graduated:false,
   },
   {
     id: 7,
@@ -69,7 +76,8 @@ const Intake2021Data = [
     mail: "mingmarlepcha2000@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "MMM"
+    hall: "MMM",
+    graduated:false,
   },
   {
     id: 8,
@@ -78,7 +86,8 @@ const Intake2021Data = [
     mail: "indrasinhmahera1110@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 9,
@@ -87,7 +96,8 @@ const Intake2021Data = [
     mail: "meenaneerajkumar148@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 10,
@@ -96,7 +106,8 @@ const Intake2021Data = [
     mail: "nkraj7266@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290244/Nitin_Rajvanshi_mbleyw.avif",
     linkedIn: "https://www.linkedin.com/in/nitinrajvanshi/",
-    hall: "Patel"
+    hall: "Patel",
+    graduated:true,
   },
   {
     id: 11,
@@ -105,7 +116,8 @@ const Intake2021Data = [
     mail: "kprajwal358@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "RP"
+    hall: "RP",
+    graduated:false,
   },
   {
     id: 12,
@@ -114,7 +126,8 @@ const Intake2021Data = [
     mail: "sraj31962@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Saurabh_tez2ke.avif",
     linkedIn: "https://www.linkedin.com/in/saurabh-kumar-7692b1223?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    hall: "MMM"
+    hall: "MMM",
+    graduated:false,
   },
   {
     id: 13,
@@ -123,7 +136,8 @@ const Intake2021Data = [
     mail: "sevanpanchare@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 14,
@@ -132,7 +146,8 @@ const Intake2021Data = [
     mail: "soumyadeep265@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Soumyadeep_Pradhan_txhhqi.avif",
     linkedIn: "https://in.linkedin.com/in/soumyadeep-pradhan-ab4412229",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 15,
@@ -141,7 +156,8 @@ const Intake2021Data = [
     mail: "ksumananand614@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: ""
+    hall: "",
+    graduated:true,
   },
   {
     id: 16,
@@ -150,7 +166,8 @@ const Intake2021Data = [
     mail: "surajkumarasdf18@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     linkedIn: "",
-    hall: "LBS"
+    hall: "LBS",
+    graduated:false,
   },
 ];
 

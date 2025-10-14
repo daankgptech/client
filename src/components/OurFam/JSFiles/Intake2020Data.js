@@ -7,6 +7,7 @@ const Intake2020Data = [
     hall: "",
     mail: "",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 1,
@@ -16,6 +17,7 @@ const Intake2020Data = [
     hall: "",
     mail: "nandankumarsingh@kgpian.iitkgp.ac.in",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 2,
@@ -25,6 +27,7 @@ const Intake2020Data = [
     hall: "",
     mail: "neerajgartia211002@kgpian.iitkgp.ac.in",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 3,
@@ -34,6 +37,7 @@ const Intake2020Data = [
     hall: "",
     mail: "pratik.choudhury@kgpian.iitkgp.ac.in",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 4,
@@ -43,6 +47,7 @@ const Intake2020Data = [
     hall: "",
     mail: "",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 5,
@@ -52,6 +57,7 @@ const Intake2020Data = [
     hall: "",
     mail: "",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 6,
@@ -61,6 +67,7 @@ const Intake2020Data = [
     hall: "",
     mail: "",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 7,
@@ -70,6 +77,7 @@ const Intake2020Data = [
     hall: "",
     mail: "patelsumit.1652002@kgpian.iitkgp.ac.in",
     linkedIn: "",
+    graduated:true,
   },
   {
     id: 8,
@@ -79,6 +87,7 @@ const Intake2020Data = [
     hall: "",
     mail: "swetakumari@kgpian.iitkgp.ac.in",
     linkedIn: "",
+    graduated:true,
   },
 ];
 

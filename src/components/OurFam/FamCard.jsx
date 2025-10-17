@@ -17,8 +17,8 @@ const FamCard = ({ img, name, branch, hall, mail, linkedIn, graduated }) => (
       <FaGraduationCap
         className={`text-xl md:text-2xl ${
           graduated
-            ? "text-green-600 dark:text-green-400"
-            : "text-gray-400 dark:text-gray-500"
+            ? "text-black dark:text-gray-400"
+            : "text-transparent"
         }`}
       />
     </div>

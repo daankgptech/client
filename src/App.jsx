@@ -15,7 +15,6 @@ import Toolkit from "./pages/Toolkit";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Election from "./components/Council/Election";
 import DataUpdate from "./components/Forms/DataUpdate";
 import PageUpBtn from "./utils/PageUpBtn";
 import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
@@ -52,7 +51,6 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
-          {/* <Route path="council/election" element={<Election />} /> */}
           <Route path="our-fam/:year" element={<OurFam />} />
           <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} />
           <Route path="events" element={<EventComp />} />

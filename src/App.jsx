@@ -52,7 +52,7 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
-          <Route path="council/election" element={<Election />} />
+          {/* <Route path="council/election" element={<Election />} /> */}
           <Route path="our-fam/:year" element={<OurFam />} />
           <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} />
           <Route path="events" element={<EventComp />} />

@@ -16,7 +16,7 @@ export default function Hero() {
             data-aos="fade-up"
             className="text-2xl md:text-4xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-900 to-red-500"
           >
-            Congratulations on being a KGPian Dakshanite!
+            Congratulations on being a DAAN KGPian!
           </p>
           <p
             data-aos="fade-up"

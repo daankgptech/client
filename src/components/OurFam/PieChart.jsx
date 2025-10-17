@@ -72,7 +72,8 @@ const DeptPieChart = ({ data, deptKey = "dept" }) => {
           <div className="my-20">
             <Tooltip />
           </div>
-          <Legend />
+          <Legend 
+          iconType="diamond"/>
         </PieChart>
       </ResponsiveContainer>
     </div>

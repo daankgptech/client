@@ -45,7 +45,7 @@ const DeptDonutChart = ({ data, deptKey = "dept" }) => {
             ))}
           </Pie>
           <Tooltip />
-          <Legend />
+          <Legend iconType="diamond"/>
         </PieChart>
       </ResponsiveContainer>
     </div>

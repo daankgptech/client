@@ -1,15 +1,32 @@
 export const CRData = [
   {
     id: 0,
-    name: "Mr. Shani Maurya",
+    name: "Mr. Uttam Meghwal",
     status: "Current",
+    hall: "RK",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
+    session: "2025-26",
+    mobile: "+916264607383",
+  },{
+    id: 1,
+    name: "Mr. Shivam Ahirwar",
+    status: "Current",
+    hall: "Patel",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Shivam_Ahirwar_x9m9ox_o3y2d2.avif",
+    session: "2025-26",
+    mobile: "+917049996597",
+  },
+  {
+    id: 2,
+    name: "Mr. Shani Maurya",
+    status: "Ex",
     hall: "MMM",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
     session: "2024-25",
     mobile: "+919555439091",
   },
   {
-    id: 1,
+    id: 3,
     name: "Mr. Ashish Meena",
     status: "Ex",
     hall: "RP",
@@ -18,7 +35,7 @@ export const CRData = [
     mobile: "+917340050926",
   },
   {
-    id: 2,
+    id: 4,
     name: "Mr. Abhinaw Anand",
     status: "Ex",
     hall: "Nehru",

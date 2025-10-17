@@ -16,8 +16,7 @@ const Navbar = () => {
         <div className="container py-[2px]">
           <div className="animate-marquee whitespace-nowrap">
             <p className="text-sm inline-block px-4">
-              Grey skies, green vibes, and that unmistakable KGP spark ~ monsoon
-              season is here to charge us up.
+              Golden hours, cool breeze, and the quiet hum of KGP in focus mode ~ autumn settles in with purpose.
             </p>
           </div>
         </div>

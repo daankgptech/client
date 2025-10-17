@@ -16,8 +16,8 @@ const notices = [
   //   ),
   // },
   { text: "DAAN Council Election Result Declaration: Oct 18, 2025." },
-  { text: "Shaurya Sports Fest: Oct 17(AN)-Oct 19, 2025." },
   { text: "Illu IIT KGP: Oct 20, 2025." },
+  { text: "Shaurya Sports Fest: Oct 31-Nov 02, 2025." },
   { text: "End Sems: Nov 17-Nov 25, 2025." },
   { text: "DST: Dec 14, 2025." },
 ];

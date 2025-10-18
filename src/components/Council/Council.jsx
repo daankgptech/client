@@ -98,10 +98,10 @@ const Council = () => {
               ${
                 currentIndex === 0
                   ? "bg-gray-400 cursor-not-allowed text-white"
-                  : "bg-red-500 hover:bg-red-600 text-white"
+                  : "bg-red-500 dark:bg-red-800 hover:bg-red-600 dark:hover:bg-red-700 text-white"
               }`}
           >
-            ←
+            {"<-"}
           </button>
           <button
             onClick={handlePrev}
@@ -110,11 +110,9 @@ const Council = () => {
               ${
                 currentIndex >= councilYears.length - 1
                   ? "bg-gray-400 cursor-not-allowed text-white"
-                  : "bg-red-500 hover:bg-red-600 text-white"
+                  : "bg-red-500 dark:bg-red-800 hover:bg-red-600 dark:hover:bg-red-700 text-white"
               }`}
-          >
-            →
-          </button>
+          >{"->"}</button>
         </div>
       </div>
     </section>

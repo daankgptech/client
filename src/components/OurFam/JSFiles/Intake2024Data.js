@@ -331,7 +331,7 @@ const Intake2024Data = [
     name: "Mr. Shivam Ahirwar",
     branch: "IE",
     mail: "ahirwarshivam7049@gmail.com",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Shivam_Ahirwar_x9m9ox_o3y2d2.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760805714/ShivamAhirwar_mlrqzr.avif",
     linkedIn:
       "https://www.linkedin.com/in/shivam-ahirwar-425293311?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     hall: "Patel",
@@ -368,7 +368,7 @@ const Intake2024Data = [
     name: "Mr. Uttam Meghwal",
     branch: "IE",
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
     linkedIn: "",
     hall: "RK",
   },

@@ -6,9 +6,9 @@ import { CouncilData24, CouncilData25, demo } from "./CouncilData";
 const councilYears = [
   {
     year: 25,
-    data: demo,
+    data: CouncilData25,
     label: "2025-26",
-    fullCouncil: "Will be updated",
+    fullCouncil: "https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing",
   },
   {
     year: 24,

@@ -4,7 +4,7 @@ export const CRData = [
     name: "Mr. Uttam Meghwal",
     status: "Current",
     hall: "RK",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Uttam_Meghwal_kdgvqh_f90ijr.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
     session: "2025-26",
     mobile: "+916264607383",
   },{
@@ -12,7 +12,7 @@ export const CRData = [
     name: "Mr. Shivam Ahirwar",
     status: "Current",
     hall: "Patel",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753963/Shivam_Ahirwar_x9m9ox_o3y2d2.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760805714/ShivamAhirwar_mlrqzr.avif",
     session: "2025-26",
     mobile: "+917049996597",
   },

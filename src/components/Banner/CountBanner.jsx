@@ -65,7 +65,7 @@ const stats = [
   { target: "180+", label: "Total DAAN KGPians" },
   { target: "164", label: "Currently Enrolled" },
   { target: "40+", label: "Enrolled this year" },
-  { target: "5", label: "Council Members" },
+  { target: "8", label: "Council Members" },
 ];
 
 export default function BannerTwo() {

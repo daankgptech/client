@@ -51,7 +51,7 @@ export const CouncilData25 = [
     year: "4th",
   },
   {
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760805459/1_osx4fz.png",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
     title: "Mr. Shani Maurya",
     portfolio: "Sr. Secy, Placement Committee",
     mail: "shauryashanisaini@gmail.com",

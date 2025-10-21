@@ -103,8 +103,8 @@ const Intake2023Data = [
     name: "Mr. Bijaya Kumar Behera",
     branch: "BT",
     mail: "bijayabehera745@kgpian.iitkgp.ac.in",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288499/Bijay_Kumar_Behera_su8rmg_eiyvzb.avif",
-    linkedIn: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761073712/BijayBahera_lgxyxx.avif",
+    linkedIn: "https://www.linkedin.com/in/bijaybehera745/",
     hall: "Nehru",
   },
   {

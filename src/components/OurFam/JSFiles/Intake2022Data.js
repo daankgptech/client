@@ -12,9 +12,9 @@ const Intake2022Data = [
     id: 1,
     name: "Mr. Avinash Meena",
     branch: "IE",
-    mail: "khatria.avinash1729@kgpian.iitkgp.ac.in",
+    mail: "jhala.meena1729@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289706/Avinash_Meena_ahixh3_hgsqlx.avif",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/avinash-meena-aa6a95256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     hall: "VS"
   },
   {
@@ -84,7 +84,7 @@ const Intake2022Data = [
     id: 9,
     name: "Mr. Karan Sethi",
     branch: "CS",
-    mail: "karansethi@kgpian.iitkgp.ac.in",
+    mail: "karansethi34349@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748289709/Karan_Sethi_rlqeyw_kbwzyf.avif",
     linkedIn: "https://linkedin.com/in/karan-kumar-sethi-aa4651255/",
     hall: "RK"

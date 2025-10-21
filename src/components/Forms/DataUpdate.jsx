@@ -27,7 +27,7 @@ const FormSelect = ({ options, placeholder, ...props }) => (
 );
 
 // 🔹 Static options
-const batchOptions = ["'25", "'24", "'23", "'22", "'21"];
+const batchOptions = ["'25", "'24", "'23", "'22", "'21", "PG1", "PG2"];
 
 // 🔹 Main Component
 const DataUpdate = () => {
@@ -82,7 +82,10 @@ const DataUpdate = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setPopup({ type: "success", message: "Submitted successfully!" });
+        setPopup({
+          type: "success",
+          message: "New infos will be updated within 24 hours!",
+        });
         resetForm();
       } else {
         setPopup({
@@ -173,9 +176,9 @@ const DataUpdate = () => {
               pattern="^[0-9]{2}[A-Z]{2}[0-9](?:[0-9]{2}|[A-Z]{2})[0-9]{2}$"
               title="Put correct Roll No (Don't use autofill)"
             />
-            <div className="flex justify-center items-start gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {/* Batch Select */}
-              <div className="w-1/2">
+              <div className="w-full">
                 <FormSelect
                   name="batch"
                   value={formData.batch}
@@ -185,12 +188,11 @@ const DataUpdate = () => {
                   required
                 />
               </div>
-
               {/* Custom File Input */}
-              <div className="w-1/2">
+              <div className="">
                 <label
                   htmlFor="newPhoto"
-                  className="cursor-pointer bg-red-400 dark:bg-gray-700 hover:bg-red-500 dark:hover:bg-gray-600 hover:scale-105 
+                  className="cursor-pointer bg-red-100 dark:bg-gray-700 hover:bg-red-200 dark:hover:bg-gray-600 hover:scale-105 
                border border-gray-500 text-gray-900 dark:text-red-400 py-2 px-4 rounded-full transition-all duration-500 inline-block w-full text-center truncate"
                 >
                   {formData.newPhoto ? formData.newPhoto.name : "New Image"}

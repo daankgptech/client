@@ -1,5 +1,20 @@
 const formsData = [
     {
+        to:"/forms/feature",
+        img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1761065738/FeatureSuggestion_jhxar7.avif",
+        title:"Feature Suggestion Form",
+        desc:"Suggest new features, improvements, or ideas for the DAAN KGP platform.",
+        deadline:"2025-11-30T23:59:00+05:30",
+        isExceeded:false,
+        responsePercentage:[
+            { batch:"'25",percentage:(0/42)*100 },
+            { batch:"'24",percentage:(0/46)*100 },
+            { batch:"'23",percentage:(0/35)*100 },
+            { batch:"'22",percentage:(0/32)*100 },
+            { batch:"'21",percentage:(0/17)*100 },
+        ]
+    },
+    {
         to:"/forms/data-update",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759526380/data-update_wvwslm.avif",
         title:"Data Updation Form",
@@ -14,6 +29,7 @@ const formsData = [
             { batch:"'21",percentage:(0/17)*100 },
         ]
     },
+    
     {
         to:"/forms/cake-design-competition",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759532933/cakeDesignCompetition_cxxwxs.avif",

@@ -22,6 +22,7 @@ import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
+import Feature from "./components/Forms/Feature";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -60,7 +61,7 @@ export default function App() {
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
           <Route path="forms/data-update" element={<DataUpdate />} />
-          <Route path="forms/cake-design-competition" element={<CakeDesignCompetition />} />
+          <Route path="forms/feature" element={<Feature />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

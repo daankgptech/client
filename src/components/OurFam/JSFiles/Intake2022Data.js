@@ -148,7 +148,7 @@ const Intake2022Data = [
     name: "Mr. Praveen Kumar",
     branch: "CS",
     mail: "praveenkumarjnv9120@gmail.com",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748179854/Praveen_Kumar_lce3pu.avif",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761128464/PraveenKumar_nhoorz.avif",
     linkedIn: "https://www.linkedin.com/in/pvkumarp200/",
     hall: "MMM"
   },

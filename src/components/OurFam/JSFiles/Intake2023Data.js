@@ -147,9 +147,10 @@ const Intake2023Data = [
     index: 16,
     name: "Mr. Mohit Kumar",
     branch: "EC",
-    mail: "mk8750351763@kgpian.iitkgp.ac.in",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723437/Mohit_Kumar_h57d5w.avif",
-    linkedIn: "",
+    // mail: "mk8750351763@kgpian.iitkgp.ac.in",
+    mail: "mk1234567890dk@gmail.com",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761248076/Mohit_eihjue.avif",
+    linkedIn: "https://www.linkedin.com/in/mohit-kumar-88190b226?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     hall: "LLR",
   },
   {

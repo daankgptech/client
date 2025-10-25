@@ -361,7 +361,7 @@ const Intake2024Data = [
     mail: "ujaakash.24@kgpiian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753928/Joel_Aakash_Undamati_ekswpb_l0pd6y.avif",
     linkedIn: "",
-    hall: "RP",
+    hall: "RP"
   },
   {
     index: 40,

@@ -369,7 +369,7 @@ const Intake2024Data = [
     branch: "IE",
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/uttam-meghwal-1a3620324?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     hall: "RK",
   },
   {
@@ -380,7 +380,7 @@ const Intake2024Data = [
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753974/Vigyandev_Gupta_ywhkor_jfdbzf.avif",
     linkedIn:
       "https://www.linkedin.com/in/vigyan-dev-gupta-0590aa206?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    hall: "RK",
+    hall: "RP",
   },
   {
     index: 42,

@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { Link } from "react-router-dom";
+import VisitorCount from "../../utils/VisitorCount";
 
 const FooterLinks = [
   { title: "Our Fam", link: "/our-fam" },
@@ -52,6 +53,7 @@ const Footer = () => (
           <p className="mt-6 text-gray-900 dark:text-gray-400">
             DAAN KGP is a well-structured DakshanA Alumni Network established at the Indian Institute of Technology, Kharagpur.
           </p>
+          <VisitorCount/>
         </div>
 
         {/* Links & Contact */}

@@ -53,7 +53,7 @@ const Footer = () => (
           <p className="mt-6 text-gray-900 dark:text-gray-400">
             DAAN KGP is a well-structured DakshanA Alumni Network established at the Indian Institute of Technology, Kharagpur.
           </p>
-          <VisitorCount/>
+          {/* <VisitorCount/> */}
         </div>
 
         {/* Links & Contact */}

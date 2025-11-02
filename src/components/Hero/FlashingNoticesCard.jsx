@@ -1,24 +1,25 @@
 import { Link } from "react-router-dom";
 
 const notices = [
-  {
-    text: (
-      <>
-        DAAN Council Election{" "}
-        <Link
-          rel="noopener noreferrer"
-          className="text-rose-900 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
-          to="/council"
-        >
-          Result
-        </Link>{" "}Declaration: Oct 18, 2025.
-      </>
-    ),
-  },
+  // {
+  //   text: (
+  //     <>
+  //       DAAN Council Election{" "}
+  //       <Link
+  //         rel="noopener noreferrer"
+  //         className="text-rose-900 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
+  //         to="/council"
+  //       >
+  //         Result
+  //       </Link>{" "}Declaration: Oct 18, 2025.
+  //     </>
+  //   ),
+  // },
   // { text: "DAAN Council Election Result Declaration: Oct 18, 2025." },
-  { text: "Illu IIT KGP: Oct 20, 2025." },
+  // { text: "Illu IIT KGP: Oct 20, 2025." },
   { text: "Shaurya Sports Fest: Oct 31-Nov 02, 2025." },
   { text: "End Sems: Nov 17-Nov 25, 2025." },
+  { text: "Winter Break: Nov 26-Jan 01, 2026." },
   { text: "DST: Dec 14, 2025." },
 ];
 

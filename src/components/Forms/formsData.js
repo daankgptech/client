@@ -20,16 +20,15 @@ const formsData = [
         title:"Data Updation Form",
         desc:"Wanna rewrite infos over website! Update here.",
         deadline:"2025-10-31T23:59:00+05:30",
-        isExceeded:false,
+        isExceeded:true,
         responsePercentage:[
-            { batch:"'25",percentage:(3/42)*100 },
-            { batch:"'24",percentage:(4/46)*100 },
-            { batch:"'23",percentage:(0/35)*100 },
-            { batch:"'22",percentage:(0/32)*100 },
+            { batch:"'25",percentage:(7/42)*100 },
+            { batch:"'24",percentage:(10/46)*100 },
+            { batch:"'23",percentage:(4/35)*100 },
+            { batch:"'22",percentage:(5/32)*100 },
             { batch:"'21",percentage:(0/17)*100 },
         ]
     },
-    
     {
         to:"/forms/cake-design-competition",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1759532933/cakeDesignCompetition_cxxwxs.avif",
@@ -39,6 +38,7 @@ const formsData = [
         isExceeded:true,
         responsePercentage:[
             { batch:"'25",percentage:(10/42)*100 },
+            { batch:"'24",percentage:(4/42)*100 },
         ]
     },
     {

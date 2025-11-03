@@ -23,6 +23,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
 import Feature from "./components/Forms/Feature";
+import TechTeam from "./components/Forms/TechTeam";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -60,7 +61,7 @@ export default function App() {
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<Forms />} />
-          <Route path="forms/data-update" element={<DataUpdate />} />
+          <Route path="forms/tech-team" element={<TechTeam />} />
           <Route path="forms/feature" element={<Feature />} />
           <Route path="*" element={<NoPage />} />
         </Routes>

@@ -1,5 +1,16 @@
 const formsData = [
     {
+        to:"/forms/tech-team",
+        img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1762128970/TechTeam_oqptaq.avif",
+        title:"Tech Team Form",
+        desc:"Join the minds behind DAAN KGP. Build, innovate, and grow with DAAN KGP Tech Team!",
+        deadline:"2025-11-06T23:59:00+05:30",
+        isExceeded:false,
+        responsePercentage:[
+            { batch:"'25",percentage:(0/42)*100 },
+        ]
+    },
+    {
         to:"/forms/feature",
         img:"https://res.cloudinary.com/dcwwptwzt/image/upload/v1761065738/FeatureSuggestion_jhxar7.avif",
         title:"Feature Suggestion Form",

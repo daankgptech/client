@@ -132,8 +132,7 @@ const Feature = () => {
           <h1 className="my-8 border-l-8 border-red-300 dark:border-gray-400 py-2 pl-2 text-3xl font-bold">
             Feature Suggestion Form
           </h1>
-          <p className="my-8 italic">
-            To all DAAN KGPians : You can suggest over Frontend Work/Function, UI, any specific
+          <p className="my-8 italic">You can suggest over Frontend Work/Function, UI, any specific
             tab/page, addition/removal/updation of existing features,
             server-side or database-related improvements, etc.
           </p>

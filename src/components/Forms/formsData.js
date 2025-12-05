@@ -4,7 +4,7 @@ const formsData = [
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761065738/FeatureSuggestion_jhxar7.avif",
     title: "Feature Suggestion Form",
     desc: "Suggest new features, improvements, or ideas for the DAAN KGP platform.",
-    deadline: "2025-11-30T23:59:00+05:30",
+    deadline: "2025-12-31T23:59:00+05:30",
     isExceeded: false,
     responsePercentage: [
       { batch: "'25", percentage: (0 / 42) * 100 },

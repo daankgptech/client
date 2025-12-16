@@ -36,21 +36,25 @@ const Overview = ({ batchDataMap, goToYear }) => {
   // Total count
   const totalCount = BranchWise.reduce((sum, b) => sum + Number(b.count), 0);
   // Sorted hall data
-const sortedHallData = useMemo(() => {
-  return [...HallWise].sort((a, b) =>
-    sortHallAsc ? a.count - b.count : b.count - a.count
-  );
-}, [HallWise, sortHallAsc]);
+  const sortedHallData = useMemo(() => {
+    return [...HallWise].sort((a, b) =>
+      sortHallAsc ? a.count - b.count : b.count - a.count
+    );
+  }, [HallWise, sortHallAsc]);
 
-// Total hall count
-const totalHallCount = HallWise.reduce((sum, hall) => sum + Number(hall.count), 0);
+  // Total hall count
+  const totalHallCount = HallWise.reduce(
+    (sum, hall) => sum + Number(hall.count),
+    0
+  );
   return (
     <section className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-300 px-4 py-8 container">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-3xl font-bold text-center mb-10"
-      >Overview
+      >
+        Overview
       </motion.h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container">
         {/* Gender Wise */}
@@ -219,71 +223,73 @@ const totalHallCount = HallWise.reduce((sum, hall) => sum + Number(hall.count), 
 
         {/* Hall Wise Table */}
         <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-      className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6 mb-10"
-    >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold flex-1 text-center">
-          Hall Wise
-        </h2>
-        <button
-          onClick={() => setSortHallAsc(!sortHallAsc)}
-          className="px-3 py-1 text-sm font-medium rounded-lg bg-red-300 dark:bg-rose-700 hover:bg-rose-400 dark:hover:bg-rose-500 text-gray-900 dark:text-gray-100 transition-all"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6 mb-10"
         >
-          {sortHallAsc ? "⬆" : "⬇"}
-        </button>
-      </div>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold flex-1 text-center">
+              Hall Wise
+            </h2>
+            <button
+              onClick={() => setSortHallAsc(!sortHallAsc)}
+              className="px-3 py-1 text-sm font-medium rounded-lg bg-red-300 dark:bg-rose-700 hover:bg-rose-400 dark:hover:bg-rose-500 text-gray-900 dark:text-gray-100 transition-all"
+            >
+              {sortHallAsc ? "⬆" : "⬇"}
+            </button>
+          </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-              <th className="py-3 px-4 text-left rounded-tl-lg">Hall</th>
-              <th className="py-3 px-4 text-left rounded-tr-lg">Count</th>
-            </tr>
-          </thead>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                  <th className="py-3 px-4 text-left rounded-tl-lg">Hall</th>
+                  <th className="py-3 px-4 text-left rounded-tr-lg">Count</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {sortedHallData.map((h, i) => (
-              <motion.tr
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.04 }}
-                whileHover={{ scale: 1.02 }}
-                className={`
+              <tbody>
+                {sortedHallData.map((h, i) => (
+                  <motion.tr
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    whileHover={{ scale: 1.02 }}
+                    className={`
                   group cursor-pointer
-                  ${i % 2 === 0
-                    ? "bg-gray-100 dark:bg-gray-900/40"
-                    : "bg-rose-100/40 dark:bg-rose-900/20"}
+                  ${
+                    i % 2 === 0
+                      ? "bg-gray-100 dark:bg-gray-900/40"
+                      : "bg-rose-100/40 dark:bg-rose-900/20"
+                  }
                   hover:bg-rose-300/60 dark:hover:bg-rose-800/40
                   transition-all duration-200
                 `}
-              >
-                <td className="py-3 px-4 font-medium text-gray-800 dark:text-gray-200">
-                  <span className="group-hover:text-red-700 dark:group-hover:text-rose-300 transition-colors">
-                    {h.hall}
-                  </span>
-                </td>
-                <td className="py-3 px-4">
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-800 dark:bg-red-900 dark:text-rose-200">
-                    {h.count}
-                  </span>
-                </td>
-              </motion.tr>
-            ))}
+                  >
+                    <td className="py-3 px-4 font-medium text-gray-800 dark:text-gray-200">
+                      <span className="group-hover:text-red-700 dark:group-hover:text-rose-300 transition-colors">
+                        {h.hall}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-800 dark:bg-red-900 dark:text-rose-200">
+                        {h.count}
+                      </span>
+                    </td>
+                  </motion.tr>
+                ))}
 
-            {/* Total row */}
-            <tr className="bg-gray-300 dark:bg-gray-700 font-semibold">
-              <td className="py-3 px-4 text-left">Total</td>
-              <td className="py-3 px-4">{totalHallCount}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </motion.div>
+                {/* Total row */}
+                <tr className="bg-gray-300 dark:bg-gray-700 font-semibold">
+                  <td className="py-3 px-4 text-left">Total</td>
+                  <td className="py-3 px-4">{totalHallCount}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
       </div>
 
       {/* Year Selector */}

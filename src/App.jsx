@@ -15,15 +15,16 @@ import Toolkit from "./pages/Toolkit";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import DataUpdate from "./components/Forms/DataUpdate";
+// import DataUpdate from "./components/Forms/DataUpdate";
 import PageUpBtn from "./utils/PageUpBtn";
 import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
+// import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
 import Feature from "./components/Forms/Feature";
 import TechTeam from "./components/Forms/TechTeam";
+import FamCardDetails from "./components/OurFam/FamCardDetails";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -53,8 +54,9 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
-          <Route path="our-fam" element={<OurFam />} />
-          <Route path="our-fam/:year" element={<OurFam />} />
+          <Route path="/our-fam" element={<OurFam />} />
+          <Route path="/our-fam/:year" element={<OurFam />} />
+          <Route path="/our-fam/:year/:id" element={<FamCardDetails />} />
           {/* <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} /> */}
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />

@@ -63,7 +63,7 @@ const CountBanner = ({ stats }) => {
 // ---- Page Component ----
 const stats = [
   { target: "180+", label: "Total DAAN KGPians" },
-  { target: "164", label: "Currently Enrolled" },
+  { target: "159", label: "Currently Enrolled" },
   { target: "40+", label: "Enrolled this year" },
   { target: "8", label: "Council Members" },
 ];

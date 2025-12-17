@@ -5,53 +5,7 @@ import DeptPieChart from "./PieChart";
 import DeptPolarChart from "./PolarChart";
 import Overview from "./Overview"; // import your overview component
 
-// Import data for all batches
-// import Intake2020Data from "./JSFiles/Intake2020Data";
-// import Intake2021Data from "./JSFiles/Intake2021Data";
-// import Intake2022Data from "./JSFiles/Intake2022Data";
-// import Intake2023Data from "./JSFiles/Intake2023Data";
-// import Intake2024Data from "./JSFiles/Intake2024Data";
 import batchDataMap from "./JSFiles/BatchDataMap";
-
-// Map batch years
-// const batchDataMap = {
-//   2025: {
-//     data: Intake2025Data,
-//     label: "'25",
-//     defaultCount: 42,
-//     year: "First Years",
-//   },
-//   2024: {
-//     data: Intake2024Data,
-//     label: "'24",
-//     defaultCount: 46,
-//     year: "Second Years",
-//   },
-//   2023: {
-//     data: Intake2023Data,
-//     label: "'23",
-//     defaultCount: 35,
-//     year: "Third Years",
-//   },
-//   2022: {
-//     data: Intake2022Data,
-//     label: "'22",
-//     defaultCount: 27,
-//     year: "Fourth Years",
-//   },
-//   2021: {
-//     data: Intake2021Data,
-//     label: "'21",
-//     defaultCount: 17,
-//     year: "Fifth Years",
-//   },
-//   2020: {
-//     data: Intake2020Data,
-//     label: "'20",
-//     defaultCount: 9,
-//     year: "Graduated!",
-//   },
-// };
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
@@ -141,7 +95,7 @@ const Fam = () => {
             placeholder={placeholder}
             value={filters[key]}
             onChange={handleChange(key)}
-            className="px-3 py-2 border border-red-200 dark:border-gray-500 rounded-lg shadow-sm placeholder-red-300 text-red-600
+            className="px-3 py-2 border border-red-200 dark:border-gray-500 rounded-3xl shadow-sm placeholder-red-300 text-red-600
             focus:outline-none focus:ring-2 focus:ring-red-200 dark:focus:ring-gray-500 
             transition-all duration-300 ease-in-out
             dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400

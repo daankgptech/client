@@ -407,13 +407,13 @@ const Intake2023Data = [
     },
     involvements: {
       soc: ["TechHead Optima 2026, TTM Optima 2025"],
-      hall: ["TechHead MMM 2026"],
+      hall: [],
       council: [
-        "Sr. Secy, Placement Committee (2025-26)",
-        "CR, IIT Kharagpur (2024-25)"
+        "Sr. Secy-Placement Committee (2025-26)",
+        "CR-IIT Kharagpur (2024-25)"
       ],
-      iit: ["Open IIT Participant 2024"],
-      extra: "Web Developer at DAAN KGP"
+      iit: [],
+      extra: "Part-time Web Developer"
     }
   },
   {

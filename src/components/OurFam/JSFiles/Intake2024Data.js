@@ -14,7 +14,7 @@ const Intake2024Data = [
     involvements: {
       soc: ["Spats", "ChEA"],
       hall: [],
-      council: ["Jr. Secy, DST, 2025-26"],
+      council: ["Jr. Secy-DST(JNV) (2025-26)"],
       iit: [],
       extra: ""
     }
@@ -31,7 +31,7 @@ const Intake2024Data = [
       linkedIn: "",
       phone: "7307044974"
     },
-    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
+    involvements: { soc: [], hall: [], council: ["Jr. Secy-Placement Committee (2025-26)"], iit: [], extra: "" }
   },
   {
     id: 2,
@@ -326,7 +326,7 @@ const Intake2024Data = [
     involvements: {
       soc: ["RCA"],
       hall: [],
-      council: [],
+      council: ["Jr. Secy-DST(Non-JNV) (2025-26)"],
       iit: [],
       extra: ""
     }
@@ -357,7 +357,7 @@ const Intake2024Data = [
       linkedIn: "https://www.linkedin.com/in/nayan-balpande-2ba1a0326",
       phone: "9201471865"
     },
-    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "Web Developer at DAAN KGP" }
   },
   {
     id: 23,
@@ -440,11 +440,11 @@ const Intake2024Data = [
       phone: "9725920609"
     },
     involvements: {
-      soc: ["DAAN KGP Tech", "TLS", "Spats", "Codeclub"],
+      soc: ["TLS", "Spats", "Codeclub"],
       hall: [],
       council: [],
       iit: [],
-      extra: ""
+      extra: "Web Developer at DAAN KGP"
     }
   },
   {
@@ -609,7 +609,7 @@ const Intake2024Data = [
     involvements: {
       soc: ["ComC", "TLS"],
       hall: [],
-      council: [],
+      council: ["CR-IIT Kharagpur (2025-26)"],
       iit: [
         "Open IIT Winner (Stand up)",
         "Inter IIT 8.0 (Nukkad)"
@@ -671,7 +671,7 @@ const Intake2024Data = [
       linkedIn: "https://www.linkedin.com/in/uttam-meghwal-1a3620324?utm_source=share_via&utm_content=profile&utm_medium=member_android",
       phone: "6264607383"
     },
-    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
+    involvements: { soc: [], hall: [], council: ["CR-IIT Kharagpur (2025-26)"], iit: [], extra: "" }
   },
   {
     id: 43,

@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { FaLinkedin, FaEnvelope, FaGraduationCap } from "react-icons/fa";
+import { MdAddCall } from "react-icons/md";
 import { motion } from "framer-motion";
 
 const FamCard = ({
@@ -11,6 +12,7 @@ const FamCard = ({
   mail,
   linkedIn,
   graduated,
+  contacts,
 }) => {
   const navigate = useNavigate();
   const { year } = useParams();
@@ -49,10 +51,12 @@ const FamCard = ({
       />
 
       {/* Name */}
-      <h1 className="text-lg md:text-xl font-semibold md:font-bold
+      <h1
+        className="text-lg md:text-xl font-semibold md:font-bold
                      bg-clip-text text-transparent
                      bg-gradient-to-tr from-red-900 dark:from-gray-600
-                     to-orange-600 dark:to-gray-200 text-center">
+                     to-orange-600 dark:to-gray-200 text-center"
+      >
         {name}
       </h1>
 
@@ -67,31 +71,49 @@ const FamCard = ({
       </div>
 
       {/* Social Icons */}
-      <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full">
-        {mail && (
+      <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full border-t border-gray-300 dark:border-gray-600 pt-2 md:pt-3">
+        {contacts?.phone && (
           <a
-            href={`mailto:${mail}`}
+            href={`tel:${contacts.phone}`}
+            title="Call"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MdAddCall
+              className="text-lg md:text-xl lg:text-2xl
+                                   text-red-700 dark:text-gray-400
+                                   hover:scale-[1.10] hover:text-red-500
+                                   transition-all duration-300"
+            />
+          </a>
+        )}
+        {contacts?.mail && (
+          <a
+            href={`mailto:${contacts.mail}`}
             title="E-Mail"
             onClick={(e) => e.stopPropagation()}
           >
-            <FaEnvelope className="text-lg md:text-xl lg:text-2xl
+            <FaEnvelope
+              className="text-lg md:text-xl lg:text-2xl
                                    text-red-700 dark:text-gray-400
                                    hover:scale-[1.10] hover:text-red-500
-                                   transition-all duration-300" />
+                                   transition-all duration-300"
+            />
           </a>
         )}
-        {linkedIn && (
+        {contacts?.linkedIn && (
           <a
-            href={linkedIn}
+            href={contacts.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
             title="LinkedIn"
             onClick={(e) => e.stopPropagation()}
           >
-            <FaLinkedin className="text-lg md:text-xl lg:text-2xl
+            <FaLinkedin
+              className="text-lg md:text-xl lg:text-2xl
                                    text-red-700 dark:text-gray-400
                                    hover:scale-[1.10] hover:text-red-500
-                                   transition-all duration-300" />
+                                   transition-all duration-300"
+            />
           </a>
         )}
       </div>

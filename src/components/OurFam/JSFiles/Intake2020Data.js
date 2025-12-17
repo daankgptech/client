@@ -1,94 +1,193 @@
 const Intake2020Data = [
   {
     id: 0,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Mr. Nandan Kumar",
     branch: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "",
+      linkedIn: "",
+      phone: "9113143793"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 1,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290427/Nandan_Kumar_Singh_bgfigs_ga45au.avif",
     name: "Mr. Nandan Singh",
     branch: "CH",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290427/Nandan_Kumar_Singh_bgfigs_ga45au.avif",
+    coe: "",
     hall: "",
-    mail: "nandankumarsingh@kgpian.iitkgp.ac.in",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "nandankumarsingh@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9155472651"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 2,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290428/Neeraj_Gartia_cbr3l1_xvgk8b.avif",
     name: "Mr. Neeraj Gartia",
     branch: "MA",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290428/Neeraj_Gartia_cbr3l1_xvgk8b.avif",
+    coe: "",
     hall: "",
-    mail: "neerajgartia211002@kgpian.iitkgp.ac.in",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "neerajgartia211002@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9019796651"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 3,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290429/Pratik_Choudhury_njqkep.avif",
     name: "Mr. Pratik Choudhury",
     branch: "CH",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290429/Pratik_Choudhury_njqkep.avif",
+    coe: "",
     hall: "",
-    mail: "pratik.choudhury@kgpian.iitkgp.ac.in",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "pratik.choudhury@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9002519979"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: ["CR, IIT Kharagpur (2021-22)"],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 4,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Mr. Priyanshu Kumar",
     branch: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "",
+      linkedIn: "",
+      phone: "8603095754"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 5,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Mr. Shubham Kumar",
     branch: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "",
+      linkedIn: "",
+      phone: "7505193905"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 6,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Mr. Soumya Ranjan",
     branch: "",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "",
+      linkedIn: "",
+      phone: "7847889860"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 7,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Mr. Sumit Patel",
     branch: "MA",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "patelsumit.1652002@kgpian.iitkgp.ac.in",
-    linkedIn: "",
-    graduated:true,
+    contacts: {
+      mail: "patelsumit.1652002@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7000714921"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 8,
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
     name: "Ms. Sweta Kumari",
     branch: "CH",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    coe: "",
     hall: "",
-    mail: "swetakumari@kgpian.iitkgp.ac.in",
-    linkedIn: "",
-    graduated:true,
-  },
+    contacts: {
+      mail: "swetakumari@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "6200424797"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
+  }
 ];
 
 export default Intake2020Data;

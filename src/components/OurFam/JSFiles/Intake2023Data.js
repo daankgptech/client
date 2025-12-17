@@ -1,321 +1,555 @@
 const Intake2023Data = [
   {
-    index: 0,
+    id: 0,
     name: "Mr. Abhay Mishra",
     branch: "EC",
-    mail: "abhaymishra77275@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288493/Abhay_Mishra_lflklg_zo84o1.avif",
-    linkedIn: "",
+    coe: "JNV Lucknow",
     hall: "Azad",
+    contacts: {
+      mail: "abhaymishra77275@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9569077275"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 1,
+    id: 1,
     name: "Mr. Abhinav Kumar Choudhary",
     branch: "AG",
-    mail: "abhinavkumarchoudhary@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288494/Abhinav_Kumar_Chaudhary_ahsqwx_g0ynox.avif",
-    linkedIn: "",
+    coe: "JNV Bengaluru Urban",
     hall: "RP",
+    contacts: {
+      mail: "abhinavkumarchoudhary@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9837964667"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 2,
+    id: 2,
     name: "Ms. Akanksha Kushwaha",
     branch: "IE",
-    mail: "akankshakushwaha0111@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288494/Akanksha_Kushwaha_gvn4ml_acho61.avif",
-    linkedIn: "",
+    coe: "JNV Lucknow",
     hall: "MT",
+    contacts: {
+      mail: "akankshakushwaha0111@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8604307305"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: "CDC intern (Google), Academically 4th (DAAN KGP '23)"
+    }
   },
   {
-    index: 3,
+    id: 3,
     name: "Mr. Amit Dinkar",
     branch: "AE",
-    mail: "amiitd0704@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288495/Amit_Dinkar_fz2z2z_bs7bj4.avif",
-    linkedIn: "https://www.linkedin.com/in/amit-dinkar-454b73288",
+    coe: "JNV Bundi",
     hall: "MS",
+    contacts: {
+      mail: "amiitd0704@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/amit-dinkar-454b73288",
+      phone: "8889803614"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 4,
+    id: 4,
     name: "Mr. Animesh Mondal",
     branch: "IE",
-    mail: "animeshtxt@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288495/Animesh_Mondal_ncvp4c_fxgjyh.avif",
-    linkedIn: "https://www.linkedin.com/in/animesh-mondal-4b702527a/",
+    coe: "JNV Kottayam",
     hall: "MS",
+    contacts: {
+      mail: "animeshtxt@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/animesh-mondal-4b702527a/",
+      phone: "9316227078"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 5,
+    id: 5,
     name: "Mr. Anshuman Acharya",
     branch: "CH",
-    mail: "anshuman2004@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288496/Anshuman_Acharya_rlaqrq_gw9a2l.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "VS",
+    contacts: {
+      mail: "anshuman2004@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8799250920"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 6,
+    id: 6,
     name: "Mr. Anushesh Jumale",
     branch: "IE",
-    mail: "Anushesh@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288496/Anushesh_Jumale_wyjwp1_cfuwj5.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "RP",
+    contacts: {
+      mail: "Anushesh@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8767377840"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 7,
+    id: 7,
     name: "Mr. Arnab Chakraborty",
     branch: "CH",
-    mail: "I_am_arnab@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288497/Arnab_Chakraborty_so1pdv_zvlbll.avif",
-    linkedIn: "https://www.linkedin.com/in/arnab-chakraborty-264a43289",
+    coe: "Dakshana Valley",
     hall: "Nehru",
+    contacts: {
+      mail: "I_am_arnab@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/arnab-chakraborty-264a43289",
+      phone: "9144817012"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 8,
+    id: 8,
     name: "Mr. Arvind Meena",
     branch: "BT",
-    mail: "arvindmeena@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288497/Arvind_Meena_zsll0a_gzpiej.avif",
-    linkedIn: "https://www.linkedin.com/in/arvind-meena-78a258288",
+    coe: "Dakshana Valley",
     hall: "MMM",
+    contacts: {
+      mail: "arvindmeena@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/arvind-meena-78a258288",
+      phone: "7217332482"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 9,
+    id: 9,
     name: "Mr. Ashutosh Ranjan",
     branch: "ME",
-    mail: "ashutoshranjan@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759170074/ashutoshRanjan_e8ddls.avif",
-    linkedIn: "https://www.linkedin.com/in/ashutosh-ranjan-a33a4927a",
+    coe: "Dakshana Valley",
     hall: "RP",
+    contacts: {
+      mail: "ashutoshranjan@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/ashutosh-ranjan-a33a4927a",
+      phone: "8076387069"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: "Academically 1st (DAAN KGP '23)"
+    }
   },
   {
-    index: 10,
+    id: 10,
     name: "Mr. Ashwini Kumar",
     branch: "AG",
-    mail: "ashwinikumar45@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288499/Ashwini_kumar_uggowl_pvbsw5.avif",
-    linkedIn: "https://www.linkedin.com/in/wini045",
+    coe: "JNV Kottayam",
     hall: "RK",
+    contacts: {
+      mail: "ashwinikumar45@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/wini045",
+      phone: "8303589103"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 11,
+    id: 11,
     name: "Mr. Bijaya Kumar Behera",
     branch: "BT",
-    mail: "bijayabehera745@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761073712/BijayBahera_lgxyxx.avif",
-    linkedIn: "https://www.linkedin.com/in/bijaybehera745/",
+    coe: "JNV Bundi",
     hall: "Nehru",
+    contacts: {
+      mail: "bijayabehera745@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/bijaybehera745/",
+      phone: "9668285885"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 12,
+    id: 12,
     name: "Mr. Ganesh Vasuniya",
     branch: "AG",
-    mail: "ganesh98@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288500/Ganesh_Vasuniya_lee4cu_jeukj9.avif",
-    linkedIn: "https://www.linkedin.com/in/ganesh-vasuniya-02aba32b2",
+    coe: "JNV Bundi",
     hall: "JCB",
+    contacts: {
+      mail: "ganesh98@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/ganesh-vasuniya-02aba32b2",
+      phone: "8815442849"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 13,
+    id: 13,
     name: "Ms. Hawa Khatoon",
     branch: "CH",
-    mail: "Hawakhatoon131@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288500/Hawa_Khatoon_hpx4pq_u37b3w.avif",
-    linkedIn: "https://in.linkedin.com/in/hawa-khatoon-362a7a2b6",
+    coe: "JNV Bundi",
     hall: "MT",
+    contacts: {
+      mail: "Hawakhatoon131@kgpian.iitkgp.ac.in",
+      linkedIn: "https://in.linkedin.com/in/hawa-khatoon-362a7a2b6",
+      phone: "9797348606"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 14,
+    id: 14,
     name: "Ms. Jyoti Hembram",
     branch: "IE",
-    mail: "jyotihembram.studyat@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288501/Jyoti_Hembram_jly0hq_gpnrkm.avif",
-    linkedIn: "https://www.linkedin.com/in/jyoti-hembram-341512288",
+    coe: "Dakshana Valley",
     hall: "MT",
+    contacts: {
+      mail: "jyotihembram.studyat@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/jyoti-hembram-341512288",
+      phone: "9142811401"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 15,
+    id: 15,
     name: "Mr. Krishna Singha",
     branch: "CS",
-    mail: "krishnasingha426@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288501/Krishna_Singha_kngavp_xh8qxv.avif",
-    linkedIn: "https://www.linkedin.com/in/krishnasingha/",
+    coe: "JNV Bengaluru Urban",
     hall: "VS",
+    contacts: {
+      mail: "krishnasingha426@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/krishnasingha/",
+      phone: "6296189929"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 16,
+    id: 16,
     name: "Mr. Mohit Kumar",
     branch: "EC",
-    // mail: "mk8750351763@kgpian.iitkgp.ac.in",
-    // mail: "mk1234567890dk@gmail.com",
-    mail: "krmohit8384@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761248076/Mohit_eihjue.avif",
-    linkedIn: "https://www.linkedin.com/in/mohit-kumar-88190b226?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    coe: "Dakshana Valley",
     hall: "LLR",
+    contacts: {
+      mail: "krmohit8384@gmail.com",
+      linkedIn: "https://www.linkedin.com/in/mohit-kumar-88190b226?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      phone: "8384078167"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: ["Jr. Secy, DST (Non-JNV) (2024-25)"],
+      iit: [],
+      extra: ""
+    }
   },
   {
-    index: 17,
+    id: 17,
     name: "Mr. Nishant Meena",
     branch: "EE",
-    mail: "meenanishant36@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288502/Nishant_Meena_bi57k1_qjlnt4.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "ABV",
+    contacts: {
+      mail: "meenanishant36@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7851080429"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 18,
+    id: 18,
     name: "Mr. Om Dabhade",
     branch: "IE",
-    mail: "dabhadeom187@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288503/Om_Dabhade_z0sxjw_b6dacp.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "Azad",
+    contacts: {
+      mail: "dabhadeom187@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8080708804"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: "CDC Intern, Academically 2nd (DAAN KGP '23)"
+    }
   },
   {
-    index: 19,
+    id: 19,
     name: "Mr. Om Shanti",
     branch: "CS",
-    mail: "oms409793@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288528/Om_Shanti_gcsvtk_x95b1l.avif",
-    linkedIn: "http://linkedin.com/in/om-shanti-22885328o",
+    coe: "JNV Kottayam",
     hall: "Azad",
+    contacts: {
+      mail: "oms409793@kgpian.iitkgp.ac.in",
+      linkedIn: "http://linkedin.com/in/om-shanti-22885328o",
+      phone: "9693665351"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 20,
+    id: 20,
     name: "Mr. Prabhat Kumar",
     branch: "MA",
-    mail: "prabhatjha01@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288647/Prabhat_Jha_bot6r5_om76uc.avif",
-    linkedIn: "https://www.linkedin.com/in/prabhat-kumar-134228255",
+    coe: "JNV Rangareddi",
     hall: "ABV",
+    contacts: {
+      mail: "prabhatjha01@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/prabhat-kumar-134228255",
+      phone: "9864637829"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 21,
+    id: 21,
     name: "Mr. Praveen Oraon",
     branch: "ME",
-    mail: "praveenoraon518@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288647/Praveen_Oraon_zqeuwe_metoki.avif",
-    linkedIn: "",
+    coe: "JNV Bengaluru Urban",
     hall: "Patel",
+    contacts: {
+      mail: "praveenoraon518@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7367905043"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 22,
+    id: 22,
     name: "Mr. Phrithiviraj Nunisa",
     branch: "AG",
-    mail: "nunisaphrithviraj@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "LLR",
+    contacts: {
+      mail: "nunisaphrithviraj@gmail.com",
+      linkedIn: "",
+      phone: "9122352246"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 23,
+    id: 23,
     name: "Mr. Raja Mandal",
     branch: "CS",
-    mail: "rajamandal5346@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288648/Raja_Mandal_nmtbza_bjxypv.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "RP",
+    contacts: {
+      mail: "rajamandal5346@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9692268390"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 24,
+    id: 24,
     name: "Mr. Ramesh Kumar Das",
     branch: "EE",
-    mail: "kramesh1845@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288647/Ramesh_Kumar_mpfxxp_ohl7uz.avif",
-    linkedIn: "",
+    coe: "JNV Kottayam",
     hall: "Nehru",
+    contacts: {
+      mail: "kramesh1845@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9508514754"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 25,
+    id: 25,
     name: "Ms. Sangeeta Kumari Mandal",
     branch: "CS",
-    mail: "sangeeta180703@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288648/Sangeeta_Kumari_Mandal_a35dfb_pdvsrh.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "MT",
+    contacts: {
+      mail: "sangeeta180703@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9546441612"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: ["Inter IIT (Basketball)"],
+      extra: ""
+    }
   },
   {
-    index: 26,
+    id: 26,
     name: "Mr. Shani Maurya",
     branch: "IM",
-    mail: "shauryashanisaini@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
-    linkedIn: "https://www.linkedin.com/in/shani8828",
+    coe: "Dakshana Valley",
     hall: "MMM",
+    contacts: {
+      mail: "shauryashanisaini@gmail.com",
+      linkedIn: "https://www.linkedin.com/in/shani8828",
+      phone: "9555439091"
+    },
+    involvements: {
+      soc: ["TechHead Optima 2026, TTM Optima 2025"],
+      hall: ["TechHead MMM 2026"],
+      council: [
+        "Sr. Secy, Placement Committee (2025-26)",
+        "CR, IIT Kharagpur (2024-25)"
+      ],
+      iit: ["Open IIT Participant 2024"],
+      extra: "Web Developer at DAAN KGP"
+    }
   },
   {
-    index: 27,
+    id: 27,
     name: "Mr. Shreyash Dhakate",
     branch: "IM",
-    mail: "shreyashdhakate@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288648/Shreyash_Dhakate_nwu1vx_dvkjlw.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "MMM",
+    contacts: {
+      mail: "shreyashdhakate@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8468882142"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 28,
+    id: 28,
     name: "Mr. Subhajit Mondal",
     branch: "IM",
-    mail: "subhajit2005@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288648/Subhajit_Mondal_odmvbq_gekon5.avif",
-    linkedIn: "",
+    coe: "JNV Kottayam",
     hall: "RP",
+    contacts: {
+      mail: "subhajit2005@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9832714068"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 29,
+    id: 29,
     name: "Mr. Subhajit Sarkar",
     branch: "EC",
-    mail: "subhajit35sarkar@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288648/Subhajit_Sarkar_sjusnh_esnnwx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "MMM",
+    contacts: {
+      mail: "subhajit35sarkar@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7629889208"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 30,
+    id: 30,
     name: "Mr. Sukumar Singh",
     branch: "CS",
-    mail: "sukumarsingh@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288649/Sukumar_qjkqpc_q4ny2m.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "MS",
+    contacts: {
+      mail: "sukumarsingh@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9142278240"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
   },
   {
-    index: 31,
+    id: 31,
     name: "Mr. Sunny",
     branch: "IE",
-    mail: "sunnyscnt458@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288650/Sunny_lzoth5_x3clbm.avif",
-    linkedIn: "https://www.linkedin.com/in/sunny-065a19288",
+    coe: "JNV Bundi",
     hall: "Nehru",
+    contacts: {
+      mail: "sunnyscnt458@gmail.com",
+      linkedIn: "https://www.linkedin.com/in/sunny-065a19288",
+      phone: "9416980008"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: "CDC Intern, Academically 3rd (DAAN KGP '23)"
+    }
   },
   {
-    index: 32,
+    id: 32,
     name: "Mr. Suvadip Bhuiya",
     branch: "CS",
-    mail: "suvadipbhuiya09@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288651/Suvadip_Bhaiya_xhzvsy_ssvutz.avif",
-    linkedIn: "",
+    coe: "JNV Kottayam",
     hall: "Nehru",
+    contacts: {
+      mail: "suvadipbhuiya09@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9907341164"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: "CDC Intern (Honeywell)"
+    }
   },
   {
-    index: 33,
+    id: 33,
     name: "Mr. Swarup Jayaram Dhanavade",
     branch: "MI",
-    mail: "swarupd@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723597/Swarup_Dhanavade_ncjz8k.avif",
-    linkedIn: "https://www.linkedin.com/in/swarup-dhanavade",
+    coe: "Dakshana Valley",
     hall: "Nehru",
+    contacts: {
+      mail: "swarupd@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/swarup-dhanavade",
+      phone: "9423751729"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [
+        "Sr. Secy, DST (JNV) (2025-26)",
+        "Jr. Secy, DST (JNV) (2024-25)"
+      ],
+      iit: [],
+      extra: ""
+    }
   },
   {
-    index: 34,
+    id: 34,
     name: "Mr. Vikash Rathore",
     branch: "CH",
-    mail: "vikashrathore@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748288651/Vikash_Rathore_pint2b_rylewt.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "Patel",
-  },
+    contacts: {
+      mail: "vikashrathore@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "6377244513"
+    },
+    involvements: { soc: [], hall: [], council: [], iit: [], extra: "" }
+  }
 ];
+
 
 export default Intake2023Data;

@@ -3,172 +3,358 @@ const Intake2021Data = [
     id: 0,
     name: "Mr. Abhinaw Anand",
     branch: "MA",
-    mail: "abhinaw12anand@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "Nehru",
-    graduated:false,
+    contacts: {
+      mail: "abhinaw12anand@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "9653408028"
+    },
+    involvements: {
+      soc: [],
+      hall: ["SSM, Nehru (2024-25)"],
+      council: ["CR, IIT Kharagpur (2022-23)"],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 1,
     name: "Mr. Ajay Kr. Dhakar",
     branch: "CS",
-    mail: "ajaydhaker2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "Patel",
-    graduated:false,
+    contacts: {
+      mail: "ajaydhaker2002@gmail.com",
+      linkedIn: "",
+      phone: "9828682573"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 2,
     name: "Mr. Akshay Sawai",
     branch: "MI",
-    mail: "akshaysawai252@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "akshaysawai252@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7796272629"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 3,
     name: "Mr. Ashutosh",
     branch: "MA",
-    mail: "ashutosh.daan@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748012053/Ashutosh_wvgdts.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "RK",
-    graduated:false,
+    contacts: {
+      mail: "ashutosh.daan@gmail.com",
+      linkedIn: "",
+      phone: "9058887078"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: ["VP-Events, DST & Freshman (2024-25)"],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 4,
     name: "Mr. Chhotoo Solanki",
     branch: "ME",
-    mail: "chhotoosolanki11@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "LBS",
-    graduated:false,
+    contacts: {
+      mail: "chhotoosolanki11@gmail.com",
+      linkedIn: "",
+      phone: "6265505813"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 5,
     name: "Ms. Himanshi Gupta",
     branch: "IE",
-    mail: "himanshigupta@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "himanshigupta@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8871587021"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 6,
     name: "Ms. Mahale Harshada Nitin",
     branch: "EC",
-    mail: "harshadamahale2002@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "MT",
-    graduated:false,
+    contacts: {
+      mail: "harshadamahale2002@gmail.com",
+      linkedIn: "",
+      phone: "8208103890"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 7,
     name: "Mr. Mingma Rinzing Lepcha",
     branch: "EC",
-    mail: "mingmarlepcha2000@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "MMM",
-    graduated:false,
+    contacts: {
+      mail: "mingmarlepcha2000@gmail.com",
+      linkedIn: "",
+      phone: "9979154646"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 8,
     name: "Mr. Maheraman Indrasinh Rameshbhai",
     branch: "MA",
-    mail: "indrasinhmahera1110@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "indrasinhmahera1110@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8927155275"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 9,
     name: "Mr. Neeraj Kumar",
     branch: "MA",
-    mail: "meenaneerajkumar148@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "meenaneerajkumar148@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8279847310"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 10,
     name: "Mr. Nitin Rajvanshi",
     branch: "MA",
-    mail: "nkraj7266@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290244/Nitin_Rajvanshi_mbleyw.avif",
-    linkedIn: "https://www.linkedin.com/in/nitinrajvanshi/",
+    coe: "",
     hall: "Patel",
-    graduated:true,
+    contacts: {
+      mail: "nkraj7266@kgpian.iitkgp.ac.in",
+      linkedIn: "https://www.linkedin.com/in/nitinrajvanshi/",
+      phone: "6386061705"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 11,
     name: "Mr. Prajwal Kadbe",
     branch: "MI",
-    mail: "kprajwal358@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "Dakshana Valley",
     hall: "RP",
-    graduated:false,
+    contacts: {
+      mail: "kprajwal358@gmail.com",
+      linkedIn: "",
+      phone: "9834625013"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 12,
     name: "Mr. Saurabh Kumar",
     branch: "MI",
-    mail: "sraj31962@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Saurabh_tez2ke.avif",
-    linkedIn: "https://www.linkedin.com/in/saurabh-kumar-7692b1223?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    coe: "JNV Kottayam",
     hall: "MMM",
-    graduated:false,
+    contacts: {
+      mail: "sraj31962@gmail.com",
+      linkedIn: "https://www.linkedin.com/in/saurabh-kumar-7692b1223",
+      phone: "7979761704"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
   },
   {
     id: 13,
     name: "Mr. Sewan Panchare",
     branch: "MA",
-    mail: "sevanpanchare@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "sevanpanchare@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "7879216479"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 14,
     name: "Mr. Soumyadeep Pradhan",
     branch: "ME",
-    mail: "soumyadeep265@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290245/Soumyadeep_Pradhan_txhhqi.avif",
-    linkedIn: "https://in.linkedin.com/in/soumyadeep-pradhan-ab4412229",
+    coe: "",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "soumyadeep265@gmail.com",
+      linkedIn: "https://in.linkedin.com/in/soumyadeep-pradhan-ab4412229",
+      phone: "6371506030"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 15,
     name: "Mr. Suman Anand",
     branch: "MA",
-    mail: "ksumananand614@kgpian.iitkgp.ac.in",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "",
     hall: "",
-    graduated:true,
+    contacts: {
+      mail: "ksumananand614@kgpian.iitkgp.ac.in",
+      linkedIn: "",
+      phone: "8877524511"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: true
   },
   {
     id: 16,
     name: "Mr. Suraj Kumar",
     branch: "CH",
-    mail: "surajkumarasdf18@gmail.com",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
-    linkedIn: "",
+    coe: "JNV Bundi",
     hall: "LBS",
-    graduated:false,
-  },
-];
-
+    contacts: {
+      mail: "surajkumarasdf18@gmail.com",
+      linkedIn: "",
+      phone: "9693260085"
+    },
+    involvements: {
+      soc: [],
+      hall: [],
+      council: [],
+      iit: [],
+      extra: ""
+    },
+    graduated: false
+  }
+]
 export default Intake2021Data;

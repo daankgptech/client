@@ -47,7 +47,7 @@ export default function FillForms() {
       {/* Content */}
       <div className="relative z-10">
         <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold mb-1">
-          Contribution
+          Awareness
         </h3>
         <p className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight">
           Fill out Forms

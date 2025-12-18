@@ -79,7 +79,7 @@ export default function Tasks() {
 
       {/* Header & Notification Toggle */}
       <div className="relative z-10 w-full flex justify-between items-center mb-4">
-        <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold">Tasks</h3>
+        <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold">Tasks & Notes</h3>
         {permission !== "granted" && (
           <button 
             className="text-[10px] uppercase font-bold text-rose-500 hover:text-rose-600 dark:text-rose-400 underline underline-offset-4 decoration-rose-500/30"
@@ -121,7 +121,7 @@ export default function Tasks() {
       {/* Task List */}
       <ul className="relative z-10 w-full space-y-3 overflow-y-auto max-h-[250px] pr-1 custom-scrollbar">
         {tasks.length === 0 && (
-          <li className="text-sm text-gray-500 dark:text-gray-500 italic text-center py-4">No tasks yet</li>
+          <li className="text-sm text-gray-500 dark:text-gray-500 italic text-center py-4">No tasks/notes yet</li>
         )}
 
         {tasks.map(task => (

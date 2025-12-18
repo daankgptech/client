@@ -12,16 +12,15 @@ import FlashPage from "./pages/FlashPage";
 import Forms from "./pages/Forms";
 import EventComp from "./components/Events/EventsComp";
 import Toolkit from "./pages/Toolkit";
+import Dashboard from "./pages/Dashboard";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-// import DataUpdate from "./components/Forms/DataUpdate";
 import PageUpBtn from "./utils/PageUpBtn";
 import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-// import CakeDesignCompetition from "./components/Forms/CakeDesignCompetition";
 import Feature from "./components/Forms/Feature";
 import TechTeam from "./components/Forms/TechTeam";
 import FamCardDetails from "./components/OurFam/FamCardDetails";
@@ -53,6 +52,7 @@ export default function App() {
       <main className="pt-14 md:pt-20 pb-14 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
           <Route path="/our-fam" element={<OurFam />} />
           <Route path="/our-fam/:year" element={<OurFam />} />

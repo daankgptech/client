@@ -17,14 +17,18 @@ import AcademicallyRich from "../components/Dashboard/AcademicallyRich";
 
 const getIndianGreeting = () => {
   const hour = new Date().getHours();
+  if (hour < 4) return "Good Night!";
   if (hour < 12) return "Good Morning!";
+  if (hour < 13) return "Good Noon!";
   if (hour < 17) return "Good Afternoon!";
-  return "Good Evening!";
+  if (hour < 22) return "Good Evening!";
+  return "Good Night!";
 };
 
 export default function Dashboard() {
+  //will be fetched from backend
   const [user, setUser] = useState({
-    name: "User",
+    name: "Shani Maurya",
     photo: "https://i.pravatar.cc/150",
   });
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,7 +59,7 @@ export default function Dashboard() {
           <div className="space-y-1 lg:col-span-1">
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight whitespace-nowrap">
               {user ? `Hello, ${user.name}` : "Hello"}
-              <span className="text-rose-500">..</span>
+              <span className="text-rose-500"></span>
             </h1>
             <p className="text-rose-400 font-medium tracking-wide uppercase text-[10px]">
               {getIndianGreeting()}
@@ -80,17 +84,28 @@ export default function Dashboard() {
                 <img
                   src={user.photo}
                   alt="profile"
-                  className="relative w-12 h-12 rounded-xl border-2 border-white dark:border-slate-800 object-cover cursor-pointer"
+                  className="relative w-12 h-12 rounded-3xl border-2 border-white dark:border-slate-800 object-cover cursor-pointer"
                 />
               </button>
-
               {/* Dropdown Menu */}
               {menuOpen && (
-                <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-rose-100 dark:border-slate-800 py-2 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
-                  <Link to="/profile" className="w-full text-left px-4 py-3 text-sm hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors font-medium text-slate-700 dark:text-slate-200">
+                <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-rose-100 dark:border-slate-800 py-2 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 flex flex-col">
+                  <Link
+                    to="/profile"
+                    className="w-full text-left px-4 py-3 text-sm hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors font-medium text-slate-700 dark:text-slate-200"
+                  >
                     Profile
                   </Link>
-                  <Link to="signout" className="w-full text-left px-4 py-3 text-sm text-rose-500 hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors font-bold border-t dark:border-slate-800">
+                  <Link
+                    to="/reset-password"
+                    className="w-full text-left px-4 py-3 text-sm hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors font-medium text-slate-700 dark:text-slate-200"
+                  >
+                    Reset Password
+                  </Link>
+                  <Link
+                    to="/signout"
+                    className="w-full text-left px-4 py-3 text-sm text-rose-500 hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors font-bold border-t dark:border-slate-800"
+                  >
                     Sign Out
                   </Link>
                 </div>

@@ -2,13 +2,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CouncilCard from "./CouncilCard";
 import { CouncilData24, CouncilData25, demo } from "./CouncilData";
+import { useNavigate } from "react-router-dom";
+import ProtectedRoute from "../Secure/ProtectedRoute";
+import { button } from "framer-motion/client";
 
 const councilYears = [
   {
     year: 25,
     data: CouncilData25,
     label: "2025-26",
-    fullCouncil: "https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing",
+    fullCouncil:
+      "https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing",
   },
   {
     year: 24,
@@ -22,6 +26,7 @@ const councilYears = [
 const Council = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (currentIndex > 0) {
@@ -75,18 +80,33 @@ const Council = () => {
 
         {/* Spreadsheet Button */}
         <div className="text-center">
-          <a
-            href={currentCouncil.fullCouncil}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block p-2 rounded-lg border shadow-sm shadow-gray-600 text-red-600 dark:text-gray-400 
+          <ProtectedRoute
+            fallback={
+              <button
+                onClick={() => navigate("/signin")}
+                className="inline-block p-2 rounded-lg border shadow-sm shadow-gray-600 text-red-600 dark:text-gray-400 
               bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 
               border-gray-300 dark:border-gray-600 transition-all duration-300 
               hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-700 dark:hover:to-gray-600 
               hover:border-gray-500 dark:hover:border-cyan-400"
+              >
+                View Full Council
+              </button>
+            }
           >
-            View Full Council
-          </a>
+            <a
+              href={currentCouncil.fullCouncil}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-2 rounded-lg border shadow-sm shadow-gray-600 text-red-600 dark:text-gray-400 
+              bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 
+              border-gray-300 dark:border-gray-600 transition-all duration-300 
+              hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-700 dark:hover:to-gray-600 
+              hover:border-gray-500 dark:hover:border-cyan-400"
+            >
+              View Full Council
+            </a>
+          </ProtectedRoute>
         </div>
 
         {/* Navigation Buttons */}
@@ -112,7 +132,9 @@ const Council = () => {
                   ? "bg-gray-400 cursor-not-allowed text-white"
                   : "bg-red-500 dark:bg-red-800 hover:bg-red-600 dark:hover:bg-red-700 text-white"
               }`}
-          >{"->"}</button>
+          >
+            {"->"}
+          </button>
         </div>
       </div>
     </section>

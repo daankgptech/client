@@ -10,10 +10,11 @@ const Forms = () => {
     document.title = "Our Forms | DAAN KGP";
   }, []);
 
-  const now = new Date(); // current time in browser (auto-handles timezone)
+  const now = new Date();
+  const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className="min-h-[80vh] bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-400">
+    <div className="min-h-[80vh] bg-gradient-to-b from-gray-200 to-gray-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-400">
       <Helmet>
         <meta
           name="description"
@@ -21,50 +22,49 @@ const Forms = () => {
         />
       </Helmet>
 
-      <section data-aos="fade-up" className="container">
-        <h1 className="my-8 border-l-8 border-red-300 py-2 pl-2 text-3xl font-bold">
+      <section data-aos="fade-up" className="container py-6">
+        {/* Header */}
+        <h1 className="my-10 pl-4 border-l-8 border-rose-400 text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200">
           Our Forms
         </h1>
-        <div className="flex flex-wrap justify-center items-start gap-4 container">
+
+        {/* Cards */}
+        <div className="flex flex-wrap justify-center items-start gap-6">
           {formsData.map((item, index) => {
-            const deadlineDate = new Date(item.deadline); // deadline with correct IST offset
+            const deadlineDate = new Date(item.deadline);
             const isExceeded = now > deadlineDate;
-            const tshirtForm = formsData[0];
-            const [open, setOpen] = useState(false); // toggle state
+            const isOpen = openIndex === index;
+
+            const formClasses = isExceeded
+              ? "bg-gray-300/70 dark:bg-gray-800 border-gray-400 dark:border-gray-700"
+              : "bg-gradient-to-br from-rose-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border-gray-300 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl hover:shadow-rose-200/50 dark:hover:shadow-red-900/30";
 
             return (
               <div
                 key={index}
-                className={`relative block max-w-xs mx-auto my-4 rounded-lg shadow-md border transition-all duration-300 overflow-hidden
-                  ${
-                    isExceeded
-                      ? "bg-gray-300 dark:bg-gray-700 border-gray-400 dark:border-gray-600 cursor-not-allowed"
-                      : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-red-400"
-                  }
-                `}
+                className={`group relative w-full max-w-xs rounded-2xl overflow-hidden border transition-all duration-500 ${formClasses}`}
               >
-                <Link
-                  to={isExceeded ? "#" : item.to}
-                  className={`block ${isExceeded ? "pointer-events-none" : ""}`}
-                >
-                  {/* Image Preview */}
-                  <div className="w-full h-40 overflow-hidden">
+                <Link to={isExceeded ? "#" : item.to} className={isExceeded ? "pointer-events-none" : null}>
+                  {/* Image */}
+                  <div className="h-40 overflow-hidden">
                     <img
                       src={item.img}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
+                      alt={item.title || "Form Image"}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
 
-                  {/* Text Content */}
-                  <div className="p-4">
-                    <h2 className="text-lg font-semibold text-red-600 dark:text-red-400">
+                  {/* Content */}
+                  <div className="p-4 space-y-2">
+                    <h2 className="text-lg font-semibold text-rose-600 dark:text-rose-400">
                       {item.title}
                     </h2>
-                    <p className="text-gray-700 dark:text-gray-400 mt-1 text-sm">
+
+                    <p className="text-sm text-gray-700 dark:text-gray-500">
                       {item.desc}
                     </p>
-                    <p className="text-gray-800 dark:text-gray-400 mt-4 text-sm font-bold">
+
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-400 pt-2">
                       Deadline:{" "}
                       {deadlineDate.toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -72,26 +72,32 @@ const Forms = () => {
                         year: "numeric",
                       })}
                     </p>
+
                     {isExceeded && (
-                      <p className="text-red-600 mt-2 text-sm font-bold">
-                        Too Late!
+                      <p className="text-sm font-semibold text-red-500">
+                        Submissions closed
                       </p>
                     )}
                   </div>
                 </Link>
-                {
-                  isExceeded && (
-                    <div>
-                  <h2
-                    className="text-lg font-semibold text-center mb-4 cursor-pointer select-none hover:scale-105 transition-all duration-300 hover:text-blue-600"
-                    onClick={() => setOpen((prev) => !prev)} // toggle on click
-                  >Response
-                  </h2>
-                  {open && <ResponsePercentage formData={item} />}
-                </div>
-                  )
-                }
-                
+
+                {/* Response Section */}
+                {isExceeded && (
+                  <div className="border-t border-gray-300 dark:border-gray-700 px-4 py-3">
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      className="w-full text-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:scale-105 transition-transform duration-300"
+                    >
+                      {isOpen ? "Hide Responses" : "View Responses"}
+                    </button>
+
+                    <div
+                      className={`overflow-hidden transition-all duration-500 ${isOpen ? "max-h-[400px] mt-4" : "max-h-0"}`}
+                    >
+                      {isOpen && <ResponsePercentage formData={item} />}
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}

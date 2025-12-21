@@ -1,36 +1,90 @@
 import { Helmet } from "react-helmet";
 
 const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
-  <div className="relative flex flex-col justify-around items-center p-2 md:p-3 lg:p-4 border border-gray-400 dark:border-transparent bg-gradient-to-tr from-gray-300 dark:from-gray-900 dark:to-gray-800 to-gray-100 rounded-2xl gap-1 md:gap-2 hover:drop-shadow-lg transition-all duration-300">
+  <div
+    className="
+      group relative flex flex-col items-center justify-between
+      p-3 md:p-4 lg:p-5 rounded-3xl
+      bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200
+      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+      border border-gray-300/70 dark:border-gray-700
+      transition-all duration-500 ease-out
+      hover:-translate-y-2 hover:shadow-xl
+      hover:shadow-rose-200/50 dark:hover:shadow-red-900/30
+    "
+  >
     <Helmet>
       <link rel="preload" as="image" href={img} />
     </Helmet>
 
-    {position && colour && (
+    {/* Rank Badge */}
+    {position && (
       <div
-        className="absolute top-2 right-2 px-2 py-1 md:px-4 md:py-2 rounded-full text-sm shadow bg-gradient-to-r from-yellow-400 to-orange-500 text-white"
-        style={{ background: colour }}
+        className="
+          absolute top-3 right-3 z-10
+          px-3 py-1 rounded-full text-xs md:text-sm font-semibold
+          text-rose-50
+          bg-gradient-to-r from-rose-500 to-red-600
+          shadow-md shadow-rose-300/50
+          dark:shadow-red-900/40
+          scale-95 group-hover:scale-100
+          transition-transform duration-300
+        "
       >
         {position}
         {position === "1" ? "st" : position === "2" ? "nd" : "rd"}
       </div>
     )}
 
-    <img
-      src={img}
-      alt={name}
-      className="rounded-full w-[180px] md:w-[230px] lg:w-[250px] shadow-lg border border-gray-400 dark:border-gray-600"
-    />
-    <h1 className="text-lg md:text-xl font-semibold md:font-bold text-center dark:text-gray-400">
+    {/* Image */}
+    <div className="relative mt-2 mb-3">
+      <div
+        className="
+          absolute inset-0 rounded-full
+          bg-gradient-to-tr from-rose-400 to-red-500
+          blur-xl opacity-20
+          group-hover:opacity-30 transition-opacity duration-500
+        "
+      />
+      <img
+        src={img}
+        alt={name}
+        className="
+          relative rounded-full
+          w-[170px] md:w-[210px] lg:w-[230px]
+          border border-gray-300 dark:border-gray-600
+          shadow-lg
+          transition-transform duration-500
+          group-hover:scale-[1.03]
+        "
+      />
+    </div>
+
+    {/* Name */}
+    <h1 className="text-lg md:text-xl font-semibold text-center text-gray-800 dark:text-gray-300">
       {name}
     </h1>
-    <p className="text-sm md:text-lg text-black/90 dark:text-gray-500">
+
+    {/* Department */}
+    <p className="text-sm md:text-base text-gray-600 dark:text-gray-500">
       {dept}
     </p>
-    <p className="flex justify-between items-center gap-4 text-sm md:text-lg text-black/70 dark:text-gray-600 text-center">
+
+    {/* Meta */}
+    <div
+      className="
+        mt-2 w-full flex justify-between items-center
+        px-4 py-2 rounded-xl
+        bg-gray-200/60 dark:bg-gray-800/60
+        text-sm md:text-base
+        text-gray-700 dark:text-gray-400
+      "
+    >
       <span>{Year}</span>
-      <span>Score: {cg}</span>
-    </p>
+      <span className="font-medium text-rose-600 dark:text-rose-400">
+        Score: {cg}
+      </span>
+    </div>
   </div>
 );
 

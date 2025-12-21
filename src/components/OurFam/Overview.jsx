@@ -6,6 +6,7 @@ import {
   GenderWise,
 } from "./JSFiles/Overview";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   BarChart,
   LineChart,
@@ -20,11 +21,13 @@ import {
   Cell,
 } from "recharts";
 import { useState, useMemo } from "react";
+import ProtectedRoute from "../Secure/ProtectedRoute";
 const REDS = ["#f43f5e", "#fb7185", "#e11d48", "#be123c"]; // rose/red shades
 
 const Overview = ({ batchDataMap, goToYear }) => {
   const [sortAsc, setSortAsc] = useState(false);
   const [sortHallAsc, setSortHallAsc] = useState(false);
+  const navigate = useNavigate();
 
   // Sorted data
   const sortedData = useMemo(() => {
@@ -298,13 +301,24 @@ const Overview = ({ batchDataMap, goToYear }) => {
         {Object.keys(batchDataMap)
           .sort((a, b) => b - a)
           .map((y) => (
-            <button
-              key={y}
-              onClick={() => goToYear(Number(y))}
-              className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 bg-gray-300 text-gray-800 hover:bg-rose-400 hover:text-white dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
+            <ProtectedRoute
+              fallback={
+                <button
+                  onClick={() => navigate("/signin")}
+                  className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 bg-gray-300 text-gray-800 hover:bg-rose-400 hover:text-white dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
+              >
+                  {batchDataMap[y].label}
+                </button>
+              }
             >
-              {batchDataMap[y].label}
-            </button>
+              <button
+                key={y}
+                onClick={() => goToYear(Number(y))}
+                className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 bg-gray-300 text-gray-800 hover:bg-rose-400 hover:text-white dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
+              >
+                {batchDataMap[y].label}
+              </button>
+            </ProtectedRoute>
           ))}
       </div>
     </section>

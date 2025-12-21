@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 
-const ThemeToggle = () => {
+export default function ThemeToggle() {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
 
   useEffect(() => {
@@ -9,19 +9,15 @@ const ThemeToggle = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
     <button
       onClick={toggleTheme}
       aria-label="Toggle theme"
-      className="p-2 transition-all text-gray-900 dark:text-gray-400"
+      className="p-2 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition"
     >
-      {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
+      {theme === "dark" ? <FiSun size={18} /> : <FiMoon size={18} />}
     </button>
   );
-};
-
-export default ThemeToggle;
+}

@@ -1,31 +1,51 @@
-import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import { Helmet } from "react-helmet";
-import ResponsiveMenu from "./ResponsiveMenu";
-import { NavbarLinks } from "./JSFiles/NavbarData";
+import { useState, useRef, useEffect } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { useAuth } from "../../utils/Secure/useAuth";
 import ThemeToggle from "../../utils/ThemeToggle";
+import { Helmet } from "react-helmet";
 
-const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+export default function Navbar() {
+  const { isAuthenticated: authed, loading } = useAuth();
+  const location = useLocation();
+
+  const [open, setOpen] = useState(false);
+  const [personalOpen, setPersonalOpen] = useState(false);
+
+  const personalRef = useRef(null);
+
+  const routes = [
+    { name: "Our Fam", link: "/our-fam" },
+    { name: "Toolkit", link: "/toolkit" },
+    { name: "Forms", link: "/forms" },
+    { name: "Our Bright Minds", link: "/our-bright-minds" },
+  ];
+
+  // Close Personal dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (personalRef.current && !personalRef.current.contains(e.target)) {
+        setPersonalOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close dropdown when navigating to dashboard/profile/signout
+  useEffect(() => {
+    setPersonalOpen(false);
+    setOpen(false);
+  }, [location.pathname]);
+
+  if (loading) return null;
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gray-50 dark:bg-gray-900 backdrop-blur-sm text-gray-900 dark:text-gray-200 shadow-md dark:shadow-lg">
-      {/* Top Marquee */}
-      <div className="bg-gradient-to-r from-red-600 to-red-400 dark:from-gray-900 dark:to-gray-600 text-gray-200 dark:text-gray-300 sm:block hidden">
-        <div className="container py-[2px]">
-          <div className="animate-marquee whitespace-nowrap">
-            <p className="text-sm inline-block px-4">
-              Golden hours, cool breeze, and the quiet hum of KGP in focus mode ~ autumn settles in with purpose.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
-      <div className="container sm:py-0 flex justify-between items-center m-3">
-        {/* Logo */}
-        <Link
+    <nav className="sticky top-0 z-50 backdrop-blur-md bg-gray-100/80 dark:bg-gray-950/80 border-b border-rose-100 dark:border-gray-800 transition-colors duration-300">
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <Link
           to="/"
           onClick={() => window.scrollTo(0, 0)}
           className="flex items-center gap-2"
@@ -45,71 +65,127 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Desktop Nav Links */}
-        <ul className="hidden md:flex items-center gap-6">
-          {NavbarLinks.map(({ name, link }) => (
-            <li key={name}>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-6">
+            {routes.map((r) => (
               <NavLink
-                to={link}
+                key={r.name}
+                to={r.link}
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-red-500 font-semibold border-b-2 border-red-500 dark:text-gray-200 dark:border-gray-200"
-                    : "text-gray-700 hover:text-red-300 dark:text-gray-400 dark:hover:text-gray-300 transition-all"
+                  `text-sm transition-colors duration-300 ${
+                    isActive
+                      ? "text-rose-600 dark:text-rose-400"
+                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
+                  }`
                 }
               >
-                {name}
+                {r.name}
               </NavLink>
-            </li>
-          ))}
-        </ul>
+            ))}
 
-        {/* Right Side */}
-        <div className="flex items-center gap-4">
-          {/* External Links (Desktop only) */}
-          <div className="hidden md:flex gap-4">
-            <a
-              href="https://www.dakshana.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Dakshana Foundation"
-              className="bg-gradient-to-tr p-1 from-gray-100 to-gray-200 dark:from-gray-950 dark:to-gray-800 border transition-all duration-300 text-gray-900 dark:text-gray-400 rounded-lg text-center hover:bg-gradient-to-tr hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-900 dark:hover:to-gray-700 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-500 shadow-sm shadow-gray-600 dark:shadow-gray-500"
-            >
-              <img
-                src="https://res.cloudinary.com/dcwwptwzt/image/upload/v1754520270/DakshanaLogo_ouuxyh.avif"
-                alt="Dakshana Foundation Logo"
-                width="35"
-                height="35"
-              />
-            </a>
-            <a
-              href="https://erp.iitkgp.ac.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="ERP IIT Kharagpur"
-              className="bg-gradient-to-tr p-2 text-sm from-gray-100 to-gray-200 dark:from-gray-950 dark:to-gray-800 border transition-all duration-300 text-gray-900 dark:text-gray-400 rounded-lg text-center hover:bg-gradient-to-tr hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-900 dark:hover:to-gray-700 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-500 shadow-sm  shadow-gray-600 dark:shadow-gray-500"
-            >
-              ERP
-            </a>
+            {/* Personal Dropdown */}
+            {authed && (
+              <div ref={personalRef} className="relative">
+                <button
+                  onClick={() => setPersonalOpen((p) => !p)}
+                  className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-colors duration-300"
+                >
+                  Personal
+                  <FiChevronDown size={14} className={`transition-transform duration-300 ${personalOpen ? "rotate-180" : "rotate-0"}`} />
+                </button>
+
+                <div
+                  className={`absolute right-0 mt-3 w-40 rounded-2xl bg-gray-100 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-lg overflow-hidden transition-all duration-300 transform origin-top-right ${
+                    personalOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <NavItem to="/dashboard" label="Dashboard" />
+                  <NavItem to="/profile" label="Profile" />
+                  <NavItem to="/signout" label="Sign Out" />
+                </div>
+              </div>
+            )}
+
+            {/* Auth Buttons */}
+            {!authed && (
+              <>
+                <Link
+                  to="/signin"
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-colors duration-300"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className="px-4 py-1.5 rounded-full text-sm bg-rose-600 text-white hover:bg-rose-700 transition-colors duration-300"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </div>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setShowMenu((prev) => !prev)}
-            className="md:hidden p-1 text-gray-900 dark:text-gray-400"
-            aria-label="Toggle menu"
-          >
-            {showMenu ? <HiMenuAlt1 size={30} /> : <HiMenuAlt3 size={30} />}
-          </button>
+          {/* Mobile */}
+          <div className="flex md:hidden items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setOpen((o) => !o)}
+              className="p-2 rounded-xl bg-rose-500/10 text-rose-500 transition-colors duration-300"
+            >
+              {open ? <FiX /> : <FiMenu />}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <ResponsiveMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+      <div
+        className={`md:hidden px-4 pb-4 bg-gray-100 dark:bg-gray-950 border-t border-rose-100 dark:border-gray-800 transition-all duration-300 overflow-hidden ${
+          open ? "max-h-screen opacity-100 py-4" : "max-h-0 opacity-0 py-0"
+        }`}
+      >
+        <div className="flex flex-col gap-3">
+          {routes.map((r) => (
+            <NavLink
+              key={r.name}
+              to={r.link}
+              onClick={() => setOpen(false)}
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-colors duration-300"
+            >
+              {r.name}
+            </NavLink>
+          ))}
+
+          {authed && (
+            <>
+              <span className="mt-2 text-xs uppercase tracking-wide text-gray-500">Personal</span>
+              <NavLink to="/dashboard" onClick={() => setOpen(false)}>Dashboard</NavLink>
+              <NavLink to="/profile" onClick={() => setOpen(false)}>Profile</NavLink>
+              <NavLink to="/signout" onClick={() => setOpen(false)}>Sign Out</NavLink>
+            </>
+          )}
+
+          {!authed && (
+            <div className="flex gap-3 mt-3">
+              <Link to="/signin" className="text-sm text-gray-600">Sign In</Link>
+              <Link to="/signup" className="px-4 py-1.5 rounded-full text-sm bg-rose-600 text-white">Sign Up</Link>
+            </div>
+          )}
+        </div>
+      </div>
     </nav>
   );
-};
+}
 
-export default Navbar;
+/* helpers */
+const NavItem = ({ to, label }) => (
+  <Link
+    to={to}
+    className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300"
+  >
+    {label}
+  </Link>
+);

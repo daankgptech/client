@@ -1,11 +1,16 @@
 import { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { NavbarLinks } from "../Navbar/JSFiles/NavbarData";
+import {
+  publicLinks,
+  authLinks,
+  guestLinks,
+} from "../Navbar/JSFiles/NavbarData";
 import { HiX } from "react-icons/hi"; // Close icon
+import { useAuth } from "../../utils/Secure/useAuth";
 
 const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
   const menuRef = useRef(null);
-
+  const { isAuthenticated, loading } = useAuth();
   // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -29,7 +34,8 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
         onClick={() => setShowMenu(false)}
         className="absolute top-4 right-4 p-2 pb-4 rounded-full text-gray-900 dark:text-gray-400 transition-all duration-300"
         aria-label="Close menu"
-      ><HiX size={24} />
+      >
+        <HiX size={24} />
       </button>
 
       {/* Header Links (Dakshana + ERP) */}
@@ -61,22 +67,37 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
 
       {/* Navigation */}
       <nav className="mt-12">
-        <ul className="space-y-4 text-xl">
-          {NavbarLinks.map(({ name, link }) => (
+        <ul className="hidden md:flex items-center gap-6">
+          {publicLinks.map(({ name, link }) => (
             <li key={name}>
               <NavLink
                 to={link}
-                onClick={() => setShowMenu(false)}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-red-500 dark:text-gray-200 font-semibold border-b-2 border-red-500 dark:border-gray-200 rounded-lg"
-                    : "text-gray-700 dark:text-gray-400 hover:text-red-300 dark:hover:text-gray-300 transition-all"
+                    ? "text-red-500 font-semibold border-b-2 border-red-500 dark:text-gray-200 dark:border-gray-200"
+                    : "text-gray-700 hover:text-red-300 dark:text-gray-400 dark:hover:text-gray-300 transition-all"
                 }
               >
                 {name}
               </NavLink>
             </li>
           ))}
+
+          {!loading &&
+            (isAuthenticated ? authLinks : guestLinks).map(({ name, link }) => (
+              <li key={name}>
+                <NavLink
+                  to={link}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-red-500 font-semibold border-b-2 border-red-500 dark:text-gray-200 dark:border-gray-200"
+                      : "text-gray-700 hover:text-red-300 dark:text-gray-400 dark:hover:text-gray-300 transition-all"
+                  }
+                >
+                  {name}
+                </NavLink>
+              </li>
+            ))}
         </ul>
       </nav>
     </div>

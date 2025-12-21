@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home";
 import OurFam from "./pages/OurFam";
@@ -24,6 +25,12 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Feature from "./components/Forms/Feature";
 import TechTeam from "./components/Forms/TechTeam";
 import FamCardDetails from "./components/OurFam/FamCardDetails";
+import SignOut from "./components/Secure/SignOut";
+import ProtectedRoute from "./components/Secure/ProtectedRoute";
+import ForgotPassword from "./components/Secure/ForgotPassword";
+import SignIn from "./components/Secure/SignIn";
+import SignUp from "./components/Secure/SignUp";
+import Profile from "./components/Secure/Profile";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -48,25 +55,73 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <Toaster position="top-right" />
       <Navbar />
-      <main className="pt-14 md:pt-20 pb-14 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
+      <main className="pb-8 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          {scrollRoutes.map((path) => (
+            <Route key={path} path={path} element={<Home scrollTo={path} />} />
+          ))}
           <Route path="/our-fam" element={<OurFam />} />
-          <Route path="/our-fam/:year" element={<OurFam />} />
-          <Route path="/our-fam/:year/:id" element={<FamCardDetails />} />
+          <Route
+            path="/our-fam/:year"
+            element={
+              <ProtectedRoute redirect>
+                {" "}
+                <OurFam />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/our-fam/:year/:id"
+            element={
+              <ProtectedRoute redirect><FamCardDetails />
+              </ProtectedRoute>
+            }
+          />
           {/* <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} /> */}
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
-          <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
+          <Route
+            path="toolkit"
+            element={<Navigate to="/toolkit/erp" replace />}
+          />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
-          <Route path="forms" element={<Forms />} />
-          <Route path="forms/tech-team" element={<TechTeam />} />
-          <Route path="forms/feature" element={<Feature />} />
+          <Route path="forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
+          <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
           <Route path="*" element={<NoPage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute redirect>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute redirect>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/signout"
+            element={
+              <ProtectedRoute>
+                <SignOut />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
 

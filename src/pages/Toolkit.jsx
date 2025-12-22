@@ -22,7 +22,7 @@ const Toolkit = () => {
   };
 
   return (
-    <div className=" bg-gradient-to-b from-gray-200 to-gray-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-400 py-8">
+    <div className=" bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 py-8">
       <Helmet>
         <title>Toolkit | DAAN KGP</title>
         <meta

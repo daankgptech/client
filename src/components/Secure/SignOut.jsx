@@ -8,7 +8,7 @@ export default function SignOut() {
 
   const signOut = async () => {
     await api.post("/signout");
-    toast.success("Logged out");
+    toast.success("Signed out");
     navigate("/");
     window.location.reload();
   };

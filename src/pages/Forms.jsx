@@ -14,7 +14,7 @@ const Forms = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className="min-h-[80vh] bg-gradient-to-b from-gray-200 to-gray-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-400">
+    <div className="min-h-[80vh] bg-gray-50 dark:bg-gray-900  text-gray-900 dark:text-gray-400">
       <Helmet>
         <meta
           name="description"

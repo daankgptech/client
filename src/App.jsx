@@ -23,7 +23,6 @@ import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Feature from "./components/Forms/Feature";
-import TechTeam from "./components/Forms/TechTeam";
 import FamCardDetails from "./components/OurFam/FamCardDetails";
 import SignOut from "./components/Secure/SignOut";
 import ProtectedRoute from "./components/Secure/ProtectedRoute";
@@ -55,9 +54,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Toaster position="top-right" />
+      <Toaster position="top-left" />
       <Navbar />
-      <main className="pb-8 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
+      <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}

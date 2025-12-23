@@ -185,17 +185,17 @@ export default function Profile() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container">
         <Card title="Academics" icon={FiBookOpen}>
           <Field
-            editing={editing}
+            // editing={editing}
             label="Semester"
-            value={semStatus}
+            value={form.sem || semStatus}
             type="select"
-            options={["4-year", "5-year"]}
+            options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
             onChange={(v) => handleChange("sem", v)}
           />
           <Field
             editing={editing}
             label="Branch"
-            value={user.branch}
+            value={form.branch}
             type="select"
             options={[
               "AE",
@@ -248,7 +248,7 @@ export default function Profile() {
           <Field
             editing={editing}
             label="Hall"
-            value={user.hall}
+            value={form.hall}
             type="select"
             options={[
               "ABV",
@@ -273,7 +273,7 @@ export default function Profile() {
           <Field
             editing={editing}
             label="COE"
-            value={user.coe}
+            value={form.coe}
             type="select"
             options={[
               "Dakshana Valley",

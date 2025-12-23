@@ -61,9 +61,9 @@ export default function Navbar() {
               // height={100}
             />
           </Link>
-
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
+            <ThemeToggle />
             {routes.map((r) => (
               <NavLink
                 key={r.name}
@@ -79,7 +79,6 @@ export default function Navbar() {
                 {r.name}
               </NavLink>
             ))}
-
             {/* Personal Dropdown */}
             {authed && (
               <div ref={personalRef} className="relative">
@@ -113,27 +112,25 @@ export default function Navbar() {
                 </div>
               </div>
             )}
-
             {/* Auth Buttons */}
             {!authed && (
               <div className="flex justify-center items-center gap-6">
                 <Link
                   to="/signin"
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-colors duration-300"
+                  className="px-4 py-1.5 rounded-3xl text-sm bg-rose-200 dark:bg-rose-800 text-rose-600 dark:text-rose-300 border border-rose-300 dark:border-rose-700 hover:scale-105 transition-all duration-300"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-4 py-1.5 rounded-3xl text-sm bg-rose-600 text-white hover:bg-rose-700 transition-colors duration-300"
+                  className="px-4 py-1.5 rounded-3xl text-sm bg-sky-200 dark:bg-sky-800 text-sky-600 dark:text-sky-300 border border-sky-300 dark:border-sky-700 hover:scale-105 transition-all duration-300"
                 >
                   Sign Up
                 </Link>
               </div>
             )}
-
             {/* Theme Toggle */}
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
           </div>
 
           {/* Mobile */}
@@ -166,9 +163,11 @@ export default function Navbar() {
               {r.name}
             </NavLink>
           ))}
-
           {authed && (
-            <div ref={personalRef} className="relative flex flex-col justify-start items-center">
+            <div
+              ref={personalRef}
+              className="relative flex flex-col justify-start items-center"
+            >
               <button
                 onClick={() => setPersonalOpen((p) => !p)}
                 className={`text-sm transition-colors duration-300 flex gap-1 items-center ${
@@ -204,13 +203,13 @@ export default function Navbar() {
             <div className="flex flex-col gap-3 justify-start items-center">
               <Link
                 to="/signin"
-                className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-all duration-300"
+                className="px-4 py-1.5 rounded-3xl text-sm bg-rose-200 dark:bg-rose-800 text-rose-600 dark:text-rose-300 border border-rose-300 dark:border-rose-700 hover:scale-105 transition-all duration-300"
               >
                 Sign In
               </Link>
               <Link
                 to="/signup"
-                className="px-4 py-1.5 rounded-3xl text-sm bg-rose-200 text-rose-600 border border-rose-300"
+                className="px-4 py-1.5 rounded-3xl text-sm bg-sky-200 dark:bg-sky-800 text-sky-600 dark:text-sky-300 border border-sky-300 dark:border-sky-700 hover:scale-105 transition-all duration-300"
               >
                 Sign Up
               </Link>

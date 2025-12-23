@@ -37,7 +37,7 @@ export default function WhatIsToday() {
 
   {/* Header */}
   <div className="relative z-10 w-full mb-4">
-    <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400/80 font-bold">What is Today</h3>
+    <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold">What is Today</h3>
   </div>
 
   {/* Events List */}
@@ -55,7 +55,7 @@ export default function WhatIsToday() {
             transition-transform duration-300 
           "
         >
-          <p className="text-sm  text-gray-700 dark:text-rose-400/90">
+          <p className="text-sm  text-gray-700 dark:text-gray-300">
             {event.name}
           </p>
           {event.description && (

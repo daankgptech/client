@@ -51,7 +51,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500">
+    <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 container">
       {/* HEADER */}
       <header className="max-w-[1600px] mx-auto mb-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-6">
@@ -115,7 +115,7 @@ export default function Dashboard() {
       </header>
 
       {/* GRID */}
-      <main className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+      <main className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6 con">
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-3 xl:row-span-2">
           <Tasks />
         </div>

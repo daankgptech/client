@@ -31,58 +31,39 @@ export default function SignIn() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4
-  bg-gradient-to-b from-gray-200 via-gray-100 to-gray-100
-  dark:from-gray-800 dark:via-gray-900 dark:to-gray-800
-"
-    >
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       {loading && <LoaderOverlay />}
-
       <div
-        className="
-      relative w-full max-w-md
-      rounded-3xl p-8
-      bg-white/90 dark:bg-gray-900/90
-      backdrop-blur
-      border border-gray-200/80 dark:border-gray-800
-      shadow-2xl shadow-rose-200/30 dark:shadow-red-900/30
-      transition-all duration-500
-    "
+        className=" group relative overflow-hidden
+          rounded-3xl
+          bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
+          dark:from-slate-900 dark:via-slate-800 dark:to-gray-900
+          border border-rose-50 dark:border-slate-700/50
+          p-8
+          shadow-xl 
+          transition-all duration-500
+          hover:border-rose-400/40 dark:hover:border-rose-500/50
+          hover:shadow-lg hover:shadow-rose-900/20 "
       >
         {/* subtle ambient edge */}
-        <div
-          className="
-        pointer-events-none absolute inset-0 rounded-3xl
-        bg-gradient-to-br from-rose-300/5 via-transparent to-red-400/5
-      "
-        />
+        <div className=" pointer-events-none absolute inset-0 bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
         {/* Header */}
         <div className="relative z-10 mb-6">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-gray-100">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 relative z-10 text-center">
             Sign in
           </h2>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 relative z-10">
             Welcome back. Enter your details below.
           </p>
         </div>
 
         {/* Inputs */}
-        <div className="relative z-10 space-y-4">
+        <div className="grid grid-cols-1 gap-4 relative z-10">
           <input
             placeholder="Email"
             onChange={(e) => setForm({ ...form, username: e.target.value })}
-            className="
-          w-full rounded-2xl px-4 py-2.5
-          bg-gray-50 dark:bg-gray-800
-          border border-gray-300 dark:border-gray-700
-          text-gray-900 dark:text-gray-100
-          placeholder-gray-400
-          focus:outline-none
-          focus:ring-2 focus:ring-rose-500/50
-          transition
-        "
+            className=" w-full rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
           />
 
           {/* Password */}
@@ -91,16 +72,7 @@ export default function SignIn() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="
-            w-full rounded-2xl px-4 py-2.5 pr-12
-            bg-gray-50 dark:bg-gray-800
-            border border-gray-300 dark:border-gray-700
-            text-gray-900 dark:text-gray-100
-            placeholder-gray-400
-            focus:outline-none
-            focus:ring-2 focus:ring-rose-500/50
-            transition
-          "
+              className="  w-full rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
             />
             <button
               type="button"
@@ -118,22 +90,13 @@ export default function SignIn() {
         </div>
 
         {/* CTA */}
+        <div className="w-full flex justify-center items-center mt-4">
         <button
           onClick={submit}
-          className="
-        relative z-10 mt-6 w-full
-        rounded-2xl py-2.5
-        bg-gradient-to-r from-rose-600 to-red-600
-        text-white font-medium
-        shadow-md shadow-rose-300/40 dark:shadow-red-900/40
-        transition-all duration-300
-        hover:scale-[1.02]
-        hover:shadow-lg
-        active:scale-[0.97]
-      "
+          className=" align-middle text-center rounded-3xl bg-rose-600 py-3 px-6 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition-all duration-300 hover:scale-95 relative z-10"
         >
           Sign In
-        </button>
+        </button></div>
 
         {/* Forgot */}
         {showForgot && (
@@ -146,17 +109,6 @@ export default function SignIn() {
             </Link>
           </div>
         )}
-
-        {/* Footer */}
-        <p className="relative z-10 mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
-          Don’t have an account?{" "}
-          <Link
-            to="/signup"
-            className="font-medium text-rose-600 dark:text-rose-400 hover:text-rose-500 transition"
-          >
-            Create one
-          </Link>
-        </p>
       </div>
     </div>
   );

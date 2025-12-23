@@ -162,9 +162,8 @@ export default function SignUp() {
     "w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950 px-4 mt-10">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       {loading && <LoaderOverlay />}
-
       <div
         className="
           group relative overflow-hidden
@@ -288,7 +287,7 @@ export default function SignUp() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4 z-10 my-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 z-10 my-4">
           <input
             className={input}
             placeholder="Email"
@@ -319,7 +318,7 @@ export default function SignUp() {
         <PasswordHelper password={form.password} />
 
         {/* ACADEMICS */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10 mt-4">
           <input
             className={input}
             placeholder="CGPA (optional)"
@@ -410,14 +409,14 @@ export default function SignUp() {
             onChange={(e) => setForm({ ...form, a2: e.target.value })}
           />
         </div>
-
+<div className="flex w-full justify-center items-center">
         <button
           onClick={submit}
-          className="w-full rounded-xl bg-rose-600 py-3 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition relative z-10"
+          className="align-middle text-center rounded-3xl bg-rose-600 py-3 px-6 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition-all duration-300 hover:scale-95 relative z-10"
         >
           Sign Up
         </button>
-
+</div>
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 relative z-10">
           Already have an account?{" "}
           <Link

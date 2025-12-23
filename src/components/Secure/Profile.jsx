@@ -185,7 +185,7 @@ export default function Profile() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container">
         <Card title="Academics" icon={FiBookOpen}>
           <Field
-            // editing={editing}
+            editing={editing}
             label="Semester"
             value={form.sem || semStatus}
             type="select"

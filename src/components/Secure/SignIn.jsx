@@ -72,6 +72,11 @@ export default function SignIn() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  submit();
+                }
+              }}
               className="  w-full rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
             />
             <button
@@ -91,12 +96,13 @@ export default function SignIn() {
 
         {/* CTA */}
         <div className="w-full flex justify-center items-center mt-4">
-        <button
-          onClick={submit}
-          className=" align-middle text-center rounded-3xl bg-rose-600 py-3 px-6 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition-all duration-300 hover:scale-95 relative z-10"
-        >
-          Sign In
-        </button></div>
+          <button
+            onClick={submit}
+            className=" align-middle text-center rounded-3xl bg-rose-600 py-3 px-6 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition-all duration-300 hover:scale-95 relative z-10"
+          >
+            Sign In
+          </button>
+        </div>
 
         {/* Forgot */}
         {showForgot && (

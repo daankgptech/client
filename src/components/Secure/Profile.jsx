@@ -15,7 +15,6 @@ import {
 } from "react-icons/fi";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Link } from "react-router-dom";
-import SignOut from "./SignOut";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -186,15 +185,42 @@ export default function Profile() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container">
         <Card title="Academics" icon={FiBookOpen}>
           <Field
-            // editing={editing}
+            editing={editing}
             label="Semester"
             value={semStatus}
+            type="select"
+            options={["4-year", "5-year"]}
             onChange={(v) => handleChange("sem", v)}
           />
           <Field
-            // editing={editing}
+            editing={editing}
             label="Branch"
             value={user.branch}
+            type="select"
+            options={[
+              "AE",
+              "AG",
+              "AI",
+              "BT",
+              "CE",
+              "CH",
+              "CI",
+              "CS",
+              "CY",
+              "EC",
+              "EE",
+              "EX",
+              "HS",
+              "IE",
+              "IM",
+              "MA",
+              "ME",
+              "MF",
+              "MI",
+              "NA",
+              "MT",
+              "GG",
+            ]}
             onChange={(v) => handleChange("branch", v)}
           />
           <Field
@@ -210,29 +236,62 @@ export default function Profile() {
             onChange={(v) => handleChange("sgpa", v)}
           />
           <Field
-            // editing={editing}
+            editing={editing}
             label="Course"
             value={form.course}
+            type="select"
+            options={["4-year", "5-year"]}
             onChange={(v) => handleChange("course", v)}
           />
         </Card>
         <Card title="More Info" icon={FiInfo}>
           <Field
-            // editing={editing}
+            editing={editing}
             label="Hall"
             value={user.hall}
+            type="select"
+            options={[
+              "ABV",
+              "Azad",
+              "HJB",
+              "JCB",
+              "LLR",
+              "LBS",
+              "MS",
+              "MMM",
+              "MT",
+              "Nehru",
+              "Patel",
+              "RK",
+              "RP",
+              "SN/IG",
+              "SNVH",
+              "VS",
+            ]}
             onChange={(v) => handleChange("hall", v)}
           />
           <Field
             editing={editing}
             label="COE"
             value={user.coe}
+            type="select"
+            options={[
+              "Dakshana Valley",
+              "JNV Bengaluru Rural",
+              "JNV Bengaluru Urban",
+              "JNV Bundi",
+              "JNV Kottayam",
+              "JNV Lucknow",
+              "JNV Rangareddi",
+            ]}
             onChange={(v) => handleChange("coe", v)}
           />
           <Field
-            // editing={editing}
+            editing={editing}
             label="Graduating Status"
             value={graduatingStatus}
+            type="select"
+            options={["Graduated", "Currently Enrolled"]}
             onChange={(v) => handleChange("graduated", v)}
           />
           <Field
@@ -436,7 +495,14 @@ const Card = ({ title, icon: Icon, children }) => (
   </div>
 );
 
-const Field = ({ label, value, editing, onChange }) => (
+const Field = ({
+  label,
+  value,
+  editing,
+  onChange,
+  type = "text",
+  options = [],
+}) => (
   <div className="flex justify-between items-center gap-4 text-sm group">
     <span className="text-gray-500 flex items-center gap-2">
       <FiEdit3 className="opacity-40 group-hover:opacity-80 transition" />
@@ -444,19 +510,39 @@ const Field = ({ label, value, editing, onChange }) => (
     </span>
 
     {editing ? (
-      <input
-        value={value || ""}
-        onChange={(e) => onChange(e.target.value)}
-        className="
-          max-w-[60%] text-right
-          bg-transparent
-          border-b border-rose-400
-          focus:outline-none
-          text-gray-900 dark:text-gray-100
-        "
-      />
+      type === "select" ? (
+        <select
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
+          className="
+            max-w-[60%] text-right
+            bg-transparent border-b border-rose-400
+            focus:outline-none text-gray-900 dark:text-gray-100
+            cursor-pointer
+          "
+        >
+          <option value="" className="dark:bg-gray-900">
+            Select...
+          </option>
+          {options.map((opt) => (
+            <option key={opt} value={opt} className="dark:bg-gray-900">
+              {opt}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
+          className="
+            max-w-[60%] text-right
+            bg-transparent border-b border-rose-400
+            focus:outline-none text-gray-900 dark:text-gray-100
+          "
+        />
+      )
     ) : (
-      <span className="truncate max-w-[60%] text-gray-800 dark:text-gray-200">
+      <span className="truncate max-w-[60%] text-gray-800 dark:text-gray-200 font-medium">
         {value || "—"}
       </span>
     )}

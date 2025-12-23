@@ -30,6 +30,7 @@ import ForgotPassword from "./components/Secure/ForgotPassword";
 import SignIn from "./components/Secure/SignIn";
 import SignUp from "./components/Secure/SignUp";
 import Profile from "./components/Secure/Profile";
+import ScrollToTop from "./utils/ScrollToTop";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -54,40 +55,20 @@ export default function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Toaster position="top-left" />
       <Navbar />
       <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
         <Routes>
           <Route index element={<Home />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {scrollRoutes.map((path) => (
-            <Route key={path} path={path} element={<Home scrollTo={path} />} />
-          ))}
+          {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
           <Route path="/our-fam" element={<OurFam />} />
-          <Route
-            path="/our-fam/:year"
-            element={
-              <ProtectedRoute redirect>
-                {" "}
-                <OurFam />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/our-fam/:year/:id"
-            element={
-              <ProtectedRoute redirect><FamCardDetails />
-              </ProtectedRoute>
-            }
-          />
-          {/* <Route path="our-fam" element={<Navigate to="/our-fam/25" replace />} /> */}
+          <Route path="/our-fam/:year" element={ <ProtectedRoute redirect> <OurFam /> </ProtectedRoute> }/>
+          <Route path="/our-fam/:year/:id" element={ <ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute> } />
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
-          <Route
-            path="toolkit"
-            element={<Navigate to="/toolkit/erp" replace />}
-          />
+          <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="our-bright-minds" element={<OurBrightMinds />} />
           <Route path="forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
           <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
@@ -95,35 +76,12 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute redirect>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute redirect>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/signout"
-            element={
-              <ProtectedRoute>
-                <SignOut />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
+          <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
+          {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
+          <Route path="/signout" element={<ProtectedRoute> <SignOut /> </ProtectedRoute> } />
         </Routes>
       </main>
-
       <PageUpBtn />
       <Analytics />
       <SpeedInsights />

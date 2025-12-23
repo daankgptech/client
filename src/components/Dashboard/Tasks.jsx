@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { FaCalendarAlt, FaSave } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaSave } from "react-icons/fa";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState(() => {
@@ -12,73 +12,22 @@ export default function Tasks() {
   });
 
   const [text, setText] = useState("");
-  const [remindTime, setRemindTime] = useState("");
-  // Safely check for Notification API
-  const [permission, setPermission] = useState(
-    typeof window !== "undefined" && "Notification" in window ? Notification.permission : "default"
-  );
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  // Helper to schedule notification
-  const scheduleReminder = (task) => {
-    if (!task.remindAt || task.completed) return;
-
-    const delay = new Date(task.remindAt).getTime() - Date.now();
-    if (delay <= 0) return;
-
-    const timer = setTimeout(() => {
-      if (typeof window !== "undefined" && Notification.permission === "granted") {
-        new Notification("Task Reminder", {
-          body: task.text,
-          icon: "/favicon.ico" // Optional: add your icon path
-        });
-      }
-    }, delay);
-
-    return () => clearTimeout(timer);
-  };
-
-  useEffect(() => {
-    // Re-schedule reminders on reload
-    const timers = tasks.map(task => scheduleReminder(task));
-    return () => timers.forEach(clear => clear && clear());
-    // eslint-disable-next-line
-  }, []);
-
-  const requestPermission = async () => {
-    if (typeof window !== "undefined" && "Notification" in window) {
-      const result = await Notification.requestPermission();
-      setPermission(result);
-    }
-  };
-
-  const addTask = async () => {
+  const addTask = () => {
     if (!text.trim()) return;
-
-    // If time is set but permission isn't granted, ask first
-    if (remindTime && permission !== "granted") {
-      await requestPermission();
-    }
-
-    const remindAt = remindTime ? new Date(remindTime).getTime() : null;
 
     const newTask = {
       id: Date.now(),
       text: text.trim(),
       completed: false,
-      remindAt,
     };
 
     setTasks((prev) => [...prev, newTask]);
     setText("");
-    setRemindTime("");
-
-    if (remindAt) {
-      scheduleReminder(newTask);
-    }
   };
 
   const toggleTask = (id) => {
@@ -92,7 +41,6 @@ export default function Tasks() {
   const deleteTask = (id) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
-
   return (
     <div className="group relative rounded-3xl bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-rose-50 dark:border-slate-700/50 px-3 py-6 md:p-6 transition-all duration-300 hover:border-gray-500/40 dark:hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-900/20 w-full h-full flex flex-col items-start overflow-hidden">
       {/* BACKGROUND LAYER: Hover Effect Only */}
@@ -103,41 +51,24 @@ export default function Tasks() {
         <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold">
           Tasks & Notes
         </h3>
-        {permission !== "granted" && (
-          <button
-            onClick={requestPermission}
-            className="text-[10px] uppercase font-bold text-rose-500 hover:text-rose-600 underline"
-          >
-            Enable Alerts
-          </button>
-        )}
       </div>
 
       {/* Input Section */}
-      <div className="relative z-10 w-full flex justify-between items-center gap-2 mb-6 overflow-hidden">
+      <div className="relative z-10 w-full flex justify-between items-center gap-2 mb-6">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addTask()}
           placeholder="Add a task"
-          className="flex-1 bg-gray-400/40 dark:bg-slate-950/40 border border-white/20 dark:border-slate-800 rounded-2xl px-4 py-2 text-sm focus:ring-2 focus:ring-rose-400/50 outline-none text-gray-800 dark:text-white transition-all duration-300"
+          className="flex-1 bg-gray-400/40 dark:bg-slate-950/40 border border-white/20 dark:border-slate-800 rounded-2xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-rose-400/50 outline-none text-gray-800 dark:text-white transition-all duration-300 placeholder:text-gray-500 dark:placeholder:text-gray-400"
         />
-
-        <div className="relative px-1 py-[2px] md:p-3  flex items-center justify-center bg-gray-400/30 dark:bg-slate-950/40 border border-white/20 dark:border-slate-800 rounded-2xl hover:bg-gray-400/50 transition-all duration-300">
-          <FaCalendarAlt className="text-gray-700 dark:text-gray-300 text-sm pointer-events-none" />
-          <input
-            type="datetime-local"
-            value={remindTime}
-            onChange={(e) => setRemindTime(e.target.value)}
-            className="absolute inset-0 opacity-0 cursor-pointer [color-scheme:dark]"
-          />
-        </div>
 
         <button
           onClick={addTask}
-          className="bg-rose-500 hover:bg-rose-600 text-white rounded-2xl px-4 py-2.5 text-sm font-medium transition-all duration-300 active:scale-95"
+          aria-label="Save Task"
+          className="bg-rose-500 hover:bg-rose-600 text-white rounded-2xl px-5 py-2.5 text-sm font-medium transition-all duration-300 active:scale-95 shadow-lg shadow-rose-500/20 flex items-center justify-center"
         >
-          <FaSave />
+          <FaSave className="text-base" />
         </button>
       </div>
 

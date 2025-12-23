@@ -20,6 +20,11 @@ export default function Navbar() {
     { name: "Forms", link: "/forms" },
     { name: "Our Bright Minds", link: "/our-bright-minds" },
   ];
+  const authRoutes = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Profile", link: "/profile" },
+    { name: "Sign Out", link: "/signout" },
+  ];
 
   // Close Personal dropdown on click outside
   useEffect(() => {
@@ -72,7 +77,7 @@ export default function Navbar() {
                   `text-sm transition-colors duration-300 ${
                     isActive
                       ? "text-rose-600 dark:text-rose-400"
-                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
+                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
                   }`
                 }
               >
@@ -87,7 +92,7 @@ export default function Navbar() {
                   className={`text-sm transition-colors duration-300 flex gap-1 items-center ${
                     personalOpen
                       ? "text-rose-600 dark:text-rose-400"
-                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
+                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
                   }`}
                 >
                   Personal
@@ -106,9 +111,21 @@ export default function Navbar() {
                       : "scale-95 opacity-0 pointer-events-none"
                   }`}
                 >
-                  <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Dashboard </Link>
-                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Profile </Link>
-                  <Link to="/signout" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Sign Out </Link>
+                  {authRoutes.map((r) => (
+                    <NavLink
+                      key={r.name}
+                      to={r.link}
+                      className={({ isActive }) =>
+                        `block px-4 py-2 text-sm transition-all duration-300 hover:dark:text-gray-300${
+                          isActive
+                            ? "text-rose-600 dark:text-rose-400"
+                            : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
+                        }`
+                      }
+                    >
+                      {r.name}
+                    </NavLink>
+                  ))}
                 </div>
               </div>
             )}
@@ -158,7 +175,7 @@ export default function Navbar() {
               key={r.name}
               to={r.link}
               onClick={() => setOpen(false)}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition-all duration-300"
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300 transition-all duration-300"
             >
               {r.name}
             </NavLink>

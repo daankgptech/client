@@ -12,7 +12,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [personalOpen, setPersonalOpen] = useState(false);
 
-  const personalRef = useRef(null);
+  const personalDesktopRef = useRef(null);
+  const personalMobileRef = useRef(null);
 
   const routes = [
     { name: "Our Fam", link: "/our-fam" },
@@ -27,17 +28,40 @@ export default function Navbar() {
   ];
 
   // Close Personal dropdown on click outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (personalRef.current && !personalRef.current.contains(e.target)) {
-        setPersonalOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (e) => {
+  //     if (personalRef.current && !personalRef.current.contains(e.target)) {
+  //       setPersonalOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
 
   // Close dropdown when navigating to dashboard/profile/signout
+  useEffect(() => {
+    const handler = (e) => {
+      if (
+        personalDesktopRef.current &&
+        personalDesktopRef.current.contains(e.target)
+      ) {
+        return;
+      }
+
+      if (
+        personalMobileRef.current &&
+        personalMobileRef.current.contains(e.target)
+      ) {
+        return;
+      }
+
+      setPersonalOpen(false);
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   useEffect(() => {
     setPersonalOpen(false);
     setOpen(false);
@@ -86,14 +110,10 @@ export default function Navbar() {
             ))}
             {/* Personal Dropdown */}
             {authed && (
-              <div ref={personalRef} className="relative">
+              <div ref={personalDesktopRef} className="relative">
                 <button
                   onClick={() => setPersonalOpen((p) => !p)}
-                  className={`text-sm transition-colors duration-300 flex gap-1 items-center ${
-                    personalOpen
-                      ? "text-rose-600 dark:text-rose-400"
-                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                  }`}
+                  className="text-sm transition-colors duration-300 flex gap-1 items-center text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
                 >
                   Personal
                   <FiChevronDown
@@ -115,8 +135,9 @@ export default function Navbar() {
                     <NavLink
                       key={r.name}
                       to={r.link}
+                      onClick={() => setPersonalOpen(false)}
                       className={({ isActive }) =>
-                        `block px-4 py-2 text-sm transition-all duration-300 hover:dark:text-gray-300${
+                        `block px-4 py-2 text-sm transition-all duration-300 ${
                           isActive
                             ? "text-rose-600 dark:text-rose-400"
                             : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
@@ -182,7 +203,7 @@ export default function Navbar() {
           ))}
           {authed && (
             <div
-              ref={personalRef}
+              ref={personalMobileRef}
               className="relative flex flex-col justify-start items-center"
             >
               <button
@@ -209,9 +230,30 @@ export default function Navbar() {
                     : "scale-95 opacity-0 pointer-events-none"
                 }`}
               >
-                <NavItem to="/dashboard" label="Dashboard" />
-                <NavItem to="/profile" label="Profile" />
-                <NavItem to="/signout" label="Sign Out" />
+                <NavItem
+                  to="/dashboard"
+                  label="Dashboard"
+                  onClick={() => {
+                    setPersonalOpen(false);
+                    setOpen(false);
+                  }}
+                />
+                <NavItem
+                  to="/profile"
+                  label="Profile"
+                  onClick={() => {
+                    setPersonalOpen(false);
+                    setOpen(false);
+                  }}
+                />
+                <NavItem
+                  to="/signout"
+                  label="Sign Out"
+                  onClick={() => {
+                    setPersonalOpen(false);
+                    setOpen(false);
+                  }}
+                />
               </div>
             </div>
           )}
@@ -238,10 +280,10 @@ export default function Navbar() {
   );
 }
 
-/* helpers */
-const NavItem = ({ to, label }) => (
+const NavItem = ({ to, label, onClick }) => (
   <Link
     to={to}
+    onClick={onClick}
     className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300"
   >
     {label}

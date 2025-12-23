@@ -106,9 +106,9 @@ export default function Navbar() {
                       : "scale-95 opacity-0 pointer-events-none"
                   }`}
                 >
-                  <NavItem to="/dashboard" label="Dashboard" />
-                  <NavItem to="/profile" label="Profile" />
-                  <NavItem to="/signout" label="Sign Out" />
+                  <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Dashboard </Link>
+                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Profile </Link>
+                  <Link to="/signout" className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300">Sign Out </Link>
                 </div>
               </div>
             )}

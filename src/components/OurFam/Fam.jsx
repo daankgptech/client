@@ -6,6 +6,7 @@ import DeptPolarChart from "./PolarChart";
 import Overview from "./Overview"; // import your overview component
 import { api } from "../../utils/Secure/api";
 import batchDataMap from "./JSFiles/BatchDataMap";
+import LoaderOverlay from "../../utils/LoaderOverlay";
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
@@ -73,7 +74,7 @@ const Fam = () => {
     ? filteredItems.length
     : defaultCount;
   if (!activeYear) {
-    return <Overview batchDataMap={batchDataMap} goToYear={goToYear} />;
+    return <Overview batchDataMap={batchDataMap} goToYear={goToYear} className="container"/>;
   }
   return (
     <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
@@ -83,12 +84,16 @@ const Fam = () => {
       </div>
 
       {/* Charts */}
-      {!loading && filteredItems.length > 0 && (
+      {/* {!loading && filteredItems.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 my-14">
           <DeptPieChart data={filteredItems} deptKey="branch" />
           <DeptPolarChart data={filteredItems} deptKey="hall" />
         </div>
-      )}
+      )} */}
+      <div className="grid grid-cols-1 md:grid-cols-2 my-14">
+          <DeptPieChart data={filteredItems} deptKey="branch" />
+          <DeptPolarChart data={filteredItems} deptKey="hall" />
+        </div>
       {/* Filters */}
       <div className="flex gap-2 items-center justify-center flex-wrap mb-4 container">
         {searchFields.map(({ key, placeholder }) => (
@@ -110,7 +115,7 @@ const Fam = () => {
       <h3 className="mb-6 italic text-center">
         Total : {totalMembers} Members
       </h3>
-      {loading && <p className="text-center italic my-6">Loading members…</p>}
+      {loading && <LoaderOverlay/>}
       {/* Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 container">
         {filteredItems.map((item) => (

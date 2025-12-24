@@ -70,7 +70,7 @@ export default function Navbar() {
   if (loading) return null;
 
   return (
-    <nav className="sticky max-h-14 top-0 z-50 backdrop-blur-md bg-white dark:bg-gray-950 border-b border-rose-100 dark:border-gray-800 transition-colors duration-300">
+    <nav className="container sticky max-h-14 top-0 z-50 backdrop-blur-md bg-white dark:bg-gray-950 border-b border-rose-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 my-0">
         <div className="flex items-center justify-between my-0">
           {/* Logo */}

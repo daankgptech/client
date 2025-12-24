@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import BrightMindsCard from "./BrightMindsCard";
 import { api } from "../../utils/Secure/api";
+import LoaderOverlay from "../../utils/LoaderOverlay";
 
 const TopPerformers = () => {
   const [data, setData] = useState({});
   const [activeYear, setActiveYear] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get("/bright-minds")
+    api
+      .get("/bright-minds")
       .then((res) => {
         setData(res.data);
         const years = Object.keys(res.data).sort((a, b) => b - a);
         setActiveYear(years[0]);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) return <LoaderOverlay />;
   if (!activeYear) return null;
 
   const yearsDescending = Object.keys(data).sort((a, b) => b - a);
-
   const topPerformers = yearsDescending.map((year) => ({
     year,
     ...data[year][0],

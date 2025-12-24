@@ -32,7 +32,7 @@ const BrightMindsCard = ({ imgLink, name, dept, Year, cg, position, colour }) =>
         "
       >
         {position}
-        {position === "1" ? "st" : position === "2" ? "nd" : "rd"}
+        {/* {position === 1 ? "st" : position === "2" ? "nd" : "rd"} */}
       </div>
     )}
 

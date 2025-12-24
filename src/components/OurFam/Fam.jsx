@@ -4,7 +4,7 @@ import FamCard from "./FamCard";
 import DeptPieChart from "./PieChart";
 import DeptPolarChart from "./PolarChart";
 import Overview from "./Overview"; // import your overview component
-
+import { api } from "../../utils/Secure/api";
 import batchDataMap from "./JSFiles/BatchDataMap";
 
 const searchFields = [
@@ -15,31 +15,48 @@ const searchFields = [
 
 const Fam = () => {
   const navigate = useNavigate();
-  const { year } = useParams(); // URL year
+  const { year } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [activeYear, setActiveYear] = useState(
     year ? 2000 + Number(year) : null
   );
 
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [filters, setFilters] = useState(
+    searchFields.reduce((acc, { key }) => {
+      acc[key] = searchParams.get(key) || "";
+      return acc;
+    }, {})
+  );
   useEffect(() => {
     if (year) setActiveYear(2000 + Number(year));
     else setActiveYear(null);
   }, [year]);
-
-  const [filters, setFilters] = useState(
-    searchFields.reduce(
-      (acc, { key }) => ({ ...acc, [key]: searchParams.get(key) || "" }),
-      {}
-    )
-  );
-
   useEffect(() => {
     const params = Object.fromEntries(
-      Object.entries(filters).filter(([_, value]) => value)
+      Object.entries(filters).filter(([_, v]) => v)
     );
     setSearchParams(params, { replace: true });
   }, [filters, setSearchParams]);
+  useEffect(() => {
+    if (!activeYear) return;
+
+    setMembers([]);
+    setLoading(true);
+
+    const params = Object.fromEntries(
+      Object.entries({ year: activeYear, ...filters }).filter(([_, v]) => v)
+    );
+
+    api
+      .get("/members", { params })
+      .then((res) => setMembers(res.data))
+      .catch(() => setMembers([]))
+      .finally(() => setLoading(false));
+  }, [activeYear, filters]);
 
   const handleChange = (key) => (e) =>
     setFilters((prev) => ({ ...prev, [key]: e.target.value }));
@@ -47,32 +64,17 @@ const Fam = () => {
   const goToYear = (y) => navigate(`/our-fam/${y.toString().slice(-2)}`);
   const backToOverview = () => navigate("/our-fam");
 
-  // **OVERVIEW PAGE**
-  if (!activeYear) {
-    return <Overview batchDataMap={batchDataMap} goToYear={goToYear} />;
-  }
+  const batchMeta = activeYear ? batchDataMap[activeYear] : null;
+  const defaultCount = batchMeta?.defaultCount ?? 0;
+  const yearLabel = batchMeta?.year ?? "";
+  const filteredItems = members;
 
-  // **YEAR PAGE**
-  if (!batchDataMap[activeYear]) {
-    return <p className="text-center mt-10">Invalid year selected.</p>;
-  }
-
-  const {
-    data: currentData,
-    defaultCount,
-    year: yearLabel,
-  } = batchDataMap[activeYear];
-  const filteredItems = currentData.filter((item) =>
-    searchFields.every(
-      ({ key }) =>
-        !filters[key] ||
-        item[key].toLowerCase().includes(filters[key].toLowerCase())
-    )
-  );
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
     : defaultCount;
-
+  if (!activeYear) {
+    return <Overview batchDataMap={batchDataMap} goToYear={goToYear} />;
+  }
   return (
     <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
       {/* Header */}
@@ -81,11 +83,12 @@ const Fam = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 my-14">
-        <DeptPieChart data={filteredItems} deptKey="branch" />
-        <DeptPolarChart data={filteredItems} deptKey="hall" />
-      </div>
-
+      {!loading && filteredItems.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 my-14">
+          <DeptPieChart data={filteredItems} deptKey="branch" />
+          <DeptPolarChart data={filteredItems} deptKey="hall" />
+        </div>
+      )}
       {/* Filters */}
       <div className="flex gap-2 items-center justify-center flex-wrap mb-4 container">
         {searchFields.map(({ key, placeholder }) => (
@@ -107,14 +110,13 @@ const Fam = () => {
       <h3 className="mb-6 italic text-center">
         Total : {totalMembers} Members
       </h3>
-
+      {loading && <p className="text-center italic my-6">Loading members…</p>}
       {/* Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 container">
-        {filteredItems.map((item, index) => (
-          <FamCard key={item.id ?? index} id={item.id ?? index} {...item} />
+        {filteredItems.map((item) => (
+          <FamCard key={item._id} _id={item._id} {...item} />
         ))}
       </div>
-
       {/* Year Buttons */}
       <h2 className="text-xl font-bold text-center mt-10 mb-4">Other Years</h2>
       <div className="flex flex-wrap justify-center gap-3 mb-10">

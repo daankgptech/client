@@ -4,30 +4,29 @@ import { MdAddCall } from "react-icons/md";
 import { motion } from "framer-motion";
 
 const FamCard = ({
-  id,
-  img,
+  _id,
+  imgLink,
   name,
   branch,
   hall,
-  mail,
-  linkedIn,
-  graduated,
   contacts,
+  graduated,
 }) => {
   const navigate = useNavigate();
   const { year } = useParams();
-
+  const primaryContact = contacts?.[0];
   return (
     <motion.div
-      onClick={() => navigate(`/our-fam/${year}/${id}`)}
+      onClick={() => navigate(`/our-fam/${year}/${_id}`)}
       whileHover={{ scale: 1.01 }}
-      className="relative flex flex-col justify-around items-center p-2 md:p-3 lg:p-4
-                 border border-gray-400 dark:border-gray-900
-                 bg-gradient-to-tr from-gray-100 dark:from-gray-700
-                 to-gray-200 dark:to-gray-800
-                 rounded-2xl gap-1 md:gap-2 shadow-sm
-                 hover:shadow-red-200 dark:hover:shadow-gray-500
-                 transition-all duration-300 group cursor-pointer"
+      className="relative flex flex-col justify-around items-center p-2 md:p-3 lg:p-4 border
+                 border-gray-300 dark:border-gray-700
+                 bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+                 rounded-3xl gap-1 md:gap-2 shadow-sm
+                 transition-all duration-300 ease-out
+      hover:translate-y-2
+      hover:shadow-xl hover:shadow-rose-200/50
+      dark:hover:shadow-red-900/30 group cursor-pointer"
     >
       {/* Graduation Indicator */}
       <div
@@ -44,10 +43,10 @@ const FamCard = ({
       {/* Profile Image */}
       <img
         title={`${name}'s Image`}
-        src={img}
+        src={imgLink}
         alt={name}
         loading="lazy"
-        className="rounded-lg border border-gray-400 dark:border-gray-600"
+        className="rounded-3xl border border-gray-400 dark:border-gray-600 aspect-square object-cover"
       />
 
       {/* Name */}
@@ -72,9 +71,9 @@ const FamCard = ({
 
       {/* Social Icons */}
       <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full border-t border-gray-300 dark:border-gray-600 pt-2 md:pt-3">
-        {contacts?.phone && (
+        {primaryContact?.phone && (
           <a
-            href={`tel:${contacts.phone}`}
+            href={`tel:${primaryContact.phone}`}
             title="Call"
             onClick={(e) => e.stopPropagation()}
           >
@@ -86,9 +85,9 @@ const FamCard = ({
             />
           </a>
         )}
-        {contacts?.mail && (
+        {primaryContact?.email && (
           <a
-            href={`mailto:${contacts.mail}`}
+            href={`mailto:${primaryContact.email}`}
             title="E-Mail"
             onClick={(e) => e.stopPropagation()}
           >
@@ -100,9 +99,9 @@ const FamCard = ({
             />
           </a>
         )}
-        {contacts?.linkedIn && (
+        {primaryContact?.linkedIn && (
           <a
-            href={contacts.linkedIn}
+            href={primaryContact.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
             title="LinkedIn"

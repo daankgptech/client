@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BrightMindsCard from "./BrightMindsCard";
-import topThreeData from "./TopPerformersData";
-
-const yearLabels = {
-  2024: "'24",
-  2023: "'23",
-  2022: "'22",
-  2021: "'21",
-};
-
-// Descending order of years
-const yearsDescending = Object.keys(yearLabels).sort((a, b) => b - a);
+import { api } from "../../utils/Secure/api";
 
 const TopPerformers = () => {
-  const [activeYear, setActiveYear] = useState(yearsDescending[0]);
+  const [data, setData] = useState({});
+  const [activeYear, setActiveYear] = useState(null);
 
-  // Get top performer of each year for the "TopOne" section
+  useEffect(() => {
+    api.get("/bright-minds")
+      .then((res) => {
+        setData(res.data);
+        const years = Object.keys(res.data).sort((a, b) => b - a);
+        setActiveYear(years[0]);
+      })
+      .catch(console.error);
+  }, []);
+
+  if (!activeYear) return null;
+
+  const yearsDescending = Object.keys(data).sort((a, b) => b - a);
+
   const topPerformers = yearsDescending.map((year) => ({
     year,
-    ...topThreeData[year][0],
+    ...data[year][0],
   }));
 
   return (
@@ -27,35 +31,36 @@ const TopPerformers = () => {
       <h1 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 dark:text-gray-300">
         Top Performers from Each Batch
       </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {topPerformers.map((item) => (
-          <div key={item.year}>
-            <BrightMindsCard {...item} />
-          </div>
+          <BrightMindsCard key={item.id} {...item} />
         ))}
       </div>
 
-      {/* Batch-wise Performers Tabs */}
+      {/* Batch-wise Tabs */}
       <h1 className="text-lg md:text-xl lg:text-2xl font-semibold mt-10 dark:text-gray-300">
         Batch-wise Performers
       </h1>
+
       <div className="flex justify-center gap-4 mt-6 flex-wrap">
         {yearsDescending.map((year) => (
           <button
             key={year}
             onClick={() => setActiveYear(year)}
-            className={`px-4 py-2 rounded-md font-medium transition-all duration-300  ${
+            className={`px-4 py-2 rounded-md font-medium ${
               activeYear === year
-                ? "bg-red-400 dark:bg-red-800 text-white "
-                : "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-red-300 dark:hover:bg-red-900 hover:text-white"
+                ? "bg-red-400 text-white"
+                : "bg-gray-200 dark:bg-gray-800"
             }`}
           >
-            {yearLabels[year]}
+            '{year.slice(-2)}
           </button>
         ))}
       </div>
-      <div className="flex justify-center items-center flex-wrap gap-4 md:gap-6 lg:gap-8 mt-6">
-        {topThreeData[activeYear]?.map((item) => (
+
+      <div className="flex justify-center flex-wrap gap-4 mt-6">
+        {data[activeYear]?.map((item) => (
           <BrightMindsCard key={item.id} {...item} />
         ))}
       </div>

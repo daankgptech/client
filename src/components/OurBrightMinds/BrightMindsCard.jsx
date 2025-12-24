@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 
-const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
+const BrightMindsCard = ({ imgLink, name, dept, Year, cg, position, colour }) => (
   <div
     className="
       group relative flex flex-col items-center justify-between
@@ -14,7 +14,7 @@ const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
     "
   >
     <Helmet>
-      <link rel="preload" as="image" href={img} />
+      <link rel="preload" as="image" href={imgLink} />
     </Helmet>
 
     {/* Rank Badge */}
@@ -47,7 +47,7 @@ const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
         "
       />
       <img
-        src={img}
+        src={imgLink}
         alt={name}
         className="
           relative rounded-full
@@ -55,7 +55,7 @@ const BrightMindsCard = ({ img, name, dept, Year, cg, position, colour }) => (
           border border-gray-300 dark:border-gray-600
           shadow-lg
           transition-transform duration-500
-          group-hover:scale-[1.03]
+          group-hover:scale-[1.03] object-cover aspect-square
         "
       />
     </div>

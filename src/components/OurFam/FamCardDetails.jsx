@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaEnvelope, FaLinkedin, FaArrowLeft } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaArrowLeft, FaGithub } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
@@ -30,7 +30,10 @@ const FamCardDetails = () => {
     return <p className="text-center mt-10">Member not found.</p>;
   }
 
-  const primaryContact = person.contacts?.[0];
+  const primaryContact =
+    Array.isArray(person.contacts) && person.contacts.length > 0
+      ? person.contacts[0]
+      : null;
 
   return (
     <div className="min-h-screen w-full px-4 py-6 bg-gray-50 dark:bg-gray-950">
@@ -59,8 +62,11 @@ const FamCardDetails = () => {
               className="flex justify-center"
             >
               <img
-                src={person.imgLink}
+                src={person.imgLink || "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"}
                 alt={person.name}
+                onError={(e) => {
+                  e.currentTarget.src = "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif";
+                }}
                 className="w-48 h-48 md:w-56 md:h-56 rounded-3xl object-cover border border-gray-300 dark:border-gray-700"
               />
             </motion.div>

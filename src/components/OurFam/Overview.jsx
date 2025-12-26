@@ -73,33 +73,37 @@ const Overview = ({ batchDataMap, goToYear }) => {
       </motion.h1>
 
       {/* Gender Pie */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container mx-auto mb-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6"
+          className="bg-gray-200 dark:bg-gray-800 rounded-3xl p-6 flex flex-col items-center"
         >
           <h2 className="text-xl font-semibold mb-4 text-center">
             Gender Distribution
           </h2>
-          <ResponsiveContainer width={200} height={200}>
-            <PieChart>
-              <Pie
-                data={data.GenderWise}
-                dataKey="count"
-                nameKey="gender"
-                outerRadius={100}
-              >
-                {data.GenderWise.map((_, i) => (
-                  <Cell key={i} fill={REDS[i % REDS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+
+          <div className="flex justify-center items-center">
+            <ResponsiveContainer width={200} height={200}>
+              <PieChart>
+                <Pie
+                  data={data.GenderWise}
+                  dataKey="count"
+                  nameKey="gender"
+                  outerRadius={100}
+                  cx="50%"
+                  cy="50%"
+                >
+                  {data.GenderWise.map((_, i) => (
+                    <Cell key={i} fill={REDS[i % REDS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </motion.div>
 
-        {/* Batch Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,39 +122,45 @@ const Overview = ({ batchDataMap, goToYear }) => {
           </ResponsiveContainer>
         </motion.div>
       </div>
-
-      {/* COE Line */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6 mb-10 container"
-      >
-        <h2 className="text-xl font-semibold mb-4 text-center container">
-          COE Wise Distribution
-        </h2>
-        <ResponsiveContainer width="100%" height={340}>
-          <LineChart data={data.COEWise}>
-            <XAxis
-              dataKey="coe"
-              angle={-45}
-              textAnchor="end"
-              tick={{ fill: "#6b7280", fontSize: 12 }}
-              height={80}
-              interval={0}
-            />
-            <YAxis tick={{ fill: "#6b7280" }} />
-            <Tooltip cursor={{ stroke: "#fb7185", strokeWidth: 1 }} />
-            <Line
-              type="natural"
-              dataKey="count"
-              stroke="#fb7185"
-              strokeWidth={3}
-              dot={{ r: 3, fill: "#f43f5e" }}
-              activeDot={{ r: 6 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </motion.div>
+      <div className="grid grid-cols-1 container mx-auto mb-10">
+        {/* COE Line */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-2 md:p-4 lg:p-6 w-full max-w-6xl mx-auto"
+        >
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            COE Wise Distribution
+          </h2>
+          <div className="w-full overflow-x-hidden">
+            <ResponsiveContainer width="100%" height={340}>
+              <LineChart data={data.COEWise}>
+                <XAxis
+                  dataKey="coe"
+                  angle={-30}
+                  textAnchor="end"
+                  height={80}
+                  interval="preserveStartEnd"
+                  tick={{ fill: "#6b7280", fontSize: 12 }}
+                  tickFormatter={(v) =>
+                    v.length > 10 ? v.slice(0, 10) + "…" : v
+                  }
+                />
+                <YAxis tick={{ fill: "#6b7280" }} />
+                <Tooltip cursor={{ stroke: "#fb7185", strokeWidth: 1 }} />
+                <Line
+                  type="natural"
+                  dataKey="count"
+                  stroke="#fb7185"
+                  strokeWidth={3}
+                  dot={{ r: 3, fill: "#f43f5e" }}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Branch & Hall Tables */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container">
@@ -264,31 +274,41 @@ const Overview = ({ batchDataMap, goToYear }) => {
       </div>
 
       {/* Year Selector */}
-      <h2 className="text-xl font-bold text-center mb-4">Select a Year</h2>
-      <div className="flex flex-wrap justify-center gap-3">
-        {Object.keys(batchDataMap)
-          .sort((a, b) => b - a)
-          .map((y) => (
-            <ProtectedRoute
-              key={y}
-              fallback={
-                <button
-                  onClick={() => navigate("/signin")}
-                  className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 bg-gray-300 text-gray-800 hover:bg-rose-400 hover:text-white dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
-                >
-                  {batchDataMap[y].label}
-                </button>
-              }
+      <ProtectedRoute
+        fallback={
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-6">
+              Please sign in to view batch details
+            </p>
+            <button
+              onClick={() => navigate("/signin")}
+              className="text-sm rounded-full py-2 px-4 border border-red-200 dark:border-red-900 bg-red-100 dark:bg-red-900/20 text-red-600 dark:bg-red-400 hover:scale-105 transition-all duration-300"
             >
+              Sign in
+            </button>
+          </div>
+        }
+      >
+        <h2 className="text-xl font-bold text-center mt-6 mb-4">
+          Select a Year
+        </h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {Object.keys(batchDataMap)
+            .sort((a, b) => b - a)
+            .map((y) => (
               <button
+                key={y}
                 onClick={() => goToYear(Number(y))}
-                className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 bg-gray-300 text-gray-800 hover:bg-rose-400 hover:text-white dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
+                className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200
+            bg-gray-300 text-gray-800
+            hover:bg-rose-400 hover:text-white
+            dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
               >
                 {batchDataMap[y].label}
               </button>
-            </ProtectedRoute>
-          ))}
-      </div>
+            ))}
+        </div>
+      </ProtectedRoute>
     </section>
   );
 };

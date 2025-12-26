@@ -4,7 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function MeetFamilyCard() {
   const navigate = useNavigate();
-
+  const imgArray = [
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290429/Pratik_Choudhury_njqkep.avif",
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747740285/Ashish_kumar_Meena_z9nbod.avif",
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
+    "https://res.cloudinary.com/dubu8yxkm/image/upload/v1754513796/Anurag_Sharma_cpmrbh.avif",
+  ].reverse();
   return (
     <div
       onClick={() => navigate("/our-fam")}
@@ -54,23 +61,26 @@ export default function MeetFamilyCard() {
         </p>
       </div>
 
-      {/* Decorative Overlapping Avatars (Static Design) */}
+      {/* Decorative Overlapping Avatars */}
       <div className="relative z-10 flex items-center -space-x-3 mt-2">
-        {[1, 2, 3, 4].map((i) => (
+        {imgArray.slice(0, 4).map((src, i) => (
           <div
             key={i}
             className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-gray-300 dark:bg-slate-700 overflow-hidden shadow-sm"
           >
             <img
-              src={`https://i.pravatar.cc/100?img=${i + 10}`}
+              src={src}
               alt="member"
               className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
             />
           </div>
         ))}
-        <div className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-rose-500 flex items-center justify-center text-[10px] text-white font-bold shadow-sm">
-          +
-        </div>
+
+        {imgArray.length > 4 && (
+          <div className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-rose-500 flex items-center justify-center text-[10px] text-white font-bold shadow-sm">
+            +{imgArray.length - 4}
+          </div>
+        )}
       </div>
 
       {/* Bottom Text */}

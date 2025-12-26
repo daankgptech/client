@@ -89,33 +89,72 @@ export default function ForgotPassword() {
     "w-full py-2.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-medium shadow-md shadow-rose-300/40 hover:scale-105 active:scale-95 transition-all duration-300 flex justify-center items-center gap-2";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950 px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       {loading && <BlurLoader />}
 
-      <div className="w-full max-w-md p-6 rounded-2xl bg-white dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-gray-800 space-y-6">
-        {step === "IDENTIFY" && (
-          <>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center">
+      <div
+        className="group relative overflow-hidden
+      w-full max-w-md
+      rounded-3xl
+      bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
+      dark:from-slate-900 dark:via-slate-800 dark:to-gray-900
+      border border-rose-50 dark:border-slate-700/50
+      p-8
+      shadow-xl
+      transition-all duration-500
+      hover:border-rose-400/40 dark:hover:border-rose-500/50
+      hover:shadow-lg hover:shadow-rose-900/20"
+      >
+        {/* ambient edge */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Header */}
+        <div className="relative z-10 mb-6 text-center">
+          {step === "IDENTIFY" && (
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Find Your Account
             </h2>
-            <input
-              className={inputClass}
-              placeholder="Username or Email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <button onClick={identifyUser} className={btnClass}>
-              Continue
-            </button>
-          </>
-        )}
-
-        {step === "SET_QUESTIONS" && (
-          <>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center">
+          )}
+          {step === "SET_QUESTIONS" && (
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Set Security Questions
             </h2>
-            <div className="space-y-3">
+          )}
+          {step === "VERIFY_ANSWERS" && (
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+              Verify Security Answers
+            </h2>
+          )}
+          {step === "RESET_PASSWORD" && (
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+              Set New Password
+            </h2>
+          )}
+        </div>
+
+        {/* Body */}
+        <div className="relative z-10 grid grid-cols-1 gap-4">
+          {step === "IDENTIFY" && (
+            <>
+              <input
+                className={inputClass}
+                placeholder="Username or Email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    identifyUser();
+                  }
+                }}
+              />
+              <button onClick={identifyUser} className={btnClass}>
+                Continue
+              </button>
+            </>
+          )}
+
+          {step === "SET_QUESTIONS" && (
+            <>
               <input
                 className={inputClass}
                 placeholder="Question 1"
@@ -143,66 +182,83 @@ export default function ForgotPassword() {
                 placeholder="Answer 2"
                 value={answers.a2}
                 onChange={(e) => setAnswers({ ...answers, a2: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    setSecurityQuestions();
+                  }
+                }}
               />
-            </div>
-            <button onClick={setSecurityQuestions} className={btnClass}>
-              Save & Continue
-            </button>
-          </>
-        )}
+              <button onClick={setSecurityQuestions} className={btnClass}>
+                Save & Continue
+              </button>
+            </>
+          )}
 
-        {step === "VERIFY_ANSWERS" && (
-          <>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center">
-              Verify Security Answers
-            </h2>
-            <div className="space-y-3">
-              <p className="text-gray-700 dark:text-gray-300">{questions.q1}</p>
+          {step === "VERIFY_ANSWERS" && (
+            <>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {questions.q1}
+              </p>
               <input
                 className={inputClass}
                 value={answers.a1}
                 onChange={(e) => setAnswers({ ...answers, a1: e.target.value })}
               />
-              <p className="text-gray-700 dark:text-gray-300">{questions.q2}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {questions.q2}
+              </p>
               <input
                 className={inputClass}
                 value={answers.a2}
                 onChange={(e) => setAnswers({ ...answers, a2: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    verifyAnswers();
+                  }
+                }}
               />
-            </div>
-            <button onClick={verifyAnswers} className={btnClass}>
-              Verify
-            </button>
-          </>
-        )}
-
-        {step === "RESET_PASSWORD" && (
-          <>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center">
-              Set New Password
-            </h2>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                className={inputClass + " pr-12"}
-                placeholder="New strong password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors"
-              >
-                {showPassword ? <AiFillEyeInvisible size={22} /> : <AiFillEye size={22} />}
+              <button onClick={verifyAnswers} className={btnClass}>
+                Verify
               </button>
-            </div>
-            <PasswordHelper password={newPassword} />
-            <button onClick={resetPassword} className={btnClass}>
-              Reset Password
-            </button>
-          </>
-        )}
+            </>
+          )}
+
+          {step === "RESET_PASSWORD" && (
+            <>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className={inputClass + " pr-12"}
+                  placeholder="New strong password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      resetPassword();
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition"
+                >
+                  {showPassword ? (
+                    <AiFillEyeInvisible size={22} />
+                  ) : (
+                    <AiFillEye size={22} />
+                  )}
+                </button>
+              </div>
+
+              <PasswordHelper password={newPassword} />
+
+              <button onClick={resetPassword} className={btnClass}>
+                Reset Password
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,14 @@
 import { Helmet } from "react-helmet";
 
-const BrightMindsCard = ({ imgLink, name, dept, Year, cg, position, colour }) => (
+const BrightMindsCard = ({
+  imgLink,
+  name,
+  dept,
+  Year,
+  cg,
+  position,
+  colour,
+}) => (
   <div
     className="
       group relative flex flex-col items-center justify-between
@@ -81,9 +89,7 @@ const BrightMindsCard = ({ imgLink, name, dept, Year, cg, position, colour }) =>
       "
     >
       <span>{Year}</span>
-      <span className="font-medium text-rose-600 dark:text-rose-400">
-        Score: {cg}
-      </span>
+      <span className="font-medium text-rose-600 dark:text-rose-400">{cg}</span>
     </div>
   </div>
 );

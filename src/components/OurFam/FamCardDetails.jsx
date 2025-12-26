@@ -5,6 +5,7 @@ import { FaEnvelope, FaLinkedin, FaArrowLeft, FaGithub } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
+import { h3 } from "framer-motion/client";
 
 const FamCardDetails = () => {
   const navigate = useNavigate();
@@ -36,7 +37,12 @@ const FamCardDetails = () => {
       : null;
 
   return (
-    <div className="min-h-screen w-full px-4 py-6 bg-gray-50 dark:bg-gray-950">
+    <div
+      className="min-h-screen w-full px-4 py-6 bg-gray-100
+      dark:bg-gray-900 container
+      transition-all duration-500 ease-out
+     p-6 md:p-8"
+    >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -52,45 +58,95 @@ const FamCardDetails = () => {
         </button>
 
         {/* Profile Card */}
-        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 md:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            {/* Image */}
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="flex justify-center"
-            >
-              <img
-                src={person.imgLink || "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"}
-                alt={person.name}
-                onError={(e) => {
-                  e.currentTarget.src = "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif";
-                }}
-                className="w-48 h-48 md:w-56 md:h-56 rounded-3xl object-cover border border-gray-300 dark:border-gray-700"
-              />
-            </motion.div>
-
+        <div className="bg-transparent">
+          <div className="flex flex-wrap-reverse items-start justify-center gap-6 md:gap-0">
             {/* Main Info */}
-            <div className="md:col-span-2 text-center md:text-left">
+            <div className="w-full md:w-2/3 flex flex-col justify-center items-start container ">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
                 {person.name}
               </h1>
-
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                {person.branch} · {person.course}
-              </p>
-
-              <div className="mt-4 flex flex-wrap justify-center md:justify-start gap-3 text-sm">
-                <span className="px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400">
-                  Batch {person.batch}
-                </span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
-                  Hall {person.hall}
-                </span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
-                  {person.graduated ? "Alumni" : "Currently Enrolled"}
-                </span>
+              {person.bio && (
+                <p className="text-sm italic mb-6 mt-1">- {person.bio}</p>
+              )}
+              {person.involvements.map((inv, idx) => (
+                <motion.div key={idx} className="bg-transparent ">
+                  <ul className="flex flex-wrap justify-center md:justify-start gap-2 text-sm">
+                    {inv.soc && (
+                      <li className="px-3 py-1 rounded-3xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400">
+                        {inv.soc}
+                      </li>
+                    )}
+                    {inv.involvementsHall && (
+                      <li className="px-3 py-1 rounded-3xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                        {inv.involvementsHall}
+                      </li>
+                    )}
+                    {inv.council && (
+                      <li className="px-3 py-1 rounded-3xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400">
+                        {inv.council}
+                      </li>
+                    )}
+                    {inv.iit && (
+                      <li className="px-3 py-1 rounded-3xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
+                        {inv.iit}
+                      </li>
+                    )}
+                    {inv.extra && (
+                      <li className="px-3 py-1 rounded-3xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400">
+                        {inv.extra}
+                      </li>
+                    )}
+                  </ul>
+                </motion.div>
+              ))}
+              <div className="flex flex-col justify-start items-start p-0 mt-6  gap-2 ">
+                <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                  Details
+                </h1>
+                <div className="flex flex-col justify-center md:justify-start gap-1 text-sm">
+                  <p>
+                    <span className="font-semibold">Gender: </span>
+                    <span
+                      className={`px-3 py-1 rounded-full ${
+                        person.gender === "Female"
+                          ? "bg-pink-100 text-pink-600 dark:bg-pink-900/20 dark:text-pink-400"
+                          : "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400"
+                      }`}
+                    >
+                      {" "}
+                      {person.gender}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="font-semibold">Branch: </span>
+                    {person.branch}
+                  </p>
+                  {person.hall && (
+                    <p>
+                      <span className="font-semibold">Hall: </span>
+                      {person.hall}
+                    </p>
+                  )}
+                  <p>
+                    <span className="font-semibold">Batch: </span>
+                    {person.batch}
+                  </p>
+                  {person.course && (
+                    <p>
+                      <span className="font-semibold">Course: </span>
+                      {person.course}
+                    </p>
+                  )}
+                  {person.coe && (
+                    <p>
+                      <span className="font-semibold">COE: </span>
+                      {person.coe}
+                    </p>
+                  )}
+                  <span className="italic font-semibold">
+                    {person.graduated ? "*Graduated*" : "*Currently Enrolled*"}
+                  </span>
+                </div>
               </div>
 
               {/* Contacts */}
@@ -98,107 +154,65 @@ const FamCardDetails = () => {
                 primaryContact?.email ||
                 primaryContact?.linkedIn ||
                 primaryContact?.github) && (
-                <div className="mt-6 flex justify-center md:justify-start gap-5">
-                  {primaryContact?.phone && (
-                    <a href={`tel:${primaryContact.phone}`}>
-                      <MdAddCall className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
-                    </a>
-                  )}
-                  {primaryContact?.email && (
-                    <a href={`mailto:${primaryContact.email}`}>
-                      <FaEnvelope className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
-                    </a>
-                  )}
-                  {primaryContact?.linkedIn && (
-                    <a
-                      href={primaryContact.linkedIn}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FaLinkedin className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
-                    </a>
-                  )}
-                  {primaryContact?.github && (
-                    <a
-                      href={primaryContact.github}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FaGithub className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
-                    </a>
-                  )}
+                <div className="mt-6 flex justify-center flex-col items-start gap-2">
+                  <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    Contacts
+                  </h1>
+                  <div className="flex justify-center md:justify-start gap-5">
+                    {primaryContact?.phone && (
+                      <a href={`tel:${primaryContact.phone}`}>
+                        <MdAddCall className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
+                      </a>
+                    )}
+                    {primaryContact?.email && (
+                      <a href={`mailto:${primaryContact.email}`}>
+                        <FaEnvelope className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
+                      </a>
+                    )}
+                    {primaryContact?.linkedIn && (
+                      <a
+                        href={primaryContact.linkedIn}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLinkedin className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
+                      </a>
+                    )}
+                    {primaryContact?.github && (
+                      <a
+                        href={primaryContact.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithub className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
+            {/* Image */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="flex justify-center w-full md:w-1/3"
+            >
+              <img
+                src={
+                  person.imgLink ||
+                  "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
+                }
+                alt={person.name}
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif";
+                }}
+                className="w-48 h-48 md:w-56 md:h-56 rounded-3xl object-cover border border-gray-300 dark:border-gray-700"
+              />
+            </motion.div>
           </div>
         </div>
-
-        {/* Bio */}
-        {person.bio && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 p-6"
-          >
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              About
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              {person.bio}
-            </p>
-          </motion.div>
-        )}
-
-        {/* Involvements */}
-        {person.involvements?.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
-              Involvements
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {person.involvements.map((inv, idx) => (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -4 }}
-                  className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5"
-                >
-                  <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    {inv.soc && (
-                      <li>
-                        <span className="font-medium">Society:</span> {inv.soc}
-                      </li>
-                    )}
-                    {inv.involvementsHall && (
-                      <li>
-                        <span className="font-medium">Hall:</span>{" "}
-                        {inv.involvementsHall}
-                      </li>
-                    )}
-                    {inv.council && (
-                      <li>
-                        <span className="font-medium">Council:</span>{" "}
-                        {inv.council}
-                      </li>
-                    )}
-                    {inv.iit && (
-                      <li>
-                        <span className="font-medium">Institute:</span>{" "}
-                        {inv.iit}
-                      </li>
-                    )}
-                    {inv.extra && (
-                      <li>
-                        <span className="font-medium">Extra:</span> {inv.extra}
-                      </li>
-                    )}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
       </motion.div>
     </div>
   );

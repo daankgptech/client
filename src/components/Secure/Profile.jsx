@@ -339,8 +339,8 @@ export default function Profile() {
           <Field
             editing={editing}
             label="Hall"
-            value={form.involvements.hall}
-            onChange={(v) => handleChange("involvements.hall", v)}
+            value={form.involvements.involvementsHall}
+            onChange={(v) => handleChange("involvements.involvementsHall", v)}
           />
           <Field
             editing={editing}

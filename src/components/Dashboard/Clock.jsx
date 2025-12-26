@@ -31,7 +31,7 @@ export default function Clock() {
   const weekOfYear = getWeekOfYear(now);
   const daysLeft = (now.getFullYear() % 4 === 0 ? 366 : 365) - dayOfYear;
   const totalDays = now.getFullYear() % 4 === 0 ? 366 : 365;
-  const progress = Math.round((dayOfYear / totalDays) * 100);
+  const progress = Number(((dayOfYear / totalDays) * 100).toFixed(2));
 
   return (
     <div

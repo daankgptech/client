@@ -170,6 +170,7 @@ const Feature = () => {
               <FormInput
                 name="rollNo"
                 value={formData.rollNo}
+                style={{ textTransform: "uppercase" }}
                 onChange={handleChange}
                 placeholder="Roll No (Institute)*"
                 required

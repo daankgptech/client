@@ -18,6 +18,7 @@ import FillForms from "../components/Dashboard/FillForms";
 import CheckToolkit from "../components/Dashboard/CheckToolkit";
 import UpdateYourself from "../components/Dashboard/UpdateYourself";
 import AcademicallyRich from "../components/Dashboard/AcademicallyRich";
+import ScoreAnalyzer from "../components/Dashboard/ScoreAnalyzer";
 
 const getIndianGreeting = () => {
   const hour = new Date().getHours();
@@ -149,7 +150,8 @@ export default function Dashboard() {
         </div>
 
         <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <MoonCalendar />
+          {/* <MoonCalendar /> */}
+          <ScoreAnalyzer />
         </div>
 
         <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">

@@ -17,7 +17,7 @@ const FamCardDetails = () => {
   useEffect(() => {
     setLoading(true);
     api
-      .get(`/members/${id}`)
+      .get(`/our-fam/members/${id}`)
       .then((res) => setPerson(res.data))
       .catch(() => setPerson(null))
       .finally(() => setLoading(false));
@@ -59,7 +59,7 @@ const FamCardDetails = () => {
 
         {/* Profile Card */}
         <div className="bg-transparent">
-          <div className="flex flex-wrap-reverse items-start justify-center gap-6 md:gap-0">
+          <div className="flex flex-wrap-reverse items-center justify-center gap-6 md:gap-0 ">
             {/* Main Info */}
             <div className="w-full md:w-2/3 flex flex-col justify-center items-start container ">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
@@ -196,7 +196,7 @@ const FamCardDetails = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="flex justify-center w-full md:w-1/3"
+              className="flex justify-center  w-full md:w-1/3"
             >
               <img
                 src={

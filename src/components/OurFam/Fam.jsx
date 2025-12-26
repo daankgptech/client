@@ -53,7 +53,7 @@ const Fam = () => {
     );
 
     api
-      .get("/members", { params })
+      .get("/our-fam/members", { params })
       .then((res) => setMembers(res.data))
       .catch(() => setMembers([]))
       .finally(() => setLoading(false));

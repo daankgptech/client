@@ -77,8 +77,8 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
-          <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
-          {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
+          {/* <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } /> */}
+          <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/signout" element={<ProtectedRoute> <SignOut /> </ProtectedRoute> } />
         </Routes>
       </main>

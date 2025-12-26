@@ -36,7 +36,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
   useEffect(() => {
     setLoading(true);
     api
-      .get("/overview")
+      .get("/our-fam/overview")
       .then((res) => setData(res.data))
       .finally(() => setLoading(false));
   }, []);

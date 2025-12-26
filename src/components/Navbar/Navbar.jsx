@@ -159,12 +159,12 @@ export default function Navbar() {
                 >
                   Sign In
                 </Link>
-                <Link
+                {/*<Link
                   to="/signup"
                   className="px-4 py-1.5 rounded-3xl text-sm bg-sky-200 dark:bg-sky-800 text-sky-600 dark:text-sky-300 border border-sky-300 dark:border-sky-700 hover:scale-105 transition-all duration-300"
                 >
                   Sign Up
-                </Link>
+                </Link>*/}
               </div>
             )}
             {/* Theme Toggle */}
@@ -266,12 +266,12 @@ export default function Navbar() {
               >
                 Sign In
               </Link>
-              <Link
+              {/* <Link
                 to="/signup"
                 className="px-4 py-1.5 rounded-3xl text-sm bg-sky-200 dark:bg-sky-800 text-sky-600 dark:text-sky-300 border border-sky-300 dark:border-sky-700 hover:scale-105 transition-all duration-300"
               >
                 Sign Up
-              </Link>
+              </Link> */}
             </div>
           )}
         </div>

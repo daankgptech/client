@@ -7,7 +7,7 @@ const EventCard = ({ image, date, title, description, slug }) => {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       title={title}
     >
-      <div className="p-4 rounded-lg border border-rose-300 dark:border-transparent bg-gradient-to-tr from-rose-200 to-rose-100 dark:from-gray-700 dark:to-gray-800 dark:bg-gray-900 shadow-lg transition duration-500 hover:shadow-xl dark:text-gray-400">
+      <div className="p-4 rounded-3xl border border-rose-300 dark:border-transparent bg-gradient-to-tr from-rose-200 to-rose-100 dark:from-gray-700 dark:to-gray-800 dark:bg-gray-900 shadow-lg transition duration-500 hover:shadow-xl dark:text-gray-400">
         <div className="overflow-hidden">
           <img
             src={image}

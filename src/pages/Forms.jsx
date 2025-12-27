@@ -42,7 +42,7 @@ const Forms = () => {
             return (
               <div
                 key={index}
-                className={`group relative w-full max-w-xs rounded-2xl overflow-hidden border transition-all duration-500 ${formClasses}`}
+                className={`group relative w-full max-w-xs rounded-3xl overflow-hidden border transition-all duration-500 ${formClasses}`}
               >
                 <Link to={isExceeded ? "#" : item.to} className={isExceeded ? "pointer-events-none" : null}>
                   {/* Image */}

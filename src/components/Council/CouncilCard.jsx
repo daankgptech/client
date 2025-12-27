@@ -22,7 +22,7 @@ const CouncilCard = ({
   const batchYear = parseInt(batch, 10); // batch is from API, e.g., "2023"
   const studyYear = currentYear - batchYear + 1; // 1st Yr, 2nd Yr, ...
 
-  const yearLabel = `${studyYear} ${
+  const yearLabel = `${studyYear}${
     studyYear === 1
       ? "st"
       : studyYear === 2
@@ -33,7 +33,7 @@ const CouncilCard = ({
   } Yr`;
 
   return (
-    <div className="shadow-md dark:hover:shadow-gray-500 hover:shadow-red-300 transition-all duration-500 hover:shadow-lg dark:bg-gray-900 dark:text-gray-400 rounded-lg bg-gradient-to-tr from-gray-100 dark:from-gray-800 dark:to-gray-700 to-gray-200">
+    <div className="shadow-md dark:hover:shadow-gray-500 hover:shadow-red-300 transition-all duration-500 hover:shadow-lg dark:bg-gray-900 dark:text-gray-400 rounded-3xl bg-gradient-to-tr from-gray-100 dark:from-gray-800 dark:to-gray-700 to-gray-200">
       <div className="overflow-hidden h-[220px] transition duration-700 rounded-lg flex justify-center items-center">
         {imgLink && (
           <Helmet>

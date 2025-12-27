@@ -12,9 +12,12 @@ import {
   FiUsers,
   FiClock,
   FiInfo,
+  FiLogOut,
 } from "react-icons/fi";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Link } from "react-router-dom";
+import { MdLockReset } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -378,77 +381,83 @@ export default function Profile() {
         </Card>
       </div>
       {/* Action Buttons */}
-      <div className="container flex flex-wrap justify-center gap-4 mt-8">
+      <div className="container flex flex-wrap items-center justify-center gap-5 mt-10">
         {/* Edit / Save */}
         <button
           onClick={editing ? saveProfile : () => setEditing(true)}
           disabled={saving}
           className="
-      flex items-center gap-2
-      px-6 py-2.5 rounded-2xl
-      bg-gradient-to-r from-rose-600 to-red-600
-      text-white text-sm font-medium
-      shadow-md shadow-rose-300/40
-      transform
-      hover:scale-105 hover:shadow-lg
-      active:scale-95 active:shadow-inner
-      transition-all duration-300
+      group flex items-center gap-2
+      px-3 py-1 rounded-2xl
+      bg-gradient-to-br from-rose-500 via-red-500 to-rose-600
+      dark:from-rose-600 dark:via-red-600 dark:to-rose-700
+      text-white text-sm font-semibold tracking-wide
+      shadow-lg shadow-rose-400/40 dark:shadow-rose-900/40
+      hover:shadow-xl hover:shadow-rose-500/50
+      hover:scale-[1.06]
+      active:scale-95
+      transition-all duration-300 ease-out
       disabled:opacity-50 disabled:cursor-not-allowed
     "
         >
-          {editing ? <FiSave /> : <FiEdit2 />}
-          {saving ? "Saving..." : editing ? "Save Changes" : "Edit Profile"}
+          <span className="transition-transform duration-300 group-hover:rotate-6">
+            {editing ? <FiSave /> : <FiEdit2 />}
+          </span>
+          {saving ? "Saving..." : editing ? "Save Changes" : "Edit"}
         </button>
 
         {/* Dashboard */}
         <Link
           to="/dashboard"
           className="
-      px-6 py-2.5 rounded-2xl
-      bg-gray-800 dark:bg-gray-700
-      text-white text-sm
-      shadow-sm shadow-gray-500/20
-      hover:bg-gray-700 dark:hover:bg-gray-600
-      transform hover:scale-105
+      px-3 py-1 rounded-2xl
+      bg-gradient-to-br from-gray-700 to-gray-800
+      dark:from-gray-800 dark:to-gray-700
+      text-gray-100 text-sm font-medium
+      shadow-md shadow-gray-400/20 dark:shadow-black/30
+      hover:from-gray-600 hover:to-gray-700
+      hover:scale-[1.05]
       active:scale-95
-      transition-all duration-300
+      transition-all duration-300 ease-out flex gap-1 justify-center items-center
     "
         >
-          Dashboard
+          <RxDashboard /> Dashboard
         </Link>
 
         {/* Reset Password */}
         <Link
           to="/forgot-password"
           className="
-      px-6 py-2.5 rounded-2xl
-      bg-gray-800 dark:bg-gray-700
-      text-white text-sm
-      shadow-sm shadow-gray-500/20
-      hover:bg-gray-700 dark:hover:bg-gray-600
-      transform hover:scale-105
+      px-3 py-1 rounded-2xl
+      bg-gradient-to-br from-gray-600 to-gray-700
+      dark:from-gray-700 dark:to-gray-600
+      text-gray-100 text-sm font-medium
+      shadow-md shadow-gray-400/20 dark:shadow-black/30
+      hover:from-gray-500 hover:to-gray-600
+      hover:scale-[1.05]
       active:scale-95
-      transition-all duration-300
+      transition-all duration-300 ease-out flex justify-center items-center gap-1
     "
         >
-          Reset Password
+          <MdLockReset /> Reset Password
         </Link>
 
         {/* Sign Out */}
         <Link
           to="/signout"
           className="
-      px-6 py-2.5 rounded-2xl
-      bg-rose-700
-      text-white text-sm
-      shadow-md shadow-rose-300/30
-      hover:bg-rose-600
-      transform hover:scale-105
+      px-3 py-1 rounded-2xl
+      bg-gradient-to-br from-rose-600 to-red-700
+      dark:from-rose-700 dark:to-red-800
+      text-white text-sm font-semibold
+      shadow-lg shadow-rose-400/40 dark:shadow-rose-900/40
+      hover:from-rose-500 hover:to-red-600
+      hover:scale-[1.06]
       active:scale-95
-      transition-all duration-300
+      transition-all duration-300 ease-out flex gap-1 justify-center items-center
     "
         >
-          Sign Out
+          Sign Out <FiLogOut />
         </Link>
       </div>
     </>

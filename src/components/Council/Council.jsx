@@ -14,7 +14,7 @@ const Council = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const { data } = await api.get("/council");
+        const { data } = await api.get("/home/council");
         setMembers(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to load council members:", err);
@@ -74,7 +74,7 @@ const Council = () => {
             }
           >
             <a
-              href="#"
+              href="https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block p-2 rounded-lg border shadow-sm text-red-600 dark:text-gray-400

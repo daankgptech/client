@@ -4,7 +4,7 @@ const DownloadBtn = ({ catching, cover, heading, href }) => (
   <div
     className="
       group relative h-full
-      rounded-2xl p-5
+      rounded-3xl p-5
       bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200
       dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
       border border-gray-300 dark:border-gray-700

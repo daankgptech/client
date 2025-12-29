@@ -155,7 +155,7 @@ export default function Navbar() {
               <div className="flex justify-center items-center gap-6">
                 <Link
                   to="/signin"
-                  className="px-4 py-1.5 rounded-3xl text-sm bg-rose-200 dark:bg-rose-800 text-rose-600 dark:text-rose-300 border border-rose-300 dark:border-rose-700 hover:scale-105 transition-all duration-300"
+                  className="px-4 py-1.5 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 hover:scale-105 transition-all duration-300"
                 >
                   Sign In
                 </Link>
@@ -262,7 +262,7 @@ export default function Navbar() {
             <div className="flex flex-col gap-3 justify-start items-center">
               <Link
                 to="/signin"
-                className="px-4 py-1.5 rounded-3xl text-sm bg-rose-200 dark:bg-rose-800 text-rose-600 dark:text-rose-300 border border-rose-300 dark:border-rose-700 hover:scale-105 transition-all duration-300"
+                className="px-4 py-1.5 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 hover:scale-105 transition-all duration-300"
               >
                 Sign In
               </Link>

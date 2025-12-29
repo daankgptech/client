@@ -105,7 +105,7 @@ export default function SignIn() {
         </div>
 
         {/* Forgot */}
-        {showForgot && (
+        {/* {showForgot && (
           <div className="relative z-10 mt-4 text-center">
             <Link
               to="/forgot-password"
@@ -114,7 +114,7 @@ export default function SignIn() {
               Forgot password?
             </Link>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

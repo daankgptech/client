@@ -13,7 +13,7 @@ const EventCard = ({ image, date, title, description, slug }) => {
             src={image}
             alt={title}
             loading="lazy"
-            className="w-full h-[250px] object-cover rounded-lg border border-rose-500 dark:border-gray-400 shadow-sm shadow-rose-300"
+            className="w-full h-[250px] object-cover rounded-2xl border border-rose-500 dark:border-gray-400 shadow-sm shadow-rose-300"
           />
         </div>
 

@@ -144,7 +144,7 @@ export default function ScoreAnalyzer() {
               step="0.01"
               min="1"
               max="10"
-              autoFocus
+              // autoFocus
               value={sgpa}
               onChange={(e) => updateSGPA(i, e.target.value)}
               onKeyDown={(e)=>{

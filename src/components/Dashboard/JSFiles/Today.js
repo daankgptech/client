@@ -350,6 +350,7 @@ const Today = [
   { name: "New Year's Eve", date: "2025-12-31" },
   { name: "National Make Up Your Mind Day", date: "2025-12-31" },
 //2026 Events
+  { name: "Happy New Year", date: "2026-01-01" },
   { name: "World Braille Day", date: "2026-01-04" },
   { name: "NRI Day", date: "2026-01-09" },
   { name: "World Hindi Day", date: "2026-01-10" },

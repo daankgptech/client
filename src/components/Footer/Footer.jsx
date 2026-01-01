@@ -89,7 +89,7 @@ const Footer = () => (
                 href="https://maps.app.goo.gl/SJVVbSZG5igkX1hXA"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic"
+                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic transition-all duration-500 ease-in-out"
               >
                 <FaMapMarkedAlt />{" "}
                 <span>IIT Kharagpur, West Bengal, 721302</span>
@@ -98,7 +98,7 @@ const Footer = () => (
                 href="mailto:daan.kgp.tech@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic"
+                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic transition-all duration-500 ease-in-out"
               >
                 <IoIosMail /> <span>daan.kgp.tech@gmail.com</span>
               </a>
@@ -106,7 +106,7 @@ const Footer = () => (
                 href="mailto:cr.daan.kgp@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic"
+                className="flex items-center gap-3 hover:text-primary dark:hover:text-gray-200 hover:italic transition-all duration-500 ease-in-out"
               >
                 <IoIosMail /> <span>cr.daan.kgp@gmail.com</span>
               </a>
@@ -136,10 +136,9 @@ const Footer = () => (
 
       {/* Bottom Bar */}
       <div className="text-center py-5 border-t-2 border-gray-400 bg-primary dark:bg-gray-900 text-gray-900 dark:text-gray-400 flex justify-center items-center gap-2">
-        <FaRegCopyright />{" "}
-        <Link to="https://www.instagram.com/skipper8828" target="_blank">
-          {" "}
-          Amplifier
+        <FaRegCopyright />
+        <Link to="https://daan-kgp.vercel.app" target="_blank" className="hover:font-bold transition-all duration-300">
+          DAAN KGP
         </Link>{" "}
         | All rights reserved.
       </div>

@@ -7,9 +7,9 @@ const formsData = [
     deadline: "2025-12-31T23:59:00+05:30",
     isExceeded: false,
     responsePercentage: [
-      { batch: "'25", percentage: (0 / 42) * 100 },
-      { batch: "'24", percentage: (0 / 46) * 100 },
-      { batch: "'23", percentage: (0 / 35) * 100 },
+      { batch: "'25", percentage: (2 / 42) * 100 },
+      { batch: "'24", percentage: (3 / 46) * 100 },
+      { batch: "'23", percentage: (2 / 35) * 100 },
       { batch: "'22", percentage: (0 / 32) * 100 },
       { batch: "'21", percentage: (0 / 17) * 100 },
     ],

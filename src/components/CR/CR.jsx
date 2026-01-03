@@ -52,11 +52,20 @@ const CR = () => {
   };
   const getCRStatus = (session) => {
     if (!session) return "";
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // Jan = 1, Oct = 10
+    let sessionStartYear;
+    if (month >= 10) {
+      // Oct–Dec
+      sessionStartYear = year;
+    } else {
+      // Jan–Sep
+      sessionStartYear = year - 1;
+    }
 
-    const currentYear = new Date().getFullYear();
-    const currentSessionStart = currentYear;
-    const currentSessionEnd = String(currentYear + 1).slice(-2);
-    const currentSession = `${currentSessionStart}-${currentSessionEnd}`;
+    const sessionEndYear = String(sessionStartYear + 1).slice(-2);
+    const currentSession = `${sessionStartYear}-${sessionEndYear}`;
 
     return session === currentSession ? "Current CR" : "Ex CR";
   };
@@ -96,8 +105,9 @@ const CR = () => {
         >
           {loading ? (
             <p className="text-center text-lg font-semibold">Loading CRs...</p>
-           ) : (crs.length === 0 ? 
-          (<p className="text-center text-lg font-semibold">No CRs found.</p>):(     
+          ) : crs.length === 0 ? (
+            <p className="text-center text-lg font-semibold">No CRs found.</p>
+          ) : (
             <Slider {...sliderSettings}>
               {crs.map((cr) => {
                 const session = getSessionFromBatch(cr.batch);
@@ -157,7 +167,7 @@ const CR = () => {
                 );
               })}
             </Slider>
-          ))}
+          )}
         </div>
       </div>
     </div>

@@ -112,7 +112,7 @@ export default function Profile() {
     }
   };
   const sem = user.batch
-    ? (new Date().getFullYear() - user.batch) * 2 + 1
+    ? (new Date().getFullYear() - user.batch) * 2
     : null;
   const graduatingStatus = user.graduated ? "Graduated" : "Currently Enrolled";
   const semStatus = user.graduated ? "Graduated" : sem;

@@ -16,9 +16,9 @@ const notices = [
   //   ),
   // },
   { text: "Winter Break: Nov 26-Jan 01, 2026." },
-  { text: "DST: Dec 14-15, 2025." },
   { text: "New Spring Sem: Jan 02, 2026." },
   { text: "TechFest Kshitij: Jan 16-18, 2026." },
+  { text: "JDST-Offline (for EMRS & Non-JNVs): Jan 18, 2026." },
   { text: "Spring Fest: Jan 23-25, 2026." },
 ];
 

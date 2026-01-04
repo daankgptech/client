@@ -160,9 +160,20 @@ const FamCardDetails = () => {
                   </h1>
                   <div className="flex justify-center md:justify-start gap-5">
                     {primaryContact?.phone && (
-                      <a href={`tel:${primaryContact.phone}`}>
-                        <MdAddCall className="text-2xl text-gray-500 hover:text-rose-500 transition hover:scale-110" />
-                      </a>
+                      <div className="relative inline-block">
+                        <a
+                          // href={`tel:${primaryContact.phone}`}
+                          className="peer"
+                        >
+                          <MdAddCall
+                            className="text-2xl text-gray-500 hover:text-rose-500 transition-all hover:scale-110" />
+                        </a>
+
+                        {/* Hover Tooltip */}
+                        <div className=" pointer-events-none absolute -right-4 -top-1 w-56 opacity-0 scale-95 peer-hover:opacity-100 peer-hover:scale-100 transition-all duration-500 ease-out rounded-2xl bg-gray-300 dark:bg-slate-900 border border-white dark:border-slate-800 px-2 py-1 text-xs leading-relaxed text-gray-900 dark:text-gray-300 shadow-xl z-50 ">
+                          Go back. See bottom-left corner for VCF.
+                        </div>
+                      </div>
                     )}
                     {primaryContact?.email && (
                       <a href={`mailto:${primaryContact.email}`}>

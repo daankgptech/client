@@ -3,15 +3,7 @@ import { FaLinkedin, FaEnvelope, FaGraduationCap } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
 import { motion } from "framer-motion";
 
-const FamCard = ({
-  _id,
-  imgLink,
-  name,
-  branch,
-  hall,
-  contacts,
-  graduated,
-}) => {
+const FamCard = ({ _id, imgLink, name, branch, hall, contacts, graduated }) => {
   const navigate = useNavigate();
   const { year } = useParams();
   const primaryContact = contacts?.[0];
@@ -72,19 +64,27 @@ const FamCard = ({
       {/* Social Icons */}
       <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full border-t border-gray-300 dark:border-gray-600 pt-2 md:pt-3">
         {primaryContact?.phone && (
-          <a
-            href={`tel:${primaryContact.phone}`}
-            title="Call"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <MdAddCall
-              className="text-lg md:text-xl lg:text-2xl
+          <div className="relative inline-block">
+            <a
+              // href={`tel:${primaryContact.phone}`}
+              title="Call"
+              className="peer"
+              // onClick={(e) => e.stopPropagation()}
+            >
+              <MdAddCall
+                className="text-lg md:text-xl lg:text-2xl
                                    text-red-700 dark:text-gray-400
                                    hover:scale-[1.10] hover:text-red-500
                                    transition-all duration-300"
-            />
-          </a>
+              />
+            </a>
+            {/* // hover tooltip */}
+            <div className=" pointer-events-none absolute -right-4 -top-1 w-56 opacity-0 scale-95 peer-hover:opacity-100 peer-hover:scale-100 transition-all duration-500 ease-out rounded-2xl bg-gray-300 dark:bg-slate-900 border border-white dark:border-slate-800 px-2 py-1 text-xs leading-relaxed text-gray-900 dark:text-gray-300 shadow-xl z-50 ">
+            See bottom-left corner for VCF.
+            </div>
+          </div>
         )}
+
         {primaryContact?.email && (
           <a
             href={`mailto:${primaryContact.email}`}

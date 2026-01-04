@@ -7,6 +7,7 @@ import Overview from "./Overview"; // import your overview component
 import { api } from "../../utils/Secure/api";
 import batchDataMap from "./JSFiles/BatchDataMap";
 import LoaderOverlay from "../../utils/LoaderOverlay";
+import { FaFileDownload } from "react-icons/fa";
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
@@ -25,6 +26,15 @@ const Fam = () => {
 
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+  api
+    .get("/v1/me")
+    .then((res) => setUser(res.data))
+    .catch(() => setUser(null));
+}, []);
+  const canAccessBatch = (userBatch, targetBatch) =>
+    Math.abs(Number(userBatch) - Number(targetBatch)) <= 1;
 
   const [filters, setFilters] = useState(
     searchFields.reduce((acc, { key }) => {
@@ -73,27 +83,38 @@ const Fam = () => {
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
     : defaultCount;
+    if (!user) {
+  return <LoaderOverlay />;
+}
   if (!activeYear) {
-    return <Overview batchDataMap={batchDataMap} goToYear={goToYear} className="container"/>;
+    return (
+      <Overview
+        batchDataMap={batchDataMap}
+        goToYear={goToYear}
+        className="container"
+      />
+    );
   }
   return (
     <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
       {/* Header */}
       <div className="flex justify-center items-center mb-6">
+        {canAccessBatch(user.batch, activeYear) && (
+          <a
+            href={`${api.defaults.baseURL}/v1/vcf/${activeYear}`}
+            className="inline-flex fixed bottom-4 left-4 z-50 items-center gap-2 px-3 py-1 rounded-3xl bg-gray-300 dark:bg-gray-800 text-rose-600 dark:text-rose-400 hover:scale-105 transition"
+          >
+            VCF <FaFileDownload />
+          </a>
+        )}
         <h1 className="text-2xl font-bold">{yearLabel}</h1>
       </div>
 
       {/* Charts */}
-      {/* {!loading && filteredItems.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 my-14">
-          <DeptPieChart data={filteredItems} deptKey="branch" />
-          <DeptPolarChart data={filteredItems} deptKey="hall" />
-        </div>
-      )} */}
       <div className="grid grid-cols-1 md:grid-cols-2 my-14">
-          <DeptPieChart data={filteredItems} deptKey="branch" />
-          <DeptPolarChart data={filteredItems} deptKey="hall" />
-        </div>
+        <DeptPieChart data={filteredItems} deptKey="branch" />
+        <DeptPolarChart data={filteredItems} deptKey="hall" />
+      </div>
       {/* Filters */}
       <div className="flex gap-2 items-center justify-center flex-wrap mb-4 container">
         {searchFields.map(({ key, placeholder }) => (
@@ -111,11 +132,10 @@ const Fam = () => {
           />
         ))}
       </div>
-
       <h3 className="mb-6 italic text-center">
         Total : {totalMembers} Members
       </h3>
-      {loading && <LoaderOverlay/>}
+      {loading && <LoaderOverlay />}
       {/* Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 container">
         {filteredItems.map((item) => (
@@ -126,6 +146,7 @@ const Fam = () => {
       <h2 className="text-xl font-bold text-center mt-10 mb-4">Other Years</h2>
       <div className="flex flex-wrap justify-center gap-3 mb-10">
         {Object.keys(batchDataMap)
+          // .filter((y) => canAccessBatch(user.batch, Number(y)))
           .sort((a, b) => b - a)
           .map((y) => (
             <button

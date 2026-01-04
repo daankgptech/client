@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
-import {FiSave} from "react-icons/fi";
-import {FaSave, FaSpinner} from "react-icons/fa";
+import { FiSave } from "react-icons/fi";
+import { FaSave, FaSpinner } from "react-icons/fa";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -111,7 +111,14 @@ export default function Diary() {
 
   const getLineClamp = (expanded) =>
     expanded ? "" : "line-clamp-3 md:line-clamp-4 lg:line-clamp-5";
-
+  const getPaperTexture = (id) => {
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+      hash = id.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const size = 12 + (hash % 6);
+    return `${size}px ${size}px`;
+  };
   const addEntry = async () => {
     if (!text.trim()) return;
 
@@ -131,7 +138,7 @@ export default function Diary() {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors">
+    <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors container">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
           My Diary
@@ -169,8 +176,21 @@ export default function Diary() {
           <div
             className={`relative rounded-3xl mb-8 transition-all bg-transparent`}
           >
-            {/* Ruled lines */}
             <div
+              className="absolute left-7 md:left-9 top-0 h-full w-px opacity-20"
+              style={{ backgroundColor: "currentColor" }}
+            />
+
+            {/* Notebook spine */}
+            <div
+              className="absolute left-0 top-0 h-full w-6 rounded-l-3xl"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(0,0,0,0.08), rgba(0,0,0,0.02), transparent)",
+              }}
+            />
+            {/* Ruled lines */}
+            {/* <div
               className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{
                 backgroundImage: `repeating-linear-gradient(
@@ -180,10 +200,10 @@ export default function Diary() {
         rgba(0,0,0,0.05) 31px
       )`,
               }}
-            />
+            /> */}
 
             {/* Tint lines with diary color */}
-            <div
+            {/* <div
               className={`absolute inset-0 rounded-3xl pointer-events-none ${currentStyle.date}`}
               style={{
                 backgroundImage: `repeating-linear-gradient(
@@ -195,15 +215,27 @@ export default function Diary() {
                 opacity: 0.25,
               }}
               // className={currentStyle.date}
-            />
+            /> */}
 
-            <div className="relative p-5 transition-all duration-300">
+            <div className="relative p-5 pl-10 transition-all duration-300 group">
               <textarea
                 rows={8}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Write what’s on your mind…"
-                className={`w-full bg-transparent resize-none outline-none leading-[31px] ${currentStyle.text} placeholder-gray-400 text-xs md:text-sm -translate-y-[11px] transition-all duration-300`}
+                className={`w-full bg-transparent resize-none outline-none leading-[31px]
+  ${currentStyle.text}
+  placeholder-gray-400 text-xs md:text-sm -translate-y-[11px]
+  transition-all duration-300
+  group-hover:blur-[0.2px]
+  group-hover:opacity-[0.96]`}
+              />
+              <span
+                className={`absolute left-8 md:left-10 top-[22px] w-[2px] h-5 ${currentStyle.text}
+  animate-pulse opacity-0 group-focus-within:opacity-70 pointer-events-none`}
+                style={{
+                  transform: "translateY(calc(var(--caret-line, 0) * 31px))",
+                }}
               />
 
               <div className="flex absolute bottom-0 right-0 justify-end mt-3">
@@ -212,7 +244,7 @@ export default function Diary() {
                   disabled={loading}
                   className={` px-3 py-1 font-bold italic rounded-3xl ${currentStyle.text} hover:scale-105 disabled:opacity-60 transition-all duration-300`}
                 >
-                  {loading ? <FaSpinner /> : <FiSave/>}
+                  {loading ? <FaSpinner /> : <FiSave />}
                 </button>
               </div>
             </div>
@@ -235,7 +267,9 @@ export default function Diary() {
             return (
               <div
                 key={entry._id}
-                className={`rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeIn ${entryStyle.bg} ${entryStyle.text}`}
+                className={`relative rounded-3xl p-5 shadow-sm hover:shadow-md
+  transition-all duration-300 animate-fadeIn
+  ${entryStyle.bg} ${entryStyle.text}`}
               >
                 <div className="flex justify-between items-center mb-2">
                   <div>
@@ -251,6 +285,18 @@ export default function Diary() {
                     {formatTime(entry.createdAt)}
                   </span>
                 </div>
+                {/* Paper texture */}
+                <div
+                  className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{
+                    backgroundImage: `
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)
+    `,
+                    backgroundSize: getPaperTexture(entry._id),
+                    opacity: 0.4,
+                  }}
+                />
+
                 <p
                   className={`leading-relaxed whitespace-pre-wrap ${getLineClamp(
                     isExpanded
@@ -272,16 +318,19 @@ export default function Diary() {
             );
           })}
         </div>
-        {entries.length > visibleCount && (
-          <div className="flex justify-center mt-6">
+
+        <div className="flex justify-center mt-6">
+          {entries.length > visibleCount ? (
             <button
               onClick={() => setVisibleCount((v) => v + 7)}
               className="px-6 py-2 rounded-3xl border border-gray-300 dark:border-neutral-700 text-gray-600 dark:text-gray-400 hover:scale-105 transition-all duration-300"
             >
               Load more
             </button>
-          </div>
-        )}
+          ) : (
+            <p className="text-xs text-gray-400 mt-4">That’s everything.</p>
+          )}
+        </div>
       </div>
     </div>
   );

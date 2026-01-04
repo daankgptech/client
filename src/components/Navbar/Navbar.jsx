@@ -334,6 +334,14 @@ export default function Navbar() {
                   }}
                 />
                 <NavItem
+                  to="/diary"
+                  label="Diary"
+                  onClick={() => {
+                    setPersonalOpen(false);
+                    setOpen(false);
+                  }}
+                />
+                <NavItem
                   to="/profile"
                   label="Profile"
                   onClick={() => {

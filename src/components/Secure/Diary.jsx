@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
+import {FiSave} from "react-icons/fi";
+import {FaSave, FaSpinner} from "react-icons/fa";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -195,22 +197,22 @@ export default function Diary() {
               // className={currentStyle.date}
             />
 
-            <div className="relative p-5">
+            <div className="relative p-5 transition-all duration-300">
               <textarea
                 rows={8}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Write what’s on your mind…"
-                className={`w-full bg-transparent resize-none outline-none leading-[31px] ${currentStyle.text} placeholder-gray-400 text-xs md:text-sm -translate-y-[11px]`}
+                className={`w-full bg-transparent resize-none outline-none leading-[31px] ${currentStyle.text} placeholder-gray-400 text-xs md:text-sm -translate-y-[11px] transition-all duration-300`}
               />
 
-              <div className="flex justify-end mt-3">
+              <div className="flex absolute bottom-0 right-0 justify-end mt-3">
                 <button
                   onClick={addEntry}
                   disabled={loading}
-                  className={`px-5 py-2 font-bold italic rounded-full ${currentStyle.text} hover:scale-105 disabled:opacity-60 transition-all duration-300`}
+                  className={` px-3 py-1 font-bold italic rounded-3xl ${currentStyle.text} hover:scale-105 disabled:opacity-60 transition-all duration-300`}
                 >
-                  {loading ? "Saving…" : "Save"}
+                  {loading ? <FaSpinner /> : <FiSave/>}
                 </button>
               </div>
             </div>
@@ -218,7 +220,7 @@ export default function Diary() {
         </div>
 
         {/* Entries */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6 transition-all duration-300">
           {visibleEntries.length === 0 && (
             <p className="text-gray-400 dark:text-gray-500 text-center mt-4">
               No diary entries yet.

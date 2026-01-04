@@ -23,6 +23,7 @@ export default function Navbar() {
   ];
   const authRoutes = [
     { name: "Dashboard", link: "/dashboard" },
+    { name: "Diary", link: "/diary" },
     { name: "Profile", link: "/profile" },
     { name: "Sign Out", link: "/signout" },
   ];

@@ -31,6 +31,7 @@ import SignIn from "./components/Secure/SignIn";
 // import SignUp from "./components/Secure/SignUp";
 import Profile from "./components/Secure/Profile";
 import ScrollToTop from "./utils/ScrollToTop";
+import Diary from "./components/Secure/Diary";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
 
@@ -77,8 +78,9 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
-          {/* <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } /> */}
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
+          <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
+          {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/signout" element={<ProtectedRoute> <SignOut /> </ProtectedRoute> } />
         </Routes>
       </main>

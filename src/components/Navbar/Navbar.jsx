@@ -349,14 +349,16 @@ export default function Navbar() {
                     setOpen(false);
                   }}
                 />
-                <NavItem
+                <Link
                   to="/signout"
-                  label="Sign Out"
+                  className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300"
                   onClick={() => {
                     setPersonalOpen(false);
                     setOpen(false);
                   }}
-                />
+                >
+                  Sign Out
+                </Link>
               </div>
             </div>
           )}

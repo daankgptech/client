@@ -28,11 +28,11 @@ const Fam = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   useEffect(() => {
-  api
-    .get("/v1/me")
-    .then((res) => setUser(res.data))
-    .catch(() => setUser(null));
-}, []);
+    api
+      .get("/v1/me")
+      .then((res) => setUser(res.data))
+      .catch(() => setUser(null));
+  }, []);
   const canAccessBatch = (userBatch, targetBatch) =>
     Math.abs(Number(userBatch) - Number(targetBatch)) <= 1;
 
@@ -83,9 +83,9 @@ const Fam = () => {
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
     : defaultCount;
-    if (!user) {
-  return <LoaderOverlay />;
-}
+  // if (!user) {
+  //   return <LoaderOverlay />;
+  // }
   if (!activeYear) {
     return (
       <Overview

@@ -374,10 +374,10 @@ export default function Profile() {
             label="Last Sign In"
             value={formatDate(user.audit?.lastSignInAt)}
           />
-          <Info
+          {/* <Info
             label="Last Sign Out"
             value={formatDate(user.audit?.lastSignOutAt)}
-          />
+          /> */}
         </Card>
       </div>
       {/* Action Buttons */}

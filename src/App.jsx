@@ -59,7 +59,7 @@ export default function App() {
     <ScrollToTop/>
       <Toaster position="top-left" />
       <Navbar />
-      <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-full">
+      <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-screen">
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}

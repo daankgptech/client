@@ -83,9 +83,13 @@ const Fam = () => {
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
     : defaultCount;
-  // if (!user) {
-  //   return <LoaderOverlay />;
-  // }
+  if (!user) {
+    return <Overview
+        batchDataMap={batchDataMap}
+        goToYear={goToYear}
+        className="container"
+      />;
+  }
   if (!activeYear) {
     return (
       <Overview

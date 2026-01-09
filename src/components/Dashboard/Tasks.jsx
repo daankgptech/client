@@ -1,13 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import {
-  FaSave,
-  FaEllipsisV,
-  FaCheck,
-  FaEdit,
-  FaTrash,
-  FaThumbtack,
-} from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
+import { FaSave, FaCheck, FaStar, FaRegStar } from "react-icons/fa";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState(() => {
@@ -97,7 +90,8 @@ export default function Tasks() {
         <AutoTextarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addTask()}
+          onEnter={addTask}
+          // onKeyDown={(e) => e.key === "Enter" && addTask()}
           placeholder="Add a task"
           className="flex-1 min-w-0 bg-gray-400/40 dark:bg-slate-950/40 border border-white/30 dark:border-slate-800 rounded-3xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-rose-500/60 outline-none text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
         />
@@ -141,7 +135,7 @@ export default function Tasks() {
                 <span
                   className="
       w-5 h-5 rounded-full
-      border-2 border-emerald-400
+      border-2 border-gray-400 hover:border-emerald-400
       flex items-center justify-center
       transition-all duration-300
       peer-checked:bg-emerald-500
@@ -214,13 +208,14 @@ export default function Tasks() {
                           ? "text-fuchsia-500"
                           : "text-gray-400 hover:text-fuchsia-500"
                       }`}
-                      title="Highlight"
+                      title="Star it."
                     >
-                      <FaThumbtack />
+                      {task.preferred ? <FaStar /> : <FaRegStar />}
+                      {/* <FiZap /> */}
                     </button>
                     <button
                       onClick={() => startEdit(task)}
-                      className="text-blue-600 hover:text-blue-500 p-[2px] md:p-1 transition-all duration-300 hover:scale-125"
+                      className="text-gray-400 hover:text-blue-500 p-[2px] md:p-1 transition-all duration-300 hover:scale-125"
                       title="Edit"
                     >
                       <FiEdit2 />
@@ -228,7 +223,7 @@ export default function Tasks() {
 
                     <button
                       onClick={() => deleteTask(task.id)}
-                      className="text-red-400 hover:text-red-500 p-[2px] md:p-1 font-bold transition-all duration-300 hover:scale-125"
+                      className="text-gray-400 hover:text-red-500 p-[2px] md:p-1 font-bold transition-all duration-300 hover:scale-125"
                       title="Delete"
                     >
                       X{/* <FaTrash /> */}
@@ -243,26 +238,54 @@ export default function Tasks() {
     </div>
   );
 }
-
-export function AutoTextarea({ value, onChange, ...props }) {
+export function AutoTextarea({
+  value,
+  onChange,
+  onEnter,
+  placeholder = "Type...",
+  className = "",
+  ...props
+}) {
   const ref = useRef(null);
+
+  // 👇 THIS is the missing piece
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (!value) {
+      el.style.height = "auto"; // back to row=1
+    }
+  }, [value]);
 
   const handleChange = (e) => {
     onChange(e);
 
     const el = ref.current;
     el.style.height = "auto";
-    el.style.height = el.scrollHeight + "px";
+
+    if (e.target.value) {
+      el.style.height = el.scrollHeight + "px";
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      onEnter?.();
+    }
   };
 
   return (
     <textarea
-  ref={ref}
-  value={value}
-  onChange={handleChange}
-  rows={1}
-  placeholder="Add a task..."
-  className=" w-full resize-none overflow-hidden rounded-2xl px-4 py-2.5 text-sm bg-gray-400/40 dark:bg-slate-950/40 border border-white/20 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-rose-400/50 "
-/>
+      ref={ref}
+      value={value}
+      rows={1}
+      placeholder={placeholder}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      className={`resize-none overflow-hidden ${className}`}
+      {...props}
+    />
   );
 }

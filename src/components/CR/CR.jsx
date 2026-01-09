@@ -4,7 +4,6 @@ import { MdAddCall } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import ProtectedRoute from "../Secure/ProtectedRoute";
-import LoaderOverlay from "../../utils/LoaderOverlay";
 import { api } from "../../utils/Secure/api";
 
 const sliderSettings = {

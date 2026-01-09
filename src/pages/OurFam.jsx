@@ -27,7 +27,7 @@ const OurFam = () => {
   return (
     <div className="bg-gray-100 dark:bg-gray-900">
       <Helmet>
-        <title>Our Fam | DAAN KGP</title>
+        <title>Our Family | DAAN KGP</title>
       </Helmet>
       <Fam />
     </div>

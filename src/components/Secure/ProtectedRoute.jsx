@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { api } from "../../utils/Secure/api";
+import { useAuth } from "../../utils/Secure/AuthContext";
 
-export default function ProtectedRoute({
-  children,
-  fallback = null,
-  redirect = false
-}) {
-  const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+export default function ProtectedRoute({ children, redirect = false }) {
+  const { isAuthenticated, loading } = useAuth();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await api.get("/me");
-        setAuthenticated(true);
-      } catch {
-        setAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
+  // While checking auth, show a small inline spinner
+  if (loading)
+    return (
+      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center mt-14">
+      <div className="h-10 w-10 border-2 border-white border-t-transparent rounded-full animate-spin" />
+    </div>
+    );
 
-  if (loading) return null;
-
-  if (!authenticated) {
-    return redirect ? <Navigate to="/signin" replace /> : fallback;
+  if (!isAuthenticated) {
+    return redirect ? <Navigate to="/signin" replace /> : null;
   }
 
   return children;

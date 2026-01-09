@@ -9,7 +9,6 @@ import Dictionary from "../components/Dashboard/Dictionary";
 import Weather from "../components/Dashboard/Weather";
 import Clock from "../components/Dashboard/Clock";
 import Tasks from "../components/Dashboard/Tasks";
-import MoonCalendar from "../components/Dashboard/MoonCalendar";
 import FortuneCookie from "../components/Dashboard/FortuneCookie";
 import Motivation from "../components/Dashboard/Motivation";
 import WhatIsToday from "../components/Dashboard/WhatIsToday";
@@ -87,29 +86,6 @@ export default function Dashboard() {
                   className="relative w-12 h-12 rounded-3xl border-2 border-white dark:border-slate-800 object-cover cursor-pointer"
                 />
               </Link>
-
-              {/* {menuOpen && (
-                <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-rose-100 dark:border-slate-800 py-2 z-50 overflow-hidden flex flex-col">
-                  <Link
-                    to="/profile"
-                    className="w-full px-4 py-3 text-sm hover:bg-rose-50 dark:hover:bg-slate-800 font-medium"
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    to="/forgot-password"
-                    className="w-full px-4 py-3 text-sm hover:bg-rose-50 dark:hover:bg-slate-800 font-medium"
-                  >
-                    Reset Password
-                  </Link>
-                  <Link
-                    to="/signout"
-                    className="w-full px-4 py-3 text-sm text-rose-500 hover:bg-rose-50 dark:hover:bg-slate-800 font-bold border-t dark:border-slate-800"
-                  >
-                    Sign Out
-                  </Link>
-                </div>
-              )} */}
             </div>
           </div>
         </div>
@@ -158,7 +134,6 @@ export default function Dashboard() {
           <FortuneCookie />
         </div>
       </main>
-
       <div className="mt-6 max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         <UpdateYourself />
         <AcademicallyRich />

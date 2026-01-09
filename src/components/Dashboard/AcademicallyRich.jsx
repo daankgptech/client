@@ -7,7 +7,7 @@ export default function AcademicallyRich() {
 
   return (
     <div
-      onClick={() => navigate("/our-bright-minds")}
+      onClick={() => navigate("/academic-stars")}
       className="
         group relative overflow-hidden
         rounded-3xl

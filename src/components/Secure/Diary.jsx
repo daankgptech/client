@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
 import { FiSave } from "react-icons/fi";
-import { FaSave, FaSpinner } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);

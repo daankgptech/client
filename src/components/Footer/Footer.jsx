@@ -13,7 +13,7 @@ const FooterLinks = [
   { title: "Our Fam", link: "/our-fam" },
   { title: "Toolkit", link: "/toolkit" },
   { title: "Forms", link: "/forms" },
-  { title: "Our Bright Minds", link: "/our-bright-minds" },
+  { title: "Academic Stars", link: "/academic-stars" },
 ];
 
 const SocialLinks = [

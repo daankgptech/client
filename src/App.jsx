@@ -70,8 +70,8 @@ export default function App() {
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
-          <Route path="our-bright-minds" element={<OurBrightMinds />} />
-          <Route path="forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
+          <Route path="academic-stars" element={<OurBrightMinds />} />
+          <Route path="/forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
           <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
           <Route path="*" element={<NoPage />} />
           {/* <Route path="/signup" element={<SignUp />} /> */}
@@ -81,7 +81,7 @@ export default function App() {
           <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
-          <Route path="/signout" element={<ProtectedRoute> <SignOut /> </ProtectedRoute> } />
+          <Route path="/signout" element={<SignOut /> } />
         </Routes>
       </main>
       <PageUpBtn />

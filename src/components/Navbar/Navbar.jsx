@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
-import { useAuth } from "../../utils/Secure/useAuth";
+import { useAuth } from "../../utils/Secure/AuthContext";
 import ThemeToggle from "../../utils/ThemeToggle";
 import { Helmet } from "react-helmet";
 
@@ -19,7 +19,7 @@ export default function Navbar() {
     { name: "Our Fam", link: "/our-fam" },
     { name: "Toolkit", link: "/toolkit" },
     { name: "Forms", link: "/forms" },
-    { name: "Our Bright Minds", link: "/our-bright-minds" },
+    { name: "Academic Stars", link: "/academic-stars" },
   ];
   const authRoutes = [
     { name: "Dashboard", link: "/dashboard" },

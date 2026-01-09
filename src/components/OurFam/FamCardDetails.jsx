@@ -5,7 +5,6 @@ import { FaEnvelope, FaLinkedin, FaArrowLeft, FaGithub } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
-import { h3 } from "framer-motion/client";
 
 const FamCardDetails = () => {
   const navigate = useNavigate();

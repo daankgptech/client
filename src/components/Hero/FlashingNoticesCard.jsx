@@ -1,25 +1,37 @@
 import { Link } from "react-router-dom";
 
 const notices = [
-  // {
-  //   text: (
-  //     <>
-  //       DAAN Council Election{" "}
-  //       <Link
-  //         rel="noopener noreferrer"
-  //         className="text-rose-900 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-bold text-sm md:text-md"
-  //         to="/council"
-  //       >
-  //         Result
-  //       </Link>{" "}Declaration: Oct 18, 2025.
-  //     </>
-  //   ),
-  // },
-  { text: "Winter Break: Nov 26-Jan 01, 2026." },
-  { text: "New Spring Sem: Jan 02, 2026." },
-  { text: "TechFest Kshitij: Jan 16-18, 2026." },
+  {
+    text: (
+      <>
+        {/* DAAN Council Election{" "} */}
+        <Link
+          rel="noopener noreferrer"
+          target="_blank"
+          className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
+          to="https://www.ktj.in/"
+        >
+          TechFest Kshitij
+        </Link> : Jan 16-18, 2026.
+      </>
+    ),
+  },
   { text: "JDST-Offline (for EMRS & Non-JNVs): Jan 18, 2026." },
-  { text: "Spring Fest: Jan 23-25, 2026." },
+  {
+    text: (
+      <>
+        {/* DAAN Council Election{" "} */}
+        <Link
+          rel="noopener noreferrer" target="_blank"
+          className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
+          to="https://springfest.in/"
+        >
+          Spring Fest
+        </Link> : Jan 23-25, 2026.
+      </>
+    ),
+  },
+  // { text: "Spring Fest: Jan 23-25, 2026." },
 ];
 
 export default function FlashingNoticesCard() {
@@ -50,7 +62,7 @@ export default function FlashingNoticesCard() {
               data-aos-delay="900"
               className="scroll-mt-[100px] text-left"
             >
-              <h1 className="mb-2 font-bold text-red-800 dark:text-red-500 text-lg md:text-xl lg:text-2xl">
+              <h1 className="mb-2 font-semibold text-red-800 dark:text-red-500 text-lg md:text-xl lg:text-2xl">
                 Notices:-
               </h1>
               <div className="space-y-3">

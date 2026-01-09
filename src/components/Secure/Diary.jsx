@@ -182,13 +182,13 @@ export default function Diary() {
             />
 
             {/* Notebook spine */}
-            <div
+            {/* <div
               className="absolute left-0 top-0 h-full w-6 rounded-l-3xl"
               style={{
                 background:
                   "linear-gradient(to right, rgba(0,0,0,0.08), rgba(0,0,0,0.02), transparent)",
               }}
-            />
+            /> */}
             {/* Ruled lines */}
             {/* <div
               className="absolute inset-0 rounded-3xl pointer-events-none"

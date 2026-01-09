@@ -35,7 +35,7 @@ const FamCard = ({ _id, imgLink, name, branch, hall, contacts, graduated }) => {
       {/* Profile Image */}
       <img
         title={`${name}'s Image`}
-        src={imgLink}
+        src={imgLink || "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"}
         alt={name}
         loading="lazy"
         className="rounded-3xl border border-gray-400 dark:border-gray-600 aspect-square object-cover"

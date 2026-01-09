@@ -403,7 +403,7 @@ export default function Profile() {
           <span className="transition-transform duration-300 group-hover:rotate-6">
             {editing ? <FiSave /> : <FiEdit2 />}
           </span>
-          {saving ? "Saving..." : editing ? "Save Changes" : "Edit"}
+          {saving ? "Saving..." : editing ? "Save" : "Edit"}
         </button>
 
         {/* Dashboard */}

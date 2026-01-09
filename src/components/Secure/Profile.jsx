@@ -28,6 +28,8 @@ export default function Profile() {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [showSgpaModal, setShowSgpaModal] = useState(false);
+  const [selectModal, setSelectModal] = useState(null);
+
   const normalizeSgpa = (sgpa) => {
     if (!sgpa || typeof sgpa !== "object" || Array.isArray(sgpa)) return {};
     const clean = {};
@@ -211,39 +213,51 @@ export default function Profile() {
             label="Semester"
             value={form.sem || semStatus}
             type="select"
-            options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
-            onChange={(v) => handleChange("sem", v)}
+            openSelect={() =>
+              setSelectModal({
+                title: "Select Semester",
+                options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+                value: form.sem,
+                onSelect: (v) => handleChange("sem", v),
+              })
+            }
           />
           <Field
             editing={editing}
             label="Branch"
             value={form.branch}
             type="select"
-            options={[
-              "AE",
-              "AG",
-              "AI",
-              "BT",
-              "CE",
-              "CH",
-              "CI",
-              "CS",
-              "CY",
-              "EC",
-              "EE",
-              "EX",
-              "HS",
-              "IE",
-              "IM",
-              "MA",
-              "ME",
-              "MF",
-              "MI",
-              "NA",
-              "MT",
-              "GG",
-            ]}
-            onChange={(v) => handleChange("branch", v)}
+            openSelect={() =>
+              setSelectModal({
+                title: "Select Branch",
+                options: [
+                  "AE",
+                  "AG",
+                  "AI",
+                  "BT",
+                  "CE",
+                  "CH",
+                  "CI",
+                  "CS",
+                  "CY",
+                  "EC",
+                  "EE",
+                  "EX",
+                  "HS",
+                  "IE",
+                  "IM",
+                  "MA",
+                  "ME",
+                  "MF",
+                  "MI",
+                  "NA",
+                  "MT",
+                  "GG",
+                ],
+                value: form.branch,
+                onSelect: (v) => handleChange("branch", v),
+              })
+            }
           />
           <Field
             editing={editing}
@@ -261,7 +275,7 @@ export default function Profile() {
                 onClick={() => setShowSgpaModal(true)}
                 className="text-gray-800 dark:text-gray-200 border-b border-red-400 flex items-center justify-center"
               >
-                Edit <FiChevronDown />
+                Fill <FiChevronDown />
               </button>
             ) : (
               <span className=" ml-6 text-gray-800 dark:text-gray-200 truncate">
@@ -274,8 +288,14 @@ export default function Profile() {
             label="Course"
             value={form.course}
             type="select"
-            options={["4-year", "5-year"]}
-            onChange={(v) => handleChange("course", v)}
+            openSelect={() =>
+              setSelectModal({
+                title: "Select Course",
+                options: ["4-year", "5-year"],
+                value: form.course,
+                onSelect: (v) => handleChange("course", v),
+              })
+            }
           />
         </Card>
         <Card title="More Info" icon={FiInfo}>
@@ -284,41 +304,53 @@ export default function Profile() {
             label="Hall"
             value={form.hall}
             type="select"
-            options={[
-              "ABV",
-              "Azad",
-              "HJB",
-              "JCB",
-              "LLR",
-              "LBS",
-              "MS",
-              "MMM",
-              "MT",
-              "Nehru",
-              "Patel",
-              "RK",
-              "RP",
-              "SN/IG",
-              "SNVH",
-              "VS",
-            ]}
-            onChange={(v) => handleChange("hall", v)}
+            openSelect={() =>
+              setSelectModal({
+                title: "Select Hall",
+                options: [
+                  "ABV",
+                  "Azad",
+                  "HJB",
+                  "JCB",
+                  "LLR",
+                  "LBS",
+                  "MS",
+                  "MMM",
+                  "MT",
+                  "Nehru",
+                  "Patel",
+                  "RK",
+                  "RP",
+                  "SN/IG",
+                  "SNVH",
+                  "VS",
+                ],
+                value: form.hall,
+                onSelect: (v) => handleChange("hall", v),
+              })
+            }
           />
           <Field
             editing={editing}
             label="COE"
             value={form.coe}
             type="select"
-            options={[
-              "Dakshana Valley",
-              "JNV Bengaluru Rural",
-              "JNV Bengaluru Urban",
-              "JNV Bundi",
-              "JNV Kottayam",
-              "JNV Lucknow",
-              "JNV Rangareddi",
-            ]}
-            onChange={(v) => handleChange("coe", v)}
+            openSelect={() =>
+              setSelectModal({
+                title: "Select COE",
+                options: [
+                  "Dakshana Valley",
+                  "JNV Bengaluru Rural",
+                  "JNV Bengaluru Urban",
+                  "JNV Bundi",
+                  "JNV Kottayam",
+                  "JNV Lucknow",
+                  "JNV Rangareddi",
+                ],
+                value: form.coe,
+                onSelect: (v) => handleChange("coe", v),
+              })
+            }
           />
           <Field
             editing={editing}
@@ -491,7 +523,15 @@ export default function Profile() {
           Sign Out <FiLogOut />
         </Link>
       </div>
-
+      {/* select-Model  */}
+      <SelectModal
+        open={!!selectModal}
+        title={selectModal?.title}
+        options={selectModal?.options || []}
+        value={selectModal?.value}
+        onSelect={selectModal?.onSelect}
+        onClose={() => setSelectModal(null)}
+      />
       {/* SGPA-Model */}
       {showSgpaModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -628,13 +668,20 @@ const Card = ({ title, icon: Icon, children }) => (
     className="
       group relative overflow-hidden
       rounded-3xl p-6
-      bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+      
       border border-gray-300/60 dark:border-gray-700
       transition-all duration-500
-      hover:-translate-y-1
-      hover:shadow-xl hover:shadow-rose-900/20
     "
+    // className="
+    //   group relative overflow-hidden
+    //   rounded-3xl p-6
+    //   bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
+    //   dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+    //   border border-gray-300/60 dark:border-gray-700
+    //   transition-all duration-500
+    //   hover:-translate-y-1
+    //   hover:shadow-xl hover:shadow-rose-900/20
+    // "
   >
     <div
       className="
@@ -668,6 +715,7 @@ const Field = ({
   onChange,
   type = "text",
   options = [],
+  openSelect,
 }) => (
   <div className="flex justify-between items-center gap-4 text-sm group">
     <span className="text-gray-500 flex items-center gap-2">
@@ -677,34 +725,17 @@ const Field = ({
 
     {editing ? (
       type === "select" ? (
-        <select
-          value={value || ""}
-          onChange={(e) => onChange(e.target.value)}
-          className="
-            max-w-[60%] text-right
-            bg-transparent border-b border-rose-400
-            focus:outline-none text-gray-900 dark:text-gray-100
-            cursor-pointer
-          "
+        <button
+          onClick={openSelect}
+          className="max-w-[60%] text-right border-b border-rose-400 text-gray-900 dark:text-gray-100"
         >
-          <option value="" className="dark:bg-gray-900">
-            Select...
-          </option>
-          {options.map((opt) => (
-            <option key={opt} value={opt} className="dark:bg-gray-900">
-              {opt}
-            </option>
-          ))}
-        </select>
+          {value || "Select..."}
+        </button>
       ) : (
         <input
           value={value || ""}
           onChange={(e) => onChange(e.target.value)}
-          className="
-            max-w-[60%] text-right
-            bg-transparent border-b border-rose-400
-            focus:outline-none text-gray-900 dark:text-gray-100
-          "
+          className="max-w-[60%] text-right bg-transparent border-b border-rose-400 focus:outline-none"
         />
       )
     ) : (
@@ -721,6 +752,57 @@ const Info = ({ label, value }) => (
     <span className="text-gray-700 dark:text-gray-300">{value || "—"}</span>
   </div>
 );
+const SelectModal = ({ open, title, options, value, onSelect, onClose }) => {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* backdrop */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
+        onClick={onClose}
+      />
+
+      {/* modal */}
+      <div className="relative z-10 w-[92%] max-w-md rounded-3xl bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border border-gray-200/60 dark:border-gray-700 shadow-2xl p-5 animate-scaleIn">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            {title}
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-rose-500 transition"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="space-y-2 max-h-[50vh] overflow-y-auto">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => {
+                onSelect(opt);
+                onClose();
+              }}
+              className={`
+                w-full text-left px-4 py-2 rounded-xl
+                transition
+                ${
+                  opt === value
+                    ? "bg-rose-500 text-white"
+                    : "hover:bg-rose-50 dark:hover:bg-gray-700"
+                }
+              `}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const formatDate = (dateStr) => {
   if (!dateStr) return "—";

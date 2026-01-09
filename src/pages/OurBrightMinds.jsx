@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BrightMindsCard from "../components/OurBrightMinds/BrightMindsCard";
 import { api } from "../utils/Secure/api";
 import LoaderOverlay from "../utils/LoaderOverlay";
+import AnimatedCarousel from "../components/OurBrightMinds/AnimatedCarousel";
 
 const OurBrightMinds = () => {
   const [data, setData] = useState({});
@@ -44,7 +45,7 @@ const OurBrightMinds = () => {
       </Helmet>
 
       <section data-aos="fade-up" className="container">
-        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-bold">
+        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-bold container">
           Academic Stars
         </h1>
 
@@ -52,24 +53,23 @@ const OurBrightMinds = () => {
         <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 dark:text-gray-300">
           Top Performers from Each Batch
         </h2>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <AnimatedCarousel>
           {topPerformers.map((item) => (
             <BrightMindsCard key={item.id} {...item} />
           ))}
-        </div>
+        </AnimatedCarousel>
 
         {/* Batch-wise */}
         <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mt-12 dark:text-gray-300">
           Batch-wise Performers
         </h2>
 
-        <div className="flex justify-center gap-4 mt-6 flex-wrap">
+        <div className="flex justify-center gap-4 mt-6 flex-wrap container">
           {yearsDescending.map((year) => (
             <button
               key={year}
               onClick={() => setActiveYear(year)}
-              className={`px-4 py-2 rounded-md font-medium transition ${
+              className={`px-4 py-2 rounded-2xl font-medium transition ${
                 activeYear === year
                   ? "bg-red-400 text-white"
                   : "bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
@@ -79,12 +79,11 @@ const OurBrightMinds = () => {
             </button>
           ))}
         </div>
-
-        <div className="flex justify-center flex-wrap gap-4 mt-6">
+        <AnimatedCarousel>
           {data[activeYear]?.map((item) => (
             <BrightMindsCard key={item.id} {...item} />
           ))}
-        </div>
+        </AnimatedCarousel>
       </section>
     </div>
   );

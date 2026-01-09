@@ -14,6 +14,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ReferenceLine,
 } from "recharts";
 import ProtectedRoute from "../Secure/ProtectedRoute";
 import LoaderOverlay from "../../utils/LoaderOverlay";
@@ -73,17 +74,18 @@ const Overview = ({ batchDataMap, goToYear }) => {
       </motion.h1>
 
       {/* Gender Pie */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container mx-auto mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4  mx-auto mb-10 md:container">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-gray-200 dark:bg-gray-800 rounded-3xl p-6 flex flex-col items-center"
+          className="bg-transparent p-6 flex flex-col justify-start items-center  h-full"
+          // className="bg-gray-200 dark:bg-gray-800 rounded-3xl p-6 flex flex-col items-center"
         >
-          <h2 className="text-xl font-semibold mb-4 text-center">
+          <h2 className="text-xl font-semibold mb-4 text-center ">
             Gender Distribution
           </h2>
 
-          <div className="flex justify-center items-center">
+          <div className="flex justify-end items-center  h-full">
             <ResponsiveContainer width={200} height={200}>
               <PieChart>
                 <Pie
@@ -107,7 +109,8 @@ const Overview = ({ batchDataMap, goToYear }) => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6"
+          className="bg-transparent p-6"
+          // className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-6"
         >
           <h2 className="text-xl font-semibold mb-4 text-center">
             Batch Wise Strength
@@ -115,19 +118,38 @@ const Overview = ({ batchDataMap, goToYear }) => {
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data.BatchWise}>
               <XAxis dataKey="batch" />
-              <YAxis />
+              {/* Hidden Y-axis for scaling */}
+              <YAxis hide domain={[0, 60]} />
               <Tooltip />
+              {/* Measuring lines */}
+              {[15, 30, 45, 60].map((value) => (
+                <ReferenceLine
+                  key={value}
+                  y={value}
+                  stroke="#DC2626"
+                  strokeDasharray="4 4"
+                  label={{
+                    value,
+                    position: "right",
+                    fill: "#DC2626",
+                    opacity: 1.0,
+                    fontSize: 12,
+                    textAnchor: "Shani",
+                  }}
+                  name={value}
+                />
+              ))}
               <Bar dataKey="count" radius={[8, 8, 0, 0]} fill="#f43f5e" />
             </BarChart>
           </ResponsiveContainer>
         </motion.div>
       </div>
-      <div className="grid grid-cols-1 container mx-auto mb-10">
+      <div className="grid grid-cols-1 md:container mx-auto mb-10">
         {/* COE Line */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gray-200 dark:bg-gray-800 rounded-2xl p-2 md:p-4 lg:p-6 w-full max-w-6xl mx-auto"
+          className="bg-transparent rounded-2xl p-2 md:p-4 lg:p-6 w-full max-w-6xl mx-auto"
         >
           <h2 className="text-xl font-semibold mb-4 text-center">
             COE Wise Distribution
@@ -138,7 +160,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
                 <XAxis
                   dataKey="coe"
                   angle={-30}
-                  textAnchor="end"
+                  textAnchor="middle"
                   height={80}
                   interval="preserveStartEnd"
                   tick={{ fill: "#6b7280", fontSize: 12 }}
@@ -148,6 +170,23 @@ const Overview = ({ batchDataMap, goToYear }) => {
                 />
                 <YAxis tick={{ fill: "#6b7280" }} />
                 <Tooltip cursor={{ stroke: "#fb7185", strokeWidth: 1 }} />
+                {[20, 40, 60].map((value) => (
+                  <ReferenceLine
+                    key={value}
+                    y={value}
+                    stroke="#DC2626"
+                    strokeDasharray="4 4"
+                    label={{
+                      value,
+                      position: "right",
+                      fill: "#DC2626",
+                      opacity: 1.0,
+                      fontSize: 12,
+                      textAnchor: "start",
+                    }}
+                    name={value}
+                  />
+                ))}
                 <Line
                   type="natural"
                   dataKey="count"

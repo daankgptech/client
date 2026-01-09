@@ -103,7 +103,8 @@ export default function ScoreAnalyzer() {
           hover:text-gray-900 dark:hover:text-gray-100
           text-sm
       "
-            >📌
+            >
+              📌
             </span>
             {/* Hover Popup */}
             <div
@@ -121,8 +122,9 @@ export default function ScoreAnalyzer() {
           shadow-xl
           z-50"
             >
-              <p>A basic, not actual, estimated visualization based solely on the SGPA
-                values you enter assuming equal weight across semesters.
+              <p>
+                A basic, not actual, estimated visualization based solely on the
+                SGPA values you enter assuming equal weight across semesters.
               </p>
             </div>
           </div>
@@ -147,7 +149,7 @@ export default function ScoreAnalyzer() {
               // autoFocus
               value={sgpa}
               onChange={(e) => updateSGPA(i, e.target.value)}
-              onKeyDown={(e)=>{
+              onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   addSemester();
                 }
@@ -168,7 +170,8 @@ export default function ScoreAnalyzer() {
           onClick={addSemester}
           title="Add more SGPAs"
           className="px-3 py-1 rounded-full text-xs bg-green-200 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:scale-110 transition-all duration-300"
-        >+
+        >
+          +
         </button>
         <button
           onClick={removeSemester}

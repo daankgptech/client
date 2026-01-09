@@ -28,6 +28,21 @@ export default function Profile() {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [showSgpaModal, setShowSgpaModal] = useState(false);
+  const normalizeSgpa = (sgpa) => {
+    if (!sgpa || typeof sgpa !== "object" || Array.isArray(sgpa)) return {};
+    const clean = {};
+    for (const [k, v] of Object.entries(sgpa)) {
+      if (!isNaN(Number(k)) && typeof v === "string" && v.trim() !== "{") {
+        clean[k] = v;
+      }
+    }
+    return clean;
+  };
+  const cleanSgpa = Object.fromEntries(
+    Object.entries(form?.sgpa || {}).filter(
+      ([, v]) => v !== "" && v !== "{" && !isNaN(Number(v))
+    )
+  );
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -36,7 +51,7 @@ export default function Profile() {
         setUser(res.data);
         setForm({
           ...res.data,
-          sgpa: res.data.sgpa || {}, // <-- change
+          sgpa: normalizeSgpa(res.data.sgpa),
           contacts: res.data.contacts?.[0] || {},
           involvements: res.data.involvements?.[0] || {},
         });
@@ -80,10 +95,9 @@ export default function Profile() {
     try {
       setSaving(true);
       const fd = new FormData();
-      const cleanSgpa = Object.fromEntries(
-        Object.entries(form.sgpa || {}).filter(([_, v]) => v !== "")
-      );
-      fd.append("sgpa", JSON.stringify(cleanSgpa));
+      if (Object.keys(cleanSgpa).length > 0) {
+        fd.append("sgpa", JSON.stringify(cleanSgpa));
+      }
       fd.append("name", form.name || "");
       fd.append("gender", form.gender || "");
       fd.append("batch", form.batch || "");
@@ -109,8 +123,9 @@ export default function Profile() {
       setImageFile(null);
       setImagePreview(null);
       toast.success("Profile updated");
-    } catch {
+    } catch (error) {
       toast.error("Update failed");
+      console.log(error);
     } finally {
       setSaving(false);
     }
@@ -246,7 +261,7 @@ export default function Profile() {
                 onClick={() => setShowSgpaModal(true)}
                 className="text-gray-800 dark:text-gray-200 border-b border-red-400 flex items-center justify-center"
               >
-                Edit <FiChevronDown/>
+                Edit <FiChevronDown />
               </button>
             ) : (
               <span className=" ml-6 text-gray-800 dark:text-gray-200 truncate">

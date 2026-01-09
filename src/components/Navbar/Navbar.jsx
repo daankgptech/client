@@ -1,390 +1,291 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../utils/Secure/AuthContext";
 import ThemeToggle from "../../utils/ThemeToggle";
 import { Helmet } from "react-helmet";
+import { div } from "framer-motion/client";
 
-export default function Navbar() {
-  const { isAuthenticated: authed, loading } = useAuth();
-  const location = useLocation();
+/* ----------------------------- Data ----------------------------- */
 
-  const [open, setOpen] = useState(false);
-  const [personalOpen, setPersonalOpen] = useState(false);
+const routes = [
+  { name: "Our Fam", link: "/our-fam" },
+  { name: "Toolkit", link: "/toolkit" },
+  { name: "Forms", link: "/forms" },
+  { name: "Academic Stars", link: "/academic-stars" },
+];
 
-  const personalDesktopRef = useRef(null);
-  const personalMobileRef = useRef(null);
+const authRoutes = [
+  { name: "Dashboard", link: "/dashboard" },
+  { name: "Diary", link: "/diary" },
+  { name: "Profile", link: "/profile" },
+  { name: "Reset Password", link: "/forgot-password" },
+  { name: "Sign Out", link: "/signout" },
+];
 
-  const routes = [
-    { name: "Our Fam", link: "/our-fam" },
-    { name: "Toolkit", link: "/toolkit" },
-    { name: "Forms", link: "/forms" },
-    { name: "Academic Stars", link: "/academic-stars" },
-  ];
-  const authRoutes = [
-    { name: "Dashboard", link: "/dashboard" },
-    { name: "Diary", link: "/diary" },
-    { name: "Profile", link: "/profile" },
-    { name: "Sign Out", link: "/signout" },
-  ];
-  useEffect(() => {
-    const handler = (e) => {
-      if (
-        personalDesktopRef.current &&
-        personalDesktopRef.current.contains(e.target)
-      ) {
-        return;
-      }
+/* ----------------------------- Motion ----------------------------- */
 
-      if (
-        personalMobileRef.current &&
-        personalMobileRef.current.contains(e.target)
-      ) {
-        return;
-      }
+const dropdownAnim = {
+  hidden: { opacity: 0, scale: 0.95, y: -6 },
+  visible: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.95, y: -6 },
+};
 
-      setPersonalOpen(false);
-    };
+const mobileMenuAnim = {
+  hidden: { opacity: 0, height: 0 },
+  visible: { opacity: 1, height: "auto" },
+  exit: { opacity: 0, height: 0 },
+};
 
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+/* ----------------------------- Components ----------------------------- */
 
-  useEffect(() => {
-    setPersonalOpen(false);
-    setOpen(false);
-  }, [location.pathname]);
-
-  if (loading)
-    return (
-      <>
-        <nav className="md:container sticky max-h-14 top-0 z-50 backdrop-blur-md bg-white dark:bg-gray-950 border-b border-rose-100 dark:border-gray-800 transition-colors duration-300">
-          <div className="container mx-auto px-4 py-3 my-0">
-            <div className="flex items-center justify-between my-0">
-              {/* Logo */}
-              <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-                <Helmet>
-                  <link
-                    rel="preload"
-                    as="image"
-                    href="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
-                  />
-                </Helmet>
-                <img
-                  src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
-                  alt="DAAN KGP Logo"
-                  width={125}
-                />
-              </Link>
-              {/* Desktop Links */}
-              <div className="hidden md:flex items-center gap-6">
-                <ThemeToggle />
-                {routes.map((r) => (
-                  <NavLink
-                    key={r.name}
-                    to={r.link}
-                    className={({ isActive }) =>
-                      `text-sm transition-colors duration-300 ${
-                        isActive
-                          ? "text-rose-600 dark:text-rose-400"
-                          : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                      }`
-                    }
-                  >
-                    {r.name}
-                  </NavLink>
-                ))}
-                {/* Personal Dropdown */}
-                {authed && (
-                  <div ref={personalDesktopRef} className="relative">
-                    <button
-                      onClick={() => setPersonalOpen((p) => !p)}
-                      className="text-sm transition-colors duration-300 flex gap-1 items-center text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                    >
-                      Personal
-                      <FiChevronDown
-                        size={14}
-                        className={`transition-transform duration-300 ${
-                          personalOpen ? "rotate-180" : "rotate-0"
-                        }`}
-                      />
-                    </button>
-
-                    <div
-                      className={`absolute right-0 mt-3 w-40 rounded-2xl bg-gray-100 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-lg overflow-hidden transition-all duration-300 transform origin-top-right ${
-                        personalOpen
-                          ? "scale-100 opacity-100"
-                          : "scale-95 opacity-0 pointer-events-none"
-                      }`}
-                    >
-                      {authRoutes.map((r) => (
-                        <NavLink
-                          key={r.name}
-                          to={r.link}
-                          onClick={() => setPersonalOpen(false)}
-                          className={({ isActive }) =>
-                            `block px-4 py-2 text-sm transition-all duration-300 ${
-                              isActive
-                                ? "text-rose-600 dark:text-rose-400"
-                                : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                            }`
-                          }
-                        >
-                          {r.name}
-                        </NavLink>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Mobile */}
-              <div className="flex md:hidden items-center gap-3">
-                <ThemeToggle />
-                <button
-                  onClick={() => setOpen((o) => !o)}
-                  className="p-2 rounded-xl bg-rose-500/10 text-rose-500 transition-colors duration-300"
-                >
-                  {open ? <FiX /> : <FiMenu />}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          <div
-            className={`md:hidden absolute top-14 right-0 w-full px-4 py-2 bg-gray-100 dark:bg-gray-950 border-t border-rose-100 dark:border-gray-800 transition-all duration-300 overflow-hidden ${
-              open ? "max-h-screen opacity-100 py-4" : "max-h-0 opacity-0 py-0"
-            }`}
-          >
-            <div className="flex flex-col gap-3 justify-start items-center">
-              {routes.map((r) => (
-                <NavLink
-                  key={r.name}
-                  to={r.link}
-                  onClick={() => setOpen(false)}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300 transition-all duration-300"
-                >
-                  {r.name}
-                </NavLink>
-              ))}
-            </div>
-          </div>
-        </nav>
-      </>
-    );
-
-  return (
-    <nav className="md:container sticky max-h-14 top-0 z-50 backdrop-blur-md bg-white dark:bg-gray-950 border-b border-rose-100 dark:border-gray-800 transition-colors duration-300">
-      <div className="container mx-auto px-4 py-3 my-0">
-        <div className="flex items-center justify-between my-0">
-          {/* Logo */}
-          <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <Helmet>
-              <link
-                rel="preload"
-                as="image"
-                href="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
-              />
-            </Helmet>
-            <img
-              src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
-              alt="DAAN KGP Logo"
-              width={125}
-            />
-          </Link>
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-6">
-            <ThemeToggle />
-            {routes.map((r) => (
-              <NavLink
-                key={r.name}
-                to={r.link}
-                className={({ isActive }) =>
-                  `text-sm transition-colors duration-300 ${
-                    isActive
-                      ? "text-rose-600 dark:text-rose-400"
-                      : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                  }`
-                }
-              >
-                {r.name}
-              </NavLink>
-            ))}
-            {/* Personal Dropdown */}
-            {authed && (
-              <div ref={personalDesktopRef} className="relative">
-                <button
-                  onClick={() => setPersonalOpen((p) => !p)}
-                  className="text-sm transition-colors duration-300 flex gap-1 items-center text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                >
-                  Personal
-                  <FiChevronDown
-                    size={14}
-                    className={`transition-transform duration-300 ${
-                      personalOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                  />
-                </button>
-
-                <div
-                  className={`absolute right-0 mt-3 w-40 rounded-2xl bg-gray-100 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-lg overflow-hidden transition-all duration-300 transform origin-top-right ${
-                    personalOpen
-                      ? "scale-100 opacity-100"
-                      : "scale-95 opacity-0 pointer-events-none"
-                  }`}
-                >
-                  {authRoutes.map((r) => (
-                    <NavLink
-                      key={r.name}
-                      to={r.link}
-                      onClick={() => setPersonalOpen(false)}
-                      className={({ isActive }) =>
-                        `block px-4 py-2 text-sm transition-all duration-300 ${
-                          isActive
-                            ? "text-rose-600 dark:text-rose-400"
-                            : "text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300"
-                        }`
-                      }
-                    >
-                      {r.name}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
-            )}
-            {/* Auth Buttons */}
-            {!authed && (
-              <div className="flex justify-center items-center gap-6">
-                <Link
-                  to="/signin"
-                  className="px-4 py-1.5 rounded-3xl text-sm bg-rose-50 hover:bg-rose-100 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 hover:scale-105 transition-all duration-300"
-                >
-                  Sign In
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile */}
-          <div className="flex md:hidden items-center gap-3">
-            <ThemeToggle />
-            <button
-              onClick={() => setOpen((o) => !o)}
-              className="p-2 rounded-xl bg-rose-500/10 text-rose-500 transition-colors duration-300"
-            >
-              {open ? <FiX /> : <FiMenu />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden absolute top-14 right-0 w-full px-4 py-2 bg-gray-100 dark:bg-gray-950 border-t border-rose-100 dark:border-gray-800 transition-all duration-300 overflow-hidden ${
-          open ? "max-h-screen opacity-100 py-4" : "max-h-0 opacity-0 py-0"
-        }`}
-      >
-        <div className="flex flex-col gap-3 justify-start items-center">
-          {routes.map((r) => (
-            <NavLink
-              key={r.name}
-              to={r.link}
-              onClick={() => setOpen(false)}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 hover:dark:text-gray-300 transition-all duration-300"
-            >
-              {r.name}
-            </NavLink>
-          ))}
-          {authed && (
-            <div
-              ref={personalMobileRef}
-              className="relative flex flex-col justify-start items-center"
-            >
-              <button
-                onClick={() => setPersonalOpen((p) => !p)}
-                className={`text-sm transition-colors duration-300 flex gap-1 items-center ${
-                  personalOpen
-                    ? "text-rose-600 dark:text-rose-400"
-                    : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
-                }`}
-              >
-                Personal
-                <FiChevronDown
-                  size={14}
-                  className={`transition-transform duration-300 ${
-                    personalOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </button>
-
-              <div
-                className={`relative right-0 mt-3 w-40 rounded-2xl bg-gray-100 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-lg overflow-hidden transition-all duration-300 transform origin-top-right ${
-                  personalOpen
-                    ? "scale-100 opacity-100"
-                    : "scale-95 opacity-0 pointer-events-none"
-                }`}
-              >
-                <NavItem
-                  to="/dashboard"
-                  label="Dashboard"
-                  onClick={() => {
-                    setPersonalOpen(false);
-                    setOpen(false);
-                  }}
-                />
-                <NavItem
-                  to="/diary"
-                  label="Diary"
-                  onClick={() => {
-                    setPersonalOpen(false);
-                    setOpen(false);
-                  }}
-                />
-                <NavItem
-                  to="/profile"
-                  label="Profile"
-                  onClick={() => {
-                    setPersonalOpen(false);
-                    setOpen(false);
-                  }}
-                />
-                <Link
-                  to="/signout"
-                  className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300"
-                  onClick={() => {
-                    setPersonalOpen(false);
-                    setOpen(false);
-                  }}
-                >
-                  Sign Out
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {!authed && (
-            <div className="flex flex-col gap-3 justify-start items-center">
-              <Link
-                to="/signin"
-                className="px-4 py-1.5 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 hover:scale-105 transition-all duration-300"
-              >
-                Sign In
-              </Link>
-            </div>
-          )}
-        </div>
-      </div>
-    </nav>
-  );
-}
+const Logo = () => (
+  <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+    <Helmet>
+      <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
+      />
+    </Helmet>
+    <img
+      src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
+      alt="DAAN KGP Logo"
+      width={125}
+      className="drop-shadow-sm"
+    />
+  </Link>
+);
 
 const NavItem = ({ to, label, onClick }) => (
   <Link
     to={to}
     onClick={onClick}
-    className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors duration-300"
+    className="block px-4 py-2 text-sm rounded-lg text-gray-700 dark:text-gray-300 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 transition"
   >
     {label}
   </Link>
 );
+
+/* ----------------------------- Navbar ----------------------------- */
+
+export default function Navbar() {
+  const { isAuthenticated: authed, loading } = useAuth();
+  const location = useLocation();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [personalOpen, setPersonalOpen] = useState(false);
+
+  const personalRef = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (!personalRef.current?.contains(e.target)) {
+        setPersonalOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+    setPersonalOpen(false);
+  }, [location.pathname]);
+  const mobileDropdownAnim = {
+    hidden: {
+      height: 0,
+      opacity: 0,
+    },
+    visible: {
+      height: "auto",
+      opacity: 1,
+    },
+    exit: {
+      height: 0,
+      opacity: 0,
+    },
+  };
+  return (
+    <nav className="sticky top-0 max-h-14 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-950/80 border-b border-rose-100 dark:border-gray-800 block md:container">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <Logo />
+
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-6">
+          <ThemeToggle />
+
+          {routes.map((r) => (
+            <NavLink
+              key={r.name}
+              to={r.link}
+              className={({ isActive }) =>
+                `text-sm font-medium transition ${
+                  isActive
+                    ? "text-rose-600 dark:text-rose-400"
+                    : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
+                }`
+              }
+            >
+              {r.name}
+            </NavLink>
+          ))}
+
+          {!loading && authed && (
+            <div ref={personalRef} className="relative">
+              <button
+                onClick={() => setPersonalOpen((p) => !p)}
+                className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition"
+              >
+                Personal
+                <FiChevronDown
+                  className={`transition ${personalOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {personalOpen && (
+                  <motion.div
+                    variants={dropdownAnim}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="absolute right-0 mt-3 w-44 rounded-xl bg-white dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-xl"
+                  >
+                    {authRoutes.map((r) => (
+                      <NavItem
+                        key={r.name}
+                        to={r.link}
+                        label={r.name}
+                        onClick={() => setPersonalOpen(false)}
+                      />
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {!loading && !authed && (
+             <div className="flex gap-4 justify-center items-center">
+                  {/* <Link
+                    to="/signup"
+                    className="px-3 py-1 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:scale-105 transition-all duration-300"
+                  >
+                    Sign Up
+                  </Link> */}
+                  <Link
+                    to="/signin"
+                    className="px-3 py-1 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 hover:scale-105 transition-all duration-300"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+          )}
+        </div>
+
+        {/* Mobile toggle */}
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            className="p-2 rounded-xl bg-rose-500/10 text-rose-600"
+          >
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            variants={mobileMenuAnim}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="md:hidden overflow-hidden bg-white dark:bg-gray-950 border-t border-rose-100 dark:border-gray-800 absolute top-14 w-full"
+          >
+            <div className="flex flex-col items-start gap-4 py-4 px-6">
+              {routes.map((r) => (
+                <NavLink
+                  key={r.name}
+                  to={r.link}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition"
+                >
+                  {r.name}
+                </NavLink>
+              ))}
+              {!loading && authed && (
+                <div ref={personalRef} className="w-full">
+                  <button
+                    onClick={() => setPersonalOpen((p) => !p)}
+                    className="w-full flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-rose-500 transition"
+                  >
+                    <span>Personal</span>
+                    <FiChevronDown
+                      className={`transition-transform duration-300 ${
+                        personalOpen ? "rotate-180 text-rose-500" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {personalOpen && (
+                      <motion.div
+                        variants={mobileDropdownAnim}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        transition={{
+                          duration: 0.35,
+                          ease: "easeOut",
+                        }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-2 rounded-xl bg-rose-50/60 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-inner">
+                          {authRoutes.map((r) => (
+                            <NavItem
+                              key={r.name}
+                              to={r.link}
+                              label={r.name}
+                              onClick={() => {
+                                setPersonalOpen(false);
+                                setMenuOpen(false);
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {!loading && !authed && (
+                <div className="flex gap-4">
+                  {/* <Link
+                    to="/signup"
+                    className="px-5 py-2 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700"
+                  >
+                    Sign Up
+                  </Link> */}
+                  <Link
+                    to="/signin"
+                    className="px-5 py-2 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+}

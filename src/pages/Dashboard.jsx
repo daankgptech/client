@@ -56,7 +56,7 @@ export default function Dashboard() {
       <header className="max-w-[1600px] mx-auto mb-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-6">
           <div className="space-y-1 lg:col-span-1">
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight whitespace-nowrap">
+            <h1 className="text-lg md:text-xl font-bold tracking-tight whitespace-nowrap truncate">
               {user ? `Hello, ${user.name || user.username}` : "Hello"}
             </h1>
             <p className="text-rose-400 font-medium tracking-wide uppercase text-[10px]">

@@ -27,6 +27,7 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showSgpaModal, setShowSgpaModal] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -35,6 +36,7 @@ export default function Profile() {
         setUser(res.data);
         setForm({
           ...res.data,
+          sgpa: res.data.sgpa || {}, // <-- change
           contacts: res.data.contacts?.[0] || {},
           involvements: res.data.involvements?.[0] || {},
         });
@@ -77,8 +79,11 @@ export default function Profile() {
   const saveProfile = async () => {
     try {
       setSaving(true);
-
       const fd = new FormData();
+      const cleanSgpa = Object.fromEntries(
+        Object.entries(form.sgpa || {}).filter(([_, v]) => v !== "")
+      );
+      fd.append("sgpa", JSON.stringify(cleanSgpa));
       fd.append("name", form.name || "");
       fd.append("gender", form.gender || "");
       fd.append("batch", form.batch || "");
@@ -86,9 +91,8 @@ export default function Profile() {
       fd.append("hall", form.hall || "");
       fd.append("course", form.course || "");
       fd.append("cgpa", form.cgpa || "");
-      fd.append("sgpa", form.sgpa || "");
+      // fd.append("sgpa", JSON.stringify(form.sgpa || {}));
       fd.append("bio", form.bio || "");
-
       fd.append("contacts", JSON.stringify(form.contacts));
       fd.append("involvements", JSON.stringify(form.involvements));
 
@@ -111,11 +115,17 @@ export default function Profile() {
       setSaving(false);
     }
   };
-  const sem = user.batch
-    ? (new Date().getFullYear() - user.batch) * 2
-    : null;
+  const sem = user.batch ? (new Date().getFullYear() - user.batch) * 2 : null;
   const graduatingStatus = user.graduated ? "Graduated" : "Currently Enrolled";
   const semStatus = user.graduated ? "Graduated" : sem;
+  const calculatedCgpa = (() => {
+    const values = Object.values(form?.sgpa || {})
+      .map(Number)
+      .filter((v) => !isNaN(v));
+    if (!values.length) return "";
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+    return avg.toFixed(2);
+  })();
   return (
     <>
       <div className="container py-10 flex flex-col md:flex-row items-center gap-6">
@@ -164,13 +174,7 @@ export default function Profile() {
             <input
               value={form.name || ""}
               onChange={(e) => handleChange("name", e.target.value)}
-              className="
-          text-3xl font-semibold
-          bg-transparent
-          border-b-2 border-rose-400
-          focus:outline-none
-          text-gray-900 dark:text-gray-100
-        "
+              className="max-w-[60%] text-right bg-transparent border-b border-rose-400 focus:outline-none text-gray-900 dark:text-gray-100 "
             />
           ) : (
             <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">
@@ -229,15 +233,27 @@ export default function Profile() {
           <Field
             editing={editing}
             label="CGPA"
-            value={form.cgpa}
+            value={form.cgpa || calculatedCgpa}
             onChange={(v) => handleChange("cgpa", v)}
           />
-          <Field
-            editing={editing}
-            label="SGPA"
-            value={form.sgpa}
-            onChange={(v) => handleChange("sgpa", v)}
-          />
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-500 flex items-center gap-2">
+              <FiEdit3 className="opacity-40" />
+              SGPA
+            </span>
+            {editing ? (
+              <button
+                onClick={() => setShowSgpaModal(true)}
+                className="text-gray-800 dark:text-gray-200 border-b border-red-400 flex items-center justify-center"
+              >
+                Edit <FiChevronDown/>
+              </button>
+            ) : (
+              <span className=" ml-6 text-gray-800 dark:text-gray-200 truncate">
+                {Object.values(form.sgpa || {}).join(", ") || "—"}
+              </span>
+            )}
+          </div>
           <Field
             editing={editing}
             label="Course"
@@ -460,6 +476,132 @@ export default function Profile() {
           Sign Out <FiLogOut />
         </Link>
       </div>
+
+      {/* SGPA-Model */}
+      {showSgpaModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
+            onClick={() => setShowSgpaModal(false)}
+          />
+
+          {/* modal */}
+          <div
+            className="
+        relative z-10
+        w-[92%] max-w-md
+        rounded-3xl
+        bg-gradient-to-br from-white via-gray-50 to-gray-100
+        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+        border border-gray-200/60 dark:border-gray-700
+        shadow-2xl shadow-rose-500/20 dark:shadow-black/40
+        p-6
+        animate-scaleIn
+      "
+          >
+            {/* header */}
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                Semester-wise SGPA
+              </h2>
+
+              <button
+                onClick={() => setShowSgpaModal(false)}
+                className="
+            text-gray-400 hover:text-rose-500
+            transition
+          "
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* content */}
+            <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+              {Array.from({ length: sem || 0 }, (_, i) => {
+                const s = i + 1;
+                return (
+                  <div
+                    key={s}
+                    className="
+                flex items-center justify-between
+                rounded-xl px-3 py-2
+                bg-white/70 dark:bg-gray-800/70
+                hover:bg-rose-50 dark:hover:bg-gray-700
+                transition
+              "
+                  >
+                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                      Semester {s}
+                    </span>
+
+                    <input
+                      value={form.sgpa?.[s] || ""}
+                      onChange={(e) =>
+                        setForm((prev) => {
+                          const value = e.target.value;
+                          const next = { ...prev.sgpa };
+
+                          if (value === "") {
+                            delete next[s];
+                          } else {
+                            next[s] = value;
+                          }
+
+                          return { ...prev, sgpa: next };
+                        })
+                      }
+                      inputMode="decimal"
+                      placeholder="—"
+                      className="
+                  w-20 text-right
+                  bg-transparent
+                  border-b border-gray-300 dark:border-gray-600
+                  focus:border-rose-500
+                  text-gray-900 dark:text-gray-100
+                  focus:outline-none
+                  transition
+                "
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* actions */}
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowSgpaModal(false)}
+                className="
+            px-4 py-1.5 text-sm rounded-xl
+            text-gray-600 dark:text-gray-300
+            hover:bg-gray-200 dark:hover:bg-gray-700
+            transition
+          "
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => setShowSgpaModal(false)}
+                className="
+            px-5 py-1.5 text-sm rounded-xl
+            bg-gradient-to-br from-rose-500 to-red-600
+            text-white font-medium
+            shadow-md shadow-rose-400/40
+            hover:shadow-lg hover:shadow-rose-500/50
+            hover:scale-[1.04]
+            active:scale-95
+            transition-all
+          "
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

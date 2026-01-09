@@ -13,7 +13,22 @@ const item = {
 
 export default function Info() {
   // CTA mailto template
-  const mailto = `mailto:daan.kgp.tech@gmail.com?subject=New Account Registration&body=Dear DAAN KGP Tech Team,%0A%0APlease find the details for a new user account registration below.%0AThis account has been submitted for your review and system integration.%0A%0AUser Information Profile%0AField%20Detail%0AFull%20Name:%20%5BInsert%20Full%20Name%5D%0AEmail%20Address:%20%5BInsert%20Email%20Address%5D%0APhone%20Number:%20%5BInsert%20Phone%20Number%5D%0A%0AThank you.`;
+  const subject = "New Account Registration";
+  const body = `Hello DAAN KGP Tech Team,
+
+Please find the details for my account registration below.
+This account has been submitted for your review and system integration.
+
+My Profile Information
+Full Name: [Insert Full Name]
+Email Address: [Insert Email Address]
+Phone Number: [Insert Phone Number]
+
+Thank you.`;
+
+  const mailto = `mailto:daan.kgp.tech@gmail.com?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 px-4 py-16">
@@ -29,7 +44,7 @@ export default function Info() {
             New Account Registration
           </h1>
           <p className="mt-4 text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
-            Welcome! Before you request a new account with DAAN KGP Tech, please
+            Welcome! Before you request a new account with DAAN KGP, please
             carefully review the required information.
           </p>
         </motion.div>
@@ -49,8 +64,9 @@ export default function Info() {
                 Request a New Account?
               </h2>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                To create a new account, please click the "Register" button at the end. Use the
-                following informations for your registration request.
+                To create a new account, please click the "Register" button at
+                the end. Use the following informations for your registration
+                request.
               </p>
             </motion.section>
 
@@ -118,8 +134,8 @@ export default function Info() {
                 Register
               </motion.a>
               <p className="mt-3 text-gray-500 dark:text-gray-400 text-sm">
-                Clicking the button will open your email with a
-                pre-filled registration template. Fill in your details and send.
+                Clicking the button will open your email with a pre-filled
+                registration template. Fill in your details and send.
               </p>
             </motion.section>
           </div>

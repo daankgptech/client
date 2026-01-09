@@ -170,12 +170,12 @@ export default function Navbar() {
 
           {!loading && !authed && (
              <div className="flex gap-4 justify-center items-center">
-                  {/* <Link
+                  <Link
                     to="/signup"
                     className="px-3 py-1 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:scale-105 transition-all duration-300"
                   >
                     Sign Up
-                  </Link> */}
+                  </Link>
                   <Link
                     to="/signin"
                     className="px-3 py-1 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 hover:scale-105 transition-all duration-300"
@@ -267,13 +267,13 @@ export default function Navbar() {
               )}
 
               {!loading && !authed && (
-                <div className="flex gap-4">
-                  {/* <Link
+                <div className="flex gap-4 justify-evenly items-center w-full">
+                  <Link
                     to="/signup"
                     className="px-5 py-2 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700"
                   >
                     Sign Up
-                  </Link> */}
+                  </Link>
                   <Link
                     to="/signin"
                     className="px-5 py-2 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"

@@ -25,7 +25,7 @@ const Council = () => {
     };
     loadData();
   }, []);
- const year = new Date().getFullYear - members.batch;
+ const year = new Date().getFullYear - members.batch - 1;
   return (
     <section
       id="council"

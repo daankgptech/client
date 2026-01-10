@@ -180,43 +180,6 @@ export default function Diary() {
               className="absolute left-7 md:left-9 top-0 h-full w-px opacity-20"
               style={{ backgroundColor: "currentColor" }}
             />
-
-            {/* Notebook spine */}
-            {/* <div
-              className="absolute left-0 top-0 h-full w-6 rounded-l-3xl"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(0,0,0,0.08), rgba(0,0,0,0.02), transparent)",
-              }}
-            /> */}
-            {/* Ruled lines */}
-            {/* <div
-              className="absolute inset-0 rounded-3xl pointer-events-none"
-              style={{
-                backgroundImage: `repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 30px,
-        rgba(0,0,0,0.05) 31px
-      )`,
-              }}
-            /> */}
-
-            {/* Tint lines with diary color */}
-            {/* <div
-              className={`absolute inset-0 rounded-3xl pointer-events-none ${currentStyle.date}`}
-              style={{
-                backgroundImage: `repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 30px,
-        currentColor 31px
-      )`,
-                opacity: 0.25,
-              }}
-              // className={currentStyle.date}
-            /> */}
-
             <div className="relative p-5 pl-10 transition-all duration-300 group">
               <textarea
                 rows={8}

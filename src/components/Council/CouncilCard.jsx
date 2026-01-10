@@ -20,7 +20,7 @@ const CouncilCard = ({
   // inside CouncilCard
   const currentYear = new Date().getFullYear(); // e.g., 2025
   const batchYear = parseInt(batch, 10); // batch is from API, e.g., "2023"
-  const studyYear = currentYear - batchYear + 1; // 1st Yr, 2nd Yr, ...
+  const studyYear = currentYear - batchYear; // 1st Yr, 2nd Yr, ...
 
   const yearLabel = `${studyYear}${
     studyYear === 1

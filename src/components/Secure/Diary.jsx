@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
 import { FiSave } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
+import { FiTrash2 } from "react-icons/fi";
+import toast from "react-hot-toast";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -11,6 +13,7 @@ export default function Diary() {
   const [color, setColor] = useState("sky"); // default Tailwind color
   const [expandedIds, setExpandedIds] = useState([]);
   const [visibleCount, setVisibleCount] = useState(7);
+  const [colorSelectOpen, setColorSelectOpen] = useState(false);
 
   // Tailwind color map
   const COLOR_STYLES = {
@@ -122,17 +125,61 @@ export default function Diary() {
   const addEntry = async () => {
     if (!text.trim()) return;
 
-    try {
-      setLoading(true);
-      await api.post("/diary", { text, color });
-      setText("");
-      setColor("sky"); // reset correctly
-      fetchEntries();
-    } finally {
-      setLoading(false);
-    }
-  };
+    setLoading(true);
 
+    toast
+      .promise(api.post("/diary", { text, color }), {
+        loading: "Saving...",
+        success: "Diary saved!",
+        error: "Couldn't save.",
+      })
+      .then(() => {
+        setText("");
+        setColor("sky");
+        fetchEntries();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  const deleteEntry = (id) => {
+    toast(
+      (t) => (
+        <div className="flex items-center gap-3">
+          <span className="text-sm">Wanna delete this diary?</span>
+
+          <button
+            onClick={async () => {
+              try {
+                await api.delete(`/diary/${id}`);
+                setEntries((prev) => prev.filter((e) => e._id !== id));
+                toast.success("Deleted successfully", {
+                  id: t.id,
+                  duration: 2000,
+                });
+              } catch {
+                toast.error("Failed to delete entry", {
+                  id: t.id,
+                  duration: 3000,
+                });
+              }
+            }}
+            className="px-2 py-1 text-xs rounded bg-rose-500 text-white"
+          >
+            Delete
+          </button>
+
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-2 py-1 text-xs rounded bg-gray-200"
+          >
+            Cancel
+          </button>
+        </div>
+      ),
+      { duration: Infinity } // confirm should not auto-close
+    );
+  };
   useEffect(() => {
     fetchEntries();
   }, []);
@@ -145,18 +192,15 @@ export default function Diary() {
         </h1>
 
         {/* Left: color picker + time */}
-        <div className={`${currentStyle.bg} rounded-3xl p-3 mb-4`}>
-          <select
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-            className="ml-4 pl-2 pr-4 py-1 rounded-full border border-gray-300 dark:border-neutral-700 bg-transparent text-xs focus:outline-none"
+        <div className={`${currentStyle.bg} rounded-3xl p-3 mb-4 box-border`}>
+          <button
+            onClick={() => setColorSelectOpen(true)}
+            className=" ml-4 px-3 py-1 rounded-full border border-gray-300 dark:border-neutral-700 text-xs font-medium flex items-center gap-2 hover:scale-[1.04] transition "
           >
-            {colors.map((c) => (
-              <option key={c} value={c}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
-              </option>
-            ))}
-          </select>
+            {/* <span className={`w-3 h-3 rounded-full bg-${color}-400`} /> */}
+            {color.charAt(0).toUpperCase() + color.slice(1)}
+          </button>
+
           <div className="pl-4 flex justify-between items-start mb-4 ">
             <span className="text-sm mt-3 font-mono text-gray-600 dark:text-gray-400 transition-all duration-500">
               {formatTime(now)}
@@ -231,7 +275,7 @@ export default function Diary() {
               <div
                 key={entry._id}
                 className={`relative rounded-3xl p-5 shadow-sm hover:shadow-md
-  transition-all duration-300 animate-fadeIn
+  transition-all duration-300 animate-fadeIn box-border
   ${entryStyle.bg} ${entryStyle.text}`}
               >
                 <div className="flex justify-between items-center mb-2">
@@ -243,6 +287,17 @@ export default function Diary() {
                       {formatDate(entry.createdAt)}
                     </p>
                   </div>
+                  <button
+                    onClick={() => deleteEntry(entry._id)}
+                    className=" absolute bottom-3 right-3
+    p-1.5 rounded-xl
+    text-gray-400 hover:text-rose-500
+    bg-white/60 dark:bg-black/20
+    backdrop-blur opacity-80 hover:opacity-100 transition "
+                    title="Delete entry"
+                  >
+                    <FiTrash2 size={14} />
+                  </button>
 
                   <span className="text-xs text-gray-400">
                     {formatTime(entry.createdAt)}
@@ -267,7 +322,6 @@ export default function Diary() {
                 >
                   {entry.text}
                 </p>
-
                 {(entry.text.split("\n").length > 3 ||
                   entry.text.length > 150) && (
                   <button
@@ -281,7 +335,6 @@ export default function Diary() {
             );
           })}
         </div>
-
         <div className="flex justify-center mt-6">
           {entries.length > visibleCount ? (
             <button
@@ -295,6 +348,56 @@ export default function Diary() {
           )}
         </div>
       </div>
+      <SelectModal
+        open={colorSelectOpen}
+        title="Mood Color"
+        options={colors}
+        value={color}
+        onSelect={(v) => setColor(v)}
+        onClose={() => setColorSelectOpen(false)}
+      />
     </div>
   );
 }
+const SelectModal = ({ open, title, options, value, onSelect, onClose }) => {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
+        onClick={onClose}
+      />
+
+      <div className="relative z-10 w-[80%] max-w-md rounded-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl p-5 animate-scaleIn">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-rose-500"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="space-y-2 max-h-[50vh] overflow-y-auto">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => {
+                onSelect(opt);
+                onClose();
+              }}
+              className={` w-full flex items-center gap-3 px-4 py-2 rounded-xl transition-all text-${opt}-700 ${
+                opt === value ? `` : "hover:bg-gray-100 dark:hover:bg-gray-800"
+              } `}
+            >
+              {/* <span className={`w-3 h-3 rounded-full bg-${opt}-400 hover:bg-${opt}-200 `} /> */}
+              {opt.charAt(0).toUpperCase() + opt.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

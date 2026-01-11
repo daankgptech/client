@@ -29,7 +29,7 @@ import ProtectedRoute from "./components/Secure/ProtectedRoute";
 import ForgotPassword from "./components/Secure/ForgotPassword";
 import SignIn from "./components/Secure/SignIn";
 import Info from "./components/Secure/Info";
-import SignUp from "./components/Secure/SignUp";
+// import SignUp from "./components/Secure/SignUp";
 import Profile from "./components/Secure/Profile";
 import ScrollToTop from "./utils/ScrollToTop";
 import Diary from "./components/Secure/Diary";
@@ -58,7 +58,7 @@ export default function App() {
   return (
     <BrowserRouter>
     <ScrollToTop/>
-      <Toaster position="top-left" />
+      <Toaster position="top-center"/>
       <Navbar />
       <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-screen">
         <Routes>
@@ -75,8 +75,8 @@ export default function App() {
           <Route path="/forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
           <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
           <Route path="*" element={<NoPage />} />
-          <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/signup" element={<Info />} /> */}
+          {/* <Route path="/signup" element={<SignUp />} /> */}
+          <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />

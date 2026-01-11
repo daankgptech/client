@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import BlurLoader from "../../utils/LoaderOverlay";
 import { PasswordHelper } from "./PasswordHelper";
+import { Helmet } from "react-helmet";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -90,6 +91,18 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
+      <Helmet>
+        <title>Forgot Password | DAAN KGP</title>
+        <meta
+          name="description"
+          content="Forgot your password? No worries. Securely verify your DAAN KGP account, answer your security questions, and set a new password to get back in."
+        />
+        <meta property="og:title" content="Forgot Password | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Forgot your password? No worries. Securely verify your DAAN KGP account, answer your security questions, and set a new password to get back in."
+        />
+      </Helmet>
       {loading && <BlurLoader />}
 
       <div

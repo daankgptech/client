@@ -34,7 +34,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const pageTitle = "Personal Dashboard | DAAN KGP";
+  const pageTitle = "My Dashboard | DAAN KGP";
   const pageDescription = `Explore the DAAN KGP Dashboard with real-time tools and resources for IIT Kharagpur students.  
 Access academic insights, task management, weather updates, motivational content, fortune cookie wisdom, daily guidance, member connections, forms, toolkit resources, self-improvement modules, and score analysis—all in one place to enhance campus life and productivity.`;
 

@@ -18,6 +18,7 @@ import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Link } from "react-router-dom";
 import { MdLockReset } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
+import { Helmet } from "react-helmet";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -146,6 +147,18 @@ export default function Profile() {
   return (
     <>
       <div className="container py-10 flex flex-col md:flex-row items-center gap-6">
+        <Helmet>
+          <title>My Profile | DAAN KGP</title>
+          <meta
+            name="description"
+            content="Manage your DAAN KGP profile in one place. View and update academic details, personal information, contacts, involvements, and account activity. Keep your profile accurate, complete, and up to date within the DAAN KGP community."
+          />
+          <meta property="og:title" content="My Profile | DAAN KGP" />
+          <meta
+            property="og:description"
+            content="Manage your DAAN KGP profile in one place. View and update academic details, personal information, contacts, involvements, and account activity. Keep your profile accurate, complete, and up to date within the DAAN KGP community."
+          />
+        </Helmet>
         <div className="relative group">
           <img
             src={

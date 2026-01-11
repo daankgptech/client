@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 import { FiMail, FiUser, FiPhone, FiCheckCircle } from "react-icons/fi";
 
 const container = {
@@ -32,6 +33,18 @@ Thank you.`;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 px-4 py-16">
+      <Helmet>
+        <title>Sign Up | DAAN KGP</title>
+        <meta
+          name="description"
+          content="Request a new DAAN KGP account by submitting your basic details for verification. This page guides users through the account registration process, required information, and next steps to securely join the DAAN KGP platform."
+        />
+        <meta property="og:title" content="Sign Up | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Request a new DAAN KGP account by submitting your basic details for verification. This page guides users through the account registration process, required information, and next steps to securely join the DAAN KGP platform."
+        />
+      </Helmet>
       <motion.div
         variants={container}
         initial="hidden"

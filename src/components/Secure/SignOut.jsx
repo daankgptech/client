@@ -4,6 +4,7 @@ import { api } from "../../utils/Secure/api";
 import { FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";
 import { useAuth } from "../../utils/Secure/AuthContext";
+import { Helmet } from "react-helmet";
 
 export default function SignOut() {
   const navigate = useNavigate();
@@ -41,7 +42,18 @@ export default function SignOut() {
       transition-opacity duration-300
     "
       />
-
+      <Helmet>
+        <title>Sign Out | DAAN KGP</title>
+        <meta
+          name="description"
+          content="Sign out of your DAAN KGP account securely. You can return anytime by signing in again."
+        />
+        <meta property="og:title" content="Sign Out | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Sign out of your DAAN KGP account securely. You can return anytime by signing in again."
+        />
+      </Helmet>
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div
@@ -68,8 +80,7 @@ export default function SignOut() {
           />
 
           {/* Icon */}
-          <div
-            className=" relative z-10 mx-auto mb-4 w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500/15 to-red-500/15 text-rose-600 dark:text-rose-400 " >
+          <div className=" relative z-10 mx-auto mb-4 w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500/15 to-red-500/15 text-rose-600 dark:text-rose-400 ">
             <FiLogOut size={26} />
           </div>
           {/* Text */}

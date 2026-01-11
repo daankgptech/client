@@ -6,26 +6,27 @@ import formsData from "../components/Forms/formsData";
 import ResponsePercentage from "../components/Forms/ResponsePercentage";
 
 const Forms = () => {
-  useEffect(() => {
-    document.title = "Our Forms | DAAN KGP";
-  }, []);
-
   const now = new Date();
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
     <div className="min-h-[80vh] bg-gray-100 dark:bg-gray-900  text-gray-900 dark:text-gray-400">
       <Helmet>
+        <title>Forms | DAAN KGP</title>
         <meta
           name="description"
-          content="This page includes our forms related queries."
+          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access."
+        />
+        <meta property="og:title" content="Forms | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access."
         />
       </Helmet>
-
       <section data-aos="fade-up" className="container py-6">
         {/* Header */}
-        <h1 className="my-10 pl-4 border-l-8 border-rose-400 text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200">
-          Our Forms
+        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
+          Forms
         </h1>
 
         {/* Cards */}
@@ -44,7 +45,10 @@ const Forms = () => {
                 key={index}
                 className={`group relative w-full max-w-xs rounded-3xl overflow-hidden border transition-all duration-500 ${formClasses}`}
               >
-                <Link to={isExceeded ? "#" : item.to} className={isExceeded ? "pointer-events-none" : null}>
+                <Link
+                  to={isExceeded ? "#" : item.to}
+                  className={isExceeded ? "pointer-events-none" : null}
+                >
                   {/* Image */}
                   <div className="h-40 overflow-hidden">
                     <img
@@ -92,7 +96,9 @@ const Forms = () => {
                     </button>
 
                     <div
-                      className={`overflow-hidden transition-all duration-500 ${isOpen ? "max-h-[400px] mt-4" : "max-h-0"}`}
+                      className={`overflow-hidden transition-all duration-500 ${
+                        isOpen ? "max-h-[400px] mt-4" : "max-h-0"
+                      }`}
                     >
                       {isOpen && <ResponsePercentage formData={item} />}
                     </div>

@@ -28,6 +28,15 @@ const OurFam = () => {
     <div className="bg-gray-100 dark:bg-gray-900">
       <Helmet>
         <title>Our Family | DAAN KGP</title>
+        <meta
+          name="description"
+          content="Explore the DAAN KGP family across batches at IIT Kharagpur. Discover scholars by year, department, and hall, and get an overview of our growing Dakshana alumni and student community."
+        />
+        <meta property="og:title" content="Our Family | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Explore the DAAN KGP family across batches at IIT Kharagpur. Discover scholars by year, department, and hall, and get an overview of our growing Dakshana alumni and student community."
+        />
       </Helmet>
       <Fam />
     </div>
@@ -35,4 +44,3 @@ const OurFam = () => {
 };
 
 export default OurFam;
-

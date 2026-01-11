@@ -4,6 +4,7 @@ import { FiSave } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -185,12 +186,25 @@ export default function Diary() {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors container">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
+    <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors">
+      <Helmet>
+        <title>Personal Diary | DAAN KGP</title>
+        <meta
+          name="description"
+          content="Keep track of your thoughts, notes, and daily activities with the Personal Diary at DAAN KGP. Organize entries and maintain a private digital journal for personal growth, productivity, and reflection. Secure, easy-to-use, and designed for DAAN KGPians to record important moments and insights."
+        />
+        <meta property="og:title" content="Personal Diary | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Keep track of your thoughts, notes, and daily activities with the Personal Diary at DAAN KGP. Organize entries and maintain a private digital journal for personal growth, productivity, and reflection. Secure, easy-to-use, and designed for DAAN KGPians to record important moments and insights."
+        />
+      </Helmet>
+      <div className="container">
+        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
           My Diary
         </h1>
-
+      </div>
+      <section data-aos="fade-up" className="mx-auto max-w-3xl">
         {/* Left: color picker + time */}
         <div className={`${currentStyle.bg} rounded-3xl p-3 mb-4 box-border`}>
           <button
@@ -293,7 +307,7 @@ export default function Diary() {
     p-1.5 rounded-xl
     text-gray-400 hover:text-rose-500
     bg-white/60 dark:bg-black/20
-    backdrop-blur opacity-80 hover:opacity-100 transition "
+    backdrop-blur opacity-80 hover:opacity-100 transition-all duration-300 hover:scale-110"
                     title="Delete entry"
                   >
                     <FiTrash2 size={14} />
@@ -347,7 +361,7 @@ export default function Diary() {
             <p className="text-xs text-gray-400 mt-4">That’s everything.</p>
           )}
         </div>
-      </div>
+      </section>
       <SelectModal
         open={colorSelectOpen}
         title="Mood Color"

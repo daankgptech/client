@@ -48,8 +48,11 @@ const Footer = () => (
             height="100"
           />
           <p className="mt-6 text-gray-900 dark:text-gray-400">
-            DAAN KGP is a well-structured DakshanA Alumni Network established at
-            the Indian Institute of Technology, Kharagpur.
+            DAAN KGP is the Dakshana Alumni Network at IIT Kharagpur, connecting
+            scholars, students, and alumni for mentorship, academic support,
+            career guidance, and social impact. It fosters leadership,
+            collaboration, and a strong culture of support and service within
+            the Dakshana community.
           </p>
         </div>
 

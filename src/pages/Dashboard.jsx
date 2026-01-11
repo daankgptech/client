@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 // api
 import { api } from "../utils/Secure/api";
@@ -33,6 +34,9 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const pageTitle = "Personal Dashboard | DAAN KGP";
+  const pageDescription = `Explore the DAAN KGP Dashboard with real-time tools and resources for IIT Kharagpur students.  
+Access academic insights, task management, weather updates, motivational content, fortune cookie wisdom, daily guidance, member connections, forms, toolkit resources, self-improvement modules, and score analysis—all in one place to enhance campus life and productivity.`;
 
   useEffect(() => {
     api
@@ -52,6 +56,12 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 container">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+      </Helmet>
       {/* HEADER */}
       <header className="max-w-[1600px] mx-auto mb-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-6">
@@ -72,7 +82,8 @@ export default function Dashboard() {
 
           <div className="lg:col-span-1 flex justify-end items-start">
             <div className="relative" ref={menuRef}>
-              <Link to="/profile"
+              <Link
+                to="/profile"
                 // onClick={() => setMenuOpen(!menuOpen)}
                 className="relative group block focus:outline-none transition-transform active:scale-95"
               >

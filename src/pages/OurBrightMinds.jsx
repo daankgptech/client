@@ -40,12 +40,16 @@ const OurBrightMinds = () => {
         <title>Academic Stars | DAAN KGP</title>
         <meta
           name="description"
-          content="This page highlights our bright minds and their hard work, the reason behind our success."
+          content="Discover the top-performing students across all batches at DAAN KGP. This page highlights batch-wise toppers, showcases the top 3 students from each batch, and celebrates academic excellence. Stay updated with the highest scorers, their achievements, and rankings for better insights into campus performance."
+        />
+        <meta property="og:title" content="Academic Stars | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="Discover the top-performing students across all batches at DAAN KGP. This page highlights batch-wise toppers, showcases the top 3 students from each batch, and celebrates academic excellence. Stay updated with the highest scorers, their achievements, and rankings for better insights into campus performance."
         />
       </Helmet>
-
       <section data-aos="fade-up" className="container">
-        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-bold container">
+        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
           Academic Stars
         </h1>
 

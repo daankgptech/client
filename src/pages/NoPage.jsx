@@ -23,17 +23,21 @@ const NoPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-5xl font-bold ">
-          Page Not Found
-        </h2>
+        <h2 className="text-3xl md:text-5xl font-bold ">Page Not Found</h2>
         <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
-          Oops! The page you’re looking for doesn’t exist or has been moved. 
+          Oops! The page you’re looking for doesn’t exist or has been moved.
           Check the URL or go back to safety.
         </p>
 
         {/* Action Button */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
           className="mt-4 px-6 py-3 md:px-8 md:py-4 rounded-lg bg-gradient-to-r from-red-400 dark:from-gray-500 dark:to-gray-800 to-red-600 hover:from-red-500 hover:to-red-700 text-gray-100 font-semibold shadow-lg transform transition hover:scale-105 "
         >
           ← Go Back

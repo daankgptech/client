@@ -16,6 +16,8 @@ const Toolkit = () => {
 
   const activeTab = tabs.some(({ key }) => key === tab) ? tab : "erp";
   const data = ToolkitData[activeTab] || [];
+  const activeTabLabel =
+    tabs.find((t) => t.key === activeTab)?.label || "Toolkit"; //for Helmet tag
 
   const handleTabChange = (key) => {
     navigate(`/toolkit/${key}`);
@@ -24,16 +26,20 @@ const Toolkit = () => {
   return (
     <div className=" bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 py-8">
       <Helmet>
-        <title>Toolkit | DAAN KGP</title>
+        <title>{`${activeTabLabel} Toolkit | DAAN KGP`}</title>
         <meta
           name="description"
-          content="Toolkit with ERP, Fresher, CDC Intern, and Academic resources for smooth campus life."
+          content="A complete Toolkit for DAAN-KGPians with ERP guides, fresher resources, CDC internship prep, and academic essentials. Covers ERP procedures, campus maps, scholarships, study material, CV guides, Internpedia, academic rules, holidays, and key contacts for a smoother campus life."
+        />
+        <meta property="og:title" content="Toolkit | DAAN KGP" />
+        <meta
+          property="og:description"
+          content="A complete Toolkit for DAAN-KGPians with ERP guides, fresher resources, CDC internship prep, and academic essentials. Covers ERP procedures, campus maps, scholarships, study material, CV guides, Internpedia, academic rules, holidays, and key contacts for a smoother campus life."
         />
       </Helmet>
-
       <section data-aos="fade-up" className="container">
         {/* Header */}
-        <h1 className="mt-0 mb-8 pl-4 border-l-8 border-rose-400 text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200">
+        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
           Toolkit
         </h1>
 

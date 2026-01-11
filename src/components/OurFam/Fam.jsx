@@ -8,6 +8,7 @@ import { api } from "../../utils/Secure/api";
 import batchDataMap from "./JSFiles/BatchDataMap";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { FaFileDownload } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const searchFields = [
   { key: "name", placeholder: "Name" },
@@ -84,11 +85,13 @@ const Fam = () => {
     ? filteredItems.length
     : defaultCount;
   if (!user) {
-    return <Overview
+    return (
+      <Overview
         batchDataMap={batchDataMap}
         goToYear={goToYear}
         className="container"
-      />;
+      />
+    );
   }
   if (!activeYear) {
     return (
@@ -99,10 +102,24 @@ const Fam = () => {
       />
     );
   }
+  const pageTitle = activeYear
+    ? `${activeYear} Batch | DAAN KGP Family`
+    : "DAAN KGP Family | Our Fam Overview";
+
+  const pageDescription = activeYear
+    ? `Explore the ${activeYear} batch of the DAAN KGP family at IIT Kharagpur. View member profiles, department and hall distribution, batch statistics, and connect with Dakshana scholars from this year.`
+    : "Explore the DAAN KGP family across batches at IIT Kharagpur. Discover scholars by year, department, and hall, and get an overview of our growing Dakshana alumni and student community.";
+
   return (
     <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+      </Helmet>
       {/* Header */}
-      <div className="flex justify-center items-center mb-6">
+      <div className="flex flex-col justify-center items-center mb-6">
         {canAccessBatch(user.batch, activeYear) && (
           <a
             href={`${api.defaults.baseURL}/v1/vcf/${activeYear}`}
@@ -111,7 +128,42 @@ const Fam = () => {
             VCF <FaFileDownload />
           </a>
         )}
-        <h1 className="text-2xl font-bold">{yearLabel}</h1>
+        <div>
+          {/* Year Buttons */}
+          <h2 className="text-xl font-bold text-center mb-4">Other Years</h2>
+          <div className="flex flex-wrap justify-center gap-3 mb-3">
+            {Object.keys(batchDataMap)
+              // .filter((y) => canAccessBatch(user.batch, Number(y)))
+              .sort((a, b) => b - a)
+              .map((y) => (
+                <button
+                  key={y}
+                  onClick={() => goToYear(Number(y))}
+                  className={`
+    px-4 py-2
+    sm:px-5 sm:py-2.5
+    text-sm sm:text-base
+    font-medium
+    rounded-lg
+    transition-colors duration-200
+    focus:outline-none
+    focus:ring-2 focus:ring-rose-400
+    focus:ring-offset-2 focus:ring-offset-gray-100
+    dark:focus:ring-rose-500 dark:focus:ring-offset-gray-900
+
+    ${
+      Number(y) === activeYear
+        ? "bg-red-500 text-white dark:bg-red-700"
+        : "bg-gray-200 text-gray-800 hover:bg-rose-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-500"
+    }
+  `}
+                >
+                  {batchDataMap[y].label}
+                </button>
+              ))}
+          </div>
+        </div>
+        <h1 className="text-2xl font-bold mt-4">{yearLabel}</h1>
       </div>
 
       {/* Charts */}
@@ -147,7 +199,7 @@ const Fam = () => {
         ))}
       </div>
       {/* Year Buttons */}
-      <h2 className="text-xl font-bold text-center mt-10 mb-4">Other Years</h2>
+      {/* <h2 className="text-xl font-bold text-center mt-10 mb-4">Other Years</h2>
       <div className="flex flex-wrap justify-center gap-3 mb-10">
         {Object.keys(batchDataMap)
           // .filter((y) => canAccessBatch(user.batch, Number(y)))
@@ -178,8 +230,8 @@ const Fam = () => {
               {batchDataMap[y].label}
             </button>
           ))}
-      </div>
-      <div className="flex justify-center items-center w-full">
+      </div> */}
+      <div className="flex justify-center items-center w-full mt-6">
         <button
           onClick={backToOverview}
           className="
@@ -197,8 +249,7 @@ const Fam = () => {
     dark:active:bg-red-600
     dark:focus:ring-rose-500 dark:focus:ring-offset-gray-900
   "
-        >
-          Overview
+        >Back to Overview
         </button>
       </div>
     </div>

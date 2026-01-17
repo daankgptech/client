@@ -142,6 +142,12 @@ const FamCardDetails = () => {
                       {person.coe}
                     </p>
                   )}
+                  {person.parentJNV && (
+                    <p>
+                      <span className="font-semibold">Parent JNV: </span>
+                      {person.parentJNV}
+                    </p>
+                  )}
                   <span className="italic font-semibold">
                     {person.graduated ? "*Graduated*" : "*Currently Enrolled*"}
                   </span>

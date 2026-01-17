@@ -110,6 +110,7 @@ export default function Profile() {
       fd.append("cgpa", form.cgpa || "");
       // fd.append("sgpa", JSON.stringify(form.sgpa || {}));
       fd.append("bio", form.bio || "");
+      fd.append("parentJNV", form.parentJNV || "");
       fd.append("contacts", JSON.stringify(form.contacts));
       fd.append("involvements", JSON.stringify(form.involvements));
 
@@ -281,7 +282,7 @@ export default function Profile() {
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-500 flex items-center gap-2">
               <FiEdit3 className="opacity-40" />
-              SGPA
+              SGPA(s)
             </span>
             {editing ? (
               <button
@@ -364,6 +365,11 @@ export default function Profile() {
                 onSelect: (v) => handleChange("coe", v),
               })
             }
+          /><Field
+            editing={editing}
+            label="Parent JNV"
+            value={form.parentJNV}
+            onChange={(v) => handleChange("parentJNV", v)}
           />
           <Field
             editing={editing}
@@ -417,7 +423,7 @@ export default function Profile() {
           />
           <Field
             editing={editing}
-            label="Hall"
+            label="Hall Involvement"
             value={form.involvements.involvementsHall}
             onChange={(v) => handleChange("involvements.involvementsHall", v)}
           />

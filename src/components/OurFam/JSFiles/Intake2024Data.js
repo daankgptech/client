@@ -598,7 +598,7 @@ const Intake2024Data = [
     id: 38,
     name: "Mr. Shivam Ahirwar",
     branch: "IE",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760805714/ShivamAhirwar_mlrqzr.avif",
+    img: "https://res.cloudinary.com/dsr57xowd/image/upload/v1768499056/IMG_20260115_230018_imi4wr.jpg",
     coe: "JNV Bengaluru Urban",
     hall: "Patel",
     contacts: {

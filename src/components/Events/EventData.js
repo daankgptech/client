@@ -3,6 +3,15 @@ import { slugify } from "../../utils/slugify";
 
 const rawEvents = [
   {
+    title: "Fresher's Treat 2025-26",
+    image:
+      "https://res.cloudinary.com/dhv0sckmq/image/upload/v1769456605/Fresher_s_Treat_-_26.jpeg-1_sqj7zp.png",
+    description:
+      "The Fresher's Treat 2025-26 was a vibrant and joyous event that marked the beginning of a new chapter for the incoming batch. It was an evening filled with excitement, laughter, and camaraderie as freshers and sophomores came together to celebrate. The event featured a variety of performances, games, and activities that fostered a sense of community and belonging among the students. It was a memorable occasion that set the tone for the journey ahead, creating lasting memories and friendships.",
+    date: "January 11, 2026",
+    driveLink: "https://drive.google.com/drive/folders/16Tv23JfbYornRoQHJTVRxIVXQObENfXr?usp=sharing",
+  },
+  {
     title: "Dakshana Day '25",
     image:
       "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760724539/DakshanaDay25_u2a2ba.avif",

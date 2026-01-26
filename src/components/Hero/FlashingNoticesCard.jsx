@@ -1,36 +1,38 @@
 import { Link } from "react-router-dom";
 
 const notices = [
-  {
-    text: (
-      <>
-        {/* DAAN Council Election{" "} */}
-        <Link
-          rel="noopener noreferrer"
-          target="_blank"
-          className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
-          to="https://www.ktj.in/"
-        >
-          TechFest Kshitij
-        </Link> : Jan 16-18, 2026.
-      </>
-    ),
-  },
-  { text: "JDST-Offline (for EMRS & Non-JNVs): Jan 18, 2026." },
-  {
-    text: (
-      <>
-        {/* DAAN Council Election{" "} */}
-        <Link
-          rel="noopener noreferrer" target="_blank"
-          className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
-          to="https://springfest.in/"
-        >
-          Spring Fest
-        </Link> : Jan 23-25, 2026.
-      </>
-    ),
-  },
+  // {
+  //   text: (
+  //     <>
+  //       {/* DAAN Council Election{" "} */}
+  //       <Link
+  //         rel="noopener noreferrer"
+  //         target="_blank"
+  //         className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
+  //         to="https://www.ktj.in/"
+  //       >
+  //         TechFest Kshitij
+  //       </Link> : Jan 16-18, 2026.
+  //     </>
+  //   ),
+  // },
+  { text: "MidSem Exams: Feb 18-26, 2026." },
+  { text: "Last Date of DReg. by a subject teacher: Mar 23, 2026." },
+  { text: "EndSem Exams: Apr 22-30, 2026." },
+  // {
+  //   text: (
+  //     <>
+  //       {/* DAAN Council Election{" "} */}
+  //       <Link
+  //         rel="noopener noreferrer" target="_blank"
+  //         className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
+  //         to="https://springfest.in/"
+  //       >
+  //         Spring Fest
+  //       </Link> : Jan 23-25, 2026.
+  //     </>
+  //   ),
+  // },
   // { text: "Spring Fest: Jan 23-25, 2026." },
 ];
 

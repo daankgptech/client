@@ -17,8 +17,15 @@ const EventCard = ({ image, date, title, description, slug }) => {
           />
         </div>
 
-        <p className="pt-2 text-slate-600 dark:text-gray-500">{date}</p>
-
+        <p className="pt-2 text-slate-600 dark:text-gray-500">
+          {date
+            ? new Date(date).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "Loading..."}
+        </p>
         <div className="space-y-2 py-3">
           <h1 className="line-clamp-1 font-bold bg-clip-text text-transparent bg-gradient-to-r from-rose-700 to-orange-500 dark:text-gray-300">
             {title}

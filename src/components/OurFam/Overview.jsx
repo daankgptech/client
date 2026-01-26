@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../utils/Secure/api";
 import {
   BarChart,
@@ -16,13 +16,14 @@ import {
   Cell,
   ReferenceLine,
 } from "recharts";
-import ProtectedRoute from "../Secure/ProtectedRoute";
+import { useAuth } from "../../utils/Secure/AuthContext";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 
 const REDS = ["#f43f5e", "#fb7185", "#e11d48", "#be123c"];
 
 const Overview = ({ batchDataMap, goToYear }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [data, setData] = useState({
     BranchWise: [],
     HallWise: [],
@@ -44,18 +45,18 @@ const Overview = ({ batchDataMap, goToYear }) => {
 
   const sortedBranch = useMemo(() => {
     return [...data.BranchWise].sort((a, b) =>
-      sortAsc ? a.count - b.count : b.count - a.count
+      sortAsc ? a.count - b.count : b.count - a.count,
     );
   }, [data.BranchWise, sortAsc]);
 
   const totalBranch = data.BranchWise.reduce(
     (sum, b) => sum + Number(b.count),
-    0
+    0,
   );
 
   const sortedHall = useMemo(() => {
     return [...data.HallWise].sort((a, b) =>
-      sortHallAsc ? a.count - b.count : b.count - a.count
+      sortHallAsc ? a.count - b.count : b.count - a.count,
     );
   }, [data.HallWise, sortHallAsc]);
 
@@ -309,43 +310,44 @@ const Overview = ({ batchDataMap, goToYear }) => {
           </div>
         </motion.div>
       </div>
-
-      {/* Year Selector */}
-      <ProtectedRoute
-        fallback={
-          <div className="flex flex-col items-center gap-4">
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-6">
-              Please sign in to view batch details
-            </p>
-            <button
-              onClick={() => navigate("/signin")}
-              className="text-sm rounded-full py-2 px-4 border border-red-200 dark:border-red-900 bg-red-100 dark:bg-red-900/20 text-red-600 dark:bg-red-400 hover:scale-105 transition-all duration-300"
-            >
-              Sign in
-            </button>
-          </div>
-        }
-      >
-        <h2 className="text-xl font-bold text-center mt-6 mb-4">
-          Select a Year
-        </h2>
-        <div className="flex flex-wrap justify-center gap-3">
-          {Object.keys(batchDataMap)
-            .sort((a, b) => b - a)
-            .map((y) => (
-              <button
-                key={y}
-                onClick={() => goToYear(Number(y))}
-                className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200
+      <div className="w-full text-center mt-4">
+      {isAuthenticated ? (
+        <>
+          {" "}
+          {/* Wrapping in a Fragment fixes the "multiple root elements" error */}
+          <h2 className="text-xl font-bold text-center mt-6 mb-4">
+            Select a Year
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {Object.keys(batchDataMap)
+              .sort((a, b) => b - a)
+              .map((y) => (
+                <button
+                  key={y}
+                  onClick={() => goToYear(Number(y))}
+                  className="px-5 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200
             bg-gray-300 text-gray-800
             hover:bg-rose-400 hover:text-white
             dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-600"
-              >
-                {batchDataMap[y].label}
-              </button>
-            ))}
+                >
+                  {batchDataMap[y].label}
+                </button>
+              ))}
+          </div>
+        </>
+      ) : (
+        <div className="space-y-2">
+          <p className="text-sm text-gray-500 italic">
+            Detailed access restricted to DAAN-KGPians
+          </p>
+          <Link
+            to="/signin"
+            className="inline-block p-2 rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors"
+          >
+            🔒 Sign In to View More
+          </Link>
         </div>
-      </ProtectedRoute>
+      )}</div>
     </section>
   );
 };

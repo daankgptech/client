@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CouncilCard from "./CouncilCard";
-import { useNavigate } from "react-router-dom";
-import ProtectedRoute from "../Secure/ProtectedRoute";
+import { Link, useNavigate } from "react-router-dom";
+import {useAuth } from "../../utils/Secure/AuthContext";
 import { api } from "../../utils/Secure/api";
 
 const Council = () => {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,21 +60,8 @@ const Council = () => {
 
         {/* Spreadsheet / External Button */}
         <div className="text-center mt-6">
-          <ProtectedRoute
-            fallback={
-              <button
-                onClick={() => navigate("/signin")}
-                className="inline-block p-2 rounded-lg border shadow-sm text-red-600 dark:text-gray-400
-                bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700
-                border-gray-300 dark:border-gray-600 transition-all duration-300
-                hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-700 dark:hover:to-gray-600
-                hover:border-gray-500 dark:hover:border-cyan-400"
-              >
-                View Full Council
-              </button>
-            }
-          >
-            <a
+          {isAuthenticated ? (
+          <a
               href="https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
@@ -84,8 +72,17 @@ const Council = () => {
               hover:border-gray-500 dark:hover:border-cyan-400"
             >
               View Full Council
-            </a>
-          </ProtectedRoute>
+            </a>):(
+            <div className="space-y-2">
+              <p className="text-sm text-gray-500 italic">Detailed access restricted to DAAN-KGPians</p>
+              <Link
+                to="/signin"
+                className="inline-block p-2 rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors"
+              >
+                🔒 Sign In to View Full Council
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

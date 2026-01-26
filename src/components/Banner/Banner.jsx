@@ -30,7 +30,7 @@ const Banner = () => {
         <link rel="preload" as="image" href={bannerImg} />
       </Helmet>
       
-      <div className=" bg-gray-100 dark:bg-gray-900 flex justify-start items-center backdrop-blur-xl py-12 sm:py-0">
+      <div className=" bg-gray-100 dark:bg-gray-900 flex justify-start items-center backdrop-blur-xl py-12 sm:py-0 mt-10">
         <div className="container">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
             

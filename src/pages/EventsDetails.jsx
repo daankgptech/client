@@ -1,28 +1,69 @@
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import EventData from "../components/Events/EventData";
-import EventsComp from "../components/Events/EventsComp";
 import { useAuth } from "../utils/Secure/AuthContext";
+import { api } from "../utils/Secure/api";
+import { slugify } from "../utils/slugify";
 
 const EventsDetails = () => {
   const { isAuthenticated } = useAuth();
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // 1. Find the current event and its index in the array
-  const currentIndex = EventData.findIndex((e) => e.slug === slug);
-  const event = EventData[currentIndex];
+  const [event, setEvent] = useState(null);
+  const [prevEvent, setPrevEvent] = useState(null);
+  const [nextEvent, setNextEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // 2. Determine if Prev/Next exist
-  const prevEvent = currentIndex > 0 ? EventData[currentIndex - 1] : null;
-  const nextEvent = currentIndex < EventData.length - 1 ? EventData[currentIndex + 1] : null;
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get("/events");
+        const allEvents = response.data.data.map((e, index) => ({
+          ...e,
+          id: e._id || index,
+          slug: slugify(e.title),
+        }));
 
-  if (!event)
+        // Find the current event by slug
+        const currentIndex = allEvents.findIndex((e) => e.slug === slug);
+
+        if (currentIndex !== -1) {
+          setEvent(allEvents[currentIndex]);
+          // Set neighbors for navigation
+          setPrevEvent(currentIndex > 0 ? allEvents[currentIndex - 1] : null);
+          setNextEvent(
+            currentIndex < allEvents.length - 1
+              ? allEvents[currentIndex + 1]
+              : null,
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching event details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventData();
+  }, [slug]); // Re-run when the URL slug changes
+
+  if (loading) {
+    return (
+      <div className="pt-20 text-center dark:text-white">
+        Loading event details...
+      </div>
+    );
+  }
+
+  if (!event) {
     return (
       <div className="pt-20 text-center text-red-500 text-xl">
         Event not found.
       </div>
     );
+  }
 
   return (
     <>
@@ -39,15 +80,22 @@ const EventsDetails = () => {
 
       <div className="container bg-gray-100 dark:bg-gray-900 py-6">
         <p className="text-sm text-slate-600 dark:text-gray-500 mb-2">
-          on {event.date}
+          on{" "}
+          {event.date
+            ? new Date(event.date).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "Loading..."}
         </p>
         <h1 className="text-2xl dark:text-gray-300 font-semibold mb-2">
           {event.title}
         </h1>
-        <p className="text-gray-700 dark:text-gray-400 leading-relaxed">
+        <div className="text-gray-700 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">
           {event.description}
-        </p>
-        
+        </div>
+
         <div className="text-center my-8">
           {event.driveLink ? (
             isAuthenticated ? (
@@ -65,7 +113,9 @@ const EventsDetails = () => {
               </a>
             ) : (
               <div className="space-y-2">
-                <p className="text-sm text-gray-500 italic">Drive access restricted to Dakshanites</p>
+                <p className="text-sm text-gray-500 italic">
+                  Drive access restricted to DAAN-KGPians
+                </p>
                 <Link
                   to="/sign-in"
                   className="inline-block p-2 rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors"
@@ -79,13 +129,13 @@ const EventsDetails = () => {
       </div>
 
       {/* Navigation Buttons Row */}
-      <div className="container flex justify-between items-center py-4">
+      <div className="container flex justify-between items-center py-10">
         <button
-          onClick={() => navigate(`/events/${prevEvent.slug}`)}
+          onClick={() => navigate(`/events/${prevEvent?.slug}`)}
           disabled={!prevEvent}
           className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-            !prevEvent 
-              ? "opacity-30 cursor-not-allowed grayscale" 
+            !prevEvent
+              ? "opacity-30 cursor-not-allowed grayscale"
               : "hover:bg-gray-200 dark:hover:bg-gray-800 text-rose-500 font-bold"
           }`}
         >
@@ -93,18 +143,17 @@ const EventsDetails = () => {
         </button>
 
         <button
-          onClick={() => navigate(`/events/${nextEvent.slug}`)}
+          onClick={() => navigate(`/events/${nextEvent?.slug}`)}
           disabled={!nextEvent}
           className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-            !nextEvent 
-              ? "opacity-30 cursor-not-allowed grayscale" 
+            !nextEvent
+              ? "opacity-30 cursor-not-allowed grayscale"
               : "hover:bg-gray-200 dark:hover:bg-gray-800 text-rose-500 font-bold"
           }`}
         >
           Earlier →
         </button>
       </div>
-      {/* <EventsComp /> */}
     </>
   );
 };

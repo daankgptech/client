@@ -117,7 +117,7 @@ const EventsDetails = () => {
                   Drive access restricted to DAAN-KGPians
                 </p>
                 <Link
-                  to="/sign-in"
+                  to="/signin"
                   className="inline-block p-2 rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors"
                 >
                   🔒 Sign In to View Drive

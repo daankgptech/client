@@ -1,4 +1,5 @@
-const ToolkitData = {
+const ToolkitData = 
+{
   erp: [
     {
       catching: "Need to access your academic dashboard?",

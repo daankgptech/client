@@ -9,7 +9,7 @@ const rawEvents = [
     description:
       "This year’s Dakshana Day celebrated our 19th milestone, honoring our growth, unity, and the bright future ahead. The event reflected on Dakshana's journey, from its humble beginnings to its inspiring success. Speeches by Rinku Shakya and Routhu Amulya highlighted both our past achievements and future aspirations. We proudly introduced new CRs, Uttam Meghwal and Shivam Ahirwar, and heard encouraging words from Mr. Shani Maurya and Mr. Ashutosh. The day was filled with performances showcasing the spirit of Dakshana. Concluding with a group photo and cake-cutting, we look forward to continuing this journey of growth, inspiration, and community.",
     date: "October 15, 2025",
-    // driveLink: "https://drive.google.com/drive/folders/1ATj62sLfmgMFmaG_vOp4cCnZ6Xg6vjOK",
+    driveLink: "https://drive.google.com/drive/folders/1qND-8ZxBIH5_qfnNlEb2ESJ6jY_CsKnE",
   },
   {
     title: "A Memorable Visit by Ravi Sir",

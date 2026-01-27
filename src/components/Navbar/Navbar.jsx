@@ -40,21 +40,17 @@ const mobileMenuAnim = {
 
 /* ----------------------------- Components ----------------------------- */
 
-const Logo = () => (
+export const Logo = () => (
   <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-    <Helmet>
-      <link
-        rel="preload"
-        as="image"
-        href="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
+    <div className="flex justify-center items-center gap-2 md:gap-3 hover:scale-105 transition-all duration-300">
+      <img
+        src="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        alt="DAAN KGP Logo"
+        width={30}
+        className="drop-shadow-sm rounded-sm"
       />
-    </Helmet>
-    <img
-      src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
-      alt="DAAN KGP Logo"
-      width={125}
-      className="drop-shadow-sm"
-    />
+      <div className=" text-lg font-bold text-red-500">DAAN KGP</div>
+    </div>
   </Link>
 );
 
@@ -169,20 +165,20 @@ export default function Navbar() {
           )}
 
           {!loading && !authed && (
-             <div className="flex gap-4 justify-center items-center">
-                  <Link
-                    to="/signup"
-                    className="px-3 py-1 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:scale-105 transition-all duration-300"
-                  >
-                    Sign Up
-                  </Link>
-                  <Link
-                    to="/signin"
-                    className="px-3 py-1 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 hover:scale-105 transition-all duration-300"
-                  >
-                    Sign In
-                  </Link>
-                </div>
+            <div className="flex gap-4 justify-center items-center">
+              <Link
+                to="/signup"
+                className="px-3 py-1 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:scale-105 transition-all duration-300"
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/signin"
+                className="px-3 py-1 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 hover:scale-105 transition-all duration-300"
+              >
+                Sign In
+              </Link>
+            </div>
           )}
         </div>
 

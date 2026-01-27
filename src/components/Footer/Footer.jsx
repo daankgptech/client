@@ -4,10 +4,11 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
-  FaRegCopyright,
+  FaRegCopyright,FaHome
 } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { Logo } from "../Navbar/Navbar";
 
 const FooterLinks = [
   { title: "Our Fam", link: "/our-fam" },
@@ -17,6 +18,11 @@ const FooterLinks = [
 ];
 
 const SocialLinks = [
+  {
+    href: "https://www.dakshana.org/dakshana-alumni/",
+    title: "Instagram DAAN",
+    icon: <FaHome />,
+  },
   {
     href: "https://www.instagram.com/daan.official1?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     title: "Instagram DAAN",
@@ -41,14 +47,16 @@ const Footer = () => (
       <div className="grid md:grid-cols-3 pt-5 bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 border border-gray-300 dark:border-gray-700 backdrop-blur-sm rounded-t-xl shadow-gray-600">
         {/* Logo & About */}
         <div className="pt-8 px-4">
-          <img
+          {/* <img
             src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
             alt="DAAN KGP Logo"
             width="250"
             height="100"
-          />
+          /> */}
+          <div className="flex justify-start"><Logo/></div>
+          
           <p className="mt-6 text-gray-900 dark:text-gray-400">
-            DAAN KGP is the Dakshana Alumni Network at IIT Kharagpur, connecting
+            DAAN KGP is the DakshanA Alumni Network at IIT Kharagpur, connecting
             scholars, students, and alumni for mentorship, academic support,
             career guidance, and social impact. It fosters leadership,
             collaboration, and a strong culture of support and service within

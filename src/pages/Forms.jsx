@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 import formsData from "../components/Forms/formsData";
@@ -12,16 +12,26 @@ const Forms = () => {
   return (
     <div className="min-h-[80vh] bg-gray-100 dark:bg-gray-900  text-gray-900 dark:text-gray-400">
       <Helmet>
+        {/* Standard metadata */}
         <title>Forms | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access."
-        />
+        <meta name="description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
+        <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur" />
+        <link rel="canonical" href="https://daan-kgp.vercel.app/forms" />
+        {/* Open Graph / Facebook / LinkedIn */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://daan-kgp.vercel.app/forms" />
         <meta property="og:title" content="Forms | DAAN KGP" />
-        <meta
-          property="og:description"
-          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access."
-        />
+        <meta property="og:description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
+        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" /> {/* Add a real path to your logo/banner */}
+        {/* The Thumbnail Image - This is what shows up in the WhatsApp chat bubble */}
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Forms | DAAN KGP" />
+        <meta name="twitter:description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
       </Helmet>
       <section data-aos="fade-up" className="container py-6">
         {/* Header */}

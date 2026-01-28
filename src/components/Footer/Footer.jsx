@@ -46,7 +46,7 @@ const Footer = () => (
       {/* Main Content */}
       <div className="grid md:grid-cols-3 pt-5 bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 border border-gray-300 dark:border-gray-700 backdrop-blur-sm rounded-t-xl shadow-gray-600">
         {/* Logo & About */}
-        <div className="pt-8 px-4">
+        <div className="pt-4 px-4">
           {/* <img
             src="https://res.cloudinary.com/dubu8yxkm/image/upload/v1754643304/Logo_mnu1fh.avif"
             alt="DAAN KGP Logo"

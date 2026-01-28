@@ -5,10 +5,11 @@ import { FaEnvelope, FaLinkedin, FaArrowLeft, FaGithub } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
+import { Helmet } from "react-helmet-async";
 
 const FamCardDetails = () => {
   const navigate = useNavigate();
-  const { year, id } = useParams();
+  const { year, name } = useParams();
 
   const [person, setPerson] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,11 +17,11 @@ const FamCardDetails = () => {
   useEffect(() => {
     setLoading(true);
     api
-      .get(`/our-fam/members/${id}`)
+      .get(`/our-fam/members/${name}`)
       .then((res) => setPerson(res.data))
       .catch(() => setPerson(null))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [name]);
 
   if (loading) {
     return <LoaderOverlay />;
@@ -42,6 +43,30 @@ const FamCardDetails = () => {
       transition-all duration-500 ease-out
      p-6 md:p-8"
     >
+      {person && (
+        <Helmet>
+        {/* Standard metadata */}
+        <title>{`${person.name} | ${person.batch} | DAAN KGP`}</title>
+        <meta name="description" content={`Profile of ${person.name} (${person.branch}) from DAAN KGP batch ${person.batch}.`} />
+        <meta name="keywords" content={`${person.name}, ${person.name} daan kgp, IIT Kharagpur, Daan KGP Members`}/>
+        <link rel="canonical" href={`https://daan-kgp.vercel.app/our-fam/${person.batch}/${encodeURIComponent(person.name)}`} />
+        {/* Open Graph / Facebook / LinkedIn */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://daan-kgp.vercel.app/our-fam/${person.batch}/${encodeURIComponent(person.name)}`} />
+        <meta property="og:title" content={`${person.name} | Daan KGP`} />
+        <meta property="og:description" content={`View ${person.name}'s profile on DAAN KGP.`} />
+        <meta property="og:image" content={person.imgLink} /> {/* Add a real path to your logo/banner */}
+        {/* The Thumbnail Image - This is what shows up in the WhatsApp chat bubble */}
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${person.name} | Daan KGP`} />
+        <meta name="twitter:description" content={`View ${person.name}'s profile on DAAN KGP.`} />
+        <meta name="twitter:image" content={person.imgLink} />
+      </Helmet>
+      )}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}

@@ -42,7 +42,7 @@ const mobileMenuAnim = {
 
 export const Logo = () => (
   <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-    <div className="flex justify-center items-center gap-2 md:gap-3 hover:scale-105 transition-all duration-300">
+    <div className="flex justify-center items-center gap-2 md:gap-3 ">
       <img
         src="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
         alt="DAAN KGP Logo"

@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home";
 import OurFam from "./pages/OurFam";
-import OurBrightMinds from "./pages/OurBrightMinds";
+import AcademicStars from "./pages/AcademicStars";
 import EventsDetails from "./pages/EventsDetails";
 import NoPage from "./pages/NoPage";
 import FlashPage from "./pages/FlashPage";
@@ -66,15 +66,14 @@ export default function App() {
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
           <Route path="/our-fam" element={<OurFam />} />
           <Route path="/our-fam/:year" element={ <ProtectedRoute redirect> <OurFam /> </ProtectedRoute> }/>
-          <Route path="/our-fam/:year/:id" element={ <ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute> } />
+          <Route path="/our-fam/:year/:name" element={ <ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute> } />
           <Route path="events" element={<EventComp />} />
           <Route path="events/:slug" element={<EventsDetails />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
-          <Route path="academic-stars" element={<OurBrightMinds />} />
+          <Route path="academic-stars" element={<AcademicStars />} />
           <Route path="/forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
           <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
-          <Route path="*" element={<NoPage />} />
           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />
@@ -84,6 +83,7 @@ export default function App() {
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/signout" element={<SignOut /> } />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </main>
       <PageUpBtn />

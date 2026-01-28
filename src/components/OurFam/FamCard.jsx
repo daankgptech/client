@@ -9,7 +9,7 @@ const FamCard = ({ _id, imgLink, name, branch, hall, contacts, graduated }) => {
   const primaryContact = contacts?.[0];
   return (
     <motion.div
-      onClick={() => navigate(`/our-fam/${year}/${_id}`)}
+      onClick={() => navigate(`/our-fam/${year}/${encodeURIComponent(name)}`)}
       whileHover={{ scale: 1.01 }}
       className="relative flex flex-col justify-around items-center p-2 md:p-3 lg:p-4 border
                  border-gray-300 dark:border-gray-700

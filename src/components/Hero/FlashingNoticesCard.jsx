@@ -17,6 +17,7 @@ const notices = [
   //   ),
   // },
   { text: "MidSem Exams: Feb 18-26, 2026." },
+  { text: "Holi: Mar 04, 2026." },
   { text: "Last Date of DReg. by a subject teacher: Mar 23, 2026." },
   { text: "EndSem Exams: Apr 22-30, 2026." },
   // {

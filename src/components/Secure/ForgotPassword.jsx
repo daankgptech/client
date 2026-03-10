@@ -10,265 +10,164 @@ import { Helmet } from "react-helmet";
 export default function ForgotPassword() {
   const navigate = useNavigate();
 
+  // Step state: 'IDENTIFY' | 'CONFIRM_SMS' | 'VERIFY_OTP' | 'RESET_PASSWORD'
   const [step, setStep] = useState("IDENTIFY");
   const [username, setUsername] = useState("");
-  const [questions, setQuestions] = useState({ q1: "", q2: "" });
-  const [answers, setAnswers] = useState({ a1: "", a2: "" });
+  const [otp, setOtp] = useState("");
+  const [maskedPhone, setMaskedPhone] = useState(""); 
   const [newPassword, setNewPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // STEP 1: Find user and retrieve the masked phone number
   const identifyUser = async () => {
+    if (!username) return toast.error("Enter username or email");
     setLoading(true);
     try {
       const res = await api.post("/forgotpassword/identify", { username });
-      if (res.data.hasSetSecQues) {
-        setQuestions({ q1: res.data.sec_q1, q2: res.data.sec_q2 });
-        setStep("VERIFY_ANSWERS");
-      } else {
-        setStep("SET_QUESTIONS");
-      }
-    } catch {
-      toast.error("User not found");
+      // Backend returns "******7890", we display it with +91
+      setMaskedPhone(res.data.phone); 
+      setStep("CONFIRM_SMS");
+    } catch (err) {
+      toast.error(err.response?.data?.msg || "User not found");
     } finally {
       setLoading(false);
     }
   };
 
-  const setSecurityQuestions = async () => {
+  // STEP 2: Trigger the Twilio SMS
+  const sendOTP = async () => {
+    setLoading(true);
+    const toastId = toast.loading("Requesting OTP...");
+    try {
+      await api.post("/forgotpassword/send-otp", { username });
+      toast.success("SMS sent successfully!", { id: toastId });
+      setStep("VERIFY_OTP");
+    } catch (err) {
+      toast.error("Failed to send SMS. Try again.", { id: toastId });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // STEP 3: Verify the 6-digit code
+  const verifyOTP = async () => {
+    if (otp.length !== 6) return toast.error("Enter 6-digit code");
     setLoading(true);
     try {
-      await api.post("/forgotpassword/set-questions", {
-        username,
-        q1: questions.q1,
-        q2: questions.q2,
-        a1: answers.a1,
-        a2: answers.a2,
-      });
-      toast.success("Security questions saved");
+      await api.post("/forgotpassword/verify-otp", { username, otp });
+      toast.success("Identity Verified");
       setStep("RESET_PASSWORD");
-    } catch {
-      toast.error("Failed to save questions");
+    } catch (err) {
+      toast.error("Invalid or expired code");
     } finally {
       setLoading(false);
     }
   };
 
-  const verifyAnswers = async () => {
-    setLoading(true);
-    try {
-      await api.post("/forgotpassword/verify", {
-        username,
-        a1: answers.a1,
-        a2: answers.a2,
-      });
-      setStep("RESET_PASSWORD");
-    } catch {
-      toast.error("Wrong answers");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // STEP 4: Finalize Reset
   const resetPassword = async () => {
     setLoading(true);
     try {
-      await api.post("/forgotpassword/reset", { username, newPassword });
-      toast.success("Password updated");
-      navigate("/signin");
-    } catch {
-      toast.error("Weak password");
+      await api.post("/forgotpassword/reset", { username, newPassword, otp });
+      toast.success("Password updated! Please remember it.");
+      navigate("/dashboard");
+    } catch (err) {
+      toast.error(err.response?.data?.msg || "Reset failed");
     } finally {
       setLoading(false);
     }
   };
 
-  const inputClass =
-    "w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all duration-300";
-
-  const btnClass =
-    "w-full py-2.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-medium shadow-md shadow-rose-300/40 hover:scale-105 active:scale-95 transition-all duration-300 flex justify-center items-center gap-2";
+  const inputClass = "w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-all duration-300";
+  const btnClass = "w-full py-2.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-medium shadow-md shadow-rose-300/40 hover:scale-105 active:scale-95 transition-all duration-300 flex justify-center items-center gap-2";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       <Helmet>
-        <title>Forgot Password | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Forgot your password? No worries. Securely verify your DAAN KGP account, answer your security questions, and set a new password to get back in."
-        />
-        <meta property="og:title" content="Forgot Password | DAAN KGP" />
-        <meta
-          property="og:description"
-          content="Forgot your password? No worries. Securely verify your DAAN KGP account, answer your security questions, and set a new password to get back in."
-        />
+        <title>Reset Password | DAAN KGP</title>
       </Helmet>
       {loading && <BlurLoader />}
 
-      <div
-        className="group relative overflow-hidden
-      w-full max-w-md
-      rounded-3xl
-      bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-      dark:from-slate-900 dark:via-slate-800 dark:to-gray-900
-      border border-rose-50 dark:border-slate-700/50
-      p-8
-      shadow-xl
-      transition-all duration-500
-      hover:border-rose-400/40 dark:hover:border-rose-500/50
-      hover:shadow-lg hover:shadow-rose-900/20"
-      >
-        {/* ambient edge */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Header */}
+      <div className="group relative overflow-hidden w-full max-w-md rounded-3xl bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 dark:from-slate-900 dark:via-slate-800 dark:to-gray-900 border border-rose-50 dark:border-slate-700/50 p-8 shadow-xl transition-all duration-500">
+        
         <div className="relative z-10 mb-6 text-center">
-          {step === "IDENTIFY" && (
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-              Find Your Account
-            </h2>
-          )}
-          {step === "SET_QUESTIONS" && (
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-              Set Security Questions
-            </h2>
-          )}
-          {step === "VERIFY_ANSWERS" && (
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-              Verify Security Answers
-            </h2>
-          )}
-          {step === "RESET_PASSWORD" && (
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-              Set New Password
-            </h2>
-          )}
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            {step === "IDENTIFY" && "Reset Password"}
+            {step === "CONFIRM_SMS" && "SMS Verification"}
+            {step === "VERIFY_OTP" && "Check Your Phone"}
+            {step === "RESET_PASSWORD" && "New Credentials"}
+          </h2>
+          <div className="text-sm text-gray-500 mt-2 flex flex-col items-center gap-1">
+            {step === "CONFIRM_SMS" && (
+              <>
+                <span>Secure code will be sent to:</span>
+                <span className="text-rose-500 font-mono font-bold text-lg bg-rose-500/10 px-3 py-1 rounded-lg">
+                  +91 {maskedPhone}
+                </span>
+              </>
+            )}
+            {step === "VERIFY_OTP" && "Enter the 6-digit code we just sent."}
+          </div>
         </div>
 
-        {/* Body */}
-        <div className="relative z-10 grid grid-cols-1 gap-4">
+        <div className="relative z-10 space-y-4">
           {step === "IDENTIFY" && (
             <>
-              <input
-                className={inputClass}
-                placeholder="Username or Email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    identifyUser();
-                  }
-                }}
+              <input 
+                className={inputClass} 
+                placeholder="Username or Email" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
               />
-              <button onClick={identifyUser} className={btnClass}>
-                Continue
-              </button>
+              <button onClick={identifyUser} className={btnClass}>Next</button>
             </>
           )}
 
-          {step === "SET_QUESTIONS" && (
+          {step === "CONFIRM_SMS" && (
             <>
-              <input
-                className={inputClass}
-                placeholder="Question 1"
-                value={questions.q1}
-                onChange={(e) =>
-                  setQuestions({ ...questions, q1: e.target.value })
-                }
-              />
-              <input
-                className={inputClass}
-                placeholder="Answer 1"
-                value={answers.a1}
-                onChange={(e) => setAnswers({ ...answers, a1: e.target.value })}
-              />
-              <input
-                className={inputClass}
-                placeholder="Question 2"
-                value={questions.q2}
-                onChange={(e) =>
-                  setQuestions({ ...questions, q2: e.target.value })
-                }
-              />
-              <input
-                className={inputClass}
-                placeholder="Answer 2"
-                value={answers.a2}
-                onChange={(e) => setAnswers({ ...answers, a2: e.target.value })}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSecurityQuestions();
-                  }
-                }}
-              />
-              <button onClick={setSecurityQuestions} className={btnClass}>
-                Save & Continue
-              </button>
+              <div className="p-4 bg-rose-500/5 border border-rose-500/10 rounded-xl text-center text-gray-600 dark:text-gray-400 text-xs italic">
+                Standard SMS rates may apply for international or roaming numbers.
+              </div>
+              <button onClick={sendOTP} className={btnClass}>Confirm & Send Code</button>
+              <button onClick={() => setStep("IDENTIFY")} className="w-full text-center text-gray-400 text-sm hover:underline">Change Username</button>
             </>
           )}
 
-          {step === "VERIFY_ANSWERS" && (
+          {step === "VERIFY_OTP" && (
             <>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {questions.q1}
-              </p>
-              <input
-                className={inputClass}
-                value={answers.a1}
-                onChange={(e) => setAnswers({ ...answers, a1: e.target.value })}
+              <input 
+                className={`${inputClass} text-center tracking-[0.5em] text-2xl font-bold`} 
+                maxLength={6} 
+                placeholder="000000" 
+                value={otp} 
+                onChange={(e) => setOtp(e.target.value)} 
               />
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {questions.q2}
-              </p>
-              <input
-                className={inputClass}
-                value={answers.a2}
-                onChange={(e) => setAnswers({ ...answers, a2: e.target.value })}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    verifyAnswers();
-                  }
-                }}
-              />
-              <button onClick={verifyAnswers} className={btnClass}>
-                Verify
-              </button>
+              <button onClick={verifyOTP} className={btnClass}>Verify Code</button>
+              <button onClick={sendOTP} className="w-full text-center text-gray-400 text-sm hover:text-rose-500 transition-colors">Resend SMS</button>
             </>
           )}
 
           {step === "RESET_PASSWORD" && (
             <>
               <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className={inputClass + " pr-12"}
-                  placeholder="New strong password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      resetPassword();
-                    }
-                  }}
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  className={inputClass + " pr-12"} 
+                  placeholder="New strong password" 
+                  value={newPassword} 
+                  onChange={(e) => setNewPassword(e.target.value)} 
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition"
+                <button 
+                  type="button" 
+                  onClick={() => setShowPassword(!showPassword)} 
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-400"
                 >
-                  {showPassword ? (
-                    <AiFillEyeInvisible size={22} />
-                  ) : (
-                    <AiFillEye size={22} />
-                  )}
+                  {showPassword ? <AiFillEyeInvisible size={22} /> : <AiFillEye size={22} />}
                 </button>
               </div>
-
               <PasswordHelper password={newPassword} />
-
-              <button onClick={resetPassword} className={btnClass}>
-                Reset Password
-              </button>
+              <button onClick={resetPassword} className={btnClass}>Save New Password</button>
             </>
           )}
         </div>

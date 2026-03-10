@@ -118,16 +118,14 @@ export default function SignIn() {
         </div>
 
         {/* Forgot */}
-        {/* {showForgot && (
           <div className="relative z-10 mt-4 text-center">
             <Link
               to="/forgot-password"
-              className="text-sm text-rose-600 dark:text-rose-400 hover:text-rose-500 transition"
+              className="text-sm text-rose-600 dark:text-rose-400 hover:text-rose-500 transition hover:underline"
             >
               Forgot password?
             </Link>
           </div>
-        )} */}
       </div>
     </div>
   );

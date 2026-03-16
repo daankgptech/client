@@ -41,10 +41,10 @@ const AcademicStars = () => {
   <meta name="description" content="Meet the top academic performers at DAAN KGP. We celebrate batch-wise toppers and Dakshana scholars at IIT Kharagpur who excel in their studies." />
   
   {/* IMPORTANT: Make sure this matches the actual URL of the page */}
-  <link rel="canonical" href="https://daan-kgp.vercel.app/academic-stars" />
+  <link rel="canonical" href="https://daankgp.vercel.app/academic-stars" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://daan-kgp.vercel.app/academic-stars" />
+  <meta property="og:url" content="https://daankgp.vercel.app/academic-stars" />
   <meta property="og:title" content="Academic Stars | DAAN KGP" />
   <meta property="og:description" content="Celebrating academic excellence within the Dakshana Alumni Network at IIT Kharagpur." />
   

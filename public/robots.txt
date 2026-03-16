@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://daan-kgp.vercel.app/sitemap.xml
+Sitemap: https://daankgp.vercel.app/sitemap.xml

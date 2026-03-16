@@ -72,10 +72,10 @@ const EventsDetails = () => {
         <title>{`${event.title} | DAAN KGP`}</title>
         <meta name="description" content={event.description}/>
         <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur" />
-        <link rel="canonical" href="https://daan-kgp.vercel.app/events" />
+        <link rel="canonical" href="https://daankgp.vercel.app/events" />
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://daan-kgp.vercel.app/events" />
+        <meta property="og:url" content="https://daankgp.vercel.app/events" />
         <meta property="og:title" content= {`${event.title} | DAAN KGP`}/>
         <meta property="og:description" content={event.description} />
         <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" /> {/* Add a real path to your logo/banner */}

@@ -8,17 +8,12 @@ const FlashPage = ({ onFinish }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 flex flex-col items-center justify-center z-50">
-      {/* Main Title */}
       <h1 className="text-[18vw] font-bold opacity-0 animate-fade-in">
         DAAN KGP
       </h1>
-
-      {/* Subtitle */}
       <h3 className="text-[4vw] mt-0 opacity-0 animate-fade-in-delay">
         DakshanA Alumni Network at IIT Kharagpur
       </h3>
-
-      {/* Tagline */}
       <h1 className="text-[3vw] md:text-[2vw] lg:text-[1vw] mt-2 text-gray-700 opacity-0 animate-fade-in-delay-2">
         Welcomes you ...
       </h1>

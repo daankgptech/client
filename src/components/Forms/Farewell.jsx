@@ -14,6 +14,7 @@ import {
   Music,
   Phone,
   ArrowLeft,
+  Info,
 } from "lucide-react";
 
 const InputWrapper = ({ children, icon: Icon, label }) => (
@@ -111,14 +112,14 @@ const Farewell = () => {
           <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
             {/* Header */}
             <div className="relative bg-gradient-to-r from-red-500 to-rose-600 p-8 sm:p-10 text-white text-center">
-              <button 
-                onClick={() => navigate(-1)} 
+              <button
+                onClick={() => navigate(-1)}
                 className="absolute top-4 left-4 p-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full transition-colors flex items-center justify-center text-white"
                 title="Go Back"
               >
                 <ArrowLeft size={20} />
               </button>
-              
+
               <PartyPopper
                 size={48}
                 className="mx-auto mb-4 opacity-90 text-yellow-200"
@@ -138,6 +139,22 @@ const Farewell = () => {
                 </div>
                 <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
                   <MapPin size={16} /> TSG Frontside
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-2 md:p-3 lg:p-4 m-8 mb-0 rounded-r-xl">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <Info className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-blue-700 dark:text-blue-200">
+                    <strong className="font-bold">Mandatory for all DAAN KGPians:</strong> Your
+                    response is required because it yields the exact headcount
+                    so we can efficiently book transport, food, and other
+                    logistics for the entire family.
+                  </p>
                 </div>
               </div>
             </div>

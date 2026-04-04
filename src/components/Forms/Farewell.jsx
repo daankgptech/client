@@ -75,7 +75,7 @@ const Farewell = () => {
     try {
       const res = await api.post(`/farewell`, formData);
       if (res.status === 201) {
-        toast.success("Thank you for your response, see you there! 🎉");
+        toast.success("Thank you for your response, see you there!");
         handleReset();
       }
     } catch (err) {
@@ -101,7 +101,7 @@ const Farewell = () => {
         <title>Farewell 2026 | DAAN KGP</title>
       </Helmet>
 
-      <div className="min-h-screen py-12 px-4 sm:px-6 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen py-12 px-4 sm:px-6 flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
         <div className="w-full max-w-2xl relative">
           {/* Decorative Blooms */}
           <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 dark:opacity-10 animate-blob"></div>

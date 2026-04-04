@@ -1,8 +1,9 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../utils/Secure/AuthContext";
 
 export default function ProtectedRoute({ children, redirect = false }) {
   const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
   // While checking auth, show a small inline spinner
   if (loading)
@@ -13,7 +14,7 @@ export default function ProtectedRoute({ children, redirect = false }) {
     );
 
   if (!isAuthenticated) {
-    return redirect ? <Navigate to="/signin" replace /> : null;
+    return redirect ? <Navigate to="/signin" state={{ from: location }} replace /> : null;
   }
 
   return children;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
@@ -8,6 +8,9 @@ import { Helmet } from "react-helmet";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const [loading, setLoading] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // NEW
@@ -20,7 +23,7 @@ export default function SignIn() {
       const res = await api.post("/signin", form);
       console.log("SignIn response:", res.data);
       toast.success("Signed in");
-      navigate("/dashboard");
+      navigate(from, { replace: true });
       window.location.reload();
     } catch (e) {
       console.error("SignIn error detailed:", e);

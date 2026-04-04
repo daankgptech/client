@@ -1,5 +1,14 @@
 const formsData = [
   {
+    to: "/forms/farewell",
+    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761065738/FeatureSuggestion_jhxar7.avif",
+    title: "Farewell 2026 Registration",
+    desc: "Register for the Seniors Farewell on Apr 11. Let us know if you are joining or performing!",
+    deadline: "2026-04-07T23:59:00+05:30",
+    isExceeded: false,
+    responsePercentage: [],
+  },
+  {
     to: "/forms/feature",
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1761065738/FeatureSuggestion_jhxar7.avif",
     title: "Feature Suggestion Form",

@@ -68,12 +68,12 @@ Ensure you have Node.js (version 18 or higher) and npm installed on your local m
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/daankgptech/daankgp-client
+   git clone https://github.com/daankgptech/client
    ```
 
 2. **Navigate to the client directory**
    ```bash
-   cd daankgp-client
+   cd client
    ```
 
 3. **Install project dependencies**

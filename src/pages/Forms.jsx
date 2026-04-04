@@ -5,10 +5,48 @@ import { Link } from "react-router-dom";
 import formsData from "../components/Forms/formsData";
 import ResponsePercentage from "../components/Forms/ResponsePercentage";
 
-const Forms = () => {
-  const now = new Date();
-  const [openIndex, setOpenIndex] = useState(null);
+import { api } from "../utils/Secure/api";
 
+const BATCH_DENOMINATORS = {
+  "'25": 42,
+  "'24": 46,
+  "'23": 35,
+  "'22": 32,
+  "'21": 17,
+};
+
+const Forms = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+  const [dynamicStats, setDynamicStats] = useState({});
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await api.get("/forms/stats?form=farewell");
+        if (res.status === 200) {
+          const statsMap = res.data; // e.g. {"'21": count, "'22": count}
+          const formattedPercentages = Object.keys(BATCH_DENOMINATORS).map((batchObj) => {
+            const count = statsMap[batchObj] || 0;
+            return {
+              batch: batchObj,
+              percentage: (count / BATCH_DENOMINATORS[batchObj]) * 100,
+            };
+          });
+          setDynamicStats({ farewell: formattedPercentages });
+        }
+      } catch (err) {
+        console.error("Error fetching form stats:", err);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  // Use explicit IST comparison
+  const getISTTime = () => {
+    const formatStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+    return new Date(formatStr);
+  };
+  const nowIST = getISTTime();
   return (
     <div className="min-h-[80vh] bg-gray-100 dark:bg-gray-900  text-gray-900 dark:text-gray-400">
       <Helmet>
@@ -43,8 +81,17 @@ const Forms = () => {
         <div className="flex flex-wrap justify-center items-start gap-6">
           {formsData.map((item, index) => {
             const deadlineDate = new Date(item.deadline);
-            const isExceeded = now > deadlineDate;
+            const formDeadlineIST = new Date(
+              deadlineDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+            );
+            const isExceeded = nowIST > formDeadlineIST;
             const isOpen = openIndex === index;
+            
+            // Check dynamic stats vs static stats map
+            const identifier = item.to.split('/').pop(); // 'farewell', 'feature', etc.
+            if (dynamicStats[identifier]) {
+              item.responsePercentage = dynamicStats[identifier];
+            }
 
             const formClasses = isExceeded
               ? "bg-gray-300/70 dark:bg-gray-800 border-gray-400 dark:border-gray-700"

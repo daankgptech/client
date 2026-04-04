@@ -22,7 +22,7 @@ import GlobalClickSpark from "./components/ClickEffect/GlobalClickSpark";
 
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import Feature from "./components/Forms/Feature";
+import FormWrapper from "./components/Forms/FormWrapper";
 import FamCardDetails from "./components/OurFam/FamCardDetails";
 import SignOut from "./components/Secure/SignOut";
 import ProtectedRoute from "./components/Secure/ProtectedRoute";
@@ -60,7 +60,7 @@ export default function App() {
     <ScrollToTop/>
       <Toaster position="top-center"/>
       <Navbar />
-      <main className="pb-8 pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-screen">
+      <main className="pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-screen">
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
@@ -73,7 +73,7 @@ export default function App() {
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="academic-stars" element={<AcademicStars />} />
           <Route path="/forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
-          <Route path="forms/feature" element={<ProtectedRoute redirect> <Feature /></ProtectedRoute>} />
+          <Route path="forms/:name" element={<ProtectedRoute redirect> <FormWrapper /></ProtectedRoute>} />
           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />

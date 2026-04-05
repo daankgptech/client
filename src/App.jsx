@@ -72,8 +72,8 @@ export default function App() {
           <Route path="toolkit/:tab" element={<Toolkit />} />
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="academic-stars" element={<AcademicStars />} />
-          <Route path="/forms" element={<ProtectedRoute redirect> <Forms /></ProtectedRoute>} />
-          <Route path="forms/:name" element={<ProtectedRoute redirect> <FormWrapper /></ProtectedRoute>} />
+          <Route path="/forms" element={<Forms />} />
+          <Route path="forms/:name" element={<FormWrapper />} />
           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />

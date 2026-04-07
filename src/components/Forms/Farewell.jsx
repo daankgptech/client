@@ -15,6 +15,7 @@ import {
   Phone,
   ArrowLeft,
   Info,
+  MessageSquareText,
 } from "lucide-react";
 
 const InputWrapper = ({ children, icon: Icon, label }) => (
@@ -150,10 +151,12 @@ const Farewell = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-blue-700 dark:text-blue-200">
-                    <strong className="font-bold">Mandatory for all DAAN KGPians:</strong> Your
-                    response is required because it yields the exact headcount
-                    so we can efficiently book transport, food, and other
-                    logistics for the entire family.
+                    <strong className="font-bold">
+                      Mandatory for all DAAN KGPians:
+                    </strong>{" "}
+                    Your response is required because it yields the exact
+                    headcount so we can efficiently book transport, food, and
+                    other logistics for the entire family.
                   </p>
                 </div>
               </div>
@@ -365,7 +368,7 @@ const Farewell = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:text-rose-500 transition-colors"
                 >
-                  <Phone size={14} className="text-green-500" />
+                  <MessageSquareText size={14} className="text-green-500" />
                   CR: +91 6264607383
                 </a>
                 <span className="hidden sm:inline text-gray-300 dark:text-gray-600">
@@ -377,7 +380,7 @@ const Farewell = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:text-rose-500 transition-colors"
                 >
-                  <Phone size={14} className="text-green-500" />
+                  <MessageSquareText size={14} className="text-green-500" />
                   TechTeam: +91 9725920609
                 </a>
               </div>

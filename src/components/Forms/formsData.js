@@ -4,7 +4,7 @@ const formsData = [
     img: "https://res.cloudinary.com/dhv0sckmq/image/upload/q_auto/f_auto/v1775380707/Screenshot_2026-04-05_144726_tw4ely.png",
     title: "Farewell 2026 Registration",
     desc: "Mandatory for all DAAN KGPians: Your response is required because it yields the exact headcount so we can efficiently book transport, food, and other logistics for the entire family.",
-    deadline: "2026-04-07T23:59:00+05:30",
+    deadline: "2026-04-08T23:59:00+05:30",
     isExceeded: false,
     responsePercentage: [],
   },

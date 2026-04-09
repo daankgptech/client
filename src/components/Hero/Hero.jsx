@@ -39,12 +39,12 @@ export default function Hero() {
           }}
         >
           {/* Main title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight">
             <span className="bg-gradient-to-r from-gray-700 via-gray-500 to-gray-400 bg-clip-text text-transparent dark:from-white dark:via-gray-200 dark:to-gray-400">
               Congratulations on being a
             </span>
             <br />
-            <span className="bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 bg-clip-text text-transparent dark:from-red-400 dark:via-rose-400 dark:to-orange-400">
+            <span className="bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 bg-clip-text text-transparent dark:from-red-400 dark:via-rose-400 dark:to-orange-400 font-bold">
               DAAN KGPian!
             </span>
           </h1>

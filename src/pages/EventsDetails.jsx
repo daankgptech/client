@@ -1,9 +1,37 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { Calendar, ArrowLeft, ArrowRight, Lock, ExternalLink } from "lucide-react";
 import { useAuth } from "../utils/Secure/AuthContext";
 import { api } from "../utils/Secure/api";
 import { slugify } from "../utils/slugify";
+
+// Skeleton shimmer component
+const SkeletonDetail = () => (
+  <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    {/* Image skeleton */}
+    <div className="w-full h-[40vh] sm:h-[50vh] md:h-[60vh] bg-gray-200 dark:bg-gray-800 animate-shimmer" />
+    
+    {/* Content skeleton */}
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {/* Date skeleton */}
+      <div className="w-32 h-4 rounded bg-gray-300/70 dark:bg-gray-700/70 mb-4" />
+      
+      {/* Title skeleton */}
+      <div className="w-3/4 h-8 rounded bg-gray-300/80 dark:bg-gray-700/80 mb-6" />
+      
+      {/* Description skeleton */}
+      <div className="space-y-3">
+        <div className="w-full h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+        <div className="w-full h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+        <div className="w-2/3 h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+      </div>
+      
+      {/* Button skeleton */}
+      <div className="w-40 h-10 rounded-lg bg-gray-300/70 dark:bg-gray-700/70 mt-8 mx-auto" />
+    </div>
+  </div>
+);
 
 const EventsDetails = () => {
   const { isAuthenticated } = useAuth();
@@ -26,12 +54,10 @@ const EventsDetails = () => {
           slug: slugify(e.title),
         }));
 
-        // Find the current event by slug
         const currentIndex = allEvents.findIndex((e) => e.slug === slug);
 
         if (currentIndex !== -1) {
           setEvent(allEvents[currentIndex]);
-          // Set neighbors for navigation
           setPrevEvent(currentIndex > 0 ? allEvents[currentIndex - 1] : null);
           setNextEvent(
             currentIndex < allEvents.length - 1
@@ -47,130 +73,200 @@ const EventsDetails = () => {
     };
 
     fetchEventData();
-  }, [slug]); // Re-run when the URL slug changes
+  }, [slug]);
 
   if (loading) {
     return (
-      <div className="pt-20 text-center dark:text-white">
-        Loading event details...
-      </div>
+      <>
+        <style>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+          .animate-shimmer {
+            background-size: 200% 100%;
+            animation: shimmer 1.2s linear infinite;
+            background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+          }
+          .dark .animate-shimmer {
+            background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+          }
+        `}</style>
+        <SkeletonDetail />
+      </>
     );
   }
 
   if (!event) {
     return (
-      <div className="pt-20 text-center text-red-500 text-xl">
-        Event not found.
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">
+            Event not found
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">
+            The event you're looking for doesn't exist.
+          </p>
+          <Link
+            to="/events"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-500 text-white hover:bg-rose-600 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Events
+          </Link>
+        </div>
       </div>
     );
   }
 
+  const formattedDate = event.date
+    ? new Date(event.date).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : null;
+
   return (
     <>
-<Helmet>
-        {/* Standard metadata */}
-        <title>{`${event.title} | DAAN KGP`}</title>
-        <meta name="description" content={event.description}/>
-        <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur" />
-        <link rel="canonical" href="https://daankgp.vercel.app/events" />
-        {/* Open Graph / Facebook / LinkedIn */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://daankgp.vercel.app/events" />
-        <meta property="og:title" content= {`${event.title} | DAAN KGP`}/>
-        <meta property="og:description" content={event.description} />
-        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" /> {/* Add a real path to your logo/banner */}
-        {/* The Thumbnail Image - This is what shows up in the WhatsApp chat bubble */}
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+      <Helmet>
+        <title>{`${event.title} | Events | DAAN KGP`}</title>
+        <meta name="description" content={event.description?.slice(0, 160)} />
+        <meta name="keywords" content={`${event.title}, DAAN KGP, Dakshana, IIT Kharagpur, Events, Alumni`} />
+        <link rel="canonical" href={`https://daankgp.vercel.app/events/${slug}`} />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://daankgp.vercel.app/events/${slug}`} />
+        <meta property="og:title" content={`${event.title} | DAAN KGP`} />
+        <meta property="og:description" content={event.description?.slice(0, 160)} />
+        <meta property="og:image" content={event.image || "https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"} />
+        <meta property="article:published_time" content={event.date} />
+        
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={event.title} />
-        <meta name="twitter:description" content={event.description} />
-        <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
+        <meta name="twitter:title" content={`${event.title} | DAAN KGP`} />
+        <meta name="twitter:description" content={event.description?.slice(0, 160)} />
+        <meta name="twitter:image" content={event.image || "https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"} />
       </Helmet>
-      <img
-        src={event.image}
-        alt={event.title}
-        className="mx-auto h-auto md:h-fit w-full object-cover"
-      />
 
-      <div className="container bg-gray-100 dark:bg-gray-900 py-6">
-        <p className="text-sm text-slate-600 dark:text-gray-500 mb-2">
-          on{" "}
-          {event.date
-            ? new Date(event.date).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })
-            : "Loading..."}
-        </p>
-        <h1 className="text-2xl dark:text-gray-300 font-semibold mb-2">
-          {event.title}
-        </h1>
-        <div className="text-gray-700 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">
-          {event.description}
+      <article className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        {/* Hero Image */}
+        <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
+          <img
+            src={event.image}
+            alt={event.title}
+            loading="eager"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+          
+          {/* Back button */}
+          <Link
+            to="/events"
+            className="absolute top-4 left-4 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 transition-all shadow-lg"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
         </div>
 
-        <div className="text-center my-8">
-          {event.driveLink ? (
-            isAuthenticated ? (
-              <a
-                href={event.driveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block p-2 rounded-lg border shadow-sm shadow-gray-600 text-red-600 dark:text-gray-400 
-                  bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 
-                  border-gray-300 dark:border-gray-600 transition-all duration-300 
-                  hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-700 dark:hover:to-gray-600 
-                  hover:border-gray-500 dark:hover:border-cyan-400 font-medium"
-              >
-                View Event Drive
-              </a>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-sm text-gray-500 italic">
-                  Drive access restricted to DAAN-KGPians
-                </p>
-                <Link
-                  to="/signin"
-                  className="inline-block p-2 rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors"
-                >
-                  🔒 Sign In to View Drive
-                </Link>
+        {/* Content */}
+        <div className="container mx-auto px-4 py-8 max-w-4xl -mt-16 relative z-10">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+            {/* Date */}
+            {formattedDate && (
+              <div className="flex items-center gap-2 text-rose-500 dark:text-rose-400 mb-4">
+                <Calendar className="w-4 h-4" />
+                <span className="text-sm font-medium">{formattedDate}</span>
               </div>
-            )
-          ) : null}
+            )}
+
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-6 leading-tight">
+              {event.title}
+            </h1>
+
+            {/* Description */}
+            <div className="prose prose-gray dark:prose-invert max-w-none">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap text-base sm:text-lg">
+                {event.description}
+              </p>
+            </div>
+
+            {/* Drive Link */}
+            {event.driveLink && (
+              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+                {isAuthenticated ? (
+                  <a
+                    href={event.driveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-red-500 text-white font-medium shadow-lg shadow-rose-500/25 hover:shadow-rose-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View Event Drive
+                  </a>
+                ) : (
+                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700">
+                    <Lock className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+                    <p className="text-gray-600 dark:text-gray-300 font-medium mb-2">
+                      Drive access restricted
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                      Only DAAN-KGPians can access the event drive
+                    </p>
+                    <Link
+                      to="/signin"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-rose-500 text-rose-600 dark:text-rose-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
+                    >
+                      <Lock className="w-4 h-4" />
+                      Sign In to Access
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Navigation Buttons Row */}
-      <div className="container flex justify-between items-center py-10">
-        <button
-          onClick={() => navigate(`/events/${prevEvent?.slug}`)}
-          disabled={!prevEvent}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-            !prevEvent
-              ? "opacity-30 cursor-not-allowed grayscale"
-              : "hover:bg-gray-200 dark:hover:bg-gray-800 text-rose-500 font-bold"
-          }`}
-        >
-          ← Later
-        </button>
+        {/* Navigation */}
+        <div className="container mx-auto px-4 max-w-4xl pb-12">
+          <div className="flex justify-between items-center">
+            <button
+              onClick={() => prevEvent && navigate(`/events/${prevEvent.slug}`)}
+              disabled={!prevEvent}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                !prevEvent
+                  ? "opacity-40 cursor-not-allowed text-gray-400"
+                  : "text-gray-600 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10"
+              }`}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Previous</span>
+            </button>
 
-        <button
-          onClick={() => navigate(`/events/${nextEvent?.slug}`)}
-          disabled={!nextEvent}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-            !nextEvent
-              ? "opacity-30 cursor-not-allowed grayscale"
-              : "hover:bg-gray-200 dark:hover:bg-gray-800 text-rose-500 font-bold"
-          }`}
-        >
-          Earlier →
-        </button>
-      </div>
+            <Link
+              to="/events"
+              className="text-sm text-gray-500 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors"
+            >
+              All Events
+            </Link>
+
+            <button
+              onClick={() => nextEvent && navigate(`/events/${nextEvent.slug}`)}
+              disabled={!nextEvent}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                !nextEvent
+                  ? "opacity-40 cursor-not-allowed text-gray-400"
+                  : "text-gray-600 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10"
+              }`}
+            >
+              <span className="hidden sm:inline">Next</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </article>
     </>
   );
 };

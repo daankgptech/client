@@ -6,18 +6,23 @@ const EventCard = ({ image, date, title, description, slug }) => {
       to={`/events/${slug}`}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       title={title}
+      className="block group"
     >
-      <div className="p-4 rounded-3xl border border-rose-300 dark:border-transparent bg-gradient-to-tr from-rose-200 to-rose-100 dark:from-gray-700 dark:to-gray-800 dark:bg-gray-900 shadow-lg transition duration-500 hover:shadow-xl dark:text-gray-400">
-        <div className="overflow-hidden">
-          <img
-            src={image}
-            alt={title}
-            loading="lazy"
-            className="w-full h-[250px] object-cover rounded-2xl border border-rose-500 dark:border-gray-400 shadow-sm shadow-rose-300"
-          />
+      <div className="p-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+        {/* Image */}
+        <div className="overflow-hidden rounded-xl ">
+          <div className="clip-path-custom">
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              className="w-full h-[220px] sm:h-[240px] object-cover transition-transform duration-300 group-hover:scale-[1.05]"
+            />
+          </div>
         </div>
 
-        <p className="pt-2 text-slate-600 dark:text-gray-500">
+        {/* Date */}
+        <p className="pt-3 text-sm text-gray-500 dark:text-gray-400">
           {date
             ? new Date(date).toLocaleDateString("en-US", {
                 month: "long",
@@ -26,11 +31,16 @@ const EventCard = ({ image, date, title, description, slug }) => {
               })
             : "Loading..."}
         </p>
-        <div className="space-y-2 py-3">
-          <h1 className="line-clamp-1 font-bold bg-clip-text text-transparent bg-gradient-to-r from-rose-700 to-orange-500 dark:text-gray-300">
+
+        {/* Content */}
+        <div className="space-y-2 py-2">
+          {/* Title */}
+          <h2 className="line-clamp-1 text-base md:text-lg font-semibold text-gray-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
             {title}
-          </h1>
-          <p className="line-clamp-2 text-rose-700/80 dark:text-gray-400">
+          </h2>
+
+          {/* Description */}
+          <p className="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
             {description}
           </p>
         </div>

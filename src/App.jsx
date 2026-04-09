@@ -61,7 +61,7 @@ export default function App() {
     <ScrollToTop/>
       <Toaster position="top-center"/>
       <Navbar />
-      <main className="pt-0 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 min-h-screen">
+      <main className="pt-0 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-400 min-h-screen">
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
@@ -84,7 +84,8 @@ export default function App() {
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/signout" element={<SignOut /> } />
-          <Route path="*" element={<NoPage />} />
+          <Route path="*" element={<FlashPage />} />
+          {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
       </main>
       <PageUpBtn />

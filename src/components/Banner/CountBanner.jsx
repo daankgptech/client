@@ -151,7 +151,7 @@ export default function BannerTwo() {
   }, []);
 
   return (
-    <section className="my-12">
+    <section className="py-12 bg-gray-100 dark:bg-gray-950">
       <CountBanner stats={stats} loading={loading} />
     </section>
   );

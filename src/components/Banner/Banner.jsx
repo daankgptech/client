@@ -31,7 +31,7 @@ const EXPLORE_ITEMS = [
 const Banner = () => {
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900 py-12 md:py-16 mt-10">
+      <section className="bg-gray-100 dark:bg-gray-950 py-12 md:py-16 mt-10">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Image */}

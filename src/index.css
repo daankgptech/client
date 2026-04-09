@@ -7,9 +7,24 @@
     @apply text-primary;
   }
 }
+
 .clip-path-custom {
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
 /* Custom Selection */
 ::selection {
   background: #fca5a5;

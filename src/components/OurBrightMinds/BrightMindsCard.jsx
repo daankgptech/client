@@ -1,97 +1,87 @@
-import { Helmet } from "react-helmet";
+import React, { memo } from "react";
 
-const BrightMindsCard = ({
+const BrightMindsCard = memo(({
   imgLink,
   name,
   dept,
   Year,
   cg,
   position,
-  colour,
-}) => (
-  <div
-    className="
-      group relative flex flex-col items-center justify-between
-      p-3 md:p-4 lg:p-5 rounded-3xl
-      bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200
-      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-      border border-gray-300/70 dark:border-gray-700
-      transition-all duration-500 ease-out
-      hover:-translate-y-2 hover:shadow-xl
-      hover:shadow-rose-200/50 dark:hover:shadow-red-900/30
-    "
-  >
-    <Helmet>
-      <link rel="preload" as="image" href={imgLink} />
-    </Helmet>
-
-    {/* Rank Badge */}
-    {position && (
-      <div
-        className="
-          absolute top-3 right-3 z-10
-          px-3 py-1 rounded-full text-xs md:text-sm font-semibold
-          text-rose-50
-          bg-gradient-to-r from-rose-500 to-red-600
-          shadow-md shadow-rose-300/50
-          dark:shadow-red-900/40
-          scale-95 group-hover:scale-100
-          transition-transform duration-300
-        "
-      >
-        {position}
-        {/* {position === 1 ? "st" : position === "2" ? "nd" : "rd"} */}
-      </div>
-    )}
-
-    {/* Image */}
-    <div className="relative mt-2 mb-3">
-      <div
-        className="
-          absolute inset-0 rounded-full
-          bg-gradient-to-tr from-rose-400 to-red-500
-          blur-xl opacity-20
-          group-hover:opacity-30 transition-opacity duration-500
-        "
-      />
-      <img
-        src={imgLink}
-        alt={name}
-        className="
-          relative rounded-full
-          w-[170px] md:w-[210px] lg:w-[230px]
-          border border-gray-300 dark:border-gray-600
-          shadow-lg
-          transition-transform duration-500
-          group-hover:scale-[1.03] object-cover aspect-square
-        "
-      />
-    </div>
-
-    {/* Name */}
-    <h1 className="text-lg md:text-xl font-semibold text-center text-gray-800 dark:text-gray-300 truncate">
-      {name}
-    </h1>
-
-    {/* Department */}
-    <p className="text-sm md:text-base text-gray-600 dark:text-gray-500">
-      {dept}
-    </p>
-
-    {/* Meta */}
+}) => {
+  return (
     <div
       className="
-        mt-2 w-full flex justify-between items-center
-        px-4 py-2 rounded-xl
-        bg-gray-200/60 dark:bg-gray-800/60
-        text-sm md:text-base
-        text-gray-700 dark:text-gray-400
+        group relative flex flex-col items-center
+        p-4 rounded-2xl w-full max-w-[280px]
+        bg-white dark:bg-gray-900
+        border border-gray-200 dark:border-gray-800
+        transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
+        hover:border-rose-300 dark:hover:border-rose-900/50
+        hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+        dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)]
+        will-change-transform hover:-translate-y-1
       "
     >
-      <span>{Year}</span>
-      <span className="font-medium text-rose-600 dark:text-rose-400">{cg}</span>
+      {/* Rank Badge - Minimalist */}
+      {position && (
+        <div className="absolute top-3 right-3 z-10">
+          <span className="
+            flex items-center justify-center
+            px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold
+            bg-rose-50 dark:bg-rose-950/30 
+            text-rose-600 dark:text-rose-400
+            border border-rose-100 dark:border-rose-900/50
+          ">
+            Rank {position}
+          </span>
+        </div>
+      )}
+
+      {/* Image Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 mt-4 mb-5">
+        <div className="
+          absolute inset-0 rounded-full border-2 border-dashed border-rose-200 dark:border-rose-900/30 
+          scale-110 group-hover:rotate-45 transition-transform duration-700
+        " />
+        <img
+          src={imgLink}
+          alt={name}
+          loading="eager"
+          decoding="async"
+          className="
+            relative w-full h-full rounded-full object-cover
+            grayscale-[0.5] group-hover:grayscale-0
+            transition-all duration-500 shadow-sm
+            border-2 border-white dark:border-gray-900
+          "
+        />
+      </div>
+
+      {/* Text Content */}
+      <div className="text-center w-full space-y-1">
+        <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight">
+          {name}
+        </h3>
+        <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-tight">
+          {dept}
+        </p>
+      </div>
+
+      {/* Footer Info - High Contrast Minimalist */}
+      <div className="
+        mt-6 w-full pt-4 border-t border-gray-100 dark:border-gray-900
+        flex justify-between items-center text-xs md:text-sm
+      ">
+        <span className="text-gray-400 dark:text-gray-500 font-medium">Batch {Year}</span>
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <span className="font-bold text-gray-900 dark:text-gray-100">{cg} CGPA</span>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+});
+
+BrightMindsCard.displayName = "BrightMindsCard";
 
 export default BrightMindsCard;

@@ -69,7 +69,10 @@ const Toolkit = () => {
           {/* Tabs skeleton */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="w-20 h-9 rounded-full bg-gray-300/60 dark:bg-gray-700/60" />
+              <div
+                key={i}
+                className="w-20 h-9 rounded-full bg-gray-300/60 dark:bg-gray-700/60"
+              />
             ))}
           </div>
           {/* Cards skeleton */}
@@ -100,29 +103,48 @@ const Toolkit = () => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-300 py-8 min-h-screen">
-      
       <Helmet>
         {/* KEEPING META TAGS EXACTLY SAME */}
         <title>{`${activeTabLabel} Toolkit | DAAN KGP`}</title>
         <meta name="description" content="Complete Toolkit for DAAN-KGPians." />
-        <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur" />
+        <meta
+          name="keywords"
+          content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur"
+        />
         <link rel="canonical" href="https://daankgp.vercel.app/toolkit" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://daankgp.vercel.app/toolkit" />
-        <meta property="og:title" content={`${activeTabLabel} Toolkit | DAAN KGP`} />
-        <meta property="og:description" content="Complete Toolkit for DAAN-KGPians." />
-        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
+        <meta
+          property="og:title"
+          content={`${activeTabLabel} Toolkit | DAAN KGP`}
+        />
+        <meta
+          property="og:description"
+          content="Complete Toolkit for DAAN-KGPians."
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${activeTabLabel} Toolkit | DAAN KGP`} />
-        <meta name="twitter:description" content="Complete Toolkit for DAAN-KGPians." />
-        <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
+        <meta
+          name="twitter:title"
+          content={`${activeTabLabel} Toolkit | DAAN KGP`}
+        />
+        <meta
+          name="twitter:description"
+          content="Complete Toolkit for DAAN-KGPians."
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        />
       </Helmet>
 
-      <section  className="container">
-        
+      <section className="container">
         {/* Heading */}
         <div className="flex items-center gap-3 mb-8">
           <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
@@ -133,8 +155,7 @@ const Toolkit = () => {
           </h1>
         </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2 mb-10 no-scrollbar select-none">
           {tabs.map(({ key, label }) => {
             const isActive = activeTab === key;
             return (
@@ -142,14 +163,14 @@ const Toolkit = () => {
                 key={key}
                 onClick={() => handleTabChange(key)}
                 className={`
-                  px-4 py-2 rounded-full text-sm md:text-base font-medium
-                  border transition-all duration-200
-                  ${
-                    isActive
-                      ? "bg-rose-500 text-white border-rose-500"
-                      : "bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400 hover:border-rose-400 hover:text-rose-500"
-                  }
-                `}
+          whitespace-nowrap px-4 py-2 rounded-full text-sm md:text-base font-medium
+          border transition-all duration-200 flex-shrink-0
+          ${
+            isActive
+              ? "bg-rose-500 text-white border-rose-500"
+              : "bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400 hover:border-rose-400 hover:text-rose-500"
+          }
+        `}
               >
                 {label}
               </button>
@@ -174,7 +195,6 @@ const Toolkit = () => {
             </p>
           )}
         </div>
-
       </section>
     </div>
   );

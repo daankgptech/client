@@ -1,11 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { ClipboardList } from "lucide-react";
 
 import formsData from "../components/Forms/formsData";
-import ResponsePercentage from "../components/Forms/ResponsePercentage";
-
+import FormsCard from "../components/Forms/FormsCard";
 import { api } from "../utils/Secure/api";
+
+// Skeleton shimmer component for form cards
+const SkeletonCard = () => (
+  <div className="animate-shimmer rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+    {/* Image placeholder */}
+    <div className="aspect-[16/10] bg-gray-300/70 dark:bg-gray-700/70" />
+    {/* Content placeholder */}
+    <div className="p-4 space-y-3">
+      <div className="w-3/4 h-5 rounded bg-gray-300/70 dark:bg-gray-700/70" />
+      <div className="w-full h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+      <div className="w-1/2 h-3 rounded bg-gray-300/50 dark:bg-gray-700/50" />
+    </div>
+    {/* Footer placeholder */}
+    <div className="border-t border-gray-100 dark:border-gray-800 p-3">
+      <div className="w-full h-8 rounded bg-gray-300/50 dark:bg-gray-700/50" />
+    </div>
+  </div>
+);
 
 const BATCH_DENOMINATORS = {
   "'25": 42,
@@ -16,155 +33,119 @@ const BATCH_DENOMINATORS = {
 };
 
 const Forms = () => {
-  const [openIndex, setOpenIndex] = useState(null);
   const [dynamicStats, setDynamicStats] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchStats = async () => {
       try {
         const res = await api.get("/forms/stats?form=farewell");
-        if (res.status === 200) {
-          const statsMap = res.data; // e.g. {"'21": count, "'22": count}
-          const formattedPercentages = Object.keys(BATCH_DENOMINATORS).map((batchObj) => {
-            const count = statsMap[batchObj] || 0;
-            return {
+        if (res.status === 200 && isMounted) {
+          const statsMap = res.data;
+          const formattedPercentages = Object.keys(BATCH_DENOMINATORS).map(
+            (batchObj) => ({
               batch: batchObj,
-              percentage: (count / BATCH_DENOMINATORS[batchObj]) * 100,
-            };
-          });
+              percentage:
+                ((statsMap[batchObj] || 0) / BATCH_DENOMINATORS[batchObj]) *
+                100,
+            }),
+          );
           setDynamicStats({ farewell: formattedPercentages });
         }
       } catch (err) {
         console.error("Error fetching form stats:", err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
     fetchStats();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  // Use explicit IST comparison
-  const getISTTime = () => {
-    const formatStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+  const nowIST = useMemo(() => {
+    const formatStr = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+    });
     return new Date(formatStr);
-  };
-  const nowIST = getISTTime();
+  }, []);
+
+  const processedForms = useMemo(() => {
+    return formsData.map((item) => {
+      const deadlineDate = new Date(item.deadline);
+      const formDeadlineIST = new Date(
+        deadlineDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+      );
+      const isExceeded = nowIST > formDeadlineIST;
+
+      const identifier = item.to.split("/").pop();
+      const responsePercentage =
+        dynamicStats[identifier] || item.responsePercentage;
+
+      return { ...item, isExceeded, deadlineDate, responsePercentage };
+    });
+  }, [dynamicStats, nowIST]);
+
   return (
-    <div className="min-h-[80vh] bg-gray-100 dark:bg-gray-900  text-gray-900 dark:text-gray-400">
+    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
       <Helmet>
-        {/* Standard metadata */}
         <title>Forms | DAAN KGP</title>
-        <meta name="description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
-        <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur" />
+        <meta
+          name="description"
+          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives."
+        />
         <link rel="canonical" href="https://daankgp.vercel.app/forms" />
-        {/* Open Graph / Facebook / LinkedIn */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://daankgp.vercel.app/forms" />
         <meta property="og:title" content="Forms | DAAN KGP" />
-        <meta property="og:description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
-        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" /> {/* Add a real path to your logo/banner */}
-        {/* The Thumbnail Image - This is what shows up in the WhatsApp chat bubble */}
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Forms | DAAN KGP" />
-        <meta name="twitter:description" content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives and activities. All current and future forms are available here for easy access." />
-        <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        />
       </Helmet>
-      <section data-aos="fade-up" className="container py-6">
-        {/* Header */}
-        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
-          Forms
-        </h1>
 
-        {/* Cards */}
-        <div className="flex flex-wrap justify-center items-start gap-6">
-          {formsData.map((item, index) => {
-            const deadlineDate = new Date(item.deadline);
-            const formDeadlineIST = new Date(
-              deadlineDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
-            );
-            const isExceeded = nowIST > formDeadlineIST;
-            const isOpen = openIndex === index;
-            
-            // Check dynamic stats vs static stats map
-            const identifier = item.to.split('/').pop(); // 'farewell', 'feature', etc.
-            if (dynamicStats[identifier]) {
-              item.responsePercentage = dynamicStats[identifier];
-            }
-
-            const formClasses = isExceeded
-              ? "bg-gray-300/70 dark:bg-gray-800 border-gray-400 dark:border-gray-700"
-              : "bg-gradient-to-br from-rose-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border-gray-300 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl hover:shadow-rose-200/50 dark:hover:shadow-red-900/30";
-
-            return (
-              <div
-                key={index}
-                className={`group relative w-full max-w-xs rounded-3xl overflow-hidden border transition-all duration-500 ${formClasses}`}
-              >
-                <Link
-                  to={isExceeded ? "#" : item.to}
-                  className={isExceeded ? "pointer-events-none" : null}
-                >
-                  {/* Image */}
-                  <div className="h-40 overflow-hidden">
-                    <img
-                      src={item.img}
-                      alt={item.title || "Form Image"}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4 space-y-2">
-                    <h2 className="text-lg font-semibold text-rose-600 dark:text-rose-400">
-                      {item.title}
-                    </h2>
-
-                    <p className="text-sm text-gray-700 dark:text-gray-500">
-                      {item.desc}
-                    </p>
-
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-400 pt-2">
-                      Deadline:{" "}
-                      {deadlineDate.toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </p>
-
-                    {isExceeded && (
-                      <p className="text-sm font-semibold text-red-500">
-                        Submissions closed
-                      </p>
-                    )}
-                  </div>
-                </Link>
-
-                {/* Response Section */}
-                {isExceeded && (
-                  <div className="border-t border-gray-300 dark:border-gray-700 px-4 py-3">
-                    <button
-                      onClick={() => setOpenIndex(isOpen ? null : index)}
-                      className="w-full text-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:scale-105 transition-transform duration-300"
-                    >
-                      {isOpen ? "Hide Responses" : "View Responses"}
-                    </button>
-
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ${
-                        isOpen ? "max-h-[400px] mt-4" : "max-h-0"
-                      }`}
-                    >
-                      {isOpen && <ResponsePercentage formData={item} />}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+      <section className="container mx-auto py-12">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
+            <ClipboardList className="w-5 h-5 text-rose-500" />
+          </div>
+          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            Forms
+          </h1>
         </div>
+
+        {loading ? (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+            <style>{`
+              @keyframes shimmer {
+                0% { background-position: -200% 0; }
+                100% { background-position: 200% 0; }
+              }
+              .animate-shimmer {
+                background: linear-gradient(90deg, transparent 0%, rgba(156, 163, 175, 0.3) 50%, transparent 100%);
+                background-size: 200% 100%;
+                animation: shimmer 1.2s linear infinite;
+              }
+              .dark .animate-shimmer {
+                background: linear-gradient(90deg, transparent 0%, rgba(75, 85, 99, 0.3) 50%, transparent 100%);
+                background-size: 200% 100%;
+              }
+            `}</style>
+          </>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {processedForms.map((item, index) => (
+              <FormsCard key={index} item={item} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

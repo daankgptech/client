@@ -1,87 +1,149 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import {
+  Bell,
+  Sparkles,
+  Calendar,
+  AlertCircle,
+  ChevronRight,
+  X,
+  GraduationCap,
+} from "lucide-react";
 
 const notices = [
-  // {
-  //   text: (
-  //     <>
-  //       {/* DAAN Council Election{" "} */}
-  //       <Link
-  //         rel="noopener noreferrer"
-  //         target="_blank"
-  //         className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
-  //         to="https://www.ktj.in/"
-  //       >
-  //         TechFest Kshitij
-  //       </Link> : Jan 16-18, 2026.
-  //     </>
-  //   ),
-  // },
-  { text: "MidSem Exams: Feb 18-26, 2026." },
-  { text: "Holi: Mar 04, 2026." },
-  { text: "Last Date of DReg. by a subject teacher: Mar 23, 2026." },
-  { text: "EndSem Exams: Apr 22-30, 2026." },
-  // {
-  //   text: (
-  //     <>
-  //       {/* DAAN Council Election{" "} */}
-  //       <Link
-  //         rel="noopener noreferrer" target="_blank"
-  //         className="text-gray-300 dark:text-rose-600 hover:text-rose-300 transition-colors duration-300 font-semibold text-sm md:text-md"
-  //         to="https://springfest.in/"
-  //       >
-  //         Spring Fest
-  //       </Link> : Jan 23-25, 2026.
-  //     </>
-  //   ),
-  // },
-  // { text: "Spring Fest: Jan 23-25, 2026." },
+  {
+    text: "Farewell 2026",
+    date: "Apr 11, 2026",
+    icon: GraduationCap,
+    tag: "Event",
+  },
+  {
+    text: "EndSem Exams",
+    date: "Apr 18-30, 2026",
+    icon: Calendar,
+    tag: "Academic",
+  },
+  // { text: "Holi", date: "Mar 04, 2026", icon: Sparkles, tag: "Holiday" },
+  // { text: "Last Date of DReg", date: "Mar 23, 2026", icon: AlertCircle, tag: "Deadline" },
+  // { text: "EndSem Exams", date: "Apr 22-30, 2026", icon: Calendar, tag: "Academic" },
 ];
 
 export default function FlashingNoticesCard() {
-  return (
-    <>
-      <style jsx>{`
-        @property --border-angle {
-          syntax: "<angle>";
-          inherits: true;
-          initial-value: 0deg;
-        }
-        @keyframes border-spin {
-          to {
-            --border-angle: 360deg;
-          }
-        }
-        .animate-border {
-          animation: border-spin 6s linear infinite;
-        }
-      `}</style>
+  const [currentNotice, setCurrentNotice] = useState(0);
 
-      <div className="w-full flex justify-center p-4">
-        <div className="w-full max-w-[600px] mx-auto rounded-2xl border border-transparent animate-border [background:linear-gradient(45deg,#080b11,theme(colors.slate.800)_50%,#172033)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.600/.48)_80%,theme(colors.teal.500)_86%,theme(colors.cyan.300)_90%,theme(colors.teal.500)_94%,theme(colors.slate.600/.48))_border-box]">
-          <div className="relative z-10 p-4 rounded-2xl bg-gray-500 dark:bg-gray-900 text-gray-950 dark:text-gray-400 shadow-lg">
-            <div
-              id="flashing-notices"
-              data-aos="fade-right"
-              data-aos-delay="900"
-              className="scroll-mt-[100px] text-left"
-            >
-              <h1 className="mb-2 font-semibold text-red-800 dark:text-red-500 text-lg md:text-xl lg:text-2xl">
-                Notices:-
-              </h1>
-              <div className="space-y-3">
-                {notices.map((notice, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2 text-sm md:text-md"
-                  >
-                    <div>✦ {notice.text}</div>
-                  </div>
-                ))}
+  // Cycle through notices with subtle animation
+  useEffect(() => {
+    if (notices.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentNotice((prev) => (prev + 1) % notices.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const notice = notices[currentNotice];
+  const IconComponent = notice.icon;
+
+  return (
+    <div className="w-full max-w-2xl mx-auto px-4 relative z-10">
+      {/* Main Notice Card */}
+      <div className="relative group">
+        {/* Animated border glow */}
+        <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-orange-400 via-rose-500 to-red-500 opacity-60 group-hover:opacity-100 blur-sm group-hover:blur-md transition-all duration-500 animate-gradient-rotate" />
+
+        {/* Card content */}
+        <div className="relative backdrop-blur-xl rounded-2xl border border-gray-300/50 dark:border-white/10 bg-gradient-to-br from-white/95 via-gray-50/95 to-white/95 dark:bg-gradient-to-br dark:from-gray-900/90 dark:via-gray-800/90 dark:to-gray-900/90 overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/5 bg-gradient-to-r from-orange-100 via-rose-50 to-gray-100 dark:bg-gradient-to-r dark:from-orange-500/10 dark:via-rose-500/5 dark:to-gray-500/10">
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Bell className="w-4 h-4 text-orange-600 dark:text-orange-400 animate-shake" />
+                {/* <span className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full animate-ping" /> */}
               </div>
+              <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 tracking-wide uppercase">
+                Notice Board
+              </span>
             </div>
+          </div>
+
+          {/* Carousel Notice */}
+          <div className="relative p-5 min-h-[120px] flex items-center">
+            {/* Navigation dots */}
+            <div className="absolute top-3 right-4 flex gap-1.5">
+              {notices.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentNotice(i)}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentNotice
+                      ? "bg-orange-500 dark:bg-orange-400 w-4"
+                      : "bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 dark:hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to notice ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Notice Content */}
+            <div className="flex items-start gap-4 w-full">
+              {/* Icon */}
+              <div className="flex-shrink-0 p-3 rounded-xl bg-gradient-to-br from-orange-100 to-rose-100 dark:from-orange-500/20 dark:to-rose-500/20 border border-orange-200 dark:border-orange-500/20">
+                <IconComponent className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+              </div>
+
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-gradient-to-r from-orange-100 to-rose-100 dark:from-orange-500/20 dark:to-rose-500/20 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/30">
+                    {notice.tag}
+                  </span>
+                </div>
+                <h3 className="text-sm md:text-base lg:text-lg font-semibold text-gray-800 dark:text-white mb-1">
+                  {notice.text}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{notice.date}</p>
+              </div>
+
+              {/* Arrow */}
+              <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors flex-shrink-0" />
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="h-[2px] bg-gray-200 dark:bg-gray-800 overflow-hidden">
+            <div
+              key={currentNotice}
+              className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-red-500 animate-progress"
+            />
           </div>
         </div>
       </div>
-    </>
+
+      {/* Styles */}
+      <style>{`
+        @keyframes gradient-rotate {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-rotate {
+          background-size: 200% 200%;
+          animation: gradient-rotate 4s ease infinite;
+        }
+        @keyframes shake {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(8deg); }
+          75% { transform: rotate(-8deg); }
+        }
+        .animate-shake {
+          animation: shake 2s ease-in-out infinite;
+        }
+        @keyframes progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+        .animate-progress {
+          animation: progress 4s linear;
+        }
+      `}</style>
+    </div>
   );
 }

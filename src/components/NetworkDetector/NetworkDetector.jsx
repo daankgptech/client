@@ -87,15 +87,6 @@ export default function NetworkDetector() {
           {/* Ambient glow effect */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-100/10 via-transparent to-orange-500/10" />
 
-          {/* Close button */}
-          <button
-            onClick={handleClose}
-            className="absolute top-3 right-3 p-1.5 rounded-full bg-gray-200/80 dark:bg-gray-700/80 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors z-10"
-            aria-label="Close modal"
-          >
-            <X size={18} />
-          </button>
-
           {/* Content */}
           <div className="relative z-10 p-6 sm:p-8">
             {/* Icon */}

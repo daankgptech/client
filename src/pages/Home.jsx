@@ -4,7 +4,6 @@ import EventsComp from "../components/Events/EventsComp";
 import Council from "../components/Council/Council";
 import CR from "../components/CR/CR";
 import Banner from "../components/Banner/Banner";
-import GridBackgroundOptimized from "../components/Hero/GridBackgroundOptimized";
 import BannerTwo from "../components/Banner/CountBanner";
 import { Helmet } from "react-helmet-async";
 
@@ -47,12 +46,7 @@ const Home = ({ scrollTo }) => {
         <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
       </Helmet>
       <div data-aos="fade-in">
-        <section className="h-[720px] relative bg-gray-400 dark:bg-gray-900 flex items-center overflow-hidden">
-          <GridBackgroundOptimized />
-          <div className="relative z-10 w-full">
-            <Hero />
-          </div>
-        </section>
+        <Hero />
         <BannerTwo />
         <CR />
         <Council />

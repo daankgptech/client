@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import {
-  Bell,
   Sparkles,
+  Palmtree,
   Calendar,
-  AlertCircle,
-  ChevronRight,
-  X,
+  AlertCircle,FileText,
   GraduationCap,
+  BellRing,
 } from "lucide-react";
 
 const notices = [
@@ -23,8 +21,13 @@ const notices = [
     icon: Calendar,
     tag: "Academic",
   },
-  // { text: "Holi", date: "Mar 04, 2026", icon: Sparkles, tag: "Holiday" },
-  // { text: "Last Date of DReg", date: "Mar 23, 2026", icon: AlertCircle, tag: "Deadline" },
+  {
+    text: "Summer Break",
+    date: "Apr 30 - Jul 15, 2026",
+    icon: Palmtree,
+    tag: "Holiday",
+  },
+  { text: "Registration for Summer Quarter classes and Supplementary Exams", date: "May 09 - May 12, 2026", icon: FileText, tag: "Deadline" },
   // { text: "EndSem Exams", date: "Apr 22-30, 2026", icon: Calendar, tag: "Academic" },
 ];
 
@@ -56,7 +59,7 @@ export default function FlashingNoticesCard() {
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/5 bg-gradient-to-r from-orange-100 via-rose-50 to-gray-100 dark:bg-gradient-to-r dark:from-orange-500/10 dark:via-rose-500/5 dark:to-gray-500/10">
             <div className="flex items-center gap-2">
               <div className="relative">
-                <Bell className="w-4 h-4 text-orange-600 dark:text-orange-400 animate-shake" />
+                <BellRing className="w-4 h-4 text-orange-600 dark:text-orange-400 animate-shake" />
                 {/* <span className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full animate-ping" /> */}
               </div>
               <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 tracking-wide uppercase">
@@ -100,11 +103,10 @@ export default function FlashingNoticesCard() {
                 <h3 className="text-sm md:text-base lg:text-lg font-semibold text-gray-800 dark:text-white mb-1">
                   {notice.text}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{notice.date}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {notice.date}
+                </p>
               </div>
-
-              {/* Arrow */}
-              <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors flex-shrink-0" />
             </div>
           </div>
 

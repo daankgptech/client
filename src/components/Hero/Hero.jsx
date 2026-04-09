@@ -1,13 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import GridBackground from "./GridBackground";
 import FlashingNoticesCard from "./FlashingNoticesCard";
-import { ArrowDown, Users, Sparkles, Trophy } from "lucide-react";
-
-const stats = [
-  { value: "170+", label: "On Campus", icon: Users },
-  { value: "40+", label: "New Joinees", icon: Sparkles },
-  { value: "6+", label: "Years Active", icon: Trophy },
-];
 
 export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });

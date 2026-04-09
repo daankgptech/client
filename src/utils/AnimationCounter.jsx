@@ -1,30 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const AnimatedCounter = ({ target = 95, duration = 2000 }) => {
   const [count, setCount] = useState(0);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     const end = Number(target) || 0;
-    const stepTime = 30; // ms per frame
-    const steps = Math.ceil(duration / stepTime);
-    const step = end / steps;
-    let current = 0;
 
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+
+      const progress = timestamp - startTimeRef.current;
+      const progressRatio = Math.min(progress / duration, 1);
+
+      // ease-out effect (feels more natural)
+      const eased = 1 - Math.pow(1 - progressRatio, 3);
+
+      const current = Math.floor(eased * end);
+      setCount(current);
+
+      if (progressRatio < 1) {
+        requestAnimationFrame(animate);
       }
-    }, stepTime);
+    };
 
-    return () => clearInterval(timer);
+    requestAnimationFrame(animate);
+
+    return () => {
+      startTimeRef.current = null;
+    };
   }, [target, duration]);
 
   return (
-    <div className="text-3xl md:text-4xl lg:text-6xl font-bold flex items-center text-gray-900">
+    <div className="text-3xl md:text-4xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white transition-colors duration-200">
       {count}
     </div>
   );

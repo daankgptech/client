@@ -7,7 +7,8 @@ export const CRData = [
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
     session: "2025-26",
     mobile: "+916264607383",
-  },{
+  },
+  {
     id: 1,
     name: "Mr. Shivam Ahirwar",
     status: "Current",

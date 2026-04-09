@@ -3,9 +3,39 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "../../utils/AnimationCounter";
 import { api } from "../../utils/Secure/api";
 
+// Skeleton shimmer component - lightweight CSS-only animation
+const SkeletonCard = () => (
+  <div className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%]">
+    <div className="animate-shimmer bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px] md:min-h-[160px]">
+      <div className="w-16 sm:w-20 md:w-24 h-8 sm:h-10 md:h-12 rounded-lg bg-gray-300/80 dark:bg-gray-600/80 mb-4" />
+      <div className="w-20 sm:w-24 md:w-28 h-3 sm:h-4 rounded bg-gray-300/60 dark:bg-gray-600/60" />
+    </div>
+  </div>
+);
+
 const CountBanner = ({ stats, loading }) => {
-  if (loading)
-    return <div className="text-center py-10">Updating family stats...</div>;
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center w-full">
+        <div className="w-48 h-4 sm:h-5 rounded bg-gray-200 dark:bg-gray-700 animate-shimmer mb-8 mt-6" />
+        <div className="w-full flex flex-wrap justify-center gap-4 md:gap-8 px-4 md:px-8 lg:px-12">
+          {[1, 2, 3, 4].map((i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+        <style>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+          .animate-shimmer {
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -51,7 +81,7 @@ const CountBanner = ({ stats, loading }) => {
                 target
               )}
             </span>
-            <p className="mt-2 text-sm sm:text-base md:text-lg font-medium text-gray-100 dark:text-gray-300 text-center tracking-wide">
+            <p className="mt-2 text-sm sm:text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 text-center tracking-wide">
               {label}
             </p>
           </motion.div>

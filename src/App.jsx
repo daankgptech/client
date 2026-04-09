@@ -84,8 +84,8 @@ export default function App() {
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/signout" element={<SignOut /> } />
-          <Route path="*" element={<FlashPage />} />
-          {/* <Route path="*" element={<NoPage />} /> */}
+          {/* <Route path="*" element={<FlashPage />} /> */}
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </main>
       <PageUpBtn />

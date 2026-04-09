@@ -1,53 +1,30 @@
-import { FaDownload } from "react-icons/fa";
+import { Download } from "lucide-react";
 
 const DownloadBtn = ({ catching, cover, heading, href }) => (
-  <div
-    className="
-      group relative h-full
-      rounded-3xl p-5
-      bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200
-      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-      border border-gray-300 dark:border-gray-700
-      transition-all duration-500 ease-out
-      hover:-translate-y-2
-      hover:shadow-xl hover:shadow-rose-200/50
-      dark:hover:shadow-red-900/30
-      flex flex-col justify-between gap-4
-    "
-  >
-    {/* Text */}
-    <div className="space-y-2">
-      <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
-        {catching}
-      </h1>
+  <div className="group rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-rose-200 dark:hover:border-gray-600 transition-all duration-200 hover:-translate-y-0.5">
+    {/* Content */}
+    <div className="flex items-start justify-between gap-3">
+      <div className="flex-1 min-w-0">
+        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug line-clamp-2">
+          {catching}
+        </h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+          {cover}
+        </p>
+        <p className="text-xs text-red-400 mt-2 line-clamp-2">{heading}</p>
+      </div>
 
-      <p className="text-sm md:text-base text-gray-700 dark:text-gray-500">
-        {cover}
-      </p>
+      {/* Small Download Button - Icon Only */}
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-shrink-0 p-2 rounded-lg bg-rose-500 text-white hover:bg-rose-600 active:scale-95 transition-all duration-150"
+        title="Download"
+      >
+        <Download className="w-4 h-4" />
+      </a>
     </div>
-
-    {/* Download Button */}
-    <a
-      href={href}
-      download={heading}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="
-        inline-flex items-center justify-between gap-3
-        self-start px-4 py-2 rounded-xl
-        bg-gradient-to-r from-rose-500 to-red-600
-        text-white font-medium
-        shadow-md shadow-rose-300/40
-        dark:shadow-red-900/40
-        transition-all duration-300
-        hover:scale-[1.05]
-        hover:shadow-lg
-        active:scale-[0.98]
-      "
-    >
-      <span>{heading}</span>
-      <FaDownload className="text-sm" />
-    </a>
   </div>
 );
 

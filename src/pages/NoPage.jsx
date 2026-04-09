@@ -5,31 +5,38 @@ const NoPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-      {/* Animated 404 Text */}
+    <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200 overflow-hidden">
+
+      {/* 🔥 Soft Background Glow */}
+      <div className="absolute w-[400px] h-[400px] bg-rose-500/10 blur-3xl rounded-full animate-pulse-slow" />
+
+      {/* 404 */}
       <motion.h1
-        className="text-9xl font-extrabold md:text-[15rem] text-red-500 dark:text-gray-400"
-        initial={{ scale: 0.5, opacity: 0 }}
+        className="relative text-[22vw] md:text-[12rem] font-semibold text-gray-900 dark:text-white tracking-tight"
+        initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, type: "spring", stiffness: 120 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         404
       </motion.h1>
 
-      {/* Descriptive Message */}
+      {/* Content */}
       <motion.div
-        className="text-center mt-6 max-w-xl space-y-4"
+        className="relative text-center mt-6 max-w-xl space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-5xl font-bold ">Page Not Found</h2>
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
+        <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white">
+          Page Not Found
+        </h2>
+
+        <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
           Oops! The page you’re looking for doesn’t exist or has been moved.
           Check the URL or go back to safety.
         </p>
 
-        {/* Action Button */}
+        {/* Button */}
         <button
           onClick={() => {
             if (window.history.length > 1) {
@@ -38,11 +45,22 @@ const NoPage = () => {
               navigate("/");
             }
           }}
-          className="mt-4 px-6 py-3 md:px-8 md:py-4 rounded-lg bg-gradient-to-r from-red-400 dark:from-gray-500 dark:to-gray-800 to-red-600 hover:from-red-500 hover:to-red-700 text-gray-100 font-semibold shadow-lg transform transition hover:scale-105 "
+          className="mt-5 px-6 py-2.5 md:px-7 md:py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-rose-400 dark:hover:border-rose-500 transition-all duration-200 active:scale-95"
         >
           ← Go Back
         </button>
       </motion.div>
+
+      {/* Animations */}
+      <style>{`
+        @keyframes pulseSlow {
+          0%, 100% { transform: scale(1); opacity: 0.4; }
+          50% { transform: scale(1.15); opacity: 0.7; }
+        }
+        .animate-pulse-slow {
+          animation: pulseSlow 2.5s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };

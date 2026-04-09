@@ -37,7 +37,7 @@ const Intake2022Data= [
     id: 2,
     name: "Mr. Ayush Rajratan",
     branch: "EE",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bengaluru Urban",
     hall: "LLR",
     contacts: {
@@ -51,7 +51,7 @@ const Intake2022Data= [
     id: 3,
     name: "Mr. Baloji Naik Mudavath",
     branch: "EX",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Rangareddi",
     hall: "RP",
     contacts: {
@@ -175,7 +175,7 @@ const Intake2022Data= [
     id: 11,
     name: "Mr. Manash Kanta Pradhan",
     branch: "ME",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bengaluru Urban",
     hall: "RK",
     contacts: {
@@ -241,7 +241,7 @@ const Intake2022Data= [
     id: 15,
     name: "Ms. Pradnya Ukey",
     branch: "CH",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "SNVH",
     contacts: {
@@ -297,7 +297,7 @@ const Intake2022Data= [
     id: 19,
     name: "Mr. Sanju Kirade",
     branch: "IE",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bengaluru Urban",
     hall: "VS",
     contacts: {
@@ -353,7 +353,7 @@ const Intake2022Data= [
     id: 23,
     name: "Mr. Souvik Dutta",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "Nehru",
     contacts: {

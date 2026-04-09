@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Wrench } from "lucide-react";
 import DownloadBtn from "../components/Toolkit/DownloadBtn";
 import { api } from "../utils/Secure/api";
+import { cache } from "../utils/cache";
 
 // Skeleton shimmer component for toolkit cards
 const SkeletonCard = () => (
@@ -35,9 +36,19 @@ const Toolkit = () => {
   useEffect(() => {
     const fetchToolkit = async () => {
       try {
+        // Check cache first
+        const cached = cache.get("/toolkit");
+        if (cached) {
+          setToolkitData(cached);
+          setLoading(false);
+          return;
+        }
+
         const response = await api.get("/toolkit");
         if (response.data.success) {
           setToolkitData(response.data.data);
+          // Cache for 15 minutes (toolkit data rarely changes)
+          cache.set("/toolkit", response.data.data, 15 * 60 * 1000);
         }
       } catch (error) {
         console.error("Error fetching toolkit data:", error);

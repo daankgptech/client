@@ -273,7 +273,7 @@ const Intake2024Data = [
     id: 17,
     name: "Mr. Karthik Meesala",
     branch: "CS",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "",
     contacts: {
@@ -287,7 +287,7 @@ const Intake2024Data = [
     id: 18,
     name: "Mr. Kiran Lakkam",
     branch: "EX",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "",
     contacts: {

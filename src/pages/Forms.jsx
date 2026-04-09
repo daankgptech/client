@@ -5,6 +5,7 @@ import { ClipboardList } from "lucide-react";
 import formsData from "../components/Forms/formsData";
 import FormsCard from "../components/Forms/FormsCard";
 import { api } from "../utils/Secure/api";
+import { cache } from "../utils/cache";
 
 // Skeleton shimmer component for form cards
 const SkeletonCard = () => (
@@ -40,6 +41,14 @@ const Forms = () => {
     let isMounted = true;
     const fetchStats = async () => {
       try {
+        // Check cache first
+        const cached = cache.get("/forms/stats?form=farewell");
+        if (cached && isMounted) {
+          setDynamicStats(cached);
+          setLoading(false);
+          return;
+        }
+
         const res = await api.get("/forms/stats?form=farewell");
         if (res.status === 200 && isMounted) {
           const statsMap = res.data;
@@ -51,7 +60,10 @@ const Forms = () => {
                 100,
             }),
           );
-          setDynamicStats({ farewell: formattedPercentages });
+          const statsData = { farewell: formattedPercentages };
+          setDynamicStats(statsData);
+          // Cache for 5 minutes
+          cache.set("/forms/stats?form=farewell", statsData, 5 * 60 * 1000);
         }
       } catch (err) {
         console.error("Error fetching form stats:", err);
@@ -118,7 +130,7 @@ const Forms = () => {
 
         {loading ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <SkeletonCard key={i} />
               ))}
@@ -140,7 +152,7 @@ const Forms = () => {
             `}</style>
           </>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {processedForms.map((item, index) => (
               <FormsCard key={index} item={item} />
             ))}

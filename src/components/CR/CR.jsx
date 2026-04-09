@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight, User, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 import CRCard from "./CRCard";
 
 // Skeleton shimmer component
@@ -108,8 +109,18 @@ const CR = () => {
   useEffect(() => {
     const fetchCRs = async () => {
       try {
+        // Check cache first
+        const cached = cache.get("/home/cr");
+        if (cached) {
+          setCrs(cached);
+          setLoading(false);
+          return;
+        }
+
         const { data } = await api.get("/home/cr");
         setCrs(data);
+        // Cache for 5 minutes
+        cache.set("/home/cr", data, 5 * 60 * 1000);
       } catch (err) {
         console.error("Failed to fetch CRs:", err);
       } finally {

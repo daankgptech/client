@@ -209,7 +209,7 @@ const Fam = () => {
       </h3>
       {loading && <LoaderOverlay />}
       {/* Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 container">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 container">
         {filteredItems.map((item) => (
           <FamCard key={item._id} _id={item._id} {...item} />
         ))}

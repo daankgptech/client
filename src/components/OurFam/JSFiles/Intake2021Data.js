@@ -3,7 +3,7 @@ const Intake2021Data = [
     id: 0,
     name: "Mr. Abhinaw Anand",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "Nehru",
     contacts: {
@@ -24,7 +24,7 @@ const Intake2021Data = [
     id: 1,
     name: "Mr. Ajay Kr. Dhakar",
     branch: "CS",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bundi",
     hall: "Patel",
     contacts: {
@@ -45,7 +45,7 @@ const Intake2021Data = [
     id: 2,
     name: "Mr. Akshay Sawai",
     branch: "MI",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -87,7 +87,7 @@ const Intake2021Data = [
     id: 4,
     name: "Mr. Chhotoo Solanki",
     branch: "ME",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bundi",
     hall: "LBS",
     contacts: {
@@ -108,7 +108,7 @@ const Intake2021Data = [
     id: 5,
     name: "Ms. Himanshi Gupta",
     branch: "IE",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -129,7 +129,7 @@ const Intake2021Data = [
     id: 6,
     name: "Ms. Mahale Harshada Nitin",
     branch: "EC",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "MT",
     contacts: {
@@ -150,7 +150,7 @@ const Intake2021Data = [
     id: 7,
     name: "Mr. Mingma Rinzing Lepcha",
     branch: "EC",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "MMM",
     contacts: {
@@ -171,7 +171,7 @@ const Intake2021Data = [
     id: 8,
     name: "Mr. Maheraman Indrasinh Rameshbhai",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "",
     contacts: {
@@ -192,7 +192,7 @@ const Intake2021Data = [
     id: 9,
     name: "Mr. Neeraj Kumar",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "",
     contacts: {
@@ -234,7 +234,7 @@ const Intake2021Data = [
     id: 11,
     name: "Mr. Prajwal Kadbe",
     branch: "MI",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "RP",
     contacts: {
@@ -276,7 +276,7 @@ const Intake2021Data = [
     id: 13,
     name: "Mr. Sewan Panchare",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -318,7 +318,7 @@ const Intake2021Data = [
     id: 15,
     name: "Mr. Suman Anand",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -339,7 +339,7 @@ const Intake2021Data = [
     id: 16,
     name: "Mr. Suraj Kumar",
     branch: "CH",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "JNV Bundi",
     hall: "LBS",
     contacts: {

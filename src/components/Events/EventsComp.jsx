@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CalendarDays } from "lucide-react";
 import EventCard from "./EventCard";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 import { slugify } from "../../utils/slugify";
 
 // Skeleton shimmer component for event cards
@@ -28,6 +29,14 @@ const EventComp = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        // Check cache first
+        const cached = cache.get("/events");
+        if (cached) {
+          setEvents(cached);
+          setLoading(false);
+          return;
+        }
+
         const response = await api.get("/events");
 
         // Transform the data to include the slug and id
@@ -38,6 +47,8 @@ const EventComp = () => {
         }));
 
         setEvents(dynamicData);
+        // Cache for 5 minutes
+        cache.set("/events", dynamicData, 5 * 60 * 1000);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {

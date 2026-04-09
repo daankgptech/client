@@ -335,7 +335,7 @@ const Intake2023Data = [
     id: 22,
     name: "Mr. Phrithiviraj Nunisa",
     branch: "AG",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "Dakshana Valley",
     hall: "LLR",
     contacts: {

@@ -36,14 +36,17 @@ const CouncilCard = ({
 
       {/* Image */}
       <div className="flex justify-center pt-6">
-        {imgLink && (
-          <img
-            src={imgLink}
-            alt={name}
-            loading="lazy"
-            className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover ring-2 ring-rose-200 dark:ring-gray-700 transition-transform duration-300 group-hover:scale-105"
-          />
-        )}
+        <img
+          src={
+            imgLink ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              name || "User"
+            )}&background=fee2e2&color=991b1b`
+          }
+          alt={name}
+          loading="lazy"
+          className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover ring-2 ring-rose-200 dark:ring-gray-700 transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
 
       {/* Content */}

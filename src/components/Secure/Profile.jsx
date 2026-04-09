@@ -165,7 +165,9 @@ export default function Profile() {
             src={
               imagePreview ||
               user.imgLink ||
-              "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
+              `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                user?.name || "User"
+              )}&background=fee2e2&color=991b1b`
             }
             className="
         w-32 h-32

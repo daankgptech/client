@@ -115,7 +115,9 @@ Access academic insights, task management, weather updates, motivational content
                 <img
                   src={
                     user?.imgLink ||
-                    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      user?.name || "User"
+                    )}&background=fee2e2&color=991b1b`
                   }
                   alt="profile"
                   className="relative w-12 h-12 rounded-3xl border-2 border-white dark:border-slate-800 object-cover cursor-pointer"

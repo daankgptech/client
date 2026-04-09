@@ -5,6 +5,7 @@ import CouncilCard from "./CouncilCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/Secure/AuthContext";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 
 // Skeleton shimmer component for council cards
 const SkeletonCard = () => (
@@ -41,8 +42,20 @@ const Council = () => {
     const loadData = async () => {
       try {
         setLoading(true);
+        
+        // Check cache first
+        const cached = cache.get("/home/council");
+        if (cached) {
+          setMembers(Array.isArray(cached) ? cached : []);
+          setLoading(false);
+          return;
+        }
+
         const { data } = await api.get("/home/council");
-        setMembers(Array.isArray(data) ? data : []);
+        const membersData = Array.isArray(data) ? data : [];
+        setMembers(membersData);
+        // Cache for 5 minutes
+        cache.set("/home/council", membersData, 5 * 60 * 1000);
       } catch (err) {
         console.error("Failed to load council members:", err);
         setMembers([]);

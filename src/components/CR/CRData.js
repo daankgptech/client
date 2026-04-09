@@ -40,7 +40,7 @@ export const CRData = [
     name: "Mr. Abhinaw Anand",
     status: "Ex",
     hall: "Nehru",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     session: "2022-23",
     mobile: "+919653408028",
   },

@@ -3,7 +3,7 @@ const Intake2020Data = [
     id: 0,
     name: "Mr. Nandan Kumar",
     branch: "",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -87,7 +87,7 @@ const Intake2020Data = [
     id: 4,
     name: "Mr. Priyanshu Kumar",
     branch: "",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -108,7 +108,7 @@ const Intake2020Data = [
     id: 5,
     name: "Mr. Shubham Kumar",
     branch: "",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -129,7 +129,7 @@ const Intake2020Data = [
     id: 6,
     name: "Mr. Soumya Ranjan",
     branch: "",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -150,7 +150,7 @@ const Intake2020Data = [
     id: 7,
     name: "Mr. Sumit Patel",
     branch: "MA",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {
@@ -171,7 +171,7 @@ const Intake2020Data = [
     id: 8,
     name: "Ms. Sweta Kumari",
     branch: "CH",
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     coe: "",
     hall: "",
     contacts: {

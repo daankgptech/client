@@ -6,7 +6,7 @@ export default function MeetFamilyCard() {
   const navigate = useNavigate();
   const imgArray = [
     "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748290429/Pratik_Choudhury_njqkep.avif",
-    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    "",
     "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747740285/Ashish_kumar_Meena_z9nbod.avif",
     "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
     "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
@@ -69,7 +69,10 @@ export default function MeetFamilyCard() {
             className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-gray-300 dark:bg-slate-700 overflow-hidden shadow-sm"
           >
             <img
-              src={src}
+              src={
+                src ||
+                `https://ui-avatars.com/api/?name=User&background=fee2e2&color=991b1b&size=32`
+              }
               alt="member"
               className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
             />

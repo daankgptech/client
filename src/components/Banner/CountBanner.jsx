@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimatedCounter from "../../utils/AnimationCounter";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 
 // Skeleton shimmer component
 const SkeletonCard = () => (
@@ -97,6 +98,14 @@ export default function BannerTwo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Check cache first
+        const cached = cache.get("banner_stats");
+        if (cached) {
+          setStats(cached);
+          setLoading(false);
+          return;
+        }
+
         const [overviewRes, councilRes] = await Promise.all([
           api.get("/our-fam/overview"),
           api.get("/home/council"),
@@ -137,6 +146,8 @@ export default function BannerTwo() {
         ];
 
         setStats(dynamicStats);
+        // Cache for 10 minutes (stats don't change often)
+        cache.set("banner_stats", dynamicStats, 10 * 60 * 1000);
       } catch (err) {
         console.error("Error fetching banner data:", err);
       } finally {

@@ -44,7 +44,12 @@ const BrightMindsCard = memo(({
           scale-110 group-hover:rotate-45 transition-transform duration-700
         " />
         <img
-          src={imgLink}
+          src={
+            imgLink ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              name || "User"
+            )}&background=fee2e2&color=991b1b`
+          }
           alt={name}
           loading="eager"
           decoding="async"

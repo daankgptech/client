@@ -1,13 +1,13 @@
 const baseData = {
   2021: [
-    { id: 0, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
-    { id: 1, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
-    { id: 2, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
+    { id: 0, img: "", name: "...", dept: "...", cg: "9.99" },
+    { id: 1, img: "", name: "...", dept: "...", cg: "9.99" },
+    { id: 2, img: "", name: "...", dept: "...", cg: "9.99" },
   ],
   2022: [
-    { id: 0, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
-    { id: 1, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
-    { id: 2, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif", name: "...", dept: "...", cg: "9.99" },
+    { id: 0, img: "", name: "...", dept: "...", cg: "9.99" },
+    { id: 1, img: "", name: "...", dept: "...", cg: "9.99" },
+    { id: 2, img: "", name: "...", dept: "...", cg: "9.99" },
   ],
   2023: [
     { id: 0, img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759170074/ashutoshRanjan_e8ddls.avif", name: "Mr. Ashutosh Ranjan", dept: "ME", cg: "9.19" },

@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useEffect, useState, useMemo } from "react";
 import BrightMindsCard from "../components/OurBrightMinds/BrightMindsCard";
 import { api } from "../utils/Secure/api";
+import { cache } from "../utils/cache";
 import AnimatedCarousel from "../components/OurBrightMinds/AnimatedCarousel";
 import { Medal, Milestone, Trophy } from "lucide-react";
 
@@ -34,17 +35,32 @@ const AcademicStars = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get("/bright-minds")
-      .then((res) => {
+    const fetchBrightMinds = async () => {
+      try {
+        // Check cache first
+        const cached = cache.get("/bright-minds");
+        if (cached) {
+          setData(cached);
+          const years = Object.keys(cached).sort((a, b) => b - a);
+          setActiveYear(years[0]);
+          setLoading(false);
+          return;
+        }
+
+        const res = await api.get("/bright-minds");
         setData(res.data);
         const years = Object.keys(res.data).sort((a, b) => b - a);
         setActiveYear(years[0]);
-      })
-      .catch(console.error)
-      .finally(() => {
+        // Cache for 10 minutes (academic data doesn't change often)
+        cache.set("/bright-minds", res.data, 10 * 60 * 1000);
+      } catch (err) {
+        console.error("Error fetching bright minds:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchBrightMinds();
   }, []);
 
   const yearsDescending = useMemo(

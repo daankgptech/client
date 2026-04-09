@@ -32,7 +32,11 @@ const CRCard = ({ cr, navigate }) => {
   const session = getSessionFromBatch(cr.batch);
   const status = getCRStatus(session);
   const isCurrent = status === "Current CR";
-
+  if (
+    cr.imgLink ==
+    "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
+  )
+    cr.imgLink = `https://ui-avatars.com/api/?name=${encodeURIComponent(cr.name)}&background=fee2e2&color=991b1b`;
   return (
     <div className="w-[280px] sm:w-[320px] group">
       <div className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-800 dark:via-gray-850 dark:to-gray-900 shadow-lg hover:shadow-xl hover:shadow-rose-500/10 dark:hover:shadow-rose-500/5 transition-all duration-500">
@@ -56,7 +60,12 @@ const CRCard = ({ cr, navigate }) => {
           <div className="relative mb-4">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-400 to-red-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
             <img
-              src={cr.imgLink}
+              src={
+                cr.imgLink ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  cr.name || "User",
+                )}&background=fee2e2&color=991b1b`
+              }
               alt={`${cr.name}'s profile`}
               loading="lazy"
               className="relative w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg group-hover:scale-105 transition-transform duration-300"

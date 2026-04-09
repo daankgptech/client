@@ -109,7 +109,7 @@ export const CouncilData25 = [
 export const demo=[
   
     {
-    img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif",
+    img: "",
     title: "Will be declared soon.",
     portfolio: "---",
     mail: "---",

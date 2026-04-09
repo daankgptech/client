@@ -1,123 +1,121 @@
+import React, { memo, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaLinkedin, FaEnvelope, FaGraduationCap } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { MdAddCall } from "react-icons/md";
-import { motion } from "framer-motion";
 
-const FamCard = ({ _id, imgLink, name, branch, hall, contacts, graduated }) => {
-  const navigate = useNavigate();
-  const { year } = useParams();
-  const primaryContact = contacts?.[0];
-  return (
-    <motion.div
-      onClick={() => navigate(`/our-fam/${year}/${encodeURIComponent(name)}`)}
-      whileHover={{ scale: 1.01 }}
-      className="relative flex flex-col justify-around items-center p-2 md:p-3 lg:p-4 border
-                 border-gray-300 dark:border-gray-700
-                 bg-gradient-to-br from-rose-100 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-                 rounded-3xl gap-1 md:gap-2 shadow-sm
-                 transition-all duration-300 ease-out
-      hover:translate-y-2
-      hover:shadow-xl hover:shadow-rose-200/50
-      dark:hover:shadow-red-900/30 group cursor-pointer"
-    >
-      {/* Graduation Indicator */}
+const FamCard = memo(
+  ({ name, imgLink, branch, hall, contacts = [], graduated }) => {
+    const navigate = useNavigate();
+    const { year } = useParams();
+
+    const primary = contacts[0];
+    if (
+      imgLink ==
+      "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
+    )
+      imgLink = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=fee2e2&color=991b1b`;
+    // Stable avatar (no random flicker)
+    const avatar = useMemo(
+      () =>
+        imgLink ||
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          name,
+        )}&background=fee2e2&color=991b1b`,
+      [imgLink, name],
+    );
+
+    const go = () => {
+      navigate(`/our-fam/${year}/${encodeURIComponent(name)}`);
+    };
+
+    return (
       <div
-        className="absolute top-2 right-2 transition-all duration-300"
-        title={graduated ? "Graduated" : "Currently Enrolled"}
+        onClick={go}
+        className="
+          group cursor-pointer rounded-2xl overflow-hidden
+          bg-white dark:bg-neutral-950
+          border border-neutral-200 dark:border-neutral-800
+          transition-colors duration-200
+          hover:border-rose-300 dark:hover:border-rose-800
+        "
       >
-        <FaGraduationCap
-          className={`text-xl md:text-2xl ${
-            graduated ? "text-black dark:text-gray-400" : "text-transparent"
-          }`}
-        />
-      </div>
+        {/* IMAGE */}
+        <div className="relative aspect-square bg-neutral-100 dark:bg-neutral-900">
+          <img
+            src={avatar}
+            alt={name}
+            loading="lazy"
+            decoding="async"
+            className="
+              w-full h-full object-cover
+              transition-transform duration-300
+              group-hover:scale-[1.03]
+            "
+          />
 
-      {/* Profile Image */}
-      <img
-        title={`${name}'s Image`}
-        src={imgLink || "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"}
-        alt={name}
-        loading="lazy"
-        className="rounded-3xl border border-gray-400 dark:border-gray-600 aspect-square object-cover"
-      />
+          {/* Graduation dot (minimal indicator) */}
+          {graduated && (
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-rose-500" />
+          )}
+        </div>
 
-      {/* Name */}
-      <h1
-        className="text-lg md:text-xl font-semibold md:font-bold
-                     bg-clip-text text-transparent
-                     bg-gradient-to-tr from-red-900 dark:from-gray-600
-                     to-orange-600 dark:to-gray-200 text-center"
-      >
-        {name}
-      </h1>
+        {/* CONTENT */}
+        <div className="p-3">
+          <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+            {name}
+          </h3>
 
-      {/* Branch & Hall */}
-      <div className="flex justify-between items-center gap-4 w-full">
-        <p className="text-sm md:text-lg text-gray-900 dark:text-gray-400">
-          {branch}
-        </p>
-        <p className="text-sm md:text-lg text-gray-900 dark:text-gray-400">
-          {hall}
-        </p>
-      </div>
+          <p className="text-[11px] mt-0.5 text-neutral-500 dark:text-neutral-400 truncate">
+            {branch} · {hall}
+          </p>
 
-      {/* Social Icons */}
-      <div className="flex justify-evenly items-center gap-2 md:gap-4 w-full border-t border-gray-300 dark:border-gray-600 pt-2 md:pt-3">
-        {primaryContact?.phone && (
-          <div className="relative inline-block">
-            <a
-              // href={`tel:${primaryContact.phone}`}
-              title="Call"
-              className="peer"
-              // onClick={(e) => e.stopPropagation()}
-            >
-              <MdAddCall
-                className="text-lg md:text-xl lg:text-2xl
-                                   text-red-700 dark:text-gray-400
-                                   hover:scale-[1.10] hover:text-red-500
-                                   transition-all duration-300"
-              />
-            </a>
-            {/* // hover tooltip */}
-            <div className=" pointer-events-none absolute -right-4 -top-1 w-56 opacity-0 scale-95 peer-hover:opacity-100 peer-hover:scale-100 transition-all duration-500 ease-out rounded-2xl bg-gray-300 dark:bg-slate-900 border border-white dark:border-slate-800 px-2 py-1 text-xs leading-relaxed text-gray-900 dark:text-gray-300 shadow-xl z-50 ">
-            See bottom-left corner for VCF.
-            </div>
+          {/* ACTIONS */}
+          <div className="flex items-center gap-3 mt-3">
+            {primary?.phone && (
+              <button
+                onClick={(e) => e.stopPropagation()}
+                className="
+                  text-neutral-400 hover:text-rose-500
+                  transition-colors
+                "
+              >
+                <MdAddCall size={16} />
+              </button>
+            )}
+
+            {primary?.email && (
+              <a
+                href={`mailto:${primary.email}`}
+                onClick={(e) => e.stopPropagation()}
+                className="
+                  text-neutral-400 hover:text-rose-500
+                  transition-colors
+                "
+              >
+                <FaEnvelope size={14} />
+              </a>
+            )}
+
+            {primary?.linkedIn && (
+              <a
+                href={primary.linkedIn}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="
+                  text-neutral-400 hover:text-rose-500
+                  transition-colors
+                "
+              >
+                <FaLinkedin size={14} />
+              </a>
+            )}
           </div>
-        )}
-
-        {primaryContact?.email && (
-          <a
-            href={`mailto:${primaryContact.email}`}
-            title="E-Mail"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <FaEnvelope
-              className="text-lg md:text-xl lg:text-2xl
-                                   text-red-700 dark:text-gray-400
-                                   hover:scale-[1.10] hover:text-red-500
-                                   transition-all duration-300"
-            />
-          </a>
-        )}
-        {primaryContact?.linkedIn && (
-          <a
-            href={primaryContact.linkedIn}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="LinkedIn"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <FaLinkedin
-              className="text-lg md:text-xl lg:text-2xl
-                                   text-red-700 dark:text-gray-400
-                                   hover:scale-[1.10] hover:text-red-500
-                                   transition-all duration-300"
-            />
-          </a>
-        )}
+        </div>
       </div>
-    </motion.div>
-  );
-};
+    );
+  },
+);
 
+FamCard.displayName = "FamCard";
 export default FamCard;

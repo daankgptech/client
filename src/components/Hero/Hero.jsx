@@ -50,7 +50,7 @@ export default function Hero() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mask">
             The esteemed community of
             <span className="text-orange-600 dark:text-orange-400 font-medium">
               {" "}

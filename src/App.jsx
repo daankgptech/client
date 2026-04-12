@@ -34,8 +34,15 @@ import Info from "./components/Secure/Info";
 import Profile from "./components/Secure/Profile";
 import ScrollToTop from "./utils/ScrollToTop";
 import Diary from "./components/Secure/Diary";
+import useTracker from "./utils/useTracker";
+import TrackDashboard from "./pages/TrackDashboard";
 
 const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
+
+const TrackerComponent = () => {
+  useTracker();
+  return null;
+};
 
 export default function App() {
   const [showFlash, setShowFlash] = useState(true);
@@ -59,6 +66,7 @@ export default function App() {
   return (
     <BrowserRouter>
     <ScrollToTop/>
+      <TrackerComponent />
       <Toaster position="top-center"/>
       <Navbar />
       <main className="pt-0 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-400 min-h-screen">
@@ -83,6 +91,7 @@ export default function App() {
           <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
+          <Route path="/track" element={ <ProtectedRoute redirect> <TrackDashboard /> </ProtectedRoute> } />
           <Route path="/signout" element={<SignOut /> } />
           {/* <Route path="*" element={<FlashPage />} /> */}
           <Route path="*" element={<NoPage />} />

@@ -34,6 +34,21 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Before & After Pages -->
+  <url>
+    <loc>https://daankgp.vercel.app/before</loc>
+    <lastmod>2026-04-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://daankgp.vercel.app/after</loc>
+    <lastmod>2026-04-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- Forms Page -->
   <url>
     <loc>https://daankgp.vercel.app/forms</loc>

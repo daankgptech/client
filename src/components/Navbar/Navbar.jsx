@@ -13,6 +13,7 @@ const routes = [
   { name: "Our Fam", link: "/our-fam" },
   { name: "Toolkit", link: "/toolkit" },
   { name: "Forms", link: "/forms" },
+  { name: "Events", link: "/events" },
   { name: "Academic Stars", link: "/academic-stars" },
 ];
 

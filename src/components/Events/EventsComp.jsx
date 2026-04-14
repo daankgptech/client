@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { CalendarDays } from "lucide-react";
+import { Link } from "react-router-dom";
+import { CalendarDays, ArrowRight } from "lucide-react";
 import EventCard from "./EventCard";
 import { api } from "../../utils/Secure/api";
 import { cache } from "../../utils/cache";
@@ -8,15 +9,11 @@ import { slugify } from "../../utils/slugify";
 // Skeleton shimmer component for event cards
 const SkeletonCard = () => (
   <div className="animate-shimmer rounded-2xl p-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-    {/* Image placeholder */}
     <div className="overflow-hidden rounded-xl mb-3">
       <div className="w-full h-[220px] sm:h-[240px] bg-gray-300/70 dark:bg-gray-700/70" />
     </div>
-    {/* Date placeholder */}
     <div className="w-24 h-4 rounded bg-gray-300/60 dark:bg-gray-700/60 mb-3" />
-    {/* Title placeholder */}
     <div className="w-full h-5 rounded bg-gray-300/70 dark:bg-gray-700/70 mb-2" />
-    {/* Description placeholder */}
     <div className="w-full h-4 rounded bg-gray-300/50 dark:bg-gray-700/50 mb-1" />
     <div className="w-2/3 h-4 rounded bg-gray-300/50 dark:bg-gray-700/50" />
   </div>
@@ -29,7 +26,6 @@ const EventComp = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        // Check cache first
         const cached = cache.get("/events");
         if (cached) {
           setEvents(cached);
@@ -38,8 +34,6 @@ const EventComp = () => {
         }
 
         const response = await api.get("/events");
-
-        // Transform the data to include the slug and id
         const dynamicData = response.data.data.map((event, index) => ({
           ...event,
           id: event._id || index,
@@ -47,7 +41,6 @@ const EventComp = () => {
         }));
 
         setEvents(dynamicData);
-        // Cache for 5 minutes
         cache.set("/events", dynamicData, 5 * 60 * 1000);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -59,9 +52,12 @@ const EventComp = () => {
     fetchEvents();
   }, []);
 
+  // Show only first 3 events on home page
+  const displayEvents = events.slice(0, 3);
+
   return (
     <section
-      id="events"
+      // id="events"
       className="container py-14 md:py-16 bg-gray-100 dark:bg-gray-950 scroll-mt-[100px]"
     >
       <style>{`
@@ -81,24 +77,36 @@ const EventComp = () => {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
-            <CalendarDays className="w-5 h-5 text-rose-500" />
+        <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
+              <CalendarDays className="w-5 h-5 text-rose-500" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              Our Events
+            </h2>
           </div>
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            Our Events
-          </h2>
+
+          {/* View All Button */}
+          {!loading && events.length > 3 && (
+            <Link
+              to="/events"
+              className="flex items-center gap-2 text-sm font-medium text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 transition-colors"
+            >
+              View All
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+        {/* Grid - Only 3 events */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {loading ? (
-            // Skeleton loading state
-            Array.from({ length: 8 }).map((_, i) => (
+            Array.from({ length: 3 }).map((_, i) => (
               <SkeletonCard key={i} />
             ))
-          ) : events.length > 0 ? (
-            events.map((item) => <EventCard key={item.id} {...item} />)
+          ) : displayEvents.length > 0 ? (
+            displayEvents.map((item) => <EventCard key={item.id} {...item} />)
           ) : (
             <div className="col-span-full text-center py-12">
               <p className="text-gray-500 dark:text-gray-400 text-sm">

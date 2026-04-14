@@ -7,11 +7,14 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import OurFam from "./pages/OurFam";
 import AcademicStars from "./pages/AcademicStars";
+import Events from "./pages/Events";
 import EventsDetails from "./pages/EventsDetails";
+import BeforeDAAN from "./pages/BeforeDAAN";
+import AfterDAAN from "./pages/AfterDAAN";
 import NoPage from "./pages/NoPage";
 import FlashPage from "./pages/FlashPage";
 import Forms from "./pages/Forms";
-import EventComp from "./components/Events/EventsComp";
+// import EventComp from "./components/Events/EventsComp";
 import Toolkit from "./pages/Toolkit";
 import Dashboard from "./pages/Dashboard";
 
@@ -37,7 +40,7 @@ import Diary from "./components/Secure/Diary";
 import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
 
-const scrollRoutes = ["flashing-notices", "cr", "council", "events"];
+const scrollRoutes = ["flashing-notices", "cr", "council"];
 
 const TrackerComponent = () => {
   useTracker();
@@ -76,8 +79,10 @@ export default function App() {
           <Route path="/our-fam" element={<OurFam />} />
           <Route path="/our-fam/:year" element={ <ProtectedRoute redirect> <OurFam /> </ProtectedRoute> }/>
           <Route path="/our-fam/:year/:name" element={ <ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute> } />
-          <Route path="events" element={<EventComp />} />
-          <Route path="events/:slug" element={<EventsDetails />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:slug" element={<EventsDetails />} />
+          <Route path="/before" element={<BeforeDAAN />} />
+          <Route path="/after" element={<AfterDAAN />} />
           <Route path="toolkit/:tab" element={<Toolkit />} />
           <Route path="toolkit" element={<Navigate to="/toolkit/erp" replace />} />
           <Route path="academic-stars" element={<AcademicStars />} />

@@ -33,24 +33,8 @@ const Banner = () => {
     <>
       <section className="bg-gray-100 dark:bg-gray-950 py-12 md:py-16 mt-10 container">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-
-            {/* Image */}
-            <div className="flex justify-center">
-              <div className="relative p-[2px] rounded-2xl bg-gradient-to-tr from-rose-400/50 to-gray-300 dark:to-gray-700">
-                <div className="overflow-hidden">
-                  <img
-                    src="https://res.cloudinary.com/dcwwptwzt/image/upload/v1756335903/explore_ysdbns.avif"
-                    alt="Explore IIT Kharagpur Campus"
-                    title="Explore IIT KGP"
-                    loading="lazy"
-                    className="w-full max-w-xs sm:max-w-sm object-cover transition-transform duration-300 hover:scale-[1.02]"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Content */}
+          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center ">
+{/* Content */}
             <div className="flex flex-col justify-center gap-6">
 
               <header>
@@ -95,6 +79,22 @@ const Banner = () => {
               </div>
 
             </div>
+            {/* Image */}
+            <div className="flex justify-center">
+              <div className="relative p-[2px] rounded-2xl bg-gradient-to-tr from-rose-400/50 to-gray-300 dark:to-gray-700">
+                <div className="overflow-hidden">
+                  <img
+                    src="https://res.cloudinary.com/dcwwptwzt/image/upload/v1756335903/explore_ysdbns.avif"
+                    alt="Explore IIT Kharagpur Campus"
+                    title="Explore IIT KGP"
+                    loading="lazy"
+                    className="w-full max-w-xs sm:max-w-sm object-cover transition-transform duration-300 hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            
           </div>
         </div>
       </section>

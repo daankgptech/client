@@ -46,8 +46,8 @@ export default function Profile() {
   };
   const cleanSgpa = Object.fromEntries(
     Object.entries(form?.sgpa || {}).filter(
-      ([, v]) => v !== "" && v !== "{" && !isNaN(Number(v))
-    )
+      ([, v]) => v !== "" && v !== "{" && !isNaN(Number(v)),
+    ),
   );
 
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function Profile() {
               imagePreview ||
               user.imgLink ||
               `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                user?.name || "User"
+                user?.name || "User",
               )}&background=fee2e2&color=991b1b`
             }
             className="
@@ -224,7 +224,12 @@ export default function Profile() {
 
       {/* grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container">
-        <Card title="Academics" icon={FiBookOpen} isExpanded={expandedCards["academics"]} onToggle={() => toggleCard("academics")}>
+        <Card
+          title="Academics"
+          icon={FiBookOpen}
+          isExpanded={expandedCards["academics"]}
+          onToggle={() => toggleCard("academics")}
+        >
           <Field
             editing={editing}
             label="Semester"
@@ -315,7 +320,13 @@ export default function Profile() {
             }
           />
         </Card>
-        <Card title="More Info" icon={FiInfo} isExpanded={expandedCards["moreInfo"]} onToggle={() => toggleCard("moreInfo")}>
+        
+        <Card
+          title="More Info"
+          icon={FiInfo}
+          isExpanded={expandedCards["moreInfo"]}
+          onToggle={() => toggleCard("moreInfo")}
+        >
           <Field
             editing={editing}
             label="Hall"
@@ -368,7 +379,8 @@ export default function Profile() {
                 onSelect: (v) => handleChange("coe", v),
               })
             }
-          /><Field
+          />
+          <Field
             editing={editing}
             label="Parent JNV"
             value={form.parentJNV}
@@ -390,7 +402,12 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Contacts" icon={FiPhone} isExpanded={expandedCards["contacts"]} onToggle={() => toggleCard("contacts")}>
+        <Card
+          title="Contacts"
+          icon={FiPhone}
+          isExpanded={expandedCards["contacts"]}
+          onToggle={() => toggleCard("contacts")}
+        >
           <Field
             editing={editing}
             label="Phone"
@@ -417,7 +434,12 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Involvements" icon={FiUsers} isExpanded={expandedCards["involvements"]} onToggle={() => toggleCard("involvements")}>
+        <Card
+          title="Involvements"
+          icon={FiUsers}
+          isExpanded={expandedCards["involvements"]}
+          onToggle={() => toggleCard("involvements")}
+        >
           <Field
             editing={editing}
             label="Society"
@@ -450,15 +472,27 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Personal Info" icon={FiUser} isExpanded={expandedCards["personalInfo"]} onToggle={() => toggleCard("personalInfo")}>
+        <Card
+          title="Personal Info"
+          icon={FiUser}
+          isExpanded={expandedCards["personalInfo"]}
+          onToggle={() => toggleCard("personalInfo")}
+        >
           <PersonalInfo
             data={form.personalInfo}
             editing={editing}
-            onChange={(key, value) => handleChange(`personalInfo.${key}`, value)}
+            onChange={(key, value) =>
+              handleChange(`personalInfo.${key}`, value)
+            }
           />
         </Card>
 
-        <Card title="Account Activity" icon={FiClock} isExpanded={expandedCards["accountActivity"]} onToggle={() => toggleCard("accountActivity")}>
+        <Card
+          title="Account Activity"
+          icon={FiClock}
+          isExpanded={expandedCards["accountActivity"]}
+          onToggle={() => toggleCard("accountActivity")}
+        >
           <Info
             label="Account Created"
             value={formatDate(user.audit?.signUpAt)}
@@ -473,86 +507,76 @@ export default function Profile() {
           /> */}
         </Card>
       </div>
+
       {/* Action Buttons */}
-      <div className="container flex flex-wrap items-center justify-center gap-5 mt-10 pb-6">
+      <div className="flex flex-wrap justify-center gap-3 mt-8 pb-4">
         {/* Edit / Save */}
         <button
           onClick={editing ? saveProfile : () => setEditing(true)}
           disabled={saving}
           className="
-      group flex items-center gap-2
-      px-3 py-1 rounded-2xl
-      bg-gradient-to-br from-rose-500 via-red-500 to-rose-600
-      dark:from-rose-600 dark:via-red-600 dark:to-rose-700
-      text-white text-sm font-semibold tracking-wide
-      shadow-lg shadow-rose-400/40 dark:shadow-rose-900/40
-      hover:shadow-xl hover:shadow-rose-500/50
-      hover:scale-[1.06]
-      active:scale-95
-      transition-all duration-300 ease-out
-      disabled:opacity-50 disabled:cursor-not-allowed
+      flex items-center gap-2
+      px-3 py-1.5 rounded-md
+      bg-rose-500 text-white
+      text-[12px] font-medium
+      transition-colors duration-150
+      hover:bg-rose-600
+      disabled:opacity-50
     "
         >
-          <span className="transition-transform duration-300 group-hover:rotate-6">
-            {editing ? <FiSave /> : <FiEdit2 />}
-          </span>
+          {editing ? <FiSave size={14} /> : <FiEdit2 size={14} />}
           {saving ? "Saving..." : editing ? "Save" : "Edit"}
         </button>
-
         {/* Dashboard */}
         <Link
           to="/dashboard"
           className="
-      px-3 py-1 rounded-2xl
-      bg-gradient-to-br from-gray-700 to-gray-800
-      dark:from-gray-800 dark:to-gray-700
-      text-gray-100 text-sm font-medium
-      shadow-md shadow-gray-400/20 dark:shadow-black/30
-      hover:from-gray-600 hover:to-gray-700
-      hover:scale-[1.05]
-      active:scale-95
-      transition-all duration-300 ease-out flex gap-1 justify-center items-center
+      flex items-center gap-2
+      px-3 py-1.5 rounded-md
+      bg-gray-100 dark:bg-gray-800
+      text-gray-700 dark:text-gray-200
+      text-[12px] font-medium
+      transition-colors duration-150
+      hover:bg-gray-200 dark:hover:bg-gray-700
     "
         >
-          <RxDashboard /> Dashboard
+          <RxDashboard size={14} />
+          Dashboard
         </Link>
-
         {/* Reset Password */}
         <Link
           to="/forgot-password"
           className="
-      px-3 py-1 rounded-2xl
-      bg-gradient-to-br from-gray-600 to-gray-700
-      dark:from-gray-700 dark:to-gray-600
-      text-gray-100 text-sm font-medium
-      shadow-md shadow-gray-400/20 dark:shadow-black/30
-      hover:from-gray-500 hover:to-gray-600
-      hover:scale-[1.05]
-      active:scale-95
-      transition-all duration-300 ease-out flex justify-center items-center gap-1
+      flex items-center gap-2
+      px-3 py-1.5 rounded-md
+      bg-gray-100 dark:bg-gray-800
+      text-gray-700 dark:text-gray-200
+      text-[12px] font-medium
+      transition-colors duration-150
+      hover:bg-gray-200 dark:hover:bg-gray-700
     "
         >
-          <MdLockReset /> Reset Password
+          <MdLockReset size={14} />
+          Reset
         </Link>
-
         {/* Sign Out */}
         <Link
           to="/signout"
           className="
-      px-3 py-1 rounded-2xl
-      bg-gradient-to-br from-rose-600 to-red-700
-      dark:from-rose-700 dark:to-red-800
-      text-white text-sm font-semibold
-      shadow-lg shadow-rose-400/40 dark:shadow-rose-900/40
-      hover:from-rose-500 hover:to-red-600
-      hover:scale-[1.06]
-      active:scale-95
-      transition-all duration-300 ease-out flex gap-1 justify-center items-center
+      flex items-center gap-2
+      px-3 py-1.5 rounded-md
+      bg-rose-100 dark:bg-rose-900/30
+      text-rose-600 dark:text-rose-400
+      text-[12px] font-medium
+      transition-colors duration-150
+      hover:bg-rose-200 dark:hover:bg-rose-900/50
     "
         >
-          Sign Out <FiLogOut />
+          <FiLogOut size={14} />
+          Sign Out
         </Link>
       </div>
+
       {/* select-Model  */}
       <SelectModal
         open={!!selectModal}
@@ -567,58 +591,51 @@ export default function Profile() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           {/* backdrop */}
           <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
+            className="absolute inset-0 bg-black/40"
             onClick={() => setShowSgpaModal(false)}
           />
 
           {/* modal */}
           <div
             className="
-        relative z-10
-        w-[92%] max-w-md
-        rounded-3xl
-        bg-gradient-to-br from-white via-gray-50 to-gray-100
-        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-        border border-gray-200/60 dark:border-gray-700
-        shadow-2xl shadow-rose-500/20 dark:shadow-black/40
-        p-6
-        animate-scaleIn
-      "
+      relative z-10
+      w-[92%] max-w-sm
+      bg-white dark:bg-gray-900
+      border border-gray-200 dark:border-gray-800
+      rounded-xl
+      p-4
+    "
           >
             {/* header */}
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                Semester-wise SGPA
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                SGPA
               </h2>
 
               <button
                 onClick={() => setShowSgpaModal(false)}
-                className="
-            text-gray-400 hover:text-rose-500
-            transition
-          "
+                className="text-gray-400 hover:text-rose-500"
               >
                 ✕
               </button>
             </div>
 
             {/* content */}
-            <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[45vh] overflow-y-auto">
               {Array.from({ length: sem || 0 }, (_, i) => {
                 const s = i + 1;
                 return (
                   <div
                     key={s}
                     className="
-                flex items-center justify-between
-                rounded-xl px-3 py-2
-                bg-white/70 dark:bg-gray-800/70
-                hover:bg-rose-50 dark:hover:bg-gray-700
-                transition
-              "
+              flex items-center justify-between
+              px-2 py-1.5
+              rounded-md
+              bg-gray-50 dark:bg-gray-800
+            "
                   >
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      Semester {s}
+                    <span className="text-[12px] text-gray-600 dark:text-gray-300">
+                      Sem {s}
                     </span>
 
                     <input
@@ -628,11 +645,8 @@ export default function Profile() {
                           const value = e.target.value;
                           const next = { ...prev.sgpa };
 
-                          if (value === "") {
-                            delete next[s];
-                          } else {
-                            next[s] = value;
-                          }
+                          if (value === "") delete next[s];
+                          else next[s] = value;
 
                           return { ...prev, sgpa: next };
                         })
@@ -640,14 +654,13 @@ export default function Profile() {
                       inputMode="decimal"
                       placeholder="—"
                       className="
-                  w-20 text-right
-                  bg-transparent
-                  border-b border-gray-300 dark:border-gray-600
-                  focus:border-rose-500
-                  text-gray-900 dark:text-gray-100
-                  focus:outline-none
-                  transition
-                "
+                w-16 text-right text-[12px]
+                bg-transparent
+                border-b border-gray-300 dark:border-gray-600
+                focus:border-rose-500
+                text-gray-900 dark:text-gray-100
+                outline-none
+              "
                     />
                   </div>
                 );
@@ -655,15 +668,15 @@ export default function Profile() {
             </div>
 
             {/* actions */}
-            <div className="flex justify-end gap-3 mt-6">
+            <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => setShowSgpaModal(false)}
                 className="
-            px-4 py-1.5 text-sm rounded-xl
-            text-gray-600 dark:text-gray-300
-            hover:bg-gray-200 dark:hover:bg-gray-700
-            transition
-          "
+          px-3 py-1.5 text-[12px]
+          rounded-md
+          text-gray-600 dark:text-gray-300
+          hover:bg-gray-100 dark:hover:bg-gray-800
+        "
               >
                 Cancel
               </button>
@@ -671,15 +684,11 @@ export default function Profile() {
               <button
                 onClick={() => setShowSgpaModal(false)}
                 className="
-            px-5 py-1.5 text-sm rounded-xl
-            bg-gradient-to-br from-rose-500 to-red-600
-            text-white font-medium
-            shadow-md shadow-rose-400/40
-            hover:shadow-lg hover:shadow-rose-500/50
-            hover:scale-[1.04]
-            active:scale-95
-            transition-all
-          "
+          px-3 py-1.5 text-[12px]
+          rounded-md
+          bg-rose-500 text-white
+          hover:bg-rose-600
+        "
               >
                 Done
               </button>
@@ -693,53 +702,58 @@ export default function Profile() {
 
 /* ---------- UI Helpers ---------- */
 
-const Card = ({ title, icon: Icon, children, isExpanded, onToggle }) => (
-  <div
-    className="
-      group relative overflow-hidden
-      rounded-3xl p-6
-      border border-gray-300/60 dark:border-gray-700
-      transition-all duration-500
-    "
-  >
+const Card = ({ title, icon: Icon, children, isExpanded, onToggle }) => {
+  return (
     <div
       className="
-        pointer-events-none absolute inset-0
-        bg-gradient-to-br from-rose-200/10 via-transparent to-rose-500/10
-        opacity-0 group-hover:opacity-100
-        transition-opacity duration-500
+        rounded-xl border
+        border-gray-200 dark:border-gray-800
+        bg-white dark:bg-gray-900
+        transition-colors duration-150
       "
-    />
-
-    <button
-      onClick={onToggle}
-      className="relative z-10 w-full flex items-center justify-between mb-4 cursor-pointer"
     >
-      <div className="flex items-center gap-3">
-        <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500">
-          <Icon size={18} />
+      <button
+        onClick={onToggle}
+        className="
+          w-full flex items-center justify-between
+          px-4 py-3
+          text-left
+        "
+      >
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-md bg-rose-100 dark:bg-rose-900/30 text-rose-500">
+            <Icon size={16} />
+          </div>
+
+          <h2 className="text-[11px] font-semibold tracking-wide text-gray-600 dark:text-gray-300 uppercase">
+            {title}
+          </h2>
         </div>
-        <h2 className="text-xs uppercase tracking-widest font-bold text-gray-600 dark:text-rose-400">
-          {title}
-        </h2>
+
+        <FiChevronDown
+          className={`
+            text-gray-400
+            transition-transform duration-150
+            ${isExpanded ? "rotate-180 text-rose-500" : ""}
+          `}
+          size={16}
+        />
+      </button>
+
+      <div
+        className={`
+          overflow-hidden
+          transition-all duration-200 ease-out
+          ${isExpanded ? "max-h-96 opacity-100 px-4 pb-3" : "max-h-0 opacity-0"}
+        `}
+      >
+        <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+          {children}
+        </div>
       </div>
-      <FiChevronDown
-        className={`text-gray-400 group-hover:text-rose-500 transition-transform duration-300 ${
-          isExpanded ? "rotate-180" : ""
-        }`}
-      />
-    </button>
-
-    <div
-      className={`relative z-10 space-y-3 overflow-hidden transition-all duration-300 ${
-        isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-      }`}
-    >
-      {children}
     </div>
-  </div>
-);
-
+  );
+};
 const Field = ({
   label,
   value,
@@ -777,7 +791,6 @@ const Field = ({
     )}
   </div>
 );
-
 const Info = ({ label, value }) => (
   <div className="flex justify-between text-xs uppercase tracking-wide">
     <span className="text-gray-500">{label}</span>
@@ -790,46 +803,61 @@ const SelectModal = ({ open, title, options, value, onSelect, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
       {/* modal */}
-      <div className="relative z-10 w-[92%] max-w-md rounded-3xl bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border border-gray-200/60 dark:border-gray-700 shadow-2xl p-5 animate-scaleIn">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+      <div
+        className="
+          relative z-10
+          w-[92%] max-w-sm
+          bg-white dark:bg-gray-900
+          border border-gray-200 dark:border-gray-800
+          rounded-xl
+          p-4
+        "
+      >
+        {/* header */}
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
             {title}
           </h2>
+
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-rose-500 transition"
+            className="text-gray-400 hover:text-rose-500"
           >
             ✕
           </button>
         </div>
 
-        <div className="space-y-2 max-h-[50vh] overflow-y-auto">
-          {options.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => {
-                onSelect(opt);
-                onClose();
-              }}
-              className={`
-                w-full text-left px-4 py-2 rounded-xl
-                transition
-                ${
-                  opt === value
-                    ? "bg-rose-500 text-white"
-                    : "hover:bg-rose-50 dark:hover:bg-gray-700"
-                }
-              `}
-            >
-              {opt}
-            </button>
-          ))}
+        {/* options */}
+        <div className="space-y-1 max-h-[45vh] overflow-y-auto">
+          {options.map((opt) => {
+            const active = opt === value;
+
+            return (
+              <button
+                key={opt}
+                onClick={() => {
+                  onSelect(opt);
+                  onClose();
+                }}
+                className={`
+                  w-full text-left
+                  px-3 py-1.5 rounded-md
+                  text-[12px]
+                  transition-colors duration-150
+                  ${
+                    active
+                      ? "bg-rose-500 text-white"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }
+                `}
+              >
+                {opt}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

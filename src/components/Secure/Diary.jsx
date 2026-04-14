@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
+import { LuBook } from "react-icons/lu";
 import { FiSave } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
-import SEO, { seoConfig } from "../../utils/SEO";
+import SEO, { Breadcrumbs, seoConfig } from "../../utils/SEO";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -109,7 +110,7 @@ export default function Diary() {
 
   const toggleExpand = (id) => {
     setExpandedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
@@ -178,7 +179,7 @@ export default function Diary() {
           </button>
         </div>
       ),
-      { duration: Infinity } // confirm should not auto-close
+      { duration: Infinity }, // confirm should not auto-close
     );
   };
   useEffect(() => {
@@ -186,87 +187,95 @@ export default function Diary() {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors">
+    <div className="container w-full min-h-screen px-4 py-6 bg-gray-100 dark:bg-gray-900">
       <SEO {...seoConfig.diary} />
-      <div className="container">
-        <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
-          My Diary
+
+      {/* header */}
+      <div className="pb-4">
+        <Breadcrumbs items={seoConfig.diary.breadcrumbs} />
+      </div>
+      <div className="container flex items-center gap-3 mb-8">
+        <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
+          <LuBook className="w-5 h-5 text-rose-500" />
+        </div>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          Diary
         </h1>
       </div>
-      <section data-aos="fade-up" className="mx-auto max-w-3xl">
-        {/* Left: color picker + time */}
-        <div className={`${currentStyle.bg} rounded-3xl p-3 mb-4 box-border`}>
-          <button
-            onClick={() => setColorSelectOpen(true)}
-            className=" ml-4 px-3 py-1 rounded-full border border-gray-300 dark:border-neutral-700 text-xs font-medium flex items-center gap-2 hover:scale-[1.04] transition "
-          >
-            {/* <span className={`w-3 h-3 rounded-full bg-${color}-400`} /> */}
-            {color.charAt(0).toUpperCase() + color.slice(1)}
-          </button>
 
-          <div className="pl-4 flex justify-between items-start mb-4 ">
-            <span className="text-sm mt-3 font-mono text-gray-600 dark:text-gray-400 transition-all duration-500">
-              {formatTime(now)}
-            </span>
+      <section className="px-1 md:container w-full grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* input */}
+        <div className={`${currentStyle.bg} rounded-xl p-3 col-span-2`}>
+          {/* top */}
+          <div className="flex justify-between items-center mb-2">
+            <button
+              onClick={() => setColorSelectOpen(true)}
+              className="
+            px-2 py-1 text-[12px]
+            rounded-md
+            border border-gray-300 dark:border-gray-700
+          "
+            >
+              {color}
+            </button>
 
-            {/* Right: date */}
-            <div className="text-right">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-[11px] text-gray-500">{formatTime(now)}</span>
+          </div>
+
+          {/* date */}
+          <div className="flex justify-end mb-2 text-right">
+            <div>
+              <p className="text-[12px] text-gray-700 dark:text-gray-300">
                 {formatDay(now)}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {formatDate(now)}
-              </p>
+              <p className="text-[11px] text-gray-500">{formatDate(now)}</p>
             </div>
           </div>
-          {/* Write box – diary paper style */}
-          <div
-            className={`relative rounded-3xl mb-8 transition-all bg-transparent`}
-          >
-            <div
-              className="absolute left-7 md:left-9 top-0 h-full w-px opacity-20"
-              style={{ backgroundColor: "currentColor" }}
-            />
-            <div className="relative p-5 pl-10 transition-all duration-300 group">
-              <textarea
-                rows={8}
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Write what’s on your mind…"
-                className={`w-full bg-transparent resize-none outline-none leading-[31px]
-  ${currentStyle.text}
-  placeholder-gray-400 text-xs md:text-sm -translate-y-[11px]
-  transition-all duration-300
-  group-hover:blur-[0.2px]
-  group-hover:opacity-[0.96]`}
-              />
-              <span
-                className={`absolute left-8 md:left-10 top-[22px] w-[2px] h-5 ${currentStyle.text}
-  animate-pulse opacity-0 group-focus-within:opacity-70 pointer-events-none`}
-                style={{
-                  transform: "translateY(calc(var(--caret-line, 0) * 31px))",
-                }}
-              />
 
-              <div className="flex absolute bottom-0 right-0 justify-end mt-3">
-                <button
-                  onClick={addEntry}
-                  disabled={loading}
-                  className={` px-3 py-1 font-bold italic rounded-3xl ${currentStyle.text} hover:scale-105 disabled:opacity-60 transition-all duration-300`}
-                >
-                  {loading ? <FaSpinner /> : <FiSave />}
-                </button>
-              </div>
-            </div>
+          <div className="bg-transparent relative">
+            <div
+              className={`absolute left-6 top-0 bottom-0 w-[2px] ${currentStyle.bg} opacity-40`}
+            />
+
+            <textarea
+              rows={8}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="Write..."
+              className={`no-scrollbar
+      w-full resize-none outline-none
+      text-[14px] leading-7
+      px-4 pl-10 py-3
+      ${currentStyle.text}
+      placeholder-gray-400
+      bg-transparent
+      bg-[linear-gradient(to_bottom,transparent_27px,#d1d5db_28px)]
+      bg-[length:100%_28px]
+    `}
+            />
+          </div>
+
+          {/* action */}
+          <div className="flex justify-end mt-2">
+            <button
+              onClick={addEntry}
+              disabled={loading}
+              className={`
+            px-3 py-1.5 text-[12px]
+            rounded-md
+            ${currentStyle.text}
+            disabled:opacity-50
+          `}
+            >
+              {loading ? "..." : "Save"}
+            </button>
           </div>
         </div>
 
-        {/* Entries */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6 transition-all duration-300">
+        {/* entries */}
+        <div className="col-span-1 grid grid-cols-1 gap-3 items-start">
           {visibleEntries.length === 0 && (
-            <p className="text-gray-400 dark:text-gray-500 text-center mt-4">
-              No diary entries yet.
-            </p>
+            <p className="text-[12px] text-gray-400 text-center">No entries</p>
           )}
 
           {visibleEntries.map((entry) => {
@@ -277,80 +286,79 @@ export default function Diary() {
             return (
               <div
                 key={entry._id}
-                className={`relative rounded-3xl p-5 shadow-sm hover:shadow-md
-  transition-all duration-300 animate-fadeIn box-border
-  ${entryStyle.bg} ${entryStyle.text}`}
+                className={`
+              rounded-xl p-3
+              ${entryStyle.bg} ${entryStyle.text}
+            `}
               >
-                <div className="flex justify-between items-center mb-2">
+                {/* header */}
+                <div className="flex justify-between items-center mb-1">
                   <div>
-                    <p className={`text-sm font-medium ${entryStyle.date}`}>
+                    <p className={`text-[12px] ${entryStyle.date}`}>
                       {formatDay(entry.createdAt)}
                     </p>
-                    <p className={`text-xs ${entryStyle.date}`}>
+                    <p className={`text-[11px] ${entryStyle.date}`}>
                       {formatDate(entry.createdAt)}
                     </p>
                   </div>
-                  <button
-                    onClick={() => deleteEntry(entry._id)}
-                    className=" absolute bottom-3 right-3
-    p-1.5 rounded-xl
-    text-gray-400 hover:text-rose-500
-    bg-white/60 dark:bg-black/20
-    backdrop-blur opacity-80 hover:opacity-100 transition-all duration-300 hover:scale-110"
-                    title="Delete entry"
-                  >
-                    <FiTrash2 size={14} />
-                  </button>
 
-                  <span className="text-xs text-gray-400">
-                    {formatTime(entry.createdAt)}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-gray-400">
+                      {formatTime(entry.createdAt)}
+                    </span>
+
+                    <button
+                      onClick={() => deleteEntry(entry._id)}
+                      className="text-gray-400 hover:text-rose-500"
+                    >
+                      <FiTrash2 size={12} />
+                    </button>
+                  </div>
                 </div>
-                {/* Paper texture */}
-                <div
-                  className="absolute inset-0 rounded-3xl pointer-events-none"
-                  style={{
-                    backgroundImage: `
-      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)
-    `,
-                    backgroundSize: getPaperTexture(entry._id),
-                    opacity: 0.4,
-                  }}
-                />
 
+                {/* text */}
                 <p
-                  className={`leading-relaxed whitespace-pre-wrap ${getLineClamp(
-                    isExpanded
-                  )}`}
+                  className={`
+                text-[12px] whitespace-pre-wrap
+                ${isExpanded ? "" : "line-clamp-3"}
+              `}
                 >
                   {entry.text}
                 </p>
-                {(entry.text.split("\n").length > 3 ||
-                  entry.text.length > 150) && (
+
+                {/* expand */}
+                {entry.text.length > 120 && (
                   <button
                     onClick={() => toggleExpand(entry._id)}
-                    className={`${entryStyle.text} font-bold italic text-sm mt-1 hover:underline transition-all duration-300`}
+                    className={`text-[11px] mt-1 ${entryStyle.text}`}
                   >
-                    {isExpanded ? "...less" : "...more"}
+                    {isExpanded ? "less" : "more"}
                   </button>
                 )}
               </div>
             );
           })}
-        </div>
-        <div className="flex justify-center mt-6">
-          {entries.length > visibleCount ? (
-            <button
-              onClick={() => setVisibleCount((v) => v + 7)}
-              className="px-6 py-2 rounded-3xl border border-gray-300 dark:border-neutral-700 text-gray-600 dark:text-gray-400 hover:scale-105 transition-all duration-300"
-            >
-              Load more
-            </button>
-          ) : (
-            <p className="text-xs text-gray-400 mt-4">That’s everything.</p>
-          )}
+          {/* load more */}
+          <div className="flex w-full items-center justify-center pt-2">
+            {entries.length > visibleCount ? (
+              <button
+                onClick={() => setVisibleCount((v) => v + 7)}
+                className="
+            px-3 py-1.5 text-[12px]
+            rounded-md
+            border border-gray-300 dark:border-gray-700
+            text-gray-600 dark:text-gray-300
+          "
+              >
+                Load more
+              </button>
+            ) : (
+              <p className="text-[11px] text-gray-400">End</p>
+            )}
+          </div>
         </div>
       </section>
+
       <SelectModal
         open={colorSelectOpen}
         title="Mood Color"
@@ -367,14 +375,26 @@ const SelectModal = ({ open, title, options, value, onSelect, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
-        onClick={onClose}
-      />
+      {/* backdrop */}
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
-      <div className="relative z-10 w-[80%] max-w-md rounded-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl p-5 animate-scaleIn">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">{title}</h2>
+      {/* modal */}
+      <div
+        className="
+          relative z-10
+          w-[90%] max-w-sm
+          bg-white dark:bg-gray-900
+          border border-gray-200 dark:border-gray-800
+          rounded-xl
+          p-4
+        "
+      >
+        {/* header */}
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+            {title}
+          </h2>
+
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-rose-500"
@@ -383,22 +403,34 @@ const SelectModal = ({ open, title, options, value, onSelect, onClose }) => {
           </button>
         </div>
 
-        <div className="space-y-2 max-h-[50vh] overflow-y-auto">
-          {options.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => {
-                onSelect(opt);
-                onClose();
-              }}
-              className={` w-full flex items-center gap-3 px-4 py-2 rounded-xl transition-all text-${opt}-700 ${
-                opt === value ? `` : "hover:bg-gray-100 dark:hover:bg-gray-800"
-              } `}
-            >
-              {/* <span className={`w-3 h-3 rounded-full bg-${opt}-400 hover:bg-${opt}-200 `} /> */}
-              {opt.charAt(0).toUpperCase() + opt.slice(1)}
-            </button>
-          ))}
+        {/* options */}
+        <div className="space-y-1 max-h-[45vh] overflow-y-auto no-scrollbar">
+          {options.map((opt) => {
+            const active = opt === value;
+
+            return (
+              <button
+                key={opt}
+                onClick={() => {
+                  onSelect(opt);
+                  onClose();
+                }}
+                className={`
+                  w-full flex items-center
+                  px-3 py-1.5 rounded-md
+                  text-[12px]
+                  transition-colors duration-150
+                  ${
+                    active
+                      ? "bg-rose-500 text-white"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }
+                `}
+              >
+                {opt.charAt(0).toUpperCase() + opt.slice(1)}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

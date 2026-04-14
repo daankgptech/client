@@ -4,7 +4,6 @@ import { api } from "../../utils/Secure/api";
 import { FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";
 import { useAuth } from "../../utils/Secure/AuthContext";
-import { Helmet } from "react-helmet";
 
 export default function SignOut() {
   const navigate = useNavigate();
@@ -32,99 +31,69 @@ export default function SignOut() {
 
   return (
     <>
-      {/* Backdrop */}
-      <div
-        onClick={close}
-        className="
-      fixed inset-0 z-40
-      bg-black/30
-      backdrop-blur-sm
-      transition-opacity duration-300
-    "
-      />
-      <Helmet>
-        <title>Sign Out | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Sign out of your DAAN KGP account securely. You can return anytime by signing in again."
-        />
-        <meta property="og:title" content="Sign Out | DAAN KGP" />
-        <meta
-          property="og:description"
-          content="Sign out of your DAAN KGP account securely. You can return anytime by signing in again."
-        />
-      </Helmet>
-      {/* Modal */}
+      {/* backdrop */}
+      <div onClick={close} className="fixed inset-0 z-40 bg-black/40" />
+
+      {/* modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div
           onClick={(e) => e.stopPropagation()}
           className="
-        group relative w-full max-w-sm
-        rounded-3xl p-8
-        bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-        border border-gray-300/70 dark:border-gray-700
-        shadow-2xl shadow-rose-200/30 dark:shadow-red-900/30
-        animate-scaleIn
-        transition-all duration-500
+        w-full max-w-sm
+        bg-white dark:bg-gray-900
+        border border-gray-200 dark:border-gray-800
+        rounded-xl
+        p-4
       "
         >
-          {/* Ambient glow */}
-          <div
-            className="
-          pointer-events-none absolute inset-0
-          bg-gradient-to-br from-rose-300/10 via-transparent to-red-500/10
-          opacity-0 group-hover:opacity-100
-          transition-opacity duration-500
-        "
-          />
-
-          {/* Icon */}
-          <div className=" relative z-10 mx-auto mb-4 w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500/15 to-red-500/15 text-rose-600 dark:text-rose-400 ">
-            <FiLogOut size={26} />
+          {/* icon */}
+          <div className="mb-3 flex justify-center text-rose-500">
+            <FiLogOut size={18} />
           </div>
-          {/* Text */}
-          <h2 className="relative z-10 text-xl font-semibold text-gray-900 dark:text-gray-100">
+
+          {/* text */}
+          <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100 text-center">
             Sign out?
           </h2>
-          <p className="relative z-10 mt-2 text-sm text-gray-600 dark:text-gray-400">
-            You’ll need to sign in again to access your account.
+          <p className="text-[12px] text-gray-500 mt-1 text-center">
+            You’ll need to sign in again
           </p>
-          {/* Actions */}
-          <div className="relative z-10 mt-7 flex gap-3">
+
+          {/* actions */}
+          <div className="mt-4 flex gap-2">
             <button
               onClick={close}
               className="
-            flex-1 flex items-center justify-center gap-2
-            rounded-xl px-4 py-2.5
-            text-sm font-medium
-            border border-gray-300 dark:border-gray-700
+            flex-1 flex items-center justify-center gap-1
+            px-3 py-1.5
+            text-[12px]
+            rounded-md
+            bg-gray-100 dark:bg-gray-800
             text-gray-700 dark:text-gray-300
-            bg-gray-100/60 dark:bg-gray-800/60
-            hover:bg-gray-200/70 dark:hover:bg-gray-700/70
-            transition-all duration-300
+            hover:bg-gray-200 dark:hover:bg-gray-700
+            transition-colors duration-150
           "
             >
-              <FiX size={16} />
+              <FiX size={14} />
               Cancel
             </button>
+
             <button
               onClick={signOut}
               disabled={loading}
               className="
-            flex-1 flex items-center justify-center gap-2
-            rounded-xl px-4 py-2.5
-            text-sm font-medium text-white
-            bg-gradient-to-r from-rose-600 to-red-600
-            shadow-md shadow-rose-300/40 dark:shadow-red-900/40
-            hover:scale-[1.03]
-            hover:shadow-lg
-            active:scale-[0.97]
-            transition-all duration-300 disabled:opacity-60
+            flex-1 flex items-center justify-center gap-1
+            px-3 py-1.5
+            text-[12px]
+            rounded-md
+            bg-rose-500 text-white
+            hover:bg-rose-600
+            transition-colors duration-150
+            disabled:opacity-50
           "
             >
-              <FiLogOut size={16} />
-              {loading ? "Signing out..." : "Sign Out"}
+              <FiLogOut size={14} />
+              {loading ? "Signing..." : "Sign Out"}
             </button>
           </div>
         </div>

@@ -16,80 +16,64 @@ export default function MeetFamilyCard() {
     <div
       onClick={() => navigate("/our-fam")}
       className="
-        group relative overflow-hidden
-        rounded-3xl
-        bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-        dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
-        border border-rose-50
-        dark:border-slate-700/50
-        p-6
-        transition-all duration-500
-        hover:border-rose-400/40
-        dark:hover:border-rose-500/50
-        hover:shadow-lg hover:shadow-rose-900/20 
-        w-full h-full flex flex-col justify-between items-start
-        cursor-pointer
-      "
+    w-full h-full flex flex-col justify-between gap-3
+    p-4
+    rounded-xl
+    bg-white dark:bg-gray-900
+    border border-gray-200 dark:border-gray-800
+    cursor-pointer
+    hover:border-rose-400
+    hover:bg-gray-50 dark:hover:bg-gray-800
+    transition-colors duration-150
+  "
     >
-      {/* ambient glow */}
-      <div
-        className="
-          pointer-events-none absolute inset-0
-          bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10
-          opacity-0 group-hover:opacity-100
-          transition-opacity duration-500
-        "
-      />
+      {/* top */}
+      <div className="flex justify-between items-center">
+        <div className="p-1.5 rounded-md bg-rose-100 dark:bg-rose-900/30 text-rose-500">
+          <Users size={16} />
+        </div>
 
-      {/* Top Header */}
-      <div className="relative z-10 w-full flex justify-between items-start">
-        <div className="p-2 rounded-2xl bg-rose-500/10 dark:bg-rose-500/20 text-rose-500">
-          <Users size={20} />
-        </div>
-        <div className="text-gray-400 group-hover:text-rose-500 transition-colors">
-          <ArrowUpRight size={18} />
-        </div>
+        <ArrowUpRight size={14} className="text-gray-400" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10">
-        <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold mb-1">
+      {/* content */}
+      <div>
+        <h3 className="text-[11px] uppercase text-gray-500 dark:text-gray-400">
           Community
         </h3>
-        <p className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight">
-          DAAN KGPian Family
+
+        <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+          DAAN Family
         </p>
       </div>
 
-      {/* Decorative Overlapping Avatars */}
-      <div className="relative z-10 flex items-center -space-x-3 mt-2">
+      {/* avatars */}
+      <div className="flex items-center -space-x-2">
         {imgArray.slice(0, 4).map((src, i) => (
-          <div
+          <img
             key={i}
-            className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-gray-300 dark:bg-slate-700 overflow-hidden shadow-sm"
-          >
-            <img
-              src={
-                src ||
-                `https://ui-avatars.com/api/?name=User&background=fee2e2&color=991b1b&size=32`
-              }
-              alt="member"
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-            />
-          </div>
+            src={
+              src ||
+              `https://ui-avatars.com/api/?name=User&background=fee2e2&color=991b1b&size=32`
+            }
+            alt="member"
+            className="
+          w-6 h-6 rounded-full
+          border border-gray-200 dark:border-gray-700
+          object-cover
+        "
+          />
         ))}
 
         {imgArray.length > 4 && (
-          <div className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-rose-500 flex items-center justify-center text-[10px] text-white font-bold shadow-sm">
+          <div className="w-6 h-6 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center">
             +{imgArray.length - 4}
           </div>
         )}
       </div>
 
-      {/* Bottom Text */}
-      <p className="relative z-10 text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-tighter">
-        Click to explore members
-      </p>
+      {/* footer */}
+      <p className="text-[10px] text-gray-400">Explore members</p>
     </div>
   );
 }

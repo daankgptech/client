@@ -47,7 +47,7 @@ const FamCardDetails = () => {
     let isMounted = true;
     setLoading(true);
     api
-      .get(`/our-fam/members/${name}`)
+      .get(`/our-fam/members/${name} `)
       .then((res) => {
         if (isMounted) setPerson(res.data);
       })
@@ -234,22 +234,26 @@ const FamCardDetails = () => {
                   <HiOutlineOfficeBuilding size={18} />
                   <span>{person.hall}</span>
                 </p>
-                <p className={pStyle} title="Course" aria-label="Course">
-                  <LuTimer size={18} />
-                  <span>{person.course}</span>
-                </p>
+                {person.course && (
+                  <p className={pStyle} title="Course" aria-label="Course">
+                    <LuTimer size={18} />
+                    <span>{person.course}</span>
+                  </p>
+                )}
                 <p className={pStyle} title="COE" aria-label="COE">
                   <PiBuildings size={18} />
                   <span className="truncate">{person.coe}</span>
                 </p>
-                <p
-                  className={pStyle}
-                  title="Parent JNV"
-                  aria-label="Parent JNV"
-                >
-                  <LuMilestone size={18} />
-                  <span className="truncate">{person.parentJNV}</span>
-                </p>
+                {person.parentJNV && (
+                  <p
+                    className={pStyle}
+                    title="Parent JNV"
+                    aria-label="Parent JNV"
+                  >
+                    <LuMilestone size={18} />
+                    <span className="truncate">{person.parentJNV}</span>
+                  </p>
+                )}
                 {personal?.city && (
                   <p className={pStyle} title="City" aria-label="City">
                     <LuBuilding2 size={18} />

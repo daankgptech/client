@@ -8,75 +8,57 @@ export default function CheckToolkit() {
     <div
       onClick={() => navigate("/toolkit")}
       className="
-        group relative overflow-hidden
-        rounded-3xl
-        bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-        dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
-        border border-rose-50
-        dark:border-slate-700/50
-        p-6
-        transition-all duration-500
-        hover:border-rose-400/40
-        dark:hover:border-rose-500/50
-        hover:shadow-lg hover:shadow-rose-900/20 
-        w-full h-full flex flex-col justify-between
-        cursor-pointer
-        md:col-span-2
-      "
+    w-full h-full flex flex-col justify-between gap-4
+    p-4
+    rounded-xl
+    bg-white dark:bg-gray-900
+    border border-gray-200 dark:border-gray-800
+    cursor-pointer
+    hover:border-rose-400
+    hover:bg-gray-50 dark:hover:bg-gray-800
+    transition-colors duration-150
+    md:col-span-2
+  "
     >
-      {/* ambient glow */}
-      <div
-        className="
-          pointer-events-none absolute inset-0
-          bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10
-          opacity-0 group-hover:opacity-100
-          transition-opacity duration-500
-        "
-      />
-
-      {/* Header Row */}
-      <div className="relative z-10 w-full flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-2xl bg-rose-500/10 dark:bg-rose-500/20 text-rose-500">
-            <Wrench size={22} />
+      {/* header */}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-md bg-rose-100 dark:bg-rose-900/30 text-rose-500">
+            <Wrench size={16} />
           </div>
+
           <div>
-            <h3 className="text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold">
+            <h3 className="text-[11px] uppercase text-gray-500 dark:text-gray-400">
               Resources
             </h3>
-            <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-              Need a help? Toolkit
+            <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+              Toolkit
             </p>
           </div>
         </div>
-        <div className="bg-rose-500 text-white p-2 rounded-xl shadow-lg shadow-rose-500/30 group-hover:translate-x-1 transition-transform">
-          <ArrowRight size={18} />
-        </div>
+
+        <ArrowRight size={14} className="text-gray-400" />
       </div>
 
-      {/* Feature Pills - Specific for 1x2 Layout */}
-      <div className="relative z-10 flex flex-wrap gap-2 mt-4">
-        {[
-          { icon: <Zap size={12} />, label: "Quick Guides" },
-          { icon: <ShieldCheck size={12} />, label: "Safety" },
-          { icon: <HelpCircle size={12} />, label: "FAQ" }
-        ].map((item, idx) => (
-          <div 
-            key={idx}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-slate-950/40 border border-white/20 dark:border-slate-800 text-[10px] font-bold text-gray-600 dark:text-gray-300 uppercase tracking-tighter"
+      {/* features */}
+      <div className="flex flex-wrap gap-1 text-[11px]">
+        {["Guides", "Safety", "FAQ"].map((item) => (
+          <span
+            key={item}
+            className="
+          px-2 py-0.5
+          rounded-md
+          bg-gray-100 dark:bg-gray-800
+          text-gray-600 dark:text-gray-300
+        "
           >
-            <span className="text-rose-500">{item.icon}</span>
-            {item.label}
-          </div>
+            {item}
+          </span>
         ))}
       </div>
 
-      {/* Bottom Footer Info */}
-      <div className="relative z-10 mt-4 pt-4 border-t border-gray-400/10 dark:border-slate-800 w-full">
-        <p className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-          Explore the official DAAN KGPian Support System
-        </p>
-      </div>
+      {/* footer */}
+      <p className="text-[10px] text-gray-400">Support resources</p>
     </div>
   );
 }

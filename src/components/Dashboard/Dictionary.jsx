@@ -38,7 +38,7 @@ export default function Dictionary() {
 
     try {
       const res = await fetch(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
       );
       if (!res.ok) throw new Error();
 
@@ -61,52 +61,43 @@ export default function Dictionary() {
   const currentMeaning = meanings[meaningIndex];
 
   return (
-    <div className="
-    group relative overflow-hidden
-    rounded-3xl
-    bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-    dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
-    border border-rose-50
-    dark:border-slate-700/50
-    p-6
-    transition-all duration-300
-    hover:border-gray-500/40
-    dark:hover:border-rose-500/50
-    hover:shadow-lg hover:shadow-rose-900/20 
-    w-full h-full flex flex-col justify-evenly items-start">
-      {/* glow */}
-      <div className="pointer-events-none absolute inset-0
-      bg-gradient-to-br from-rose-100/5 via-transparent to-red-500/5
-      dark:from-rose-500/10 dark:to-red-900/10
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-500" />
-
-      {/* Header */}
-      <h3 className="relative z-10 text-xs uppercase tracking-widest text-gray-500 dark:text-rose-400/80 font-bold mb-4">
+    <div
+      className="
+    w-full h-full flex flex-col gap-3
+    bg-white dark:bg-gray-900
+    border border-gray-200 dark:border-gray-800
+    rounded-xl p-4
+  "
+    >
+      {/* header */}
+      <h3 className="text-[11px] uppercase tracking-wide font-semibold text-gray-500 dark:text-gray-400">
         Dictionary
       </h3>
 
-      {/* Search */}
-      <div className="relative z-10 w-full flex gap-2 mb-3">
+      {/* search */}
+      <div className="flex gap-2">
         <div className="relative flex-1">
           <input
             value={word}
             disabled={loading}
             onChange={(e) => setWord(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && searchWord()}
-            placeholder="Search a word"
-            className="flex-1 bg-gray-400/40 dark:bg-slate-950/40 
-        border border-white/20 dark:border-slate-800
-        rounded-2xl px-2 md:px-4 py-1 md:py-2 text-sm
-        text-gray-900 dark:text-gray-100
-        placeholder:text-gray-500 dark:placeholder:text-gray-600
-        focus:outline-none focus:ring-2 focus:ring-rose-400/50 w-full transition-all duration-300
-      "
+            placeholder="Search"
+            className="
+          w-full px-3 py-1.5 text-[12px]
+          rounded-md
+          bg-gray-50 dark:bg-gray-800
+          border border-gray-300 dark:border-gray-700
+          text-gray-800 dark:text-gray-100
+          outline-none
+          focus:border-rose-500
+        "
           />
+
           {word && (
             <button
               onClick={() => setWord("")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-rose-500"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-rose-500"
             >
               <FaTimes size={12} />
             </button>
@@ -116,15 +107,21 @@ export default function Dictionary() {
         <button
           onClick={searchWord}
           disabled={loading}
-          className="bg-rose-400 hover:bg-rose-500 dark:bg-rose-600 text-white px-3 rounded-2xl transition"
+          className="
+        px-3 py-1.5
+        rounded-md
+        bg-rose-500 text-white
+        hover:bg-rose-600
+        text-[12px]
+      "
         >
-          {loading ? <FaSpinner className="animate-spin" /> : <FaSearch />}
+          {loading ? "..." : <FaSearch size={12} />}
         </button>
       </div>
 
-      {/* Recent */}
+      {/* recent */}
       {recent.length > 0 && (
-        <div className="relative z-10 flex flex-wrap gap-2 mb-3 text-xs">
+        <div className="flex flex-wrap gap-1 text-[11px]">
           {recent.map((r) => (
             <button
               key={r}
@@ -132,7 +129,11 @@ export default function Dictionary() {
                 setWord(r);
                 setTimeout(searchWord, 0);
               }}
-              className="px-3 py-1 rounded-full bg-gray-300/60 dark:bg-slate-800 hover:bg-rose-400/30 transition"
+              className="
+            px-2 py-0.5 rounded-md
+            bg-gray-100 dark:bg-gray-800
+            text-gray-600 dark:text-gray-300
+          "
             >
               {r}
             </button>
@@ -140,58 +141,64 @@ export default function Dictionary() {
         </div>
       )}
 
-      {/* Loader bar */}
+      {/* loading */}
       {loading && (
-        <div className="w-full h-1 rounded-full bg-gray-300 dark:bg-slate-700 overflow-hidden mb-3">
-          <div className="h-full w-1/3 bg-gradient-to-r from-rose-400 to-red-500 animate-[loading_1.2s_ease-in-out_infinite]" />
+        <div className="w-full h-[2px] bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div className="w-1/3 h-full bg-rose-500 animate-pulse" />
         </div>
       )}
 
-      {/* Error */}
-      {error && (
-        <p className="text-xs text-red-500 italic mb-2 relative z-10">
-          {error}
-        </p>
-      )}
+      {/* error */}
+      {error && <p className="text-[11px] text-rose-500">{error}</p>}
 
-      {/* Result */}
+      {/* result */}
       {result && currentMeaning && (
-        <div className="relative z-10 w-full rounded-2xl bg-gray-400/40 dark:bg-slate-950/40 p-4 border border-white/20 dark:border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <p className="text-lg font-bold text-gray-900 dark:text-rose-400 uppercase">
+        <div
+          className="
+        border border-gray-200 dark:border-gray-800
+        rounded-md p-3
+        bg-gray-50 dark:bg-gray-800
+        space-y-2
+      "
+        >
+          <div className="flex justify-between items-center">
+            <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100">
               {result.word}
             </p>
+
             {result.phonetics?.some((p) => p.audio) && (
               <button
                 onClick={playAudio}
-                className="text-rose-500 hover:scale-110 transition"
+                className="text-gray-400 hover:text-rose-500"
               >
-                <FaVolumeUp />
+                <FaVolumeUp size={12} />
               </button>
             )}
           </div>
 
-          <p className="text-sm text-gray-700 dark:text-gray-300">
+          <p className="text-[12px] text-gray-600 dark:text-gray-300">
             {currentMeaning.definitions?.[0]?.definition}
           </p>
 
-          {/* Carousel */}
+          {/* meanings */}
           {meanings.length > 1 && (
-            <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
+            <div className="flex justify-between items-center text-[11px] text-gray-400">
               <button
                 disabled={meaningIndex === 0}
                 onClick={() => setMeaningIndex((i) => i - 1)}
               >
-                <FaChevronLeft />
+                <FaChevronLeft size={10} />
               </button>
+
               <span>
-                {meaningIndex + 1} / {meanings.length}
+                {meaningIndex + 1}/{meanings.length}
               </span>
+
               <button
                 disabled={meaningIndex === meanings.length - 1}
                 onClick={() => setMeaningIndex((i) => i + 1)}
               >
-                <FaChevronRight />
+                <FaChevronRight size={10} />
               </button>
             </div>
           )}

@@ -13,7 +13,9 @@ import {
   FiClock,
   FiInfo,
   FiLogOut,
+  FiUser,
 } from "react-icons/fi";
+import PersonalInfo from "./PersonalInfo";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Link } from "react-router-dom";
 import { MdLockReset } from "react-icons/md";
@@ -30,6 +32,7 @@ export default function Profile() {
   const [imagePreview, setImagePreview] = useState(null);
   const [showSgpaModal, setShowSgpaModal] = useState(false);
   const [selectModal, setSelectModal] = useState(null);
+  const [expandedCards, setExpandedCards] = useState({});
 
   const normalizeSgpa = (sgpa) => {
     if (!sgpa || typeof sgpa !== "object" || Array.isArray(sgpa)) return {};
@@ -57,6 +60,7 @@ export default function Profile() {
           sgpa: normalizeSgpa(res.data.sgpa),
           contacts: res.data.contacts?.[0] || {},
           involvements: res.data.involvements?.[0] || {},
+          personalInfo: res.data.personalInfo || {},
         });
       } catch {
         toast.error("Session expired");
@@ -86,6 +90,13 @@ export default function Profile() {
       return copy;
     });
   };
+
+  const toggleCard = (cardId) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [cardId]: !prev[cardId],
+    }));
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -113,6 +124,7 @@ export default function Profile() {
       fd.append("parentJNV", form.parentJNV || "");
       fd.append("contacts", JSON.stringify(form.contacts));
       fd.append("involvements", JSON.stringify(form.involvements));
+      fd.append("personalInfo", JSON.stringify(form.personalInfo));
 
       if (imageFile) {
         fd.append("image", imageFile);
@@ -223,7 +235,7 @@ export default function Profile() {
 
       {/* grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container">
-        <Card title="Academics" icon={FiBookOpen}>
+        <Card title="Academics" icon={FiBookOpen} isExpanded={expandedCards["academics"]} onToggle={() => toggleCard("academics")}>
           <Field
             editing={editing}
             label="Semester"
@@ -314,7 +326,7 @@ export default function Profile() {
             }
           />
         </Card>
-        <Card title="More Info" icon={FiInfo}>
+        <Card title="More Info" icon={FiInfo} isExpanded={expandedCards["moreInfo"]} onToggle={() => toggleCard("moreInfo")}>
           <Field
             editing={editing}
             label="Hall"
@@ -389,7 +401,7 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Contacts" icon={FiPhone}>
+        <Card title="Contacts" icon={FiPhone} isExpanded={expandedCards["contacts"]} onToggle={() => toggleCard("contacts")}>
           <Field
             editing={editing}
             label="Phone"
@@ -416,7 +428,7 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Involvements" icon={FiUsers}>
+        <Card title="Involvements" icon={FiUsers} isExpanded={expandedCards["involvements"]} onToggle={() => toggleCard("involvements")}>
           <Field
             editing={editing}
             label="Society"
@@ -449,7 +461,15 @@ export default function Profile() {
           />
         </Card>
 
-        <Card title="Account Activity" icon={FiClock}>
+        <Card title="Personal Info" icon={FiUser} isExpanded={expandedCards["personalInfo"]} onToggle={() => toggleCard("personalInfo")}>
+          <PersonalInfo
+            data={form.personalInfo}
+            editing={editing}
+            onChange={(key, value) => handleChange(`personalInfo.${key}`, value)}
+          />
+        </Card>
+
+        <Card title="Account Activity" icon={FiClock} isExpanded={expandedCards["accountActivity"]} onToggle={() => toggleCard("accountActivity")}>
           <Info
             label="Account Created"
             value={formatDate(user.audit?.signUpAt)}
@@ -465,7 +485,7 @@ export default function Profile() {
         </Card>
       </div>
       {/* Action Buttons */}
-      <div className="container flex flex-wrap items-center justify-center gap-5 mt-10">
+      <div className="container flex flex-wrap items-center justify-center gap-5 mt-10 pb-6">
         {/* Edit / Save */}
         <button
           onClick={editing ? saveProfile : () => setEditing(true)}
@@ -684,25 +704,14 @@ export default function Profile() {
 
 /* ---------- UI Helpers ---------- */
 
-const Card = ({ title, icon: Icon, children }) => (
+const Card = ({ title, icon: Icon, children, isExpanded, onToggle }) => (
   <div
     className="
       group relative overflow-hidden
       rounded-3xl p-6
-      
       border border-gray-300/60 dark:border-gray-700
       transition-all duration-500
     "
-    // className="
-    //   group relative overflow-hidden
-    //   rounded-3xl p-6
-    //   bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-    //   dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-    //   border border-gray-300/60 dark:border-gray-700
-    //   transition-all duration-500
-    //   hover:-translate-y-1
-    //   hover:shadow-xl hover:shadow-rose-900/20
-    // "
   >
     <div
       className="
@@ -713,7 +722,10 @@ const Card = ({ title, icon: Icon, children }) => (
       "
     />
 
-    <div className="relative z-10 flex items-center justify-between mb-4">
+    <button
+      onClick={onToggle}
+      className="relative z-10 w-full flex items-center justify-between mb-4 cursor-pointer"
+    >
       <div className="flex items-center gap-3">
         <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500">
           <Icon size={18} />
@@ -722,10 +734,20 @@ const Card = ({ title, icon: Icon, children }) => (
           {title}
         </h2>
       </div>
-      <FiChevronDown className="text-gray-400 group-hover:text-rose-500 transition" />
-    </div>
+      <FiChevronDown
+        className={`text-gray-400 group-hover:text-rose-500 transition-transform duration-300 ${
+          isExpanded ? "rotate-180" : ""
+        }`}
+      />
+    </button>
 
-    <div className="relative z-10 space-y-3">{children}</div>
+    <div
+      className={`relative z-10 space-y-3 overflow-hidden transition-all duration-300 ${
+        isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+      }`}
+    >
+      {children}
+    </div>
   </div>
 );
 

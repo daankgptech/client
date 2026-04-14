@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaEnvelope,
@@ -7,11 +7,34 @@ import {
   FaArrowLeft,
   FaGithub,
   FaGraduationCap,
+  FaWhatsapp,
 } from "react-icons/fa";
-import { MdAddCall } from "react-icons/md";
+import { HiOutlineOfficeBuilding, HiOutlineHashtag } from "react-icons/hi";
+import {
+  LuCalendarDays,
+  LuCake,
+  LuTimer,
+  LuMilestone,
+  LuMapPin,
+  LuBuilding2,
+  LuMap,
+  LuPhone,
+  LuMail,
+  LuGithub,
+  LuLinkedin,
+} from "react-icons/lu";
+import { PiTreeStructure, PiBuildings } from "react-icons/pi";
+import {
+  MdAddCall,
+  MdEmail,
+  MdOutlineTimeline,
+  MdOutlineBed,
+  MdBloodtype,
+} from "react-icons/md";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Helmet } from "react-helmet-async";
+import { Droplet } from "lucide-react";
 
 const FamCardDetails = () => {
   const navigate = useNavigate();
@@ -48,6 +71,7 @@ const FamCardDetails = () => {
     );
 
   const primaryContact = person.contacts?.[0] || null;
+  const personal = person.personalInfo || null;
   if (
     person.imgLink ==
     "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
@@ -56,11 +80,14 @@ const FamCardDetails = () => {
   const avatarUrl =
     person.imgLink ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(person.name)}&background=fee2e2&color=991b1b&size=512`;
-
+  const linkStyle =
+    "flex items-center justify-start gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-rose-600 dark:hover:text-red-400 transition-colors duration-300";
+  const pStyle =
+    "flex items-center justify-start gap-2 text-sm text-gray-600 dark:text-gray-400";
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-500">
       <Helmet>
-        <title>{`${person.name} | DAAN KGP`}</title>
+        <title>{`${person.name} | ${person.branch} | ${person.batch} | DAAN KGP`}</title>
       </Helmet>
 
       {/* Lightbox */}
@@ -85,26 +112,27 @@ const FamCardDetails = () => {
         )}
       </AnimatePresence>
 
-      <main className="max-w-4xl mx-auto px-6 py-10 md:py-16">
-        {/* Navigation */}
-        <button
-          onClick={() => navigate(`/our-fam/${year}`)}
-          className="group mb-10 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-rose-500 transition-colors"
-        >
-          <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
-          Back
-        </button>
+      <main className="px-0 md:container mx-auto py-6 md:py-10">
+        <div className="w-full justify-start items-center px-4">
+          <button
+            onClick={() => navigate(`/our-fam/${year}`)}
+            className="group mb-4 flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-rose-500 transition-colors"
+          >
+            <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+            Back
+          </button>
+        </div>
 
-        <div className="flex flex-col md:flex-row gap-10 lg:gap-16">
+        <div className="w-full container flex flex-col justify-between items-center md:flex-row-reverse gap-10 lg:gap-16">
           {/* Sidebar: Image & Quick Stats */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full md:w-72"
+            className="w-full md:w-72 px-6"
           >
             <div
               onClick={() => setIsLightboxOpen(true)}
-              className="relative group cursor-zoom-in overflow-hidden rounded-[2rem] bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition-all hover:shadow-xl"
+              className="relative group cursor-zoom-in overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition-all hover:shadow-xl"
             >
               <img
                 src={avatarUrl}
@@ -112,15 +140,15 @@ const FamCardDetails = () => {
                 className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="text-white text-[10px] font-bold uppercase tracking-widest bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                <span className="text-white text-[10px] font-semibold bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
                   View Full
                 </span>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-col items-center gap-3">
+            <div className="mt-3 flex flex-col items-center gap-3">
               <span
-                className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold border ${
                   person.graduated
                     ? "bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 text-gray-400"
                     : "bg-rose-50 dark:bg-rose-950/20 border-rose-100 dark:border-rose-900/30 text-rose-500"
@@ -138,19 +166,17 @@ const FamCardDetails = () => {
             transition={{ delay: 0.1 }}
             className="flex-1"
           >
-            <header className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight mb-3">
+            <header className="mb-6">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white tracking-tight mb-3">
                 {person.name}
               </h1>
               {person.bio && (
-                <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-medium leading-relaxed italic border-l-2 border-rose-200 dark:border-rose-900/50 pl-4">
+                <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium leading-relaxed italic border-l-2 border-rose-200 dark:border-rose-900/50 pl-4">
                   {person.bio}
                 </p>
               )}
             </header>
-
-            {/* Badges Section */}
-            <div className="flex flex-wrap gap-2 mb-10">
+            <div className="flex flex-wrap gap-2 mb-6">
               {person.involvements?.map((inv, idx) => (
                 <React.Fragment key={idx}>
                   {inv.soc && <Badge color="rose">{inv.soc}</Badge>}
@@ -163,48 +189,121 @@ const FamCardDetails = () => {
                 </React.Fragment>
               ))}
             </div>
-
-            {/* Info Grid */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-8 mb-12">
-              <InfoItem label="Branch" value={person.branch} />
-              <InfoItem label="Batch" value={person.batch} />
-              <InfoItem label="Hall" value={person.hall} />
-              <InfoItem label="Course" value={person.course} />
-              <InfoItem label="COE" value={person.coe} />
-              <InfoItem label="Parent JNV" value={person.parentJNV} />
-            </div>
-
-            {/* Footer Connect */}
-            <div className="pt-8 border-t border-gray-100 dark:border-gray-900">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-6">
+            <div className="p-2 md:p-4 lg:p-6 rounded-lg border-t border-gray-100 dark:border-gray-900 bg-gray-100 md:bg-white dark:bg-gray-950 dark:md:bg-gray-900 ">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-gray-300 mb-4">
+                Details
+              </h4>
+              <div className="grid grid-cols-2 gap-2 md:gap-3 lg:gap-4">
+                {personal?.dob && (
+                  <p
+                    className={pStyle}
+                    title="Date Of Birth"
+                    aria-label="Date Of Birth"
+                  >
+                    <LuCake size={18} />
+                    <span>
+                      {personal?.dob
+                        ? new Date(personal.dob).toLocaleString("en-IN", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          })
+                        : "Not Added"}
+                    </span>
+                  </p>
+                )}
+                {personal?.bloodGroup && (
+                  <p
+                    className={pStyle}
+                    title="Blood Group"
+                    aria-label="Blood Group"
+                  >
+                    <Droplet size={18} />
+                    <span>{personal.bloodGroup}</span>
+                  </p>
+                )}
+                <p className={pStyle} title="Branch" aria-label="Branch">
+                  <PiTreeStructure size={18} />
+                  <span>{person.branch}</span>
+                </p>
+                <p className={pStyle} title="Batch" aria-label="Batch">
+                  <MdOutlineTimeline size={18} />
+                  <span>{person.batch}</span>
+                </p>
+                <p className={pStyle} title="Hall" aria-label="Hall">
+                  <HiOutlineOfficeBuilding size={18} />
+                  <span>{person.hall}</span>
+                </p>
+                <p className={pStyle} title="Course" aria-label="Course">
+                  <LuTimer size={18} />
+                  <span>{person.course}</span>
+                </p>
+                <p className={pStyle} title="COE" aria-label="COE">
+                  <PiBuildings size={18} />
+                  <span className="truncate">{person.coe}</span>
+                </p>
+                <p
+                  className={pStyle}
+                  title="Parent JNV"
+                  aria-label="Parent JNV"
+                >
+                  <LuMilestone size={18} />
+                  <span className="truncate">{person.parentJNV}</span>
+                </p>
+                {personal?.city && (
+                  <p className={pStyle} title="City" aria-label="City">
+                    <LuBuilding2 size={18} />
+                    <span>{personal.city}</span>
+                  </p>
+                )}
+                {personal?.state && (
+                  <p className={pStyle} title="State" aria-label="State">
+                    <LuMapPin size={18} />
+                    <span>{personal.state}</span>
+                  </p>
+                )}
+              </div>
+              <h4 className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-gray-300 mb-4">
                 Connect
               </h4>
-              <div className="flex gap-4">
-                <SocialIcon
-                  icon={<MdAddCall size={18} />}
-                  title="VCF Info"
-                  isSpecial
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 lg:gap-4">
+                <Link
+                  to={`tel:+91${primaryContact.phone}`}
+                  className={linkStyle}
+                >
+                  <LuPhone size={18} />
+                  <span>+91{primaryContact.phone}</span>
+                </Link>
                 {primaryContact?.email && (
-                  <SocialIcon
-                    icon={<FaEnvelope size={16} />}
-                    href={`mailto:${primaryContact.email}`}
-                  />
-                )}
-                {primaryContact?.linkedIn && (
-                  <SocialIcon
-                    icon={<FaLinkedin size={16} />}
-                    href={primaryContact.linkedIn}
-                    external
-                  />
+                  <Link
+                    to={`mailto:${primaryContact.email}`}
+                    className={linkStyle}
+                  >
+                    <LuMail size={18} />
+                    <span className="truncate">{primaryContact.email}</span>
+                  </Link>
                 )}
                 {primaryContact?.github && (
-                  <SocialIcon
-                    icon={<FaGithub size={16} />}
-                    href={primaryContact.github}
-                    external
-                  />
+                  <Link to={`${primaryContact.github}`} className={linkStyle}>
+                    <LuGithub size={18} />
+                    <span className="truncate">{primaryContact.github}</span>
+                  </Link>
                 )}
+                {primaryContact?.linkedIn && (
+                  <Link to={`${primaryContact.linkedIn}`} className={linkStyle}>
+                    <LuLinkedin size={18} />
+                    <span className="truncate">{primaryContact.linkedIn}</span>
+                  </Link>
+                )}
+                <Link
+                  to={`https://wa.me/91${primaryContact.phone}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkStyle}
+                >
+                  <FaWhatsapp size={18} />
+                  <span>Chat on WhatsApp</span>
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -234,40 +333,4 @@ const Badge = ({ children, color }) => {
     </span>
   );
 };
-
-const InfoItem = ({ label, value }) => {
-  if (!value) return null;
-  return (
-    <div>
-      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
-        {label}
-      </p>
-      <p className="text-sm md:text-base font-medium text-gray-700 dark:text-gray-200">
-        {value}
-      </p>
-    </div>
-  );
-};
-
-const SocialIcon = ({ icon, href, external, isSpecial }) => {
-  const Tag = href ? "a" : "button";
-  return (
-    <div className="group/tool relative">
-      <Tag
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-        className="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all border border-transparent hover:border-rose-100 dark:hover:border-rose-900/50"
-      >
-        {icon}
-      </Tag>
-      {isSpecial && (
-        <span className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 group-hover/tool:scale-100 transition-all bg-gray-900 text-white text-[9px] font-bold px-2 py-1 rounded-md whitespace-nowrap shadow-xl">
-          Check bottom-left for VCF
-        </span>
-      )}
-    </div>
-  );
-};
-
 export default FamCardDetails;

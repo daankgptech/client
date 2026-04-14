@@ -142,7 +142,7 @@ export const Breadcrumbs = ({ items }) => {
 
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <ol className="flex flex-wrap items-center gap-2 text-sm bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400">
         {items.map((item, index) => (
           <li key={item.path} className="flex items-center gap-2">
             {index > 0 && <span className="text-gray-400 dark:text-gray-600">/</span>}

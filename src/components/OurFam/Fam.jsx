@@ -22,7 +22,7 @@ const Fam = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [activeYear, setActiveYear] = useState(
-    year ? 2000 + Number(year) : null
+    year ? 2000 + Number(year) : null,
   );
 
   const [members, setMembers] = useState([]);
@@ -41,7 +41,7 @@ const Fam = () => {
     searchFields.reduce((acc, { key }) => {
       acc[key] = searchParams.get(key) || "";
       return acc;
-    }, {})
+    }, {}),
   );
   useEffect(() => {
     if (year) setActiveYear(2000 + Number(year));
@@ -49,7 +49,7 @@ const Fam = () => {
   }, [year]);
   useEffect(() => {
     const params = Object.fromEntries(
-      Object.entries(filters).filter(([_, v]) => v)
+      Object.entries(filters).filter(([_, v]) => v),
     );
     setSearchParams(params, { replace: true });
   }, [filters, setSearchParams]);
@@ -60,7 +60,7 @@ const Fam = () => {
     setLoading(true);
 
     const params = Object.fromEntries(
-      Object.entries({ year: activeYear, ...filters }).filter(([_, v]) => v)
+      Object.entries({ year: activeYear, ...filters }).filter(([_, v]) => v),
     );
 
     api
@@ -116,14 +116,27 @@ const Fam = () => {
         {/* Standard metadata */}
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
-        <meta name="keywords" content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur"/>
-        <link rel="canonical" href={`https://daan-kgp.vercel.app/our-fam/${activeYear}/`} />
+        <meta
+          name="keywords"
+          content="DAAN KGP, Dakshana Foundation, Dakshana Alumni Network, Dakshana IIT Kharagpur, Dakshana scholars IIT KGP, IIT Kharagpur alumni network, DAAN IIT Kharagpur, student mentorship IIT Kharagpur, career guidance Dakshana alumni, higher studies guidance IIT KGP, alumni mentorship programs IIT, student support Dakshana scholars, Dakshana community Kharagpur, alumni-student connect IIT KGP, networking for Dakshana alumni, IIT Kharagpur student-alumni network, collaboration among Dakshana scholars, social initiatives Dakshana alumni, outreach programs IIT KGP, volunteering at IIT Kharagpur, giving back to society IIT alumni, awareness campaigns by DAAN, how Dakshana alumni help IIT Kharagpur students, mentorship opportunities for Dakshana scholars, alumni guidance network at IIT Kharagpur, career counseling by Dakshana alumni, Dakshana student community at IIT KGP, daan kgp, daan-kgp, kgpian dakshanite, dakshanites at kgp, dakshanites at iit kgp, kgpian dakshanites, dakshana alumni network at Indian institute of technology Kharagpur, daan at iit kgp, daan at kgp, kgp dakshana, dakshana, iitkgp, kgp, kharagpur"
+        />
+        <link
+          rel="canonical"
+          href={`https://daankgp.vercel.app/our-fam/${activeYear}/`}
+        />
         {/* Open Graph / Facebook / LinkedIn */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://daan-kgp.vercel.app/our-fam/${activeYear}/`} />
+        <meta
+          property="og:url"
+          content={`https://daankgp.vercel.app/our-fam/${activeYear}/`}
+        />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
-        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" /> {/* Add a real path to your logo/banner */}
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        />{" "}
+        {/* Add a real path to your logo/banner */}
         {/* The Thumbnail Image - This is what shows up in the WhatsApp chat bubble */}
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -132,7 +145,10 @@ const Fam = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif" />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
+        />
       </Helmet>
       {/* Header */}
       <div className="flex flex-col justify-center items-center mb-6">
@@ -146,40 +162,40 @@ const Fam = () => {
         )}
         <div>
           {/* Year Buttons */}
-          <h2 className="text-xl font-bold text-center mb-4">Other Years</h2>
-          <div className="flex flex-wrap justify-center gap-3 mb-3">
-            {Object.keys(batchDataMap)
-              // .filter((y) => canAccessBatch(user.batch, Number(y)))
-              .sort((a, b) => b - a)
-              .map((y) => (
-                <button
-                  key={y}
-                  onClick={() => goToYear(Number(y))}
-                  className={`
-    px-4 py-2
-    sm:px-5 sm:py-2.5
-    text-sm sm:text-base
-    font-medium
-    rounded-lg
-    transition-colors duration-200
-    focus:outline-none
-    focus:ring-2 focus:ring-rose-400
-    focus:ring-offset-2 focus:ring-offset-gray-100
-    dark:focus:ring-rose-500 dark:focus:ring-offset-gray-900
+          <h2 className="text-sm text-center font-semibold text-gray-700 dark:text-gray-200 mb-2">
+            Other Years
+          </h2>
 
-    ${
-      Number(y) === activeYear
-        ? "bg-red-500 text-white dark:bg-red-700"
-        : "bg-gray-200 text-gray-800 hover:bg-rose-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-500"
-    }
-  `}
-                >
-                  {batchDataMap[y].label}
-                </button>
-              ))}
+          <div className="w-full overflow-x-auto">
+            <div className="flex gap-2 min-w-max pb-1">
+              {Object.keys(batchDataMap)
+                .sort((a, b) => b - a)
+                .map((y) => (
+                  <button
+                    key={y}
+                    onClick={() => goToYear(Number(y))}
+                    className={`
+            px-3 py-1.5
+            text-xs sm:text-sm
+            rounded-full
+            border
+            whitespace-nowrap
+            transition-colors duration-150
+
+            ${
+              Number(y) === activeYear
+                ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-black dark:border-gray-100"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800"
+            }
+          `}
+                  >
+                    {batchDataMap[y].label}
+                  </button>
+                ))}
+            </div>
           </div>
         </div>
-        <h1 className="text-2xl font-bold mt-4">{yearLabel}</h1>
+        <h1 className="text-2xl font-semibold mt-4">{yearLabel}</h1>
       </div>
 
       {/* Charts */}
@@ -214,39 +230,6 @@ const Fam = () => {
           <FamCard key={item._id} _id={item._id} {...item} />
         ))}
       </div>
-      {/* Year Buttons */}
-      {/* <h2 className="text-xl font-bold text-center mt-10 mb-4">Other Years</h2>
-      <div className="flex flex-wrap justify-center gap-3 mb-10">
-        {Object.keys(batchDataMap)
-          // .filter((y) => canAccessBatch(user.batch, Number(y)))
-          .sort((a, b) => b - a)
-          .map((y) => (
-            <button
-              key={y}
-              onClick={() => goToYear(Number(y))}
-              className={`
-    px-4 py-2
-    sm:px-5 sm:py-2.5
-    text-sm sm:text-base
-    font-medium
-    rounded-lg
-    transition-colors duration-200
-    focus:outline-none
-    focus:ring-2 focus:ring-rose-400
-    focus:ring-offset-2 focus:ring-offset-gray-100
-    dark:focus:ring-rose-500 dark:focus:ring-offset-gray-900
-
-    ${
-      Number(y) === activeYear
-        ? "bg-red-500 text-white dark:bg-red-700"
-        : "bg-gray-200 text-gray-800 hover:bg-rose-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-rose-500"
-    }
-  `}
-            >
-              {batchDataMap[y].label}
-            </button>
-          ))}
-      </div> */}
       <div className="flex justify-center items-center w-full mt-6">
         <button
           onClick={backToOverview}
@@ -265,7 +248,8 @@ const Fam = () => {
     dark:active:bg-red-600
     dark:focus:ring-rose-500 dark:focus:ring-offset-gray-900
   "
-        >Back to Overview
+        >
+          Back to Overview
         </button>
       </div>
     </div>

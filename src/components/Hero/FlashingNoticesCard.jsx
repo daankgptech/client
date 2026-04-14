@@ -9,15 +9,21 @@ import {
 } from "lucide-react";
 
 const notices = [
-  {
-    text: "Farewell 2026",
-    date: "Apr 11, 2026",
-    icon: GraduationCap,
-    tag: "Event",
-  },
+  // {
+  //   text: "Farewell 2026",
+  //   date: "Apr 11, 2026",
+  //   icon: GraduationCap,
+  //   tag: "Event",
+  // },
   {
     text: "EndSem Exams",
     date: "Apr 18-30, 2026",
+    icon: Calendar,
+    tag: "Academic",
+  },
+  {
+    text: "Switch Over to Dual Degree, Last Date",
+    date: "Apr 30, 2026",
     icon: Calendar,
     tag: "Academic",
   },

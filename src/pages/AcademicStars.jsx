@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
 import { useEffect, useState, useMemo } from "react";
 import BrightMindsCard from "../components/OurBrightMinds/BrightMindsCard";
 import { api } from "../utils/Secure/api";
@@ -137,18 +137,12 @@ const AcademicStars = () => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-300 py-8">
-      <Helmet>
-        <title>Academic Stars | DAAN KGP</title>
-        <meta name="description" content="Meet the top academic performers at DAAN KGP. We celebrate batch-wise toppers and Dakshana scholars at IIT Kharagpur who excel in their studies." />
-        <link rel="canonical" href="https://daankgp.vercel.app/academic-stars" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://daankgp.vercel.app/academic-stars" />
-        <meta property="og:title" content="Academic Stars | DAAN KGP" />
-        <meta property="og:description" content="Celebrating academic excellence within the Dakshana Alumni Network at IIT Kharagpur." />
-        <meta property="og:image" content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1770005960/DAAN_KGP_Logo_rhnogf.png" />
-      </Helmet>
+      <SEO {...seoConfig.academicStars} />
 
       <section className="container space-y-10">
+        <div className="pb-4">
+          <Breadcrumbs items={seoConfig.academicStars.breadcrumbs} />
+        </div>
         
         <div className="flex items-center gap-3 mb-8">
           <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">

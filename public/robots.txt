@@ -1,4 +1,30 @@
-User-agent: *
-Allow: /
+# robots.txt for DAAN KGP
+# https://daankgp.vercel.app
 
+User-agent: *
+# Public pages - allow indexing
+Allow: /
+Allow: /our-fam
+Allow: /academic-stars
+Allow: /toolkit
+Allow: /forms
+Allow: /events
+
+# Protected pages - disallow indexing
+Disallow: /signin
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /profile
+Disallow: /dashboard
+Disallow: /diary
+Disallow: /track
+Disallow: /admin
+
+# Disallow API endpoints
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://daankgp.vercel.app/sitemap.xml
+
+# Crawl delay (optional - be nice to the server)
+Crawl-delay: 1

@@ -4,7 +4,7 @@ import { FiSave } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet";
+import SEO, { seoConfig } from "../../utils/SEO";
 
 export default function Diary() {
   const [entries, setEntries] = useState([]);
@@ -187,18 +187,7 @@ export default function Diary() {
 
   return (
     <div className="min-h-screen px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors">
-      <Helmet>
-        <title>My Diary | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Keep track of your thoughts, notes, and daily activities with the Personal Diary at DAAN KGP. Organize entries and maintain a private digital journal for personal growth, productivity, and reflection. Secure, easy-to-use, and designed for DAAN KGPians to record important moments and insights."
-        />
-        <meta property="og:title" content="My Diary | DAAN KGP" />
-        <meta
-          property="og:description"
-          content="Keep track of your thoughts, notes, and daily activities with the Personal Diary at DAAN KGP. Organize entries and maintain a private digital journal for personal growth, productivity, and reflection. Secure, easy-to-use, and designed for DAAN KGPians to record important moments and insights."
-        />
-      </Helmet>
+      <SEO {...seoConfig.diary} />
       <div className="container">
         <h1 className="mt-0 mb-8 border-l-8 border-red-300 dark:border-gray-300 dark:text-gray-200 py-2 pl-2 text-3xl font-semibold container">
           My Diary

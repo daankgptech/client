@@ -86,7 +86,7 @@ export default function App() {
           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={ <ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute> } />
           <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
           <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />

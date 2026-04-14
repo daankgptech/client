@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
 import { ClipboardList } from "lucide-react";
+import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
 
 import formsData from "../components/Forms/formsData";
 import FormsCard from "../components/Forms/FormsCard";
@@ -104,21 +104,12 @@ const Forms = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
-      <Helmet>
-        <title>Forms | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Access all DAAN KGP forms in one place. Submit responses, track deadlines, and stay updated with campus initiatives."
-        />
-        <link rel="canonical" href="https://daankgp.vercel.app/forms" />
-        <meta property="og:title" content="Forms | DAAN KGP" />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"
-        />
-      </Helmet>
+      <SEO {...seoConfig.forms} />
 
       <section className="container mx-auto py-12">
+        <div className="pb-4">
+          <Breadcrumbs items={seoConfig.forms.breadcrumbs} />
+        </div>
         <div className="flex items-center gap-3 mb-8">
           <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
             <ClipboardList className="w-5 h-5 text-rose-500" />

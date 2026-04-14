@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // NEW
-import { Helmet } from "react-helmet";
+import SEO, { seoConfig } from "../../utils/SEO";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -36,18 +36,7 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
-      <Helmet>
-        <title>Sign In | DAAN KGP</title>
-        <meta
-          name="description"
-          content="Claim your candidature on DAAN KGP. Sign in to unlock your dashboard, personal tools, and DAAN KGPian-only features. Stay connected, track your activity, and take your place in the DAAN KGP community."
-        />
-        <meta property="og:title" content="Sign In | DAAN KGP" />
-        <meta
-          property="og:description"
-          content="Claim your candidature on DAAN KGP. Sign in to unlock your dashboard, personal tools, and DAAN KGPian-only features. Stay connected, track your activity, and take your place in the DAAN KGP community."
-        />
-      </Helmet>
+      <SEO {...seoConfig.signin} />
       {loading && <LoaderOverlay />}
       <div
         className=" group relative overflow-hidden
@@ -121,14 +110,14 @@ export default function SignIn() {
         </div>
 
         {/* Forgot */}
-          <div className="relative z-10 mt-4 text-center">
+          {/* <div className="relative z-10 mt-4 text-center">
             <Link
               to="/forgot-password"
               className="text-sm text-rose-600 dark:text-rose-400 hover:text-rose-500 transition hover:underline"
             >
               Forgot password?
             </Link>
-          </div>
+          </div> */}
       </div>
     </div>
   );

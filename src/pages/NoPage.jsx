@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import SEO, { seoConfig } from "../utils/SEO";
 
 const NoPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200 overflow-hidden">
+      <SEO {...seoConfig.notFound} />
 
       {/* 🔥 Soft Background Glow */}
       <div className="absolute w-[400px] h-[400px] bg-rose-500/10 blur-3xl rounded-full animate-pulse-slow" />

@@ -6,6 +6,7 @@ import { api } from "../../utils/Secure/api";
 import { isValidEmail, passwordRules } from "../../utils/Secure/validators";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { PasswordHelper } from "./PasswordHelper";
+import SEO, { seoConfig } from "../../utils/SEO";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -163,6 +164,7 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
+      <SEO {...seoConfig.signup} />
       {loading && <LoaderOverlay />}
       <div
         className="

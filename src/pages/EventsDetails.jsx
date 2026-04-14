@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Calendar, ArrowLeft, ArrowRight, Lock, ExternalLink } from "lucide-react";
 import { useAuth } from "../utils/Secure/AuthContext";
 import { api } from "../utils/Secure/api";
 import { slugify } from "../utils/slugify";
+import SEO, { Breadcrumbs } from "../utils/SEO";
 
 // Skeleton shimmer component
 const SkeletonDetail = () => (
@@ -129,26 +129,19 @@ const EventsDetails = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${event.title} | Events | DAAN KGP`}</title>
-        <meta name="description" content={event.description?.slice(0, 160)} />
-        <meta name="keywords" content={`${event.title}, DAAN KGP, Dakshana, IIT Kharagpur, Events, Alumni`} />
-        <link rel="canonical" href={`https://daankgp.vercel.app/events/${slug}`} />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://daankgp.vercel.app/events/${slug}`} />
-        <meta property="og:title" content={`${event.title} | DAAN KGP`} />
-        <meta property="og:description" content={event.description?.slice(0, 160)} />
-        <meta property="og:image" content={event.image || "https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"} />
-        <meta property="article:published_time" content={event.date} />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${event.title} | DAAN KGP`} />
-        <meta name="twitter:description" content={event.description?.slice(0, 160)} />
-        <meta name="twitter:image" content={event.image || "https://res.cloudinary.com/dhv0sckmq/image/upload/v1769529398/Logo_NoBG_op55cy.avif"} />
-      </Helmet>
+      <SEO
+        title={event.title}
+        description={event.description?.slice(0, 160)}
+        keywords={`${event.title}, DAAN KGP, Dakshana, IIT Kharagpur, Events, Alumni`}
+        canonical={`/events/${slug}`}
+        image={event.image}
+        type="article"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Events", path: "/events" },
+          { name: event.title, path: `/events/${slug}` },
+        ]}
+      />
 
       <article className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Image */}

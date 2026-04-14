@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 

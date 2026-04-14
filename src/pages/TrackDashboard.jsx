@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "../utils/Secure/api";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 import { Users, Activity, Clock, Calendar, BarChart2 } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const TrackDashboard = () => {
   const [summary, setSummary] = useState(null);

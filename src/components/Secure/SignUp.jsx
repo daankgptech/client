@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { api } from "../../utils/Secure/api";
 import { isValidEmail, passwordRules } from "../../utils/Secure/validators";

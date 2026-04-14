@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { FaSave, FaCheck, FaStar, FaRegStar, FaSpinner } from "react-icons/fa";
 import { api } from "../../utils/Secure/api";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);

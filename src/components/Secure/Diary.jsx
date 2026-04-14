@@ -4,7 +4,7 @@ import { LuBook } from "react-icons/lu";
 import { FiSave } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import SEO, { Breadcrumbs, seoConfig } from "../../utils/SEO";
 
 export default function Diary() {
@@ -145,42 +145,37 @@ export default function Diary() {
       });
   };
   const deleteEntry = (id) => {
-    toast(
-      (t) => (
-        <div className="flex items-center gap-3">
-          <span className="text-sm">Wanna delete this diary?</span>
+    toast.custom((t) => (
+      <div className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 shadow-lg">
+        <span className="text-sm text-gray-700 dark:text-gray-300">Wanna delete this diary?</span>
 
-          <button
-            onClick={async () => {
-              try {
-                await api.delete(`/diary/${id}`);
-                setEntries((prev) => prev.filter((e) => e._id !== id));
-                toast.success("Deleted successfully", {
-                  id: t.id,
-                  duration: 2000,
-                });
-              } catch {
-                toast.error("Failed to delete entry", {
-                  id: t.id,
-                  duration: 3000,
-                });
-              }
-            }}
-            className="px-2 py-1 text-xs rounded bg-rose-500 text-white"
-          >
-            Delete
-          </button>
+        <button
+          onClick={async () => {
+            try {
+              await api.delete(`/diary/${id}`);
+              setEntries((prev) => prev.filter((e) => e._id !== id));
+              toast.dismiss(t);
+              toast.success("Deleted successfully");
+            } catch {
+              toast.dismiss(t);
+              toast.error("Failed to delete entry");
+            }
+          }}
+          className="px-2 py-1 text-xs rounded bg-rose-500 text-white hover:bg-rose-600 transition-colors"
+        >
+          Delete
+        </button>
 
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            className="px-2 py-1 text-xs rounded bg-gray-200"
-          >
-            Cancel
-          </button>
-        </div>
-      ),
-      { duration: Infinity }, // confirm should not auto-close
-    );
+        <button
+          onClick={() => toast.dismiss(t)}
+          className="px-2 py-1 text-xs rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    ), {
+      duration: Infinity,
+    });
   };
   useEffect(() => {
     fetchEntries();

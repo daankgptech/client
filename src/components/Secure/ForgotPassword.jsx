@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api } from "../../utils/Secure/api";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import BlurLoader from "../../utils/LoaderOverlay";

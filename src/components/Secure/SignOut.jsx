@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { api } from "../../utils/Secure/api";
 import { FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";

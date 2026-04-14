@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 
 import Home from "./pages/Home";
 import OurFam from "./pages/OurFam";
@@ -39,6 +39,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Diary from "./components/Secure/Diary";
 import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
+import SignUp from "./components/Secure/SignUp";
 
 const scrollRoutes = ["flashing-notices", "cr", "council"];
 
@@ -70,7 +71,24 @@ export default function App() {
     <BrowserRouter>
     <ScrollToTop/>
       <TrackerComponent />
-      <Toaster position="top-center"/>
+      <Toaster 
+        position="top-center"
+        richColors
+        closeButton
+        theme="system"
+        toastOptions={{
+          style: {
+            fontFamily: 'inherit',
+            borderRadius: '12px',
+          },
+          classNames: {
+            error: 'bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800',
+            success: 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800',
+            warning: 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800',
+            info: 'bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800',
+          },
+        }}
+      />
       <Navbar />
       <main className="pt-0 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-400 min-h-screen">
         <Routes>

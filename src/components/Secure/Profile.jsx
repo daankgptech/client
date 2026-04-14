@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/Secure/api";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import {
   FiCamera,
   FiEdit3,

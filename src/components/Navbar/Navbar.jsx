@@ -105,7 +105,7 @@ export default function Navbar() {
     },
   };
   return (
-    <nav className="sticky top-0 max-h-14 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-950/80 border-b border-rose-100 dark:border-gray-800 block md:container">
+    <nav className="sticky top-0 max-h-14 z-50 backdrop-blur-lg bg-white/80 dark:bg-black border-b border-rose-100 dark:border-gray-800 block md:container">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Logo />
 
@@ -118,10 +118,10 @@ export default function Navbar() {
               key={r.name}
               to={r.link}
               className={({ isActive }) =>
-                `text-sm font-medium transition ${
+                `text-sm font-medium transition-all duration-300 ${
                   isActive
                     ? "text-rose-600 dark:text-rose-400"
-                    : "text-gray-600 dark:text-gray-400 hover:text-rose-500"
+                    : "text-gray-600 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-300"
                 }`
               }
             >

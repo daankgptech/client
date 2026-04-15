@@ -40,6 +40,7 @@ import Diary from "./components/Secure/Diary";
 import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
 import SignUp from "./components/Secure/SignUp";
+import OuterForgotPassword from "./components/Secure/OuterForgotPassword";
 
 const scrollRoutes = ["flashing-notices", "cr", "council"];
 
@@ -110,6 +111,7 @@ export default function App() {
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={ <ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute> } />
+          <Route path="/outer-forgot-password" element={ <OuterForgotPassword /> } />
           <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
           <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
           <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />

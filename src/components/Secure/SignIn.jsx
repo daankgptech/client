@@ -130,14 +130,14 @@ export default function SignIn() {
         </button>
 
         {/* Optional Footer */}
-        {/* <div className="text-center">
-    <Link
-      to="/forgot-password"
-      className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition"
-    >
-      Forgot password?
-    </Link>
-  </div> */}
+        <div className="text-center">
+          <Link
+            to="/outer-forgot-password"
+            className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition"
+          >
+            Forgot password?
+          </Link>
+        </div>
       </div>
     </div>
   );

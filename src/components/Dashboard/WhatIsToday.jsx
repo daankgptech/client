@@ -15,8 +15,7 @@ export default function WhatIsToday() {
     rounded-xl
     bg-white dark:bg-gray-900
     border border-gray-200 dark:border-gray-800
-    hover:border-rose-400
-    hover:bg-gray-50 dark:hover:bg-gray-800
+    
     transition-colors duration-150
   "
     >

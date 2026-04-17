@@ -36,6 +36,8 @@ const Overview = ({ batchDataMap, goToYear }) => {
   const [loading, setLoading] = useState(true);
   const [sortAsc, setSortAsc] = useState(false);
   const [sortHallAsc, setSortHallAsc] = useState(false);
+  const [showAllBranch, setShowAllBranch] = useState(false);
+  const [showAllHall, setShowAllHall] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -317,7 +319,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
               </thead>
 
               <tbody>
-                {sortedBranch.map((b, i) => (
+                {sortedBranch.slice(0, showAllBranch ? sortedBranch.length : 5).map((b, i) => (
                   <tr
                     key={i}
                     className="
@@ -345,6 +347,19 @@ const Overview = ({ batchDataMap, goToYear }) => {
                     </td>
                   </tr>
                 ))}
+
+                {!showAllBranch && sortedBranch.length > 5 && (
+                  <tr>
+                    <td colSpan="2" className="py-2 px-2 text-center">
+                      <button
+                        onClick={() => setShowAllBranch(true)}
+                        className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
+                      >
+                        Show All ({sortedBranch.length})
+                      </button>
+                    </td>
+                  </tr>
+                )}
 
                 {/* Total */}
                 <tr className="text-gray-700 dark:text-gray-300 font-medium">
@@ -401,7 +416,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
               </thead>
 
               <tbody>
-                {sortedHall.map((h, i) => (
+                {sortedHall.slice(0, showAllHall ? sortedHall.length : 5).map((h, i) => (
                   <tr
                     key={i}
                     className="
@@ -429,6 +444,19 @@ const Overview = ({ batchDataMap, goToYear }) => {
                     </td>
                   </tr>
                 ))}
+
+                {!showAllHall && sortedHall.length > 5 && (
+                  <tr>
+                    <td colSpan="2" className="py-2 px-2 text-center">
+                      <button
+                        onClick={() => setShowAllHall(true)}
+                        className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
+                      >
+                        Show All ({sortedHall.length})
+                      </button>
+                    </td>
+                  </tr>
+                )}
 
                 {/* Total */}
                 <tr className="text-gray-700 dark:text-gray-300 font-medium">

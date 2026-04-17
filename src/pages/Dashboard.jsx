@@ -55,7 +55,7 @@ Access academic insights, task management, weather updates, motivational content
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 container">
+    <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 px-4 md:container">
       <SEO {...seoConfig.dashboard} />
       {/* HEADER */}
       <header className="max-w-[1600px] mx-auto mb-10">
@@ -87,7 +87,7 @@ Access academic insights, task management, weather updates, motivational content
                   src={
                     user?.imgLink ||
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      user?.name || "User"
+                      user?.name || "User",
                     )}&background=fee2e2&color=991b1b`
                   }
                   alt="profile"
@@ -98,54 +98,76 @@ Access academic insights, task management, weather updates, motivational content
           </div>
         </div>
       </header>
+      
+      <main className="w-full  py-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 auto-rows-min">
+          {/* 🔷 TOP BAR (Global Context) */}
+          <div className="xl:col-span-6">
+            <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+              <Clock />
+            </div>
+          </div>
 
-      {/* GRID */}
-      <main className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6 con">
-        <div className="md:col-span-2 lg:col-span-2 xl:col-span-3 xl:row-span-2">
-          <Tasks />
-        </div>
+          <div className="xl:col-span-6">
+            <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+              <WhatIsToday />
+            </div>
+          </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <Clock />
-        </div>
+          {/* 🔥 LEFT: PRIMARY FOCUS */}
+          <div className="xl:col-span-4 flex flex-col gap-6">
+            <div className="bg-white/60 dark:bg-zinc-900/60 rounded-3xl border border-zinc-200 dark:border-zinc-800 flex-grow min-h-[400px]">
+              <Tasks />
+            </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-1 flex flex-wrap-reverse gap-6">
-          <FillForms />
-        </div>
+            {/* Insights */}
+            <div className="grid grid-cols-2 gap-2 md:gap-3 lg:gap-4">
+              <div className="bg-white/40 dark:bg-zinc-900/40 rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 p-1 md:p-2 lg:p-3">
+                <FortuneCookie />
+              </div>
+              <div className="bg-white/40 dark:bg-zinc-900/40 rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 p-1 md:p-2 lg:p-3">
+                <AcademicallyRich />
+              </div>
+            </div>
+          </div>
 
-        <div className="md:col-span-1 lg:col-span-1 xl:col-span-1">
-          <MeetFamilyCard />
-        </div>
+          {/* ⚡ CENTER: DYNAMIC + ANALYTICS */}
+          <div className="xl:col-span-5 flex flex-col gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+                <Weather location="Kharagpur" />
+              </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <WhatIsToday />
-        </div>
+              <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+                <UpdateYourself />
+              </div>
+            </div>
 
-        <div className="md:col-span-2 lg:col-span-2 xl:col-span-2 xl:row-span-2">
-          <Weather location="Kharagpur" />
-        </div>
+            <div className="bg-white/60 dark:bg-zinc-900/60 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+              <ScoreAnalyzer />
+            </div>
+          </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <CheckToolkit />
-        </div>
+          {/* 🧩 RIGHT: UTILITIES + SOCIAL */}
+          <div className="xl:col-span-3 flex flex-col gap-6">
+            <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+              <MeetFamilyCard />
+            </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <Dictionary />
-        </div>
+            <div className="bg-white/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-2 md:p-3 lg:p-4">
+              <FillForms />
+            </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          {/* <MoonCalendar /> */}
-          <ScoreAnalyzer />
-        </div>
+            <div className="bg-white/40 dark:bg-zinc-900/40 rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 p-2 md:p-3 lg:p-4">
+              <Dictionary />
+            </div>
 
-        <div className="md:col-span-1 lg:col-span-2 xl:col-span-2">
-          <FortuneCookie />
+            <div className="bg-white/40 dark:bg-zinc-900/40 rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 p-2 md:p-3 lg:p-4">
+              <CheckToolkit />
+            </div>
+          </div>
         </div>
       </main>
-      <div className="mt-6 max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        <UpdateYourself />
-        <AcademicallyRich />
-      </div>
     </div>
   );
 }

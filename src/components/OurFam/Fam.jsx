@@ -166,32 +166,44 @@ const Fam = () => {
             Other Years
           </h2>
 
-          <div className="w-full overflow-x-auto">
-            <div className="flex gap-2 min-w-max pb-1">
+          <div className="w-full overflow-x-auto no-scrollbar">
+            <div
+              className="
+      flex gap-2 flex-nowrap
+      w-max min-w-full
+      justify-start md:justify-center
+      pb-1
+    "
+            >
               {Object.keys(batchDataMap)
                 .sort((a, b) => b - a)
-                .map((y) => (
-                  <button
-                    key={y}
-                    onClick={() => goToYear(Number(y))}
-                    className={`
-            px-3 py-1.5
-            text-xs sm:text-sm
-            rounded-full
-            border
-            whitespace-nowrap
-            transition-colors duration-150
+                .map((y) => {
+                  const isActive = Number(y) === activeYear;
 
-            ${
-              Number(y) === activeYear
-                ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-black dark:border-gray-100"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800"
-            }
-          `}
-                  >
-                    {batchDataMap[y].label}
-                  </button>
-                ))}
+                  return (
+                    <button
+                      key={y}
+                      onClick={() => goToYear(Number(y))}
+                      className={`
+              shrink-0
+              px-2 md:px-3 lg:px-4 py-1.5
+              text-xs font-medium
+              rounded-md
+              border
+              whitespace-nowrap
+              transition-all duration-150
+
+              ${
+                isActive
+                  ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-black dark:border-gray-100"
+                  : "bg-white text-gray-700 border-gray-300 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 hover:bg-rose-500 hover:text-white hover:border-rose-500 active:scale-95"
+              }
+            `}
+                    >
+                      {batchDataMap[y].label}
+                    </button>
+                  );
+                })}
             </div>
           </div>
         </div>

@@ -7,21 +7,28 @@ export default function Weather({ location: defaultLocation = "Kharagpur" }) {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
   const [city, setCity] = useState(defaultLocation);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
+        setLoading(true); // ✅ START loading
         setError(null);
-        // Using 'forecast.json' instead of 'current.json' to get Min/Max temp
+
         const res = await fetch(
           `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=1&aqi=yes`,
         );
+
         if (!res.ok) throw new Error("Location not found");
+
         const data = await res.json();
         setWeather(data);
       } catch (err) {
         setError(err.message);
+        setWeather(null); // optional: clear old data
+      } finally {
+        setLoading(false); // ✅ STOP loading
       }
     };
 
@@ -62,8 +69,6 @@ export default function Weather({ location: defaultLocation = "Kharagpur" }) {
     rounded-xl
     bg-white dark:bg-gray-900
     border border-gray-200 dark:border-gray-800
-    hover:border-rose-400
-    hover:bg-gray-50 dark:hover:bg-gray-800
     transition-colors duration-150
   "
     >
@@ -108,7 +113,12 @@ export default function Weather({ location: defaultLocation = "Kharagpur" }) {
       {error && <p className="text-[10px] text-red-500">{error}</p>}
 
       {/* main */}
-      {weather && (
+      {loading ? (
+        <div className="flex flex-col items-center justify-center flex-1 gap-2">
+          <div className="w-5 h-5 border-2 border-gray-300 border-t-rose-500 rounded-full animate-spin"></div>
+          <p className="text-[10px] text-gray-500">Fetching weather...</p>
+        </div>
+      ) : weather ? (
         <>
           <div className="flex items-center gap-3">
             <img
@@ -129,12 +139,10 @@ export default function Weather({ location: defaultLocation = "Kharagpur" }) {
             </div>
           </div>
 
-          {/* condition */}
           <p className="text-[10px] text-gray-500">
             {weather.current.condition.text}
           </p>
 
-          {/* mini stats */}
           <div className="flex items-center gap-2 text-[10px] text-gray-500">
             <span>{weather.current.humidity}%</span>
             <span>•</span>
@@ -143,7 +151,7 @@ export default function Weather({ location: defaultLocation = "Kharagpur" }) {
             <span>UV {weather.current.uv}</span>
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -41,6 +41,9 @@ import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
 import SignUp from "./components/Secure/SignUp";
 import OuterForgotPassword from "./components/Secure/OuterForgotPassword";
+import AdminLogin from "./pages/AdminLogin";
+import AdminEvents from "./pages/AdminEvents";
+import AdminRoute from "./components/Secure/AdminRoute";
 
 const scrollRoutes = ["flashing-notices", "cr", "council"];
 
@@ -118,6 +121,8 @@ export default function App() {
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/track" element={ <ProtectedRoute redirect> <TrackDashboard /> </ProtectedRoute> } />
           <Route path="/signout" element={<SignOut /> } />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/events" element={ <AdminRoute> <AdminEvents /> </AdminRoute> } />
           {/* <Route path="*" element={<FlashPage />} /> */}
           <Route path="*" element={<NoPage />} />
         </Routes>

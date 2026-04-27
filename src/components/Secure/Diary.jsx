@@ -182,7 +182,7 @@ export default function Diary() {
   }, []);
 
   return (
-    <div className="container w-full min-h-screen px-4 py-6 bg-gray-100 dark:bg-gray-900">
+    <div className="container w-full min-h-screen px-4 py-6 bg-gray-100 dark:bg-gray-950">
       <SEO {...seoConfig.diary} />
 
       {/* header */}

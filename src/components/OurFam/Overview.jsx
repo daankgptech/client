@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 import {
   BarChart,
   LineChart,
@@ -20,6 +21,7 @@ import { useAuth } from "../../utils/Secure/AuthContext";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Wrench } from "lucide-react";
 import { LuLayers } from "react-icons/lu";
+import { FiChevronDown } from "react-icons/fi";
 
 const REDS = ["#f43f5e", "#fb7185", "#e11d48", "#be123c"];
 
@@ -38,13 +40,33 @@ const Overview = ({ batchDataMap, goToYear }) => {
   const [sortHallAsc, setSortHallAsc] = useState(false);
   const [showAllBranch, setShowAllBranch] = useState(false);
   const [showAllHall, setShowAllHall] = useState(false);
+  const [isBranchExpanded, setIsBranchExpanded] = useState(false);
+  const [isHallExpanded, setIsHallExpanded] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    api
-      .get("/our-fam/overview")
-      .then((res) => setData(res.data))
-      .finally(() => setLoading(false));
+    const fetchOverview = async () => {
+      try {
+        setLoading(true);
+        const cached = cache.get("/our-fam/overview");
+        if (cached && cached.BatchWise) {
+          setData(cached);
+          setLoading(false);
+          return;
+        }
+        const res = await api.get("/our-fam/overview");
+        if (res.data && res.data.BatchWise) {
+          setData(res.data);
+          cache.set("/our-fam/overview", res.data, 10 * 60 * 1000);
+        } else {
+          throw new Error("Invalid data format received");
+        }
+      } catch (err) {
+        console.error("Error fetching overview:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOverview();
   }, []);
 
   const sortedBranch = useMemo(() => {
@@ -69,7 +91,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
   if (loading) return <LoaderOverlay />;
 
   return (
-    <section className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-300 px-4 py-8 container">
+    <section className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-300 px-4 py-8 container">
       <div className="container">
         <div className="flex items-center gap-3 mb-8">
           <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
@@ -245,7 +267,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
                     border: "1px solid #e5e7eb",
                     fontSize: "12px",
                   }}
-                  cursor={{ stroke: "#ef4444", strokeWidth: 1 }}
+                  cursor={{ stroke: "#fb7185", strokeWidth: 1 }}
                 />
 
                 {/* subtle reference lines */}
@@ -261,7 +283,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
                 <Line
                   type="monotone"
                   dataKey="count"
-                  stroke="#ef4444"
+                  stroke="#fb7185"
                   strokeWidth={2}
                   dot={{ r: 2 }}
                   activeDot={{ r: 4 }}
@@ -273,101 +295,118 @@ const Overview = ({ batchDataMap, goToYear }) => {
       </div>
 
       {/* Branch & Hall Tables */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 md:container">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 md:container mx-auto">
         {/* Branch */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="
-    w-full
-    rounded-xl
-    bg-white dark:bg-gray-900
-    border border-gray-200 dark:border-gray-800
-    p-3
-  "
+          className="w-full rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 overflow-hidden"
         >
-          {/* Header */}
-          <div className="flex items-center justify-between mb-2">
+          {/* Header (Clickable) */}
+          <button
+            onClick={() => setIsBranchExpanded(!isBranchExpanded)}
+            className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
             <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
               Branch Wise
             </h2>
+            <div className="flex justify-start items-center gap-3">
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSortAsc(!sortAsc);
+                }}
+                className="px-2 py-0.5 text-xs rounded-md border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-colors"
+              >
+                {sortAsc ? "↑" : "↓"}
+              </div>
+              <FiChevronDown
+                className={`text-gray-400 transition-transform duration-200 ${
+                  isBranchExpanded ? "rotate-180 text-rose-500" : ""
+                }`}
+                size={18}
+              />
+            </div>
+          </button>
 
-            <button
-              onClick={() => setSortAsc(!sortAsc)}
-              className="
-        px-2 py-0.5
-        text-xs
-        rounded-md
-        border border-gray-300 dark:border-gray-700
-        text-gray-600 dark:text-gray-300
-        hover:bg-gray-100 dark:hover:bg-gray-800
-        transition-colors
-      "
-            >
-              {sortAsc ? "↑" : "↓"}
-            </button>
-          </div>
-
-          {/* Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-800">
-                  <th className="py-1.5 px-2 text-left font-medium">Branch</th>
-                  <th className="py-1.5 px-2 text-left font-medium">Count</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {sortedBranch.slice(0, showAllBranch ? sortedBranch.length : 5).map((b, i) => (
-                  <tr
-                    key={i}
-                    className="
-              border-b border-gray-100 dark:border-gray-800
-              hover:bg-gray-50 dark:hover:bg-gray-800/60
-              transition-colors
-            "
-                  >
-                    <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200">
-                      {b.branch}
-                    </td>
-
-                    <td className="py-1.5 px-2">
-                      <span
-                        className="
-                  px-2 py-0.5
-                  text-[10px]
-                  rounded-md
-                  bg-gray-100 dark:bg-gray-800
-                  text-gray-700 dark:text-gray-300
-                "
-                      >
-                        {b.count}
-                      </span>
-                    </td>
+          {/* Collapsible Content */}
+          <div
+            className={`transition-all duration-300 ease-in-out ${
+              isBranchExpanded
+                ? "max-h-[1000px] opacity-100 border-t border-gray-200 dark:border-gray-800"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="p-3 overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-800">
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Branch</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Count</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4 border-l border-gray-200 dark:border-gray-800">Branch</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Count</th>
                   </tr>
-                ))}
+                </thead>
+                <tbody>
+                  {(() => {
+                    const displayData = sortedBranch.slice(
+                      0,
+                      showAllBranch ? sortedBranch.length : 10
+                    );
+                    const half = Math.ceil(displayData.length / 2);
+                    const col1 = displayData.slice(0, half);
+                    const col2 = displayData.slice(half);
 
-                {!showAllBranch && sortedBranch.length > 5 && (
-                  <tr>
-                    <td colSpan="2" className="py-2 px-2 text-center">
-                      <button
-                        onClick={() => setShowAllBranch(true)}
-                        className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
-                      >
-                        Show All ({sortedBranch.length})
-                      </button>
-                    </td>
+                    return col1.map((b1, i) => {
+                      const b2 = col2[i];
+                      return (
+                        <tr
+                          key={i}
+                          className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                        >
+                          <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200">
+                            {b1.branch}
+                          </td>
+                          <td className="py-1.5 px-2">
+                            <span className="px-2 py-0.5 text-[10px] rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                              {b1.count}
+                            </span>
+                          </td>
+                          <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 border-l border-gray-100 dark:border-gray-800">
+                            {b2 ? b2.branch : ""}
+                          </td>
+                          <td className="py-1.5 px-2">
+                            {b2 && (
+                              <span className="px-2 py-0.5 text-[10px] rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                                {b2.count}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    });
+                  })()}
+
+                  {!showAllBranch && sortedBranch.length > 10 && (
+                    <tr>
+                      <td colSpan="4" className="py-2 px-2 text-center">
+                        <button
+                          onClick={() => setShowAllBranch(true)}
+                          className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
+                        >
+                          Show All ({sortedBranch.length})
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+
+                  <tr className="text-gray-700 dark:text-gray-300 font-medium border-t border-gray-200 dark:border-gray-800">
+                    <td className="py-2 px-2" colSpan="3">Total</td>
+                    <td className="py-2 px-2">{totalBranch}</td>
                   </tr>
-                )}
-
-                {/* Total */}
-                <tr className="text-gray-700 dark:text-gray-300 font-medium">
-                  <td className="py-2 px-2">Total</td>
-                  <td className="py-2 px-2">{totalBranch}</td>
-                </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </motion.div>
 
@@ -375,96 +414,113 @@ const Overview = ({ batchDataMap, goToYear }) => {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="
-    w-full
-    rounded-xl
-    bg-white dark:bg-gray-900
-    border border-gray-200 dark:border-gray-800
-    p-3
-  "
+          className="w-full rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 overflow-hidden"
         >
-          {/* Header */}
-          <div className="flex items-center justify-between mb-2">
+          {/* Header (Clickable) */}
+          <button
+            onClick={() => setIsBranchExpanded(!isBranchExpanded)}
+            className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
             <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
               Hall Wise
             </h2>
+            <div className="flex items-center gap-3">
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSortHallAsc(!sortHallAsc);
+                }}
+                className="px-2 py-0.5 text-xs rounded-md border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-colors"
+              >
+                {sortHallAsc ? "↑" : "↓"}
+              </div>
+              <FiChevronDown
+                className={`text-gray-400 transition-transform duration-200 ${
+                  isBranchExpanded ? "rotate-180 text-rose-500" : ""
+                }`}
+                size={18}
+              />
+            </div>
+          </button>
 
-            <button
-              onClick={() => setSortHallAsc(!sortHallAsc)}
-              className="
-        px-2 py-0.5
-        text-xs
-        rounded-md
-        border border-gray-300 dark:border-gray-700
-        text-gray-600 dark:text-gray-300
-        hover:bg-gray-100 dark:hover:bg-gray-800
-        transition-colors
-      "
-            >
-              {sortHallAsc ? "↑" : "↓"}
-            </button>
-          </div>
-
-          {/* Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-800">
-                  <th className="py-1.5 px-2 text-left font-medium">Hall</th>
-                  <th className="py-1.5 px-2 text-left font-medium">Count</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {sortedHall.slice(0, showAllHall ? sortedHall.length : 5).map((h, i) => (
-                  <tr
-                    key={i}
-                    className="
-              border-b border-gray-100 dark:border-gray-800
-              hover:bg-gray-50 dark:hover:bg-gray-800/60
-              transition-colors
-            "
-                  >
-                    <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200">
-                      {h.hall}
-                    </td>
-
-                    <td className="py-1.5 px-2">
-                      <span
-                        className="
-                  px-2 py-0.5
-                  text-[10px]
-                  rounded-md
-                  bg-gray-100 dark:bg-gray-800
-                  text-gray-700 dark:text-gray-300
-                "
-                      >
-                        {h.count}
-                      </span>
-                    </td>
+          {/* Collapsible Content */}
+          <div
+            className={`transition-all duration-300 ease-in-out ${
+              isBranchExpanded
+                ? "max-h-[1000px] opacity-100 border-t border-gray-200 dark:border-gray-800"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="p-3 overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-800">
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Hall</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Count</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4 border-l border-gray-200 dark:border-gray-800">Hall</th>
+                    <th className="py-1.5 px-2 text-left font-medium w-1/4">Count</th>
                   </tr>
-                ))}
+                </thead>
+                <tbody>
+                  {(() => {
+                    const displayData = sortedHall.slice(
+                      0,
+                      showAllHall ? sortedHall.length : 10
+                    );
+                    const half = Math.ceil(displayData.length / 2);
+                    const col1 = displayData.slice(0, half);
+                    const col2 = displayData.slice(half);
 
-                {!showAllHall && sortedHall.length > 5 && (
-                  <tr>
-                    <td colSpan="2" className="py-2 px-2 text-center">
-                      <button
-                        onClick={() => setShowAllHall(true)}
-                        className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
-                      >
-                        Show All ({sortedHall.length})
-                      </button>
-                    </td>
+                    return col1.map((h1, i) => {
+                      const h2 = col2[i];
+                      return (
+                        <tr
+                          key={i}
+                          className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                        >
+                          <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200">
+                            {h1.hall}
+                          </td>
+                          <td className="py-1.5 px-2">
+                            <span className="px-2 py-0.5 text-[10px] rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                              {h1.count}
+                            </span>
+                          </td>
+                          <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 border-l border-gray-100 dark:border-gray-800">
+                            {h2 ? h2.hall : ""}
+                          </td>
+                          <td className="py-1.5 px-2">
+                            {h2 && (
+                              <span className="px-2 py-0.5 text-[10px] rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                                {h2.count}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    });
+                  })()}
+
+                  {!showAllHall && sortedHall.length > 10 && (
+                    <tr>
+                      <td colSpan="4" className="py-2 px-2 text-center">
+                        <button
+                          onClick={() => setShowAllHall(true)}
+                          className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors"
+                        >
+                          Show All ({sortedHall.length})
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+
+                  <tr className="text-gray-700 dark:text-gray-300 font-medium border-t border-gray-200 dark:border-gray-800">
+                    <td className="py-2 px-2" colSpan="3">Total</td>
+                    <td className="py-2 px-2">{totalHall}</td>
                   </tr>
-                )}
-
-                {/* Total */}
-                <tr className="text-gray-700 dark:text-gray-300 font-medium">
-                  <td className="py-2 px-2">Total</td>
-                  <td className="py-2 px-2">{totalHall}</td>
-                </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </motion.div>
       </div>

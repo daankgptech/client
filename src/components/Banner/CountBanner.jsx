@@ -100,7 +100,7 @@ export default function BannerTwo() {
       try {
         // Check cache first
         const cached = cache.get("banner_stats");
-        if (cached) {
+        if (cached && Array.isArray(cached)) {
           setStats(cached);
           setLoading(false);
           return;
@@ -112,6 +112,9 @@ export default function BannerTwo() {
         ]);
 
         const overviewData = overviewRes.data;
+        if (!overviewData || !overviewData.BatchWise) {
+          throw new Error("Invalid overview data received");
+        }
         const totalDaanKgp = overviewData.totalKGPians;
         const councilData = councilRes.data;
 

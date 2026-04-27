@@ -5,16 +5,16 @@ import DeptPieChart from "./PieChart";
 import DeptPolarChart from "./PolarChart";
 import Overview from "./Overview"; // import your overview component
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 import batchDataMap from "./JSFiles/BatchDataMap";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { FaFileDownload } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import Fuse from "fuse.js";
+import { FilterBar } from "./Filter";
 
-const searchFields = [
-  { key: "name", placeholder: "Name" },
-  { key: "branch", placeholder: "Branch" },
-  { key: "hall", placeholder: "Hall" },
-];
+const halls = ["ABV", "Azad", "BRH", "Gokhale", "HJB", "JCB", "LBS", "LLR", "MMM", "MS", "MT", "Nehru", "Patel", "RK", "RP", "SN/IG", "SNVH", "VS"];
+const branches = ["AE", "AG", "AI", "BT", "CE", "CH", "CI", "CS", "CY", "EC", "EE", "EX", "GG", "HS", "IE", "IM", "MA", "ME", "MF", "MI", "MT", "NA"];
 
 const Fam = () => {
   const navigate = useNavigate();
@@ -37,12 +37,20 @@ const Fam = () => {
   const canAccessBatch = (userBatch, targetBatch) =>
     Math.abs(Number(userBatch) - Number(targetBatch)) <= 1;
 
-  const [filters, setFilters] = useState(
-    searchFields.reduce((acc, { key }) => {
-      acc[key] = searchParams.get(key) || "";
-      return acc;
-    }, {}),
-  );
+  const [filters, setFilters] = useState({
+    name: searchParams.get("name") || "",
+    branch: searchParams.get("branch") || "",
+    hall: searchParams.get("hall") || "",
+  });
+
+  const [nameInput, setNameInput] = useState(filters.name);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters((prev) => ({ ...prev, name: nameInput }));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [nameInput]);
   useEffect(() => {
     if (year) setActiveYear(2000 + Number(year));
     else setActiveYear(null);
@@ -56,22 +64,42 @@ const Fam = () => {
   useEffect(() => {
     if (!activeYear) return;
 
-    setMembers([]);
-    setLoading(true);
+    const fetchMembers = async () => {
+      setMembers([]);
+      setLoading(true);
 
-    const params = Object.fromEntries(
-      Object.entries({ year: activeYear, ...filters }).filter(([_, v]) => v),
-    );
+      const params = { year: activeYear };
 
-    api
-      .get("/our-fam/members", { params })
-      .then((res) => setMembers(res.data))
-      .catch(() => setMembers([]))
-      .finally(() => setLoading(false));
-  }, [activeYear, filters]);
+      const cacheKey = cache.constructor.generateKey("/our-fam/members", params);
 
-  const handleChange = (key) => (e) =>
-    setFilters((prev) => ({ ...prev, [key]: e.target.value }));
+      try {
+        const cached = cache.get(cacheKey);
+        if (cached && Array.isArray(cached)) {
+          setMembers(cached);
+          setLoading(false);
+          return;
+        }
+
+        const res = await api.get("/our-fam/members", { params });
+        if (Array.isArray(res.data)) {
+          setMembers(res.data);
+          cache.set(cacheKey, res.data, 5 * 60 * 1000);
+        } else {
+          throw new Error("Invalid data format received");
+        }
+      } catch (err) {
+        console.error("Error fetching members:", err);
+        setMembers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
+  }, [activeYear]);
+
+  const handleFilterChange = (key, value) =>
+    setFilters((prev) => ({ ...prev, [key]: value }));
 
   const goToYear = (y) => navigate(`/our-fam/${y.toString().slice(-2)}`);
   const backToOverview = () => navigate("/our-fam");
@@ -79,7 +107,24 @@ const Fam = () => {
   const batchMeta = activeYear ? batchDataMap[activeYear] : null;
   const defaultCount = batchMeta?.defaultCount ?? 0;
   const yearLabel = batchMeta?.year ?? "";
-  const filteredItems = members;
+
+  let filteredItems = members;
+
+  if (filters.hall) {
+    filteredItems = filteredItems.filter((m) => m.hall === filters.hall);
+  }
+
+  if (filters.branch) {
+    filteredItems = filteredItems.filter((m) => m.branch === filters.branch);
+  }
+
+  if (filters.name) {
+    const fuse = new Fuse(filteredItems, {
+      keys: ["name"],
+      threshold: 0.3,
+    });
+    filteredItems = fuse.search(filters.name).map((result) => result.item);
+  }
 
   const totalMembers = Object.values(filters).some(Boolean)
     ? filteredItems.length
@@ -111,7 +156,7 @@ const Fam = () => {
     : "Explore the DAAN KGP family across batches at IIT Kharagpur. Discover scholars by year, department, and hall, and get an overview of our growing Dakshana alumni and student community.";
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
+    <div className="dark:bg-gray-950 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
       <Helmet>
         {/* Standard metadata */}
         <title>{pageTitle}</title>
@@ -193,11 +238,10 @@ const Fam = () => {
               whitespace-nowrap
               transition-all duration-150
 
-              ${
-                isActive
-                  ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-black dark:border-gray-100"
-                  : "bg-white text-gray-700 border-gray-300 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 hover:bg-rose-500 hover:text-white hover:border-rose-500 active:scale-95"
-              }
+              ${isActive
+                          ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-black dark:border-gray-100"
+                          : "bg-white text-gray-700 border-gray-300 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 hover:bg-rose-500 hover:text-white hover:border-rose-500 active:scale-95"
+                        }
             `}
                     >
                       {batchDataMap[y].label}
@@ -215,22 +259,17 @@ const Fam = () => {
         <DeptPieChart data={filteredItems} deptKey="branch" />
         <DeptPolarChart data={filteredItems} deptKey="hall" />
       </div>
+
       {/* Filters */}
-      <div className="flex gap-2 items-center justify-center flex-wrap mb-4 container">
-        {searchFields.map(({ key, placeholder }) => (
-          <input
-            key={key}
-            type="text"
-            placeholder={placeholder}
-            value={filters[key]}
-            onChange={handleChange(key)}
-            className="px-3 py-2 border border-red-200 dark:border-gray-500 rounded-3xl shadow-sm placeholder-red-300 text-red-600
-            focus:outline-none focus:ring-2 focus:ring-red-200 dark:focus:ring-gray-500 
-            transition-all duration-300 ease-in-out
-            dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400
-            hover:shadow-md w-[30%]"
-          />
-        ))}
+      <div className="flex justify-center items-center mb-4 container mx-auto md:sticky top-12 z-20">
+        <FilterBar 
+          nameInput={nameInput}
+          setNameInput={setNameInput}
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          branches={branches}
+          halls={halls}
+        />
       </div>
       <h3 className="mb-6 italic text-center">
         Total : {totalMembers} Members

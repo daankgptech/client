@@ -103,7 +103,7 @@ const Forms = () => {
   }, [dynamicStats, nowIST]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-300">
       <SEO {...seoConfig.forms} />
 
       <section className="container mx-auto py-12">

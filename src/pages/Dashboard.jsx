@@ -55,7 +55,7 @@ Access academic insights, task management, weather updates, motivational content
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 px-4 md:container">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-slate-900 dark:text-slate-200 p-4 md:p-8 lg:p-12 transition-colors duration-500 px-4 md:container">
       <SEO {...seoConfig.dashboard} />
       {/* HEADER */}
       <header className="max-w-[1600px] mx-auto mb-10">

@@ -111,16 +111,20 @@ const CR = () => {
       try {
         // Check cache first
         const cached = cache.get("/home/cr");
-        if (cached) {
+        if (cached && Array.isArray(cached)) {
           setCrs(cached);
           setLoading(false);
           return;
         }
 
         const { data } = await api.get("/home/cr");
-        setCrs(data);
-        // Cache for 5 minutes
-        cache.set("/home/cr", data, 5 * 60 * 1000);
+        if (Array.isArray(data)) {
+          setCrs(data);
+          // Cache for 5 minutes
+          cache.set("/home/cr", data, 5 * 60 * 1000);
+        } else {
+          throw new Error("Invalid data format received");
+        }
       } catch (err) {
         console.error("Failed to fetch CRs:", err);
       } finally {

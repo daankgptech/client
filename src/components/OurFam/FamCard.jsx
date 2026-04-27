@@ -33,7 +33,7 @@ const FamCard = memo(
         onClick={go}
         className="
           group cursor-pointer rounded-2xl overflow-hidden
-          bg-white dark:bg-neutral-950
+          bg-white dark:bg-gray-900
           border border-neutral-200 dark:border-neutral-800
           transition-colors duration-200
           hover:border-rose-300 dark:hover:border-rose-800

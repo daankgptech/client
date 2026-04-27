@@ -32,6 +32,7 @@ import {
   MdBloodtype,
 } from "react-icons/md";
 import { api } from "../../utils/Secure/api";
+import { cache } from "../../utils/cache";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Helmet } from "react-helmet-async";
 import { Droplet } from "lucide-react";
@@ -45,18 +46,35 @@ const FamCardDetails = () => {
 
   useEffect(() => {
     let isMounted = true;
-    setLoading(true);
-    api
-      .get(`/our-fam/members/${name} `)
-      .then((res) => {
-        if (isMounted) setPerson(res.data);
-      })
-      .catch(() => {
+    
+    const fetchDetails = async () => {
+      setLoading(true);
+      const cacheKey = `/our-fam/members/${name}`;
+      try {
+        const cached = cache.get(cacheKey);
+        if (cached && typeof cached === 'object' && cached.name) {
+          if (isMounted) setPerson(cached);
+          if (isMounted) setLoading(false);
+          return;
+        }
+
+        const res = await api.get(`/our-fam/members/${name} `);
+        if (res.data && typeof res.data === 'object' && res.data.name) {
+          if (isMounted) setPerson(res.data);
+          cache.set(cacheKey, res.data, 10 * 60 * 1000);
+        } else {
+          throw new Error("Invalid data format received");
+        }
+      } catch (err) {
+        console.error("Error fetching person details:", err);
         if (isMounted) setPerson(null);
-      })
-      .finally(() => {
+      } finally {
         if (isMounted) setLoading(false);
-      });
+      }
+    };
+
+    fetchDetails();
+
     return () => {
       isMounted = false;
     };

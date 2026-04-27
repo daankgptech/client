@@ -39,7 +39,7 @@ export default function ForgotPassword() {
     "w-full px-3 py-1.5 text-[12px] rounded-md bg-rose-500 text-white hover:bg-rose-600 transition-colors duration-150 flex items-center justify-center gap-2";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950 px-4">
       <SEO {...seoConfig.forgotPassword} />
       {loading && <BlurLoader />}
 

@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { 
-  FaLongArrowAltRight, 
-  FaRegCopyright 
+import {
+  FaLongArrowAltRight,
+  FaRegCopyright
 } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
-import { 
-  LuFacebook, 
-  LuHome, 
-  LuInstagram, 
-  LuLinkedin 
+import {
+  LuFacebook,
+  LuHome,
+  LuInstagram,
+  LuLinkedin
 } from "react-icons/lu";
 import { Logo } from "../Navbar/Navbar";
 
@@ -31,15 +31,15 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900 transition-colors duration-300">
+    <footer className="bg-white dark:bg-black border-t border-gray-100 dark:border-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 py-8 md:py-10 lg:py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
-          
+
           {/* Brand Section */}
           <div className="flex justify-center items-start flex-col md:col-span-4 space-y-4">
             <Logo />
             <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400 max-w-xs">
-              Connecting Dakshana scholars and alumni at IIT Kharagpur for mentorship, 
+              Connecting Dakshana scholars and alumni at IIT Kharagpur for mentorship,
               career support, and social impact.
             </p>
             <div className="flex gap-4 pt-2">
@@ -108,11 +108,11 @@ const Footer = () => {
           <div className="flex items-center gap-1.5">
             <FaRegCopyright />
             <span>{currentYear}</span>
-            <Link to="/" className="font-medium hover:text-red-500 transition-colors">DAAN KGP</Link>
+            <span>DAAN KGP</span>
             <span className="hidden md:inline mx-1">|</span>
             <span>All rights reserved.</span>
           </div>
-          
+
           <div className="flex gap-3">
             <Link to="/before" className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">Before</Link>
             <Link to="/after" className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">After</Link>

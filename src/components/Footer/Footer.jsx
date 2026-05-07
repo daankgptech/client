@@ -86,11 +86,11 @@ const Footer = () => {
             </h2>
             <div className="space-y-3">
               <a
-                href="mailto:daan.kgp.tech@gmail.com"
+                href="mailto:help@daankgp.vercel.app"
                 className="flex items-center gap-3 text-[13px] text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-rose-400 transition-all"
               >
                 <IoIosMail className="text-base" />
-                <span>daan.kgp.tech@gmail.com</span>
+                <span>help@daankgp.vercel.app</span>
               </a>
               <a
                 href="mailto:cr.daan.kgp@gmail.com"

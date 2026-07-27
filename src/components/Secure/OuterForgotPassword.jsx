@@ -4,7 +4,7 @@ const OuterForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4 transition-colors duration-300">
       <div className="max-w-md w-full bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-8">
-        
+
         {/* Header Section */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
@@ -17,7 +17,7 @@ const OuterForgotPassword = () => {
 
         {/* Form Section */}
         <form action="https://formspree.io/f/mjgjgoaw" method="POST" className="space-y-5">
-          
+
           {/* Full Name */}
           <div>
             <label htmlFor="FullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
@@ -78,4 +78,4 @@ const OuterForgotPassword = () => {
   );
 };
 
-export default OuterForgotPassword;
+export default OuterForgotPassword;

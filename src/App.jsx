@@ -31,6 +31,7 @@ import FamCardDetails from "./components/OurFam/FamCardDetails";
 import SignOut from "./components/Secure/SignOut";
 import ProtectedRoute from "./components/Secure/ProtectedRoute";
 import ForgotPassword from "./components/Secure/ForgotPassword";
+import OuterForgotPassword from "./components/Secure/OuterForgotPassword";
 import SignIn from "./components/Secure/SignIn";
 import Info from "./components/Secure/Info";
 // import SignUp from "./components/Secure/SignUp";
@@ -39,7 +40,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Diary from "./components/Secure/Diary";
 import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
-import OuterForgotPassword from "./components/Secure/OuterForgotPassword";
+import SignUp from "./components/Secure/SignUp";
 import AdminLogin from "./admin/Login";
 import AdminDashboard from "./admin/Dashboard";
 import AdminEvents from "./pages/AdminEvents";
@@ -64,9 +65,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
-    <ScrollToTop/>
+      <ScrollToTop />
       <TrackerComponent />
-      <Toaster 
+      <Toaster
         position="top-center"
         richColors
         closeButton
@@ -88,10 +89,10 @@ export default function App() {
       <main className="pt-0 bg-black text-white/80 min-h-screen">
         <Routes>
           <Route index element={<Home />} />
-          {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
+          {scrollRoutes.map((path) => (<Route key={path} path={path} element={<Home scrollTo={path} />} />))}
           <Route path="/our-fam" element={<OurFam />} />
-          <Route path="/our-fam/:year" element={ <ProtectedRoute redirect> <OurFam /> </ProtectedRoute> }/>
-          <Route path="/our-fam/:year/:name" element={ <ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute> } />
+          <Route path="/our-fam/:year" element={<ProtectedRoute redirect> <OurFam /> </ProtectedRoute>} />
+          <Route path="/our-fam/:year/:name" element={<ProtectedRoute redirect><FamCardDetails /> </ProtectedRoute>} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:slug" element={<EventsDetails />} />
           <Route path="/before" element={<BeforeDAAN />} />
@@ -104,18 +105,18 @@ export default function App() {
           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/signup" element={<Info />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/forgot-password" element={ <ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute> } />
-          <Route path="/outer-forgot-password" element={ <OuterForgotPassword /> } />
-          <Route path="/profile" element={ <ProtectedRoute redirect> <Profile /> </ProtectedRoute> } />
-          <Route path="/dashboard" element={ <ProtectedRoute redirect> <Dashboard /> </ProtectedRoute> } />
-          <Route path="/diary" element={ <ProtectedRoute redirect> <Diary /> </ProtectedRoute> } />
+          <Route path="/forgot-password" element={<ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute>} />
+          <Route path="/outer-forgot-password" element={<OuterForgotPassword />} />
+          <Route path="/profile" element={<ProtectedRoute redirect> <Profile /> </ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute redirect> <Dashboard /> </ProtectedRoute>} />
+          <Route path="/diary" element={<ProtectedRoute redirect> <Diary /> </ProtectedRoute>} />
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
-          <Route path="/track" element={ <ProtectedRoute redirect> <TrackDashboard /> </ProtectedRoute> } />
-          <Route path="/signout" element={<SignOut /> } />
+          <Route path="/track" element={<ProtectedRoute redirect> <TrackDashboard /> </ProtectedRoute>} />
+          <Route path="/signout" element={<SignOut />} />
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/admin/events" element={ <AdminRoute> <AdminEvents /> </AdminRoute> } />
+          <Route path="/admin/events" element={<AdminRoute> <AdminEvents /> </AdminRoute>} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

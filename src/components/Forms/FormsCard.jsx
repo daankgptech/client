@@ -8,12 +8,12 @@ const FormsCard = memo(({ item }) => {
 
   return (
     <div
-      className={`group relative flex flex-col rounded-2xl border overflow-hidden
-        transition-all duration-300 ease-out will-change-transform
+      className={`group relative flex flex-col overflow-hidden
+        transition-all duration-300 ease-out will-change-transform p-5
         ${
           item.isExceeded
-            ? "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-800 opacity-90"
-            : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:-translate-y-1 hover:shadow-md hover:shadow-rose-200/40 dark:hover:shadow-rose-900/20 hover:border-rose-200 dark:hover:border-rose-900/30"
+            ? "bg-black/50 border-white/5 opacity-80"
+            : "bg-transparent border-white/10 hover:bg-white/5 hover:border-white/20 hover:-translate-y-1"
         }`}
     >
       <Link
@@ -27,11 +27,11 @@ const FormsCard = memo(({ item }) => {
             alt={item.title}
             loading="lazy"
             className={`w-full h-full object-cover transition-transform duration-500 
-              ${item.isExceeded ? "grayscale" : "group-hover:scale-[1.04]"}`}
+              ${item.isExceeded ? "grayscale" : "grayscale group-hover:grayscale-0 group-hover:scale-[1.04]"}`}
           />
 
           {!item.isExceeded && (
-            <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold text-white bg-rose-500/90 backdrop-blur-sm">
+            <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold text-white bg-primary/90 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Active
             </div>
@@ -41,21 +41,21 @@ const FormsCard = memo(({ item }) => {
         {/* Content */}
         <div className="p-4 space-y-2.5">
           <h2
-            className={`text-lg font-semibold leading-snug transition-colors
+            className={`text-lg font-bold leading-snug transition-colors
               ${
                 item.isExceeded
-                  ? "text-gray-500"
-                  : "text-gray-900 dark:text-white group-hover:text-rose-500"
+                  ? "text-white/40"
+                  : "text-white group-hover:text-primary"
               }`}
           >
             {item.title}
           </h2>
 
-          <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
+          <p className="text-xs md:text-sm text-white/60 line-clamp-2 leading-relaxed">
             {item.desc}
           </p>
 
-          <div className="flex items-center gap-2 pt-1 text-[11px] font-medium uppercase tracking-wide text-gray-400">
+          <div className="flex items-center gap-2 pt-1 text-[11px] font-medium uppercase tracking-wide text-white/40">
             <Calendar className="w-3.5 h-3.5" />
             <span>
               Until{" "}
@@ -71,8 +71,8 @@ const FormsCard = memo(({ item }) => {
 
       {/* Footer */}
       <div
-        className={`mt-auto border-t border-gray-100 dark:border-gray-800 
-        ${item.isExceeded ? "bg-gray-100/40 dark:bg-gray-800/30" : "bg-white dark:bg-gray-900"}`}
+        className={`mt-auto border-t border-white/10 
+        ${item.isExceeded ? "bg-white/5" : "bg-transparent"}`}
       >
         {item.isExceeded ? (
           <div className="p-2">
@@ -81,7 +81,7 @@ const FormsCard = memo(({ item }) => {
                 e.preventDefault();
                 setIsOpen(!isOpen);
               }}
-              className="w-full flex items-center justify-center gap-2 py-2 text-sm font-medium text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition"
+              className="w-full flex items-center justify-center gap-2 py-2 text-sm font-medium text-primary hover:bg-white/5 rounded-lg transition"
             >
               {isOpen ? "Hide Insights" : "View Insights"}
               {isOpen ? (
@@ -104,7 +104,7 @@ const FormsCard = memo(({ item }) => {
         ) : (
           <Link
             to={item.to}
-            className="block w-full text-center py-3 text-sm font-medium text-rose-500 hover:text-rose-600 dark:text-rose-400 transition-colors"
+            className="block w-full text-center py-3 text-sm font-medium text-primary hover:text-white transition-colors"
           >
             Fill Form →
           </Link>

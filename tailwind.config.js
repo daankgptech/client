@@ -4,6 +4,10 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        'space-grotesk': ['"Space Grotesk"', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+      },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(100%)" },
@@ -14,9 +18,9 @@ export default {
         marquee: "marquee 30s linear infinite",
       },
       colors: {
-        primary: "#FF3737",
+        primary: "#FF3130",
         secondary: "#00c3c7",
-        dark: "#ffcf22",
+        dark: "#000000",
       },
       container: {
         center: true,

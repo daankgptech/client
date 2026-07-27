@@ -39,18 +39,18 @@ const CRCard = ({ cr, navigate }) => {
     cr.imgLink = `https://ui-avatars.com/api/?name=${encodeURIComponent(cr.name)}&background=fee2e2&color=991b1b`;
   return (
     <div className="w-[280px] sm:w-[320px] group">
-      <div className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-800 dark:via-gray-850 dark:to-gray-900 shadow-lg hover:shadow-xl hover:shadow-rose-500/10 dark:hover:shadow-rose-500/5 transition-all duration-500">
+      <div className="relative overflow-hidden border-x-[0.02px] border-white/10 bg-transparent hover:bg-white/5 transition-all duration-500">
         {/* Status badge */}
         {isCurrent && (
           <div className="absolute top-3 right-3 z-10">
-            <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-gradient-to-r from-rose-500 to-red-500 text-white shadow-lg animate-pulse">
+            <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-primary/20 text-primary border border-primary/30">
               Current
             </span>
           </div>
         )}
 
         {/* Session watermark */}
-        <span className="absolute top-3 left-3 text-xs font-mono text-gray-400/60 dark:text-gray-500/60">
+        <span className="absolute top-3 left-3 text-xs font-mono text-white/20">
           {session}
         </span>
 
@@ -58,7 +58,7 @@ const CRCard = ({ cr, navigate }) => {
         <div className="p-6 flex flex-col items-center">
           {/* Avatar */}
           <div className="relative mb-4">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-400 to-red-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
+            <div className="absolute inset-0 rounded-full bg-primary blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
             <img
               src={
                 cr.imgLink ||
@@ -68,12 +68,12 @@ const CRCard = ({ cr, navigate }) => {
               }
               alt={`${cr.name}'s profile`}
               loading="lazy"
-              className="relative w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg group-hover:scale-105 transition-transform duration-300"
+              className="relative w-24 h-24 rounded-full object-cover border-[0.5px] border-white/20 grayscale group-hover:grayscale-0 transition-all duration-500"
             />
           </div>
 
           {/* Name */}
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white text-center mb-1 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+          <h3 className="text-lg font-bold text-white text-center mb-1 group-hover:text-primary transition-colors">
             {cr.name}
           </h3>
 
@@ -81,8 +81,8 @@ const CRCard = ({ cr, navigate }) => {
           <span
             className={`text-sm font-medium mb-3 ${
               isCurrent
-                ? "text-rose-500 dark:text-rose-400"
-                : "text-gray-500 dark:text-gray-400"
+                ? "text-primary"
+                : "text-white/40"
             }`}
           >
             {status}
@@ -90,7 +90,7 @@ const CRCard = ({ cr, navigate }) => {
 
           {/* Hall info */}
           {cr.hall && (
-            <p className="text-xs text-gray-500 dark:text-gray-500 mb-4">
+            <p className="text-xs text-white/50 mb-4">
               Hall: {cr.hall}
             </p>
           )}
@@ -100,7 +100,7 @@ const CRCard = ({ cr, navigate }) => {
             fallback={
               <button
                 onClick={() => navigate("/signin")}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-600 dark:text-gray-300 text-sm font-medium border border-gray-200 dark:border-gray-600 hover:border-rose-300 dark:hover:border-rose-500/50 hover:from-rose-50 hover:to-rose-100 dark:hover:from-rose-500/10 dark:hover:to-rose-500/20 transition-all duration-300"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-white/60 text-sm font-medium border-[0.5px] border-white/10 hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300"
               >
                 <Phone className="w-4 h-4" />
                 Sign in to call
@@ -110,7 +110,7 @@ const CRCard = ({ cr, navigate }) => {
             <a
               href={`tel:+91${cr.contacts[0]?.phone}`}
               title={`Call ${cr.name}`}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-red-500 text-white text-sm font-medium shadow-lg shadow-rose-500/25 hover:shadow-rose-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-white/80 text-sm font-medium border-[0.5px] border-white/10 hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300"
             >
               <Phone className="w-4 h-4" />
               Call

@@ -7,9 +7,9 @@ import { cache } from "../../utils/cache";
 // Skeleton shimmer component
 const SkeletonCard = () => (
   <div className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%]">
-    <div className="animate-shimmer rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px] md:min-h-[160px] bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-      <div className="w-16 sm:w-20 md:w-24 h-8 sm:h-10 md:h-12 rounded bg-gray-300/70 dark:bg-gray-700/70 mb-4" />
-      <div className="w-20 sm:w-24 md:w-28 h-3 sm:h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+    <div className="animate-shimmer rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px] md:min-h-[160px] bg-white/5 border-[0.5px] border-white/10">
+      <div className="w-16 sm:w-20 md:w-24 h-8 sm:h-10 md:h-12 rounded bg-white/10 mb-4" />
+      <div className="w-20 sm:w-24 md:w-28 h-3 sm:h-4 rounded bg-white/5" />
     </div>
   </div>
 );
@@ -18,7 +18,7 @@ const CountBanner = ({ stats, loading }) => {
   if (loading) {
     return (
       <div className="flex flex-col items-center w-full">
-        <div className="w-40 h-4 rounded bg-gray-200 dark:bg-gray-700 animate-shimmer mb-8 mt-6" />
+        <div className="w-40 h-4 rounded bg-white/10 animate-shimmer mb-8 mt-6" />
 
         <div className="w-full flex flex-wrap justify-center gap-4 md:gap-6 px-4 md:px-8">
           {[1, 2, 3, 4].map((i) => (
@@ -44,19 +44,19 @@ const CountBanner = ({ stats, loading }) => {
     <div className="flex flex-col items-center w-full">
 
       {/* Subtitle */}
-      <p className="mt-6 text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-400 text-center tracking-wide">
-        <span className="font-medium text-rose-600 dark:text-rose-400">
+      <p className="mt-6 text-xs sm:text-sm md:text-base text-white/60 text-center tracking-wide">
+        <span className="font-medium text-primary">
           Our story of growth
         </span>{" "}
         has been unfolding since{" "}
-        <span className="font-medium text-rose-600 dark:text-rose-400">
+        <span className="font-medium text-primary">
           October 2024
         </span>
         .
       </p>
 
       {/* Stats */}
-      <div className="w-full flex flex-wrap justify-center gap-4 md:gap-6 mt-8 px-4 md:px-8">
+      <div className="w-full flex flex-wrap justify-center gap-0 mt-8 px-0 md:px-0">
         {stats.map(({ target, label, suffix = "" }, i) => (
           <motion.div
             key={i}
@@ -64,11 +64,11 @@ const CountBanner = ({ stats, loading }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: i * 0.15 }}
-            className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%] rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+            className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center bg-transparent hover:bg-white/5 transition-all duration-300 border-x-[0.1px] border-white/10"
           >
 
             {/* Number */}
-            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 dark:text-white flex items-center justify-center">
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-space-grotesk tracking-tighter text-white flex items-center justify-center">
               {typeof target === "number" ? (
                 <>
                   <AnimatedCounter target={target} duration={2000} />
@@ -80,7 +80,7 @@ const CountBanner = ({ stats, loading }) => {
             </span>
 
             {/* Label */}
-            <p className="mt-2 text-sm sm:text-base md:text-lg font-medium text-gray-600 dark:text-gray-400 text-center">
+            <p className="mt-2 text-sm sm:text-base md:text-lg font-medium text-white/60 text-center">
               {label}
             </p>
 
@@ -162,7 +162,7 @@ export default function BannerTwo() {
   }, []);
 
   return (
-    <section className="py-12 bg-gray-100 dark:bg-gray-950">
+    <section className="py-24">
       <CountBanner stats={stats} loading={loading} />
     </section>
   );

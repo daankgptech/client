@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
 import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
 import EventCard from "../components/Events/EventCard";
@@ -8,13 +9,13 @@ import { slugify } from "../utils/slugify";
 
 // Skeleton shimmer component
 const SkeletonCard = () => (
-  <div className="animate-shimmer rounded-2xl p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+  <div className="animate-shimmer rounded-2xl p-4 bg-white/5 border-[0.5px] border-white/10">
     <div className="overflow-hidden rounded-xl mb-3">
-      <div className="w-full h-[200px] bg-gray-300/70 dark:bg-gray-700/70" />
+      <div className="w-full h-[200px] bg-white/10" />
     </div>
-    <div className="w-20 h-3 rounded bg-gray-300/60 dark:bg-gray-700/60 mb-3" />
-    <div className="w-full h-5 rounded bg-gray-300/70 dark:bg-gray-700/70 mb-2" />
-    <div className="w-3/4 h-4 rounded bg-gray-300/50 dark:bg-gray-700/50" />
+    <div className="w-20 h-3 rounded bg-white/5 mb-3" />
+    <div className="w-full h-5 rounded bg-white/5 mb-2" />
+    <div className="w-3/4 h-4 rounded bg-white/5" />
   </div>
 );
 
@@ -54,7 +55,7 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 py-8">
+    <div className="min-h-screen transition-colors duration-300">
       <style>{`
         @keyframes shimmer {
           0% { background-position: -200% 0; }
@@ -72,46 +73,53 @@ const Events = () => {
 
       <SEO {...seoConfig.events} />
 
-      <section className="container">
-        {/* Breadcrumbs */}
+      <section className="container mx-auto py-12">
         <div className="pb-4">
-          <Breadcrumbs items={seoConfig.events.breadcrumbs} />
+          <Breadcrumbs items={seoConfig.forms.breadcrumbs} />
         </div>
-
-        {/* Header */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
-            <CalendarDays className="w-5 h-5 text-rose-500" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk tracking-tighter text-white">
             Events
           </h1>
         </div>
 
         {/* Events Count */}
-        {!loading && events.length > 0 && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+        {/* {!loading && events.length > 0 && (
+          <p className="text-sm text-white/60 mb-6">
             {events.length} event{events.length !== 1 ? 's' : ''} found
           </p>
-        )}
+        )} */}
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <motion.div 
+          className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 bg-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.1 }}
+        >
           {loading ? (
             Array.from({ length: 8 }).map((_, i) => (
               <SkeletonCard key={i} />
             ))
           ) : events.length > 0 ? (
-            events.map((item) => <EventCard key={item.id} {...item} />)
+            events.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <EventCard {...item} />
+              </motion.div>
+            ))
           ) : (
             <div className="col-span-full text-center py-16">
-              <CalendarDays className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-              <p className="text-gray-500 dark:text-gray-400">
+              <CalendarDays className="w-12 h-12 mx-auto text-white/20 mb-4" />
+              <p className="text-white/60">
                 No events found.
               </p>
             </div>
           )}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

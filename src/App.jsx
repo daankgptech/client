@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -12,7 +12,7 @@ import EventsDetails from "./pages/EventsDetails";
 import BeforeDAAN from "./pages/BeforeDAAN";
 import AfterDAAN from "./pages/AfterDAAN";
 import NoPage from "./pages/NoPage";
-import FlashPage from "./pages/FlashPage";
+
 import Forms from "./pages/Forms";
 // import EventComp from "./components/Events/EventsComp";
 import Toolkit from "./pages/Toolkit";
@@ -53,8 +53,6 @@ const TrackerComponent = () => {
 };
 
 export default function App() {
-  const [showFlash, setShowFlash] = useState(true);
-
   useEffect(() => {
     AOS.init({
       offset: 100,
@@ -64,13 +62,6 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    if (sessionStorage.getItem("daanFlashShown")) setShowFlash(false);
-    else sessionStorage.setItem("daanFlashShown", "true");
-  }, []);
-
-  if (showFlash) return <FlashPage onFinish={() => setShowFlash(false)} />;
-
   return (
     <BrowserRouter>
     <ScrollToTop/>
@@ -79,7 +70,7 @@ export default function App() {
         position="top-center"
         richColors
         closeButton
-        theme="system"
+        theme="dark"
         toastOptions={{
           style: {
             fontFamily: 'inherit',
@@ -94,7 +85,7 @@ export default function App() {
         }}
       />
       <Navbar />
-      <main className="pt-0 bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-400 min-h-screen">
+      <main className="pt-0 bg-black text-white/80 min-h-screen">
         <Routes>
           <Route index element={<Home />} />
           {scrollRoutes.map((path) => ( <Route key={path} path={path} element={<Home scrollTo={path} />} /> ))}
@@ -123,7 +114,6 @@ export default function App() {
           <Route path="/signout" element={<SignOut /> } />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/events" element={ <AdminRoute> <AdminEvents /> </AdminRoute> } />
-          {/* <Route path="*" element={<FlashPage />} /> */}
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

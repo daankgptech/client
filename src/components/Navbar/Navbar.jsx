@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../utils/Secure/AuthContext";
-import ThemeToggle from "../../utils/ThemeToggle";
+
 import { Helmet } from "react-helmet";
 import { div } from "framer-motion/client";
 
@@ -50,7 +50,7 @@ export const Logo = () => (
         width={30}
         className="drop-shadow-sm rounded-sm"
       />
-      <div className=" text-lg font-bold text-red-500">DAAN KGP</div>
+      <div className="text-lg font-space-grotesk font-bold text-primary tracking-tighter">DAAN<span className="font-space-grotesk text-primary-hover text-[10px]">@</span>KGP</div>
     </div>
   </Link>
 );
@@ -59,7 +59,7 @@ const NavItem = ({ to, label, onClick }) => (
   <Link
     to={to}
     onClick={onClick}
-    className="block px-4 py-2 text-sm rounded-lg text-gray-700 dark:text-gray-300 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 transition"
+    className="block px-4 py-2 text-sm rounded-lg text-white/70 hover:bg-white/5 hover:text-primary transition"
   >
     {label}
   </Link>
@@ -105,13 +105,12 @@ export default function Navbar() {
     },
   };
   return (
-    <nav className="sticky top-0 max-h-14 z-50 backdrop-blur-lg bg-white/80 dark:bg-black border-b border-rose-100 dark:border-gray-800 block md:container">
+    <nav className="sticky top-0 max-h-14 z-50 backdrop-blur-xl bg-black/50 border-b-[0.5px] border-white/10 block md:container">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Logo />
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-6">
-          <ThemeToggle />
 
           {routes.map((r) => (
             <NavLink
@@ -120,8 +119,8 @@ export default function Navbar() {
               className={({ isActive }) =>
                 `text-sm font-medium transition-all duration-300 ${
                   isActive
-                    ? "text-rose-600 dark:text-rose-400"
-                    : "text-gray-600 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-300"
+                    ? "text-primary"
+                    : "text-white/60 hover:text-primary"
                 }`
               }
             >
@@ -133,7 +132,7 @@ export default function Navbar() {
             <div ref={personalRef} className="relative">
               <button
                 onClick={() => setPersonalOpen((p) => !p)}
-                className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition"
+                className="flex items-center gap-1 text-sm text-white/60 hover:text-primary transition"
               >
                 Personal
                 <FiChevronDown
@@ -149,7 +148,7 @@ export default function Navbar() {
                     animate="visible"
                     exit="exit"
                     transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="absolute right-0 mt-3 w-44 rounded-xl bg-white dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-xl"
+                    className="absolute right-0 mt-3 w-44 rounded-xl bg-black/90 backdrop-blur-xl border border-white/10 shadow-2xl"
                   >
                     {authRoutes.map((r) => (
                       <NavItem
@@ -169,13 +168,13 @@ export default function Navbar() {
             <div className="flex gap-4 justify-center items-center">
               <Link
                 to="/signup"
-                className="px-3 py-1 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:scale-105 transition-all duration-300"
+                className="px-3 py-1 rounded-3xl text-sm bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 transition-all duration-300"
               >
                 Sign Up
               </Link>
               <Link
                 to="/signin"
-                className="px-3 py-1 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 hover:scale-105 transition-all duration-300"
+                className="px-3 py-1 rounded-3xl text-sm bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all duration-300"
               >
                 Sign In
               </Link>
@@ -185,10 +184,9 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <div className="md:hidden flex items-center gap-3">
-          <ThemeToggle />
           <button
             onClick={() => setMenuOpen((o) => !o)}
-            className="p-2 rounded-xl bg-rose-500/10 text-rose-600"
+            className="p-2 rounded-xl bg-white/5 text-white"
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </button>
@@ -204,7 +202,7 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="md:hidden overflow-hidden bg-white dark:bg-gray-950 border-t border-rose-100 dark:border-gray-800 absolute top-14 w-full"
+            className="md:hidden overflow-hidden bg-black/95 backdrop-blur-xl border-t border-white/10 absolute top-14 w-full"
           >
             <div className="flex flex-col items-start gap-4 py-4 px-6">
               {routes.map((r) => (
@@ -212,7 +210,7 @@ export default function Navbar() {
                   key={r.name}
                   to={r.link}
                   onClick={() => setMenuOpen(false)}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-rose-500 transition"
+                  className="text-sm text-white/70 hover:text-primary transition"
                 >
                   {r.name}
                 </NavLink>
@@ -221,7 +219,7 @@ export default function Navbar() {
                 <div ref={personalRef} className="w-full">
                   <button
                     onClick={() => setPersonalOpen((p) => !p)}
-                    className="w-full flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-rose-500 transition"
+                    className="w-full flex items-center justify-start text-sm font-medium text-white/80 hover:text-primary transition"
                   >
                     <span>Personal</span>
                     <FiChevronDown
@@ -244,7 +242,7 @@ export default function Navbar() {
                         }}
                         className="overflow-hidden"
                       >
-                        <div className="mt-2 rounded-xl bg-rose-50/60 dark:bg-gray-900 border border-rose-100 dark:border-gray-800 shadow-inner">
+                        <div className="mt-2 rounded-xl bg-white/5 border border-white/10">
                           {authRoutes.map((r) => (
                             <NavItem
                               key={r.name}
@@ -267,13 +265,13 @@ export default function Navbar() {
                 <div className="flex gap-4 justify-evenly items-center w-full">
                   <Link
                     to="/signup"
-                    className="px-5 py-2 rounded-3xl text-sm bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700"
+                    className="px-5 py-2 rounded-3xl text-sm bg-white/5 text-white/80 border border-white/10"
                   >
                     Sign Up
                   </Link>
                   <Link
                     to="/signin"
-                    className="px-5 py-2 rounded-3xl text-sm bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
+                    className="px-5 py-2 rounded-3xl text-sm bg-primary/10 text-primary border border-primary/20"
                   >
                     Sign In
                   </Link>

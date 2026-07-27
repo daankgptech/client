@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Users } from "lucide-react";
+import { ArrowRight, Lock, Users } from "lucide-react";
 import CouncilCard from "./CouncilCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/Secure/AuthContext";
@@ -9,24 +9,24 @@ import { cache } from "../../utils/cache";
 
 // Skeleton shimmer component for council cards
 const SkeletonCard = () => (
-  <div className="animate-shimmer rounded-2xl p-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+  <div className="flex-none w-[280px] snap-center animate-shimmer rounded-2xl p-4 bg-white/5 border-[0.5px] border-white/10">
     {/* Image placeholder */}
     <div className="flex justify-center pt-4">
-      <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gray-300/70 dark:bg-gray-700/70" />
+      <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/10" />
     </div>
     {/* Content placeholders */}
     <div className="px-4 py-5 text-center space-y-3">
       {/* Name placeholder */}
-      <div className="w-full h-5 rounded bg-gray-300/70 dark:bg-gray-700/70 mx-auto" />
+      <div className="w-full h-5 rounded bg-white/5 mx-auto" />
       {/* Council placeholder */}
-      <div className="w-3/4 h-4 rounded bg-gray-300/60 dark:bg-gray-700/60 mx-auto" />
+      <div className="w-3/4 h-4 rounded bg-white/5 mx-auto" />
       {/* Footer placeholder */}
-      <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 mt-3">
+      <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-3">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gray-300/50 dark:bg-gray-700/50" />
-          <div className="w-9 h-9 rounded-lg bg-gray-300/50 dark:bg-gray-700/50" />
+          <div className="w-9 h-9 rounded-lg bg-white/5" />
+          <div className="w-9 h-9 rounded-lg bg-white/5" />
         </div>
-        <div className="w-12 h-5 rounded bg-gray-300/60 dark:bg-gray-700/60" />
+        <div className="w-12 h-5 rounded bg-white/5" />
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@ const Council = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        
+
         // Check cache first
         const cached = cache.get("/home/council");
         if (cached) {
@@ -71,16 +71,16 @@ const Council = () => {
   return (
     <section
       id="council"
-      className="container scroll-mt-[100px] bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-300 py-12 md:py-16"
+      className="container scroll-mt-[100px] py-14 md:py-24"
     >
       <div className="container mx-auto px-4 space-y-10">
 
         {/* Heading */}
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
-            <Users className="w-5 h-5 text-rose-500" />
+          <div className="p-2 pl-0">
+            <Users className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-space-grotesk tracking-tighter text-white">
             Our DAAN Council Members
           </h1>
         </div>
@@ -88,7 +88,7 @@ const Council = () => {
         {/* Content */}
         {loading ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+            <div className="flex overflow-x-auto gap-0 pb-8 snap-x snap-mandatory no-scrollbar pr-0">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <SkeletonCard key={i} />
               ))}
@@ -110,7 +110,7 @@ const Council = () => {
             `}</style>
           </>
         ) : members.length === 0 ? (
-          <p className="text-center text-base md:text-lg font-medium text-gray-500 dark:text-gray-400">
+          <p className="text-center text-base md:text-lg font-medium text-white/60">
             No members found.
           </p>
         ) : (
@@ -121,7 +121,7 @@ const Council = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"
+              className="flex overflow-x-auto gap-0 pb-8 snap-x snap-mandatory no-scrollbar pr-10"
             >
               {members.map((member, i) => (
                 <motion.div
@@ -129,6 +129,7 @@ const Council = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.03 }}
+                  className="flex-none snap-center"
                 >
                   <CouncilCard {...member} />
                 </motion.div>
@@ -140,31 +141,23 @@ const Council = () => {
         {/* Spreadsheet / External Button */}
         <div className="text-center mt-8">
           {isAuthenticated ? (
-            <a
-              href="https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm md:text-base font-medium
-              border border-rose-300 dark:border-gray-700
-              text-rose-600 dark:text-rose-400
-              bg-rose-50 dark:bg-gray-900
-              hover:bg-rose-100 dark:hover:bg-gray-800
-              transition-all duration-200 hover:scale-[1.03]"
-            >
-              View Full Council
-            </a>
+            <Link
+              to="https://docs.google.com/spreadsheets/d/1cPQRMKplIaWI2JIi5d6z7a6ahofOq8UnZtNLRaMhGdQ/edit?usp=sharing" target="_blank"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-white transition-all duration-300 hover:underline decoration-dashed"
+            >Full Council
+            </Link>
           ) : (
             <div className="space-y-3">
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+              <p className="text-sm text-white/40 italic">
                 Detailed access restricted to DAAN-KGPians
               </p>
               <Link
                 to="/signin"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm md:text-base font-medium
-                border border-rose-300 dark:border-rose-500/30
-                text-rose-600 dark:text-rose-400
-                bg-rose-50 dark:bg-gray-900
-                hover:bg-rose-100 dark:hover:bg-gray-800
+                border-[0.5px] border-white/10
+                text-primary
+                bg-white/5
+                hover:bg-white/10
                 transition-all duration-200 hover:scale-[1.03]"
               >
                 <Lock className="w-4 h-4" />

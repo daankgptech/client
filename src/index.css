@@ -30,63 +30,43 @@
 
 /* Custom Selection */
 ::selection {
-  background: #fca5a5;
-  color: rgb(0, 0, 0);
+  background: #FF3130;
+  color: #ffffff;
 }
 
 /* Custom ScrollBar */
 ::-webkit-scrollbar {
   width: 4px;
-  /* height: 80px; */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ef4444;
+  background-color: #FF3130;
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #b91c1c;
+  background-color: #cc2726;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #fecaca;
+  background-color: #000000;
 }
 
 html {
   scroll-behavior: smooth;
+  @apply bg-black;
 }
 
 body {
-  cursor: url("https://res.cloudinary.com/dcwwptwzt/image/upload/v1746468180/Cursor_fl2xu1.png"), auto;
-  font-family: 'nunito', sans-serif;
-  font-weight: 100;
+  @apply bg-black text-white/80 antialiased selection:bg-[#FF3130] selection:text-white;
+  font-family: 'Inter', sans-serif;
 }
 
-/* BubbleAnimation */
-.bubbles span {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  background: #EF4444B3;
-  margin: 0 4px;
-  border-radius: 30px;
-  box-shadow:
-    0 0 0 6px #EF4444B3,
-    0 0 0 30px #EF4444B3,
-    0 0 0 60px #EF4444B3;
-  animation: animate 15s linear infinite;
-  animation-duration: calc(125s / var(--i));
+h1, h2, h3, h4, h5, h6 {
+  @apply text-white font-bold tracking-tighter;
+  font-family: 'Space Grotesk', sans-serif;
+  text-wrap: balance;
 }
-
-/* .bubbles span:nth-child(even) {
-  background: green;
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 10px #f0714d44,
-    0 0 0 50px #EF4444,
-    0 0 0 100px #EF4444;
-} */
 
 @keyframes animate {
   0% {

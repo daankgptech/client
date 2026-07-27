@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
-import { ClipboardList } from "lucide-react";
 import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import formsData from "../components/Forms/formsData";
 import FormsCard from "../components/Forms/FormsCard";
@@ -9,18 +10,18 @@ import { cache } from "../utils/cache";
 
 // Skeleton shimmer component for form cards
 const SkeletonCard = () => (
-  <div className="animate-shimmer rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+  <div className="animate-shimmer rounded-2xl overflow-hidden bg-white/5 border-[0.5px] border-white/10">
     {/* Image placeholder */}
-    <div className="aspect-[16/10] bg-gray-300/70 dark:bg-gray-700/70" />
+    <div className="aspect-[16/10] bg-white/10" />
     {/* Content placeholder */}
     <div className="p-4 space-y-3">
-      <div className="w-3/4 h-5 rounded bg-gray-300/70 dark:bg-gray-700/70" />
-      <div className="w-full h-4 rounded bg-gray-300/60 dark:bg-gray-700/60" />
-      <div className="w-1/2 h-3 rounded bg-gray-300/50 dark:bg-gray-700/50" />
+      <div className="w-3/4 h-5 rounded bg-white/5" />
+      <div className="w-full h-4 rounded bg-white/5" />
+      <div className="w-1/2 h-3 rounded bg-white/5" />
     </div>
     {/* Footer placeholder */}
-    <div className="border-t border-gray-100 dark:border-gray-800 p-3">
-      <div className="w-full h-8 rounded bg-gray-300/50 dark:bg-gray-700/50" />
+    <div className="border-t border-white/10 p-3">
+      <div className="w-full h-8 rounded bg-white/5" />
     </div>
   </div>
 );
@@ -103,7 +104,7 @@ const Forms = () => {
   }, [dynamicStats, nowIST]);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen transition-colors duration-300">
       <SEO {...seoConfig.forms} />
 
       <section className="container mx-auto py-12">
@@ -111,10 +112,7 @@ const Forms = () => {
           <Breadcrumbs items={seoConfig.forms.breadcrumbs} />
         </div>
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
-            <ClipboardList className="w-5 h-5 text-rose-500" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk tracking-tighter text-white">
             Forms
           </h1>
         </div>
@@ -143,11 +141,20 @@ const Forms = () => {
             `}</style>
           </>
         ) : (
-          <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <motion.div initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.1 }}
+           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
             {processedForms.map((item, index) => (
-              <FormsCard key={index} item={item} />
+              <motion.div
+               key={index}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.4, delay: index * 0.05 }}>
+               <FormsCard key={index} item={item} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </section>
     </div>

@@ -1,128 +1,119 @@
-import { useEffect, useState, useRef } from "react";
-import FlashingNoticesCard from "./FlashingNoticesCard";
+import React from 'react';
+import { motion } from 'framer-motion';
+import notices from './Notice';
+import { Link } from 'react-router-dom';
 
-const VIDEO_URL = "https://res.cloudinary.com/dfonotyfb/video/upload/v1775585556/dds3_1_rqhg7x.mp4";
+const Hero = () => {
+  // Animation Variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { type: 'spring', stiffness: 100, damping: 20 }
+  };
 
-export default function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const [videoSrc, setVideoSrc] = useState(VIDEO_URL);
-  const heroRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!heroRef.current) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      setMousePos({
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height,
-      });
-    };
-
-    const hero = heroRef.current;
-    hero?.addEventListener("mousemove", handleMouseMove);
-    return () => hero?.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    let objectUrl = null;
-
-    const loadAndCacheVideo = async () => {
-      try {
-        if (!("caches" in window)) return;
-        const cache = await caches.open("daan-kgp-video-cache");
-        const cachedResponse = await cache.match(VIDEO_URL);
-
-        if (cachedResponse) {
-          const blob = await cachedResponse.blob();
-          objectUrl = URL.createObjectURL(blob);
-          setVideoSrc(objectUrl);
-        } else {
-          fetch(VIDEO_URL)
-            .then((res) => {
-              if (res.ok) cache.put(VIDEO_URL, res.clone());
-            })
-            .catch((e) => console.warn("Background video caching failed", e));
-        }
-      } catch (err) {
-        console.warn("Cache API error", err);
-      }
-    };
-
-    loadAndCacheVideo();
-
-    return () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
-  }, []);
+  const staggerContainer = {
+    animate: { transition: { staggerChildren: 0.1 } }
+  };
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-[75vh] md:min-h-[93vh] flex items-center justify-center overflow-hidden py-12 md:py-0"
-    >
-      {/* Cinematic Background Video */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center transform scale-105"
+    <section className="relative min-h-screen w-full bg-[#000000] text-white overflow-hidden flex items-center px-[5vw] py-10">
+      {/* Subtle Background Parallax Element */}
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.03 }}
+        style={{ userSelect: 'none' }}
+        className="absolute -top-20 -left-10 text-[20vw] font-bold font-['Space_Grotesk'] tracking-tighter leading-none"
+      >
+        DAAN
+      </motion.div>
+
+
+      <div className="md:container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+
+        {/* Left Content Column */}
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="lg:col-span-7 flex flex-col items-start"
         >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
-        {/* Theme-aware Cinematic Overlays */}
-        <div className="absolute inset-0 bg-white/60 dark:bg-gray-950/70 backdrop-blur-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-gray-100 dark:from-gray-950/90 dark:via-transparent dark:to-gray-950" />
+          {/* <motion.div
+            variants={fadeInUp}
+            className="flex items-center gap-3 mb-6"
+          >
+            <div className="h-[1px] w-12 bg-[#ff3130]" />
+            <span className="text-[#ff3130] uppercase tracking-[0.3em] text-sm font-semibold">
+              DakshanA Alumni Network • IIT Kharagpur
+            </span>
+          </motion.div> */}
+
+          <motion.h1
+            variants={fadeInUp}
+            className="font-['Space_Grotesk'] text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 text-balance"
+          >
+            Welcome to <br />
+            <span className="text-[#ff3130]">DAAN KGP</span>
+          </motion.h1>
+
+          <motion.p
+            variants={fadeInUp}
+            className="font-['Inter'] text-sm md:text-lg text-white/70 max-w-xl leading-relaxed mb-10"
+          >You are now part of the distinguished Dakshana network at IIT Kharagpur - where heritage, ambition, and innovation unite to
+            <span className="text-white font-medium"> connect, collaborate, and grow</span> together.
+          </motion.p>
+
+          <motion.div variants={fadeInUp} className="flex gap-6">
+            <Link to="/our-fam" className="bg-[#ff3130] hover:bg-[#d42a29] transition-all duration-300 text-white px-8 py-4 font-bold uppercase tracking-widest text-xs">
+              Explore Network
+            </Link>
+            <Link to="/events" className="border border-white/20 hover:border-white transition-all duration-300 text-white px-8 py-4 font-bold uppercase tracking-widest text-xs backdrop-blur-sm">
+              Our Events
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Column - The Noticeboard */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 relative"
+        >
+          {/* Glassmorphism Container */}
+          <div className="relative group">
+            {/* Soft Glow behind the card */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#ff3130]/20 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000" />
+
+            <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 p-8 md:p-10 shadow-2xl">
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight">Noticeboard</h3>
+                <div className="h-2 w-2 rounded-full bg-[#ff3130] animate-pulse" />
+              </div>
+
+              <div className="space-y-8">
+                {notices.map((item) => (
+                  <div key={item} className="group/item cursor-pointer">
+                    <p className="text-[#ff3130] text-[10px] font-bold uppercase tracking-[0.2em] mb-1">
+                      {item.date}
+                    </p>
+                    <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
+                      {item.text}
+                    </h4>
+                    <div className="mt-4 h-[0.5px] w-full bg-white/10 group-hover/item:bg-[#ff3130]/30 transition-all duration-500" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Content container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-16 flex flex-col items-center gap-6 md:gap-8">
-        {/* Main heading with parallax effect */}
-        <div
-          className="text-center transition-transform duration-300 ease-out px-2 md:px-0"
-          style={{
-            transform: `translate(${(mousePos.x - 0.5) * -10}px, ${(mousePos.y - 0.5) * -10}px)`,
-          }}
-        >
-          {/* Main title */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight tracking-tight">
-            <span className="bg-gradient-to-r from-gray-700 via-gray-500 to-gray-400 bg-clip-text text-transparent dark:from-white dark:via-gray-200 dark:to-gray-400">
-              Congratulations on being a
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 bg-clip-text text-transparent dark:from-red-400 dark:via-rose-400 dark:to-orange-400 font-bold">
-              DAAN KGPian!
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="mt-4 md:mt-6 text-sm sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mask">
-            The esteemed community of
-            <span className="text-orange-600 dark:text-orange-400 font-medium">
-              {" "}
-              KGPians{" "}
-            </span>
-            and proudly embracing your
-            <span className="text-orange-600 dark:text-orange-400 font-medium">
-              {" "}
-              Dakshanite{" "}
-            </span>
-            heritage. Connect, collaborate, and grow together.
-          </p>
-        </div>
-
-        {/* Notice board */}
-        <div
-          className="w-full mt-2 md:mt-4 transition-all duration-500 delay-200"
-          style={{
-            opacity: 1,
-            transform: "translateY(0)",
-          }}
-        >
-          <FlashingNoticesCard />
-        </div>
-      </div>
+      {/* Ultra-thin Decorative Lines (Zero-Clutter Architecture) */}
+      <div className="absolute bottom-0 left-0 w-full h-[0.5px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute top-0 right-[20%] w-[0.5px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent" />
     </section>
   );
-}
+};
+
+export default Hero;

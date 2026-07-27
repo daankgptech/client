@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import notices from './Notice';
+import defaultNotices from './Notice';
 import { Link } from 'react-router-dom';
+import { api } from '../../utils/Secure/api';
 
 const Hero = () => {
+  const [notices, setNotices] = useState(defaultNotices);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const res = await api.get('/notices');
+        if (res.data?.success && Array.isArray(res.data.notices) && res.data.notices.length > 0) {
+          setNotices(res.data.notices);
+        }
+      } catch (err) {
+        console.warn("Using fallback static notices for Hero Noticeboard:", err.message);
+      }
+    };
+
+    fetchNotices();
+  }, []);
+
   // Animation Variants
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
@@ -18,7 +36,6 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen w-full bg-[#000000] text-white overflow-hidden flex items-center px-[5vw] py-10">
       {/* Subtle Background Parallax Element */}
-
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.03 }}
@@ -27,7 +44,6 @@ const Hero = () => {
       >
         DAAN
       </motion.div>
-
 
       <div className="md:container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
@@ -38,16 +54,6 @@ const Hero = () => {
           animate="animate"
           className="lg:col-span-7 flex flex-col items-start"
         >
-          {/* <motion.div
-            variants={fadeInUp}
-            className="flex items-center gap-3 mb-6"
-          >
-            <div className="h-[1px] w-12 bg-[#ff3130]" />
-            <span className="text-[#ff3130] uppercase tracking-[0.3em] text-sm font-semibold">
-              DakshanA Alumni Network • IIT Kharagpur
-            </span>
-          </motion.div> */}
-
           <motion.h1
             variants={fadeInUp}
             className="font-['Space_Grotesk'] text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 text-balance"
@@ -88,21 +94,38 @@ const Hero = () => {
             <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 p-8 md:p-10 shadow-2xl">
               <div className="flex justify-between items-center mb-8">
                 <h3 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight">Noticeboard</h3>
-                <div className="h-2 w-2 rounded-full bg-[#ff3130] animate-pulse" />
+                <div className="h-2 w-2 rounded-full bg-[#ff3130] animate-pulse" title="Live Noticeboard Stream" />
               </div>
 
-              <div className="space-y-8">
-                {notices.map((item) => (
-                  <div key={item} className="group/item cursor-pointer">
-                    <p className="text-[#ff3130] text-[10px] font-bold uppercase tracking-[0.2em] mb-1">
-                      {item.date}
-                    </p>
-                    <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
-                      {item.text}
-                    </h4>
-                    <div className="mt-4 h-[0.5px] w-full bg-white/10 group-hover/item:bg-[#ff3130]/30 transition-all duration-500" />
-                  </div>
-                ))}
+              <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                {notices.map((item, index) => {
+                  const key = item._id || index;
+                  const Content = (
+                    <div className="group/item cursor-pointer">
+                      <p className="text-[#ff3130] text-[10px] font-bold uppercase tracking-[0.2em] mb-1">
+                        {item.date}
+                      </p>
+                      <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
+                        {item.text}
+                      </h4>
+                      <div className="mt-4 h-[0.5px] w-full bg-white/10 group-hover/item:bg-[#ff3130]/30 transition-all duration-500" />
+                    </div>
+                  );
+
+                  return item.link ? (
+                    <a
+                      key={key}
+                      href={item.link}
+                      target={item.link.startsWith("http") ? "_blank" : "_self"}
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      {Content}
+                    </a>
+                  ) : (
+                    <div key={key}>{Content}</div>
+                  );
+                })}
               </div>
             </div>
           </div>

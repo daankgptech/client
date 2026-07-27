@@ -1,6 +1,6 @@
 import React from "react";
 
-const PasswordUpdationForm = () => {
+const OuterForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4 transition-colors duration-300">
       <div className="max-w-md w-full bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-8">
@@ -78,4 +78,4 @@ const PasswordUpdationForm = () => {
   );
 };
 
-export default PasswordUpdationForm;
+export default OuterForgotPassword;

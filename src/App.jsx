@@ -42,10 +42,12 @@ import useTracker from "./utils/useTracker";
 import TrackDashboard from "./pages/TrackDashboard";
 import SignUp from "./components/Secure/SignUp";
 import AdminLogin from "./admin/Login";
-import AdminDashboard from "./admin/Dashboard";
+import AdminLayout from "./admin/AdminLayout";
+import DashboardOverview from "./admin/DashboardOverview";
+import AdminUsers from "./admin/Users";
+import AdminEvents from "./admin/Events";
+import AdminNotices from "./admin/Notices";
 import AdminToolkit from "./admin/Toolkit";
-
-import AdminEvents from "./pages/AdminEvents";
 import AdminRoute from "./components/Secure/AdminRoute";
 
 const scrollRoutes = ["flashing-notices", "cr", "council"];
@@ -115,11 +117,15 @@ export default function App() {
           {/* <Route path="/dashboard" element={<Dashboard/>}/> */}
           <Route path="/track" element={<ProtectedRoute redirect> <TrackDashboard /> </ProtectedRoute>} />
           <Route path="/signout" element={<SignOut />} />
+
+          {/* Modular Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/admin/toolkit" element={<AdminRoute><AdminToolkit /></AdminRoute>} />
-          <Route path="/admin/events" element={<AdminRoute> <AdminEvents /> </AdminRoute>} />
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminLayout><DashboardOverview /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/users" element={<AdminRoute><AdminLayout><AdminUsers /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/events" element={<AdminRoute><AdminLayout><AdminEvents /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/notices" element={<AdminRoute><AdminLayout><AdminNotices /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/toolkit" element={<AdminRoute><AdminLayout><AdminToolkit /></AdminLayout></AdminRoute>} />
 
           <Route path="*" element={<NoPage />} />
         </Routes>

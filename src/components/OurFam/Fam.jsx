@@ -156,7 +156,7 @@ const Fam = () => {
     : "Explore the DAAN KGP family across batches at IIT Kharagpur. Discover scholars by year, department, and hall, and get an overview of our growing Dakshana alumni and student community.";
 
   return (
-    <div className="dark:bg-gray-950 bg-gray-100 text-gray-900 dark:text-gray-400 min-h-screen container py-8">
+    <div className="bg-black text-gray-900 dark:text-gray-400 min-h-screen container py-8">
       <Helmet>
         {/* Standard metadata */}
         <title>{pageTitle}</title>
@@ -262,7 +262,7 @@ const Fam = () => {
 
       {/* Filters */}
       <div className="flex justify-center items-center mb-4 container mx-auto md:sticky top-12 z-20">
-        <FilterBar 
+        <FilterBar
           nameInput={nameInput}
           setNameInput={setNameInput}
           filters={filters}
@@ -276,7 +276,7 @@ const Fam = () => {
       </h3>
       {loading && <LoaderOverlay />}
       {/* Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 container">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-0 container">
         {filteredItems.map((item) => (
           <FamCard key={item._id} _id={item._id} {...item} />
         ))}

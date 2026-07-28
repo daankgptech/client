@@ -10,7 +10,7 @@ const FamCard = memo(
 
     const primary = contacts[0];
     if (
-      imgLink ==
+      imgLink ===
       "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723143/Avatar_avs1qx.avif"
     )
       imgLink = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=fee2e2&color=991b1b`;
@@ -31,86 +31,80 @@ const FamCard = memo(
     return (
       <div
         onClick={go}
-        className="
-          group cursor-pointer rounded-2xl overflow-hidden
-          bg-white dark:bg-gray-900
-          border border-neutral-200 dark:border-neutral-800
-          transition-colors duration-200
-          hover:border-rose-300 dark:hover:border-rose-800
-        "
+        className="group cursor-pointer flex flex-col justify-between overflow-hidden bg-transparent border-white/10 border-[0.5px] hover:bg-white/5 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 ease-out p-4"
       >
         {/* IMAGE */}
-        <div className="relative aspect-square bg-neutral-100 dark:bg-neutral-900">
+        <div className="relative aspect-square bg-white/5 overflow-hidden border-b border-white/10">
           <img
             src={avatar}
             alt={name}
             loading="lazy"
             decoding="async"
-            className="
-              w-full h-full object-cover
-              transition-transform duration-300
-              group-hover:scale-[1.03]
-            "
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
-          {/* Graduation dot (minimal indicator) */}
+          {/* Graduation dot / badge */}
           {graduated && (
-            <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-rose-500" />
+            <span className="absolute top-2 right-2 text-[9px] font-semibold text-white bg-primary/90 backdrop-blur-sm px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              Alumni
+            </span>
           )}
         </div>
 
         {/* CONTENT */}
-        <div className="p-3">
-          <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
-            {name}
-          </h3>
+        <div className="pt-3 flex flex-col justify-between flex-1">
+          <div>
+            <h3 className="text-base font-bold font-space-grotesk text-white group-hover:text-primary transition-colors leading-snug truncate">
+              {name}
+            </h3>
 
-          <p className="text-[11px] mt-0.5 text-neutral-500 dark:text-neutral-400 truncate">
-            {branch} · {hall}
-          </p>
+            <p className="text-xs text-white/60 truncate mt-1">
+              {branch} · {hall}
+            </p>
+          </div>
 
           {/* ACTIONS */}
-          <div className="flex items-center gap-3 mt-3">
-            {primary?.phone && (
-              <button
-                onClick={(e) => e.stopPropagation()}
-                className="
-                  text-neutral-400 hover:text-rose-500
-                  transition-colors
-                "
-              >
-                <MdAddCall size={16} />
-              </button>
-            )}
+          {(primary?.phone || primary?.email || primary?.linkedIn) && (
+            <div className="flex items-center gap-3 mt-3 border-t border-white/10 pt-2.5">
+              {primary?.phone && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `tel:${primary.phone}`;
+                  }}
+                  title="Call"
+                  className="text-white/40 hover:text-primary transition-colors"
+                >
+                  <MdAddCall size={16} />
+                </button>
+              )}
 
-            {primary?.email && (
-              <a
-                href={`mailto:${primary.email}`}
-                onClick={(e) => e.stopPropagation()}
-                className="
-                  text-neutral-400 hover:text-rose-500
-                  transition-colors
-                "
-              >
-                <FaEnvelope size={14} />
-              </a>
-            )}
+              {primary?.email && (
+                <a
+                  href={`mailto:${primary.email}`}
+                  onClick={(e) => e.stopPropagation()}
+                  title="Email"
+                  className="text-white/40 hover:text-primary transition-colors"
+                >
+                  <FaEnvelope size={14} />
+                </a>
+              )}
 
-            {primary?.linkedIn && (
-              <a
-                href={primary.linkedIn}
-                target="_blank"
-                rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="
-                  text-neutral-400 hover:text-rose-500
-                  transition-colors
-                "
-              >
-                <FaLinkedin size={14} />
-              </a>
-            )}
-          </div>
+              {primary?.linkedIn && (
+                <a
+                  href={primary.linkedIn}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  title="LinkedIn"
+                  className="text-white/40 hover:text-primary transition-colors"
+                >
+                  <FaLinkedin size={14} />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import defaultNotices from './Notice';
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/Secure/api';
+import { Cake, Sparkles } from 'lucide-react';
 
 const Hero = () => {
   const [notices, setNotices] = useState(defaultNotices);
@@ -99,10 +100,18 @@ const Hero = () => {
               <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {notices.map((item, index) => {
                   const key = item._id || index;
+                  const isBirthdayNotice = Boolean(item.isBirthday);
                   const Content = (
                     <div className="group/item cursor-pointer">
-                      <p className="text-[#ff3130] text-[10px] font-bold uppercase tracking-[0.2em] mb-1">
-                        {item.date}
+                      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-1 flex items-center gap-1.5 ${
+                        isBirthdayNotice ? "text-amber-400 font-extrabold" : "text-[#ff3130]"
+                      }`}>
+                        {isBirthdayNotice ? (
+                          <Cake className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                        ) : (
+                          <Sparkles className="w-3 h-3 text-[#ff3130]" />
+                        )}
+                        <span>{item.date}</span>
                       </p>
                       <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
                         {item.text}
@@ -111,19 +120,28 @@ const Hero = () => {
                     </div>
                   );
 
-                  return item.link ? (
-                    <a
-                      key={key}
-                      href={item.link}
-                      target={item.link.startsWith("http") ? "_blank" : "_self"}
-                      rel="noopener noreferrer"
-                      className="block"
-                    >
-                      {Content}
-                    </a>
-                  ) : (
-                    <div key={key}>{Content}</div>
-                  );
+                  if (item.link) {
+                    if (item.link.startsWith("http")) {
+                      return (
+                        <a
+                          key={key}
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          {Content}
+                        </a>
+                      );
+                    }
+                    return (
+                      <Link key={key} to={item.link} className="block">
+                        {Content}
+                      </Link>
+                    );
+                  }
+
+                  return <div key={key}>{Content}</div>;
                 })}
               </div>
             </div>

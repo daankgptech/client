@@ -114,7 +114,7 @@ const Forms = () => {
         <div className="flex items-center gap-3 mb-8">
           <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk tracking-tighter text-white">
             Forms
-          </h1>
+          </h1> 
         </div>
 
         {loading ? (

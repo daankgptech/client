@@ -5,18 +5,22 @@ import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
 import { api } from "../utils/Secure/api";
 import { cache } from "../utils/cache";
 
-// Skeleton shimmer component matching Forms page skeleton design
+// Lightweight, updated skeleton matching exact Toolkit item box design
 const SkeletonCard = () => (
-  <div className="animate-shimmer rounded-2xl overflow-hidden bg-white/5 border-[0.5px] border-white/10 p-5 space-y-4">
-    <div className="flex items-center justify-between">
-      <div className="w-16 h-4 rounded bg-white/10" />
-      <div className="w-12 h-4 rounded bg-white/5" />
+  <div className="flex flex-col justify-between bg-transparent border-white/10 border-[0.5px] p-5 animate-pulse min-h-[190px]">
+    <div>
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="w-16 h-4 rounded-full bg-white/10" />
+        <div className="w-12 h-4 rounded-full bg-white/5" />
+      </div>
+      <div className="w-3/4 h-5 rounded bg-white/10 mb-2.5" />
+      <div className="space-y-1.5 mt-2">
+        <div className="w-full h-3.5 rounded bg-white/5" />
+        <div className="w-4/5 h-3.5 rounded bg-white/5" />
+      </div>
     </div>
-    <div className="w-3/4 h-6 rounded bg-white/10" />
-    <div className="w-full h-4 rounded bg-white/5" />
-    <div className="w-2/3 h-3 rounded bg-white/5" />
-    <div className="border-t border-white/10 pt-3 mt-4">
-      <div className="w-full h-8 rounded bg-white/5" />
+    <div className="mt-6 border-t border-white/10 pt-3">
+      <div className="w-28 h-4 mx-auto rounded bg-white/5" />
     </div>
   </div>
 );
@@ -133,9 +137,9 @@ const Toolkit = () => {
           </h1>
         </div>
 
-        {/* Category Tabs matching website pill tab design */}
-        {tabs.length > 0 && (
-          <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2 mb-10 no-scrollbar select-none">
+        {/* Category Tabs matching box design of toolkit items */}
+        {tabs.length > 0 ? (
+          <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-0 mb-10 no-scrollbar select-none">
             {tabs.map(({ key, label }) => {
               const isActive = activeTab === key;
               return (
@@ -143,12 +147,12 @@ const Toolkit = () => {
                   key={key}
                   onClick={() => handleTabChange(key)}
                   className={`
-                    whitespace-nowrap px-4 py-2 rounded-full text-sm md:text-base font-medium
-                    border transition-all duration-200 flex-shrink-0
+                    whitespace-nowrap px-5 py-2.5 text-sm md:text-base font-medium font-space-grotesk
+                    border-[0.5px] transition-all duration-200 flex-shrink-0
                     ${
                       isActive
-                        ? "bg-primary text-white border-primary"
-                        : "bg-transparent border-white/10 text-white/60 hover:border-white/20 hover:text-white"
+                        ? "bg-primary text-white border-primary shadow-sm"
+                        : "bg-transparent border-white/10 text-white/60 hover:bg-white/5 hover:border-white/20 hover:text-white"
                     }
                   `}
                 >
@@ -157,32 +161,21 @@ const Toolkit = () => {
               );
             })}
           </div>
-        )}
+        ) : loading ? (
+          <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2.5 mb-10 no-scrollbar select-none animate-pulse">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-10 w-28 bg-white/5 border-[0.5px] border-white/10 flex-shrink-0" />
+            ))}
+          </div>
+        ) : null}
 
         {/* Content Section Cards */}
         {loading ? (
-          <>
-            <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <SkeletonCard key={i} />
-              ))}
-            </div>
-            <style>{`
-              @keyframes shimmer {
-                0% { background-position: -200% 0; }
-                100% { background-position: 200% 0; }
-              }
-              .animate-shimmer {
-                background: linear-gradient(90deg, transparent 0%, rgba(156, 163, 175, 0.3) 50%, transparent 100%);
-                background-size: 200% 100%;
-                animation: shimmer 1.2s linear infinite;
-              }
-              .dark .animate-shimmer {
-                background: linear-gradient(90deg, transparent 0%, rgba(75, 85, 99, 0.3) 50%, transparent 100%);
-                background-size: 200% 100%;
-              }
-            `}</style>
-          </>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}

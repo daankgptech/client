@@ -43,6 +43,8 @@ import TrackDashboard from "./pages/TrackDashboard";
 import SignUp from "./components/Secure/SignUp";
 import AdminLogin from "./admin/Login";
 import AdminDashboard from "./admin/Dashboard";
+import AdminToolkit from "./admin/Toolkit";
+
 import AdminEvents from "./pages/AdminEvents";
 import AdminRoute from "./components/Secure/AdminRoute";
 
@@ -116,7 +118,9 @@ export default function App() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/admin/toolkit" element={<AdminRoute><AdminToolkit /></AdminRoute>} />
           <Route path="/admin/events" element={<AdminRoute> <AdminEvents /> </AdminRoute>} />
+
           <Route path="*" element={<NoPage />} />
         </Routes>
       </main>

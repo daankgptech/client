@@ -1,66 +1,109 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
-import DownloadBtn from "../components/Toolkit/DownloadBtn";
 import { api } from "../utils/Secure/api";
 import { cache } from "../utils/cache";
 
-// Skeleton shimmer component for toolkit cards
+// Skeleton shimmer component matching Forms page skeleton design
 const SkeletonCard = () => (
-  <div className="animate-shimmer rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-    <div className="flex items-start justify-between gap-3">
-      <div className="flex-1 min-w-0 space-y-2">
-        <div className="w-full h-4 rounded bg-gray-300/70 dark:bg-gray-700/70" />
-        <div className="w-3/4 h-3 rounded bg-gray-300/60 dark:bg-gray-700/60" />
-      </div>
-      <div className="w-8 h-8 rounded-lg bg-gray-300/50 dark:bg-gray-700/50 flex-shrink-0" />
+  <div className="animate-shimmer rounded-2xl overflow-hidden bg-white/5 border-[0.5px] border-white/10 p-5 space-y-4">
+    <div className="flex items-center justify-between">
+      <div className="w-16 h-4 rounded bg-white/10" />
+      <div className="w-12 h-4 rounded bg-white/5" />
+    </div>
+    <div className="w-3/4 h-6 rounded bg-white/10" />
+    <div className="w-full h-4 rounded bg-white/5" />
+    <div className="w-2/3 h-3 rounded bg-white/5" />
+    <div className="border-t border-white/10 pt-3 mt-4">
+      <div className="w-full h-8 rounded bg-white/5" />
     </div>
   </div>
 );
-
-const tabs = [
-  { key: "erp", label: "ERP" },
-  { key: "fresher", label: "Fresher" },
-  { key: "academic", label: "Academic" },
-  { key: "cdc", label: "CDC Intern" },
-];
 
 const Toolkit = () => {
   const { tab } = useParams();
   const navigate = useNavigate();
 
-  const [toolkitData, setToolkitData] = useState(null);
+  const [tabs, setTabs] = useState([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch dynamic categories from backend API
   useEffect(() => {
-    const fetchToolkit = async () => {
+    let isMounted = true;
+    const fetchCategories = async () => {
+      try {
+        const cachedCats = cache.get("/toolkit/categories");
+        if (cachedCats && Array.isArray(cachedCats) && cachedCats.length > 0 && isMounted) {
+          setTabs(cachedCats);
+          return;
+        }
+
+        const res = await api.get("/toolkit/categories");
+        if (res.data?.success && Array.isArray(res.data.categories) && isMounted) {
+          setTabs(res.data.categories);
+          if (res.data.categories.length > 0) {
+            cache.set("/toolkit/categories", res.data.categories, 15 * 60 * 1000);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to fetch public toolkit categories:", err.message);
+      }
+    };
+
+    fetchCategories();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const activeTab = tabs.some(({ key }) => key === tab) ? tab : tabs[0]?.key || "";
+
+  // Fetch data per section on-demand with caching
+  useEffect(() => {
+    if (!activeTab) {
+      setLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    const fetchSectionData = async () => {
+      setLoading(true);
+      const cacheKey = `/toolkit/${activeTab}`;
+
       try {
         // Check cache first
-        const cached = cache.get("/toolkit");
-        if (cached) {
-          setToolkitData(cached);
+        const cachedData = cache.get(cacheKey);
+        if (cachedData && Array.isArray(cachedData) && isMounted) {
+          setData(cachedData);
           setLoading(false);
           return;
         }
 
-        const response = await api.get("/toolkit");
-        if (response.data.success) {
-          setToolkitData(response.data.data);
-          // Cache for 15 minutes (toolkit data rarely changes)
-          cache.set("/toolkit", response.data.data, 15 * 60 * 1000);
+        // Section API fetch
+        const response = await api.get(cacheKey);
+        if (response.data && response.data.success && isMounted) {
+          const items = response.data.data || [];
+          setData(items);
+          cache.set(cacheKey, items, 15 * 60 * 1000);
+        } else if (isMounted) {
+          setData([]);
         }
       } catch (error) {
-        console.error("Error fetching toolkit data:", error);
+        console.error(`Error fetching toolkit section [${activeTab}]:`, error);
+        if (isMounted) setData([]);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
-    fetchToolkit();
-  }, []);
 
-  const activeTab = tabs.some(({ key }) => key === tab) ? tab : "erp";
-  const data = toolkitData ? toolkitData[activeTab] || [] : [];
+    fetchSectionData();
+    return () => {
+      isMounted = false;
+    };
+  }, [activeTab]);
+
   const activeTabLabel =
     tabs.find((t) => t.key === activeTab)?.label || "Toolkit";
 
@@ -68,52 +111,8 @@ const Toolkit = () => {
     navigate(`/toolkit/${key}`);
   };
 
-  if (loading) {
-    return (
-      <div className="bg-gray-100 dark:bg-gray-950 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          {/* Header skeleton */}
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-gray-300/70 dark:bg-gray-700/70" />
-            <div className="w-32 h-8 rounded bg-gray-300/70 dark:bg-gray-700/70" />
-          </div>
-          {/* Tabs skeleton */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="w-20 h-9 rounded-full bg-gray-300/60 dark:bg-gray-700/60"
-              />
-            ))}
-          </div>
-          {/* Cards skeleton */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <SkeletonCard key={i} />
-            ))}
-          </div>
-        </div>
-        <style>{`
-          @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-          }
-          .animate-shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(156, 163, 175, 0.3) 50%, transparent 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.2s linear infinite;
-          }
-          .dark .animate-shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(75, 85, 99, 0.3) 50%, transparent 100%);
-            background-size: 200% 100%;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-300 py-8 min-h-screen">
+    <div className="min-h-screen transition-colors duration-300">
       <SEO
         title={`${activeTabLabel} Toolkit`}
         description={seoConfig.toolkit.description}
@@ -122,60 +121,134 @@ const Toolkit = () => {
         breadcrumbs={seoConfig.toolkit.breadcrumbs}
       />
 
-      <section className="container">
+      <section className="container mx-auto py-12">
         <div className="pb-4">
           <Breadcrumbs items={seoConfig.toolkit.breadcrumbs} />
         </div>
-        {/* Heading */}
+
+        {/* Heading matching Forms Page design */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 rounded-lg bg-rose-50 dark:bg-gray-900 border border-rose-200 dark:border-gray-700">
-            <Wrench className="w-5 h-5 text-rose-500" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk tracking-tighter text-white">
             Toolkit
           </h1>
         </div>
 
-        <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2 mb-10 no-scrollbar select-none">
-          {tabs.map(({ key, label }) => {
-            const isActive = activeTab === key;
-            return (
-              <button
-                key={key}
-                onClick={() => handleTabChange(key)}
-                className={`
-          whitespace-nowrap px-4 py-2 rounded-full text-sm md:text-base font-medium
-          border transition-all duration-200 flex-shrink-0
-          ${
-            isActive
-              ? "bg-rose-500 text-white border-rose-500"
-              : "bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400 hover:border-rose-400 hover:text-rose-500"
-          }
-        `}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
+        {/* Category Tabs matching website pill tab design */}
+        {tabs.length > 0 && (
+          <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2 mb-10 no-scrollbar select-none">
+            {tabs.map(({ key, label }) => {
+              const isActive = activeTab === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleTabChange(key)}
+                  className={`
+                    whitespace-nowrap px-4 py-2 rounded-full text-sm md:text-base font-medium
+                    border transition-all duration-200 flex-shrink-0
+                    ${
+                      isActive
+                        ? "bg-primary text-white border-primary"
+                        : "bg-transparent border-white/10 text-white/60 hover:border-white/20 hover:text-white"
+                    }
+                  `}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
-        {/* Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {data.length > 0 ? (
-            data.map((item, idx) => (
-              <div
-                key={idx}
-                className="transition-transform duration-200 hover:-translate-y-1"
-              >
-                <DownloadBtn {...item} />
-              </div>
-            ))
-          ) : (
-            <p className="text-center col-span-full py-10 text-gray-500 dark:text-gray-400">
-              No resources found for this category.
-            </p>
-          )}
-        </div>
+        {/* Content Section Cards */}
+        {loading ? (
+          <>
+            <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+            <style>{`
+              @keyframes shimmer {
+                0% { background-position: -200% 0; }
+                100% { background-position: 200% 0; }
+              }
+              .animate-shimmer {
+                background: linear-gradient(90deg, transparent 0%, rgba(156, 163, 175, 0.3) 50%, transparent 100%);
+                background-size: 200% 100%;
+                animation: shimmer 1.2s linear infinite;
+              }
+              .dark .animate-shimmer {
+                background: linear-gradient(90deg, transparent 0%, rgba(75, 85, 99, 0.3) 50%, transparent 100%);
+                background-size: 200% 100%;
+              }
+            `}</style>
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0"
+          >
+            {data.length > 0 ? (
+              data.map((item, index) => {
+                const itemTitle = item.title || item.catching || "Resource";
+                const itemDesc = item.description || item.cover || "";
+                const itemLink = item.link || item.href || "#";
+
+                return (
+                  <motion.div
+                    key={item._id || index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="group relative flex flex-col justify-between overflow-hidden bg-transparent border-white/10 border-[0.5px] hover:bg-white/5 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 ease-out p-5"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-primary px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
+                          {item.category || activeTab}
+                        </span>
+
+                        {item.isPopular && (
+                          <span className="text-[10px] font-semibold text-white bg-primary/90 backdrop-blur-sm px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            Popular
+                          </span>
+                        )}
+                      </div>
+
+                      <h2 className="text-lg font-bold font-space-grotesk text-white group-hover:text-primary transition-colors leading-snug">
+                        {itemTitle}
+                      </h2>
+
+                      {itemDesc && (
+                        <p className="text-xs md:text-sm text-white/60 line-clamp-3 leading-relaxed mt-2">
+                          {itemDesc}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-6 border-t border-white/10 pt-3">
+                      <a
+                        href={itemLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-center py-2 text-sm font-medium text-primary hover:text-white transition-colors"
+                      >
+                        Access Resource →
+                      </a>
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <p className="text-center col-span-full py-16 text-white/40 text-sm">
+                No resources found for this section.
+              </p>
+            )}
+          </motion.div>
+        )}
       </section>
     </div>
   );

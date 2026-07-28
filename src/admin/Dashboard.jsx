@@ -39,6 +39,7 @@ import {
   Megaphone,
   ToggleLeft,
   ToggleRight,
+  Wrench,
 } from "lucide-react";
 import {
   AreaChart,
@@ -53,6 +54,8 @@ import {
 } from "recharts";
 import { api } from "../utils/Secure/api";
 import SEO from "../utils/SEO";
+import AdminToolkit from "./Toolkit";
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -492,86 +495,18 @@ export default function Dashboard() {
     <div className="min-h-screen bg-black text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
       <SEO title="Admin Dashboard | DAAN KGP" description="DAAN KGP Admin Dashboard" noindex={true} />
 
-      {/* TOP HEADER */}
-      <header className="h-16 bg-zinc-950/90 border-b border-red-900/30 sticky top-0 z-40 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between">
-        {/* Left Branding */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-zinc-400 hover:text-white focus:outline-none"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-red-500" /> : <Menu className="w-6 h-6" />}
-          </button>
-
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center shadow-lg shadow-red-950/50">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg text-white tracking-wide">DAAN</span>
-                <span className="text-xs bg-red-950 border border-red-800/80 text-red-400 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  ADMIN
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Center Clock & Status */}
-        <div className="hidden lg:flex items-center gap-6 text-xs text-zinc-400">
-          <div className="flex items-center gap-2 bg-zinc-900/80 border border-zinc-800/80 px-3 py-1.5 rounded-lg">
-            <Clock className="w-3.5 h-3.5 text-red-400" />
-            <span className="font-mono text-zinc-200">{currentTime.toLocaleTimeString()}</span>
-          </div>
-
-          <div className="flex items-center gap-2 bg-zinc-900/80 border border-zinc-800/80 px-3 py-1.5 rounded-lg">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-emerald-400 font-medium">{stats.dbStatus}</span>
-          </div>
-        </div>
-
-        {/* Right Admin Profile & Actions */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={fetchDashboardData}
-            disabled={refreshing}
-            className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-red-900/50 text-zinc-400 hover:text-white transition-all disabled:opacity-50"
-            title="Refresh Data"
-          >
-            <RefreshCw className={`w-4 h-4 ${refreshing ? "animate-spin text-red-500" : ""}`} />
-          </button>
-
-          <div className="flex items-center gap-2 bg-zinc-900 border border-red-900/30 px-3 py-1.5 rounded-xl">
-            <div className="w-7 h-7 rounded-full bg-red-600/20 border border-red-500/40 text-red-400 font-bold flex items-center justify-center text-xs">
-              S
-            </div>
-            <div className="hidden sm:block text-left">
-              <p className="text-xs font-semibold text-white leading-none">shani</p>
-              <p className="text-[10px] text-red-400 leading-none mt-1">Super Admin</p>
-            </div>
-          </div>
-
-          <button
-            onClick={handleLogout}
-            className="p-2 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 hover:bg-red-900 hover:text-white transition-all text-xs font-medium flex items-center gap-1.5"
-            title="Sign Out"
-          >
-            <LogOut className="w-4 h-4" />
-            <span className="hidden sm:inline">Logout</span>
-          </button>
-        </div>
-      </header>
-
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="md:hidden p-2 text-zinc-400 hover:text-white focus:outline-none"
+      >
+        {mobileMenuOpen ? "𒉽" : "𒀼"}
+      </button>
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex overflow-hidden relative">
         {/* SIDEBAR (Desktop) */}
         <aside className="hidden md:flex flex-col w-64 bg-zinc-950 border-r border-red-900/20 p-4 gap-2 shrink-0">
           <p className="text-[10px] uppercase font-bold text-red-500 tracking-wider px-3 py-1">
-            Navigation
+            Admin Panel
           </p>
 
           <nav className="space-y-1">
@@ -580,20 +515,21 @@ export default function Dashboard() {
               { id: "users", label: "User Directory", icon: Users },
               { id: "events", label: "Events & News", icon: Calendar },
               { id: "noticeboard", label: "Noticeboard", icon: Bell },
+              { id: "toolkit", label: "Toolkit Manager", icon: Wrench },
               { id: "logs", label: "System Health", icon: Activity },
               { id: "settings", label: "Settings", icon: Settings },
             ].map((tab) => {
+
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-lg shadow-red-950/50 font-semibold"
-                      : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
-                  }`}
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
+                    ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-lg shadow-red-950/50 font-semibold"
+                    : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
+                    }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-zinc-400"}`} />
                   {tab.label}
@@ -627,9 +563,11 @@ export default function Dashboard() {
                   { id: "users", label: "User Directory", icon: Users },
                   { id: "events", label: "Events & News", icon: Calendar },
                   { id: "noticeboard", label: "Noticeboard", icon: Bell },
+                  { id: "toolkit", label: "Toolkit Manager", icon: Wrench },
                   { id: "logs", label: "System Health", icon: Activity },
                   { id: "settings", label: "Settings", icon: Settings },
                 ].map((tab) => {
+
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
                   return (
@@ -639,11 +577,10 @@ export default function Dashboard() {
                         setActiveTab(tab.id);
                         setMobileMenuOpen(false);
                       }}
-                      className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium ${
-                        isActive
-                          ? "bg-red-600 text-white font-semibold"
-                          : "text-zinc-400 hover:bg-zinc-900"
-                      }`}
+                      className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium ${isActive
+                        ? "bg-red-600 text-white font-semibold"
+                        : "text-zinc-400 hover:bg-zinc-900"
+                        }`}
                     >
                       <Icon className="w-4 h-4" />
                       {tab.label}
@@ -662,16 +599,20 @@ export default function Dashboard() {
             <div className="space-y-6 animate-fadeIn">
               {/* Top Banner */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-zinc-950 via-zinc-900 to-red-950/30 border border-red-900/30 p-6 rounded-2xl">
-                <div>
-                  <h2 className="text-2xl font-bold text-white tracking-tight">
-                    Welcome Back, Admin <span className="text-red-500">shani</span>
-                  </h2>
-                  <p className="text-sm text-zinc-400 mt-1">
-                    System status is operational. All microservices are active.
-                  </p>
+                <div className="flex gap-1 md:gap-2 justify-center items-center">
+                  <span className="text-emerald-400 font-medium">{stats.dbStatus}</span>
+                  <span className="font-mono text-zinc-200">{currentTime.toLocaleTimeString()}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={fetchDashboardData}
+                    disabled={refreshing}
+                    className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-red-900/50 text-zinc-400 hover:text-white transition-all disabled:opacity-50"
+                    title="Refresh Data"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${refreshing ? "animate-spin text-red-500" : ""}`} />
+                  </button>
                   <button
                     onClick={() => handleAdminAction("clear_cache")}
                     className="px-3.5 py-2 rounded-xl bg-red-950/50 border border-red-800/40 text-red-300 hover:bg-red-900/80 text-xs font-semibold flex items-center gap-1.5 transition-all"
@@ -685,6 +626,14 @@ export default function Dashboard() {
                   >
                     <Database className="w-3.5 h-3.5 text-red-400" />
                     Ping DB
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 hover:bg-red-900 hover:text-white transition-all text-xs font-medium flex items-center gap-1.5"
+                    title="Sign Out"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span className="hidden sm:inline">Logout</span>
                   </button>
                 </div>
               </div>
@@ -1334,14 +1283,12 @@ export default function Dashboard() {
                   filteredAdminNotices.map((n) => (
                     <div
                       key={n._id}
-                      className={`bg-zinc-950 border p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all ${
-                        n.isActive ? "border-zinc-800 hover:border-red-900/60" : "border-zinc-900 opacity-60"
-                      }`}
+                      className={`bg-zinc-950 border p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all ${n.isActive ? "border-zinc-800 hover:border-red-900/60" : "border-zinc-900 opacity-60"
+                        }`}
                     >
                       <div className="flex items-start gap-4 flex-1">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                          n.isActive ? "bg-red-950/80 border border-red-800/60 text-red-400" : "bg-zinc-900 border border-zinc-800 text-zinc-600"
-                        }`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${n.isActive ? "bg-red-950/80 border border-red-800/60 text-red-400" : "bg-zinc-900 border border-zinc-800 text-zinc-600"
+                          }`}>
                           <Megaphone className="w-5 h-5" />
                         </div>
 
@@ -1381,11 +1328,10 @@ export default function Dashboard() {
                       <div className="flex items-center gap-2 sm:self-center shrink-0">
                         <button
                           onClick={() => handleToggleNoticeActive(n)}
-                          className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                            n.isActive
-                              ? "bg-emerald-950/40 border-emerald-800 text-emerald-400 hover:bg-emerald-900/60"
-                              : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white"
-                          }`}
+                          className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all ${n.isActive
+                            ? "bg-emerald-950/40 border-emerald-800 text-emerald-400 hover:bg-emerald-900/60"
+                            : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white"
+                            }`}
                           title="Toggle homepage visibility"
                         >
                           {n.isActive ? <ToggleRight className="w-4 h-4 text-emerald-400" /> : <ToggleLeft className="w-4 h-4 text-zinc-500" />}
@@ -1529,7 +1475,11 @@ export default function Dashboard() {
             </div>
           )}
 
+          {/* TAB: TOOLKIT MANAGEMENT */}
+          {activeTab === "toolkit" && <AdminToolkit />}
+
           {/* TAB 4: SYSTEM HEALTH & LOGS */}
+
           {activeTab === "logs" && (
             <div className="space-y-6 animate-fadeIn">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -1543,11 +1493,10 @@ export default function Dashboard() {
                     <button
                       key={lvl}
                       onClick={() => setLogFilter(lvl)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${
-                        logFilter === lvl
-                          ? "bg-red-600 text-white"
-                          : "bg-zinc-900 text-zinc-400 hover:text-white"
-                      }`}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${logFilter === lvl
+                        ? "bg-red-600 text-white"
+                        : "bg-zinc-900 text-zinc-400 hover:text-white"
+                        }`}
                     >
                       {lvl}
                     </button>
@@ -1566,13 +1515,12 @@ export default function Dashboard() {
                       <div className="flex items-center gap-2 text-[10px]">
                         <span className="text-zinc-500">{new Date(l.timestamp).toLocaleString()}</span>
                         <span
-                          className={`px-2 py-0.5 rounded font-bold uppercase ${
-                            l.level === "warn"
-                              ? "bg-amber-950 text-amber-400 border border-amber-800"
-                              : l.level === "error"
+                          className={`px-2 py-0.5 rounded font-bold uppercase ${l.level === "warn"
+                            ? "bg-amber-950 text-amber-400 border border-amber-800"
+                            : l.level === "error"
                               ? "bg-red-950 text-red-400 border border-red-800"
                               : "bg-blue-950 text-blue-400 border border-blue-800"
-                          }`}
+                            }`}
                         >
                           {l.level}
                         </span>

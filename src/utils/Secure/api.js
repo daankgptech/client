@@ -12,3 +12,23 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// Request interceptor to automatically attach Authorization Bearer token
+api.interceptors.request.use(
+  (config) => {
+    const adminToken =
+      localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken");
+    const userToken =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const token = adminToken || userToken;
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

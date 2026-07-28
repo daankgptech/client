@@ -1,15 +1,15 @@
 const notices = [
     {
-        date: "May 20 2026",
-        text: "Summer Quarter Classes Start",
+        date: "Date1",
+        text: "Notice1",
     },
     {
-        date: "May 13 - May 17",
-        text: "Summer Quarter Registration",
+        date: "Date2",
+        text: "Notice2",
     },
     {
-        date: "Apr 30 - Jul 15",
-        text: "Summer Vacations",
+        date: "Date3",
+        text: "Notice3",
     },
 ];
 

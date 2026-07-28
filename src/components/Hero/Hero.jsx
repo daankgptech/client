@@ -65,7 +65,7 @@ const Hero = () => {
           <motion.p
             variants={fadeInUp}
             className="font-['Inter'] text-sm md:text-lg text-white/70 max-w-xl leading-relaxed mb-10"
-          >You are now part of the distinguished Dakshana network at IIT Kharagpur - where heritage, ambition, and innovation unite to
+          >A part of the distinguished Dakshana network at IIT Kharagpur - where heritage, ambition, and innovation unite to
             <span className="text-white font-medium"> connect, collaborate, and grow</span> together.
           </motion.p>
 
@@ -94,7 +94,6 @@ const Hero = () => {
             <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 p-8 md:p-10 shadow-2xl">
               <div className="flex justify-between items-center mb-8">
                 <h3 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight">Noticeboard</h3>
-                <div className="h-2 w-2 rounded-full bg-[#ff3130] animate-pulse" title="Live Noticeboard Stream" />
               </div>
 
               <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">

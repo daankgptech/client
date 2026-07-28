@@ -4,13 +4,13 @@ import AnimatedCounter from "../../utils/AnimationCounter";
 import { api } from "../../utils/Secure/api";
 import { cache } from "../../utils/cache";
 
-// Skeleton shimmer component
+// Skeleton component matching exact card structure and border layout
 const SkeletonCard = () => (
-  <div className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%]">
-    <div className="animate-shimmer rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px] md:min-h-[160px] bg-white/5 border-[0.5px] border-white/10">
-      <div className="w-16 sm:w-20 md:w-24 h-8 sm:h-10 md:h-12 rounded bg-white/10 mb-4" />
-      <div className="w-20 sm:w-24 md:w-28 h-3 sm:h-4 rounded bg-white/5" />
-    </div>
+  <div className="w-[45%] sm:w-[30%] md:w-[22%] lg:w-[18%] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center bg-transparent border-x-[0.1px] border-white/10">
+    {/* Number Skeleton */}
+    <div className="w-16 sm:w-24 md:w-32 h-8 sm:h-10 md:h-14 rounded-xl bg-white/10 animate-pulse mb-2" />
+    {/* Label Skeleton */}
+    <div className="w-20 sm:w-24 md:w-28 h-4 sm:h-5 rounded-md bg-white/5 animate-pulse" />
   </div>
 );
 
@@ -18,24 +18,15 @@ const CountBanner = ({ stats, loading }) => {
   if (loading) {
     return (
       <div className="flex flex-col items-center w-full">
-        <div className="w-40 h-4 rounded bg-white/10 animate-shimmer mb-8 mt-6" />
+        {/* Subtitle Skeleton */}
+        <div className="mt-6 w-64 sm:w-80 md:w-[380px] h-4 sm:h-5 rounded-full bg-white/10 animate-pulse" />
 
-        <div className="w-full flex flex-wrap justify-center gap-4 md:gap-6 px-4 md:px-8">
+        {/* Stats Skeleton Grid matching actual design */}
+        <div className="w-full flex flex-wrap justify-center gap-0 mt-8 px-0 md:px-0">
           {[1, 2, 3, 4].map((i) => (
             <SkeletonCard key={i} />
           ))}
         </div>
-
-        <style>{`
-          @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-          }
-          .animate-shimmer {
-            background-size: 200% 100%;
-            animation: shimmer 1.2s linear infinite;
-          }
-        `}</style>
       </div>
     );
   }

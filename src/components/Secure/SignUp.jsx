@@ -13,6 +13,7 @@ import {
   Loader2,
   MapPin,
   RefreshCw,
+  Share2,
 } from "lucide-react";
 
 const GENDER_OPTIONS = ["Male", "Female", "Other"];
@@ -34,12 +35,13 @@ const BRANCH_OPTIONS = [
   "NA", "PH", "QE", "TS",
 ];
 const HALL_OPTIONS = [
-  "Azad", "BCR", "BRH", "HJB", "JBR", "LBS", "MMM",
+  "LBS", "Azad", "BCR", "BRH", "HJB", "JBR", "MMM",
   "Patel", "RK", "RP", "VS", "SN / IG", "MT", "GKH",
   "SNVH", "RLB", "SAM",
 ];
 const COE_OPTIONS = ["Dakshana Valley", "JNV Bangalore Urban", "JNV Lucknow", "JNV Bundi", "Other"];
 const BATCH_OPTIONS = Array.from({ length: 14 }, (_, i) => (2016 + i).toString());
+const SEMESTER_OPTIONS = Array.from({ length: 10 }, (_, i) => i + 1);
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -75,23 +77,24 @@ export default function SignUp() {
     };
   }, []);
 
-  // Form State
+  // Form State with specified defaults
   const [form, setForm] = useState({
     name: "",
     username: "", // Email
     phone: "",
     gender: "Male",
-    batch: "2024",
-    hall: "Azad",
+    batch: "2026", // Default 2026 batch
+    hall: "LBS", // Default LBS hall
     branch: "CS",
     course: "B.Tech",
+    semester: 1, // Default Semester 1
     graduated: false,
     cgpa: "",
     bio: "",
     coe: "Dakshana Valley",
     parentJNV: "",
     imgLink: "",
-    // Contacts
+    // Contacts & Social
     email: "",
     github: "",
     linkedIn: "",
@@ -173,7 +176,7 @@ export default function SignUp() {
     data.append("image", file);
 
     try {
-      const res = await api.post("/admin/upload", data, {
+      const res = await api.post("/upload", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (res.data?.success && res.data.url) {
@@ -188,18 +191,50 @@ export default function SignUp() {
     }
   };
 
-  // Step 1 -> Step 2: Validate details, pre-check phone & email, send Firebase OTP
+  // Step 1 -> Step 2: Validate all required fields, pre-check phone & email, send Firebase OTP
   const handleProceedToOtp = async (e) => {
     e?.preventDefault();
 
-    if (!form.name.trim() || !form.username.trim() || !form.phone) {
-      toast.error("Full Name, Email, and Phone Number are required");
+    // 1. Mandatory Field Validation
+    if (!form.name.trim()) {
+      toast.error("Full Name is required.");
       return;
     }
-
+    if (!form.username.trim()) {
+      toast.error("Email Address is required.");
+      return;
+    }
     const cleanedPhone = form.phone.replace(/\D/g, "");
     if (cleanedPhone.length !== 10) {
-      toast.error("Please enter a valid 10-digit mobile phone number");
+      toast.error("Please enter a valid 10-digit mobile phone number.");
+      return;
+    }
+    if (!form.imgLink) {
+      toast.error("Profile photo is required. Please upload your photo.");
+      return;
+    }
+    if (!form.dob) {
+      toast.error("Date of Birth is required.");
+      return;
+    }
+    if (!form.emergencyContact.trim()) {
+      toast.error("Emergency Contact Number is required.");
+      return;
+    }
+    if (!form.address.trim()) {
+      toast.error("Address is required.");
+      return;
+    }
+    if (!form.city.trim()) {
+      toast.error("City is required.");
+      return;
+    }
+    if (!form.state.trim()) {
+      toast.error("State is required.");
+      return;
+    }
+    if (!form.pincode.trim()) {
+      toast.error("Pincode is required.");
       return;
     }
 
@@ -312,6 +347,7 @@ export default function SignUp() {
         hall: form.hall,
         branch: form.branch,
         course: form.course,
+        semester: Number(form.semester) || 1,
         graduated: form.graduated,
         cgpa: form.cgpa,
         bio: form.bio,
@@ -322,13 +358,13 @@ export default function SignUp() {
           {
             phone: formattedPhone,
             email: form.username.trim(),
-            github: form.github,
-            linkedIn: form.linkedIn,
+            github: form.github ? form.github.trim() : "",
+            linkedIn: form.linkedIn ? form.linkedIn.trim() : "",
           },
         ],
         involvements: [
           {
-            soc: form.soc,
+            soc: form.soc ? form.soc.trim() : "",
             involvementsHall: form.involvementsHall,
             council: form.council,
             iit: form.iit,
@@ -337,11 +373,11 @@ export default function SignUp() {
         ],
         personalInfo: {
           dob: form.dob ? new Date(form.dob).toISOString() : null,
-          address: form.address,
-          city: form.city,
-          state: form.state,
-          pincode: form.pincode,
-          emergencyContact: form.emergencyContact,
+          address: form.address.trim(),
+          city: form.city.trim(),
+          state: form.state.trim(),
+          pincode: form.pincode.trim(),
+          emergencyContact: form.emergencyContact.trim(),
           bloodGroup: form.bloodGroup,
         },
       };
@@ -373,7 +409,7 @@ export default function SignUp() {
             Sign Up
           </h1>
           <p className="text-xs text-white/50">
-            Submit your details for verification
+            Fill all required fields (*). Optional fields are marked explicitly.
           </p>
         </div>
 
@@ -383,24 +419,24 @@ export default function SignUp() {
             {/* Basic Info Header */}
             <div className="space-y-4 pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 border-b border-white/10 pb-2 flex items-center gap-2">
-                <User className="w-4 h-4" /> 1. Primary Member Info
+                <User className="w-4 h-4" /> 1. Primary Academic & Member Info
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Full Name*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Full Name *</label>
                   <input
                     type="text"
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="Type here"
+                    placeholder="e.g. Rahul Sharma"
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Email*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Email Address *</label>
                   <input
                     type="email"
                     required
@@ -412,7 +448,7 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">10-Digit Phone Number*</label>
+                  <label className="block text-white/70 mb-1 font-bold">10-Digit Phone Number *</label>
                   <div className="relative flex items-center">
                     <span className="absolute left-3 text-xs font-bold text-red-400 font-mono">+91</span>
                     <input
@@ -428,7 +464,7 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Gender*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Gender *</label>
                   <select
                     value={form.gender}
                     onChange={(e) => setForm({ ...form, gender: e.target.value })}
@@ -443,7 +479,7 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Joining Year*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Joining Year (Batch) *</label>
                   <select
                     value={form.batch}
                     onChange={(e) => setForm({ ...form, batch: e.target.value })}
@@ -451,14 +487,14 @@ export default function SignUp() {
                   >
                     {BATCH_OPTIONS.map((b) => (
                       <option key={b} value={b} className="bg-[#09090b]">
-                        Batch {b}
+                        Batch {b} {b === "2026" ? "(Default)" : ""}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Branch*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Branch *</label>
                   <select
                     value={form.branch}
                     onChange={(e) => setForm({ ...form, branch: e.target.value })}
@@ -473,7 +509,7 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Hall of Residence*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Hall of Residence *</label>
                   <select
                     value={form.hall}
                     onChange={(e) => setForm({ ...form, hall: e.target.value })}
@@ -481,14 +517,14 @@ export default function SignUp() {
                   >
                     {HALL_OPTIONS.map((h) => (
                       <option key={h} value={h} className="bg-[#09090b]">
-                        {h}
+                        {h} {h === "LBS" ? "(Default)" : ""}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Course/Degree*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Course/Degree *</label>
                   <select
                     value={form.course}
                     onChange={(e) => setForm({ ...form, course: e.target.value })}
@@ -503,7 +539,22 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Dakshana COE*</label>
+                  <label className="block text-white/70 mb-1 font-bold">Current Semester *</label>
+                  <select
+                    value={form.semester}
+                    onChange={(e) => setForm({ ...form, semester: Number(e.target.value) })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  >
+                    {SEMESTER_OPTIONS.map((s) => (
+                      <option key={s} value={s} className="bg-[#09090b]">
+                        Semester {s} {s === 1 ? "(Default)" : ""}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Dakshana COE *</label>
                   <select
                     value={form.coe}
                     onChange={(e) => setForm({ ...form, coe: e.target.value })}
@@ -518,7 +569,9 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Parent JNV School</label>
+                  <label className="block text-white/70 mb-1 font-bold">
+                    Parent JNV School <span className="text-white/40 font-normal">(Optional)</span>
+                  </label>
                   <input
                     type="text"
                     value={form.parentJNV}
@@ -531,7 +584,7 @@ export default function SignUp() {
 
               {/* Profile Photo Upload */}
               <div>
-                <label className="block text-white/70 mb-1 font-bold">Profile Photo</label>
+                <label className="block text-white/70 mb-1 font-bold">Profile Photo *</label>
                 <div className="flex items-center gap-2">
                   <label className="flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 cursor-pointer font-bold shrink-0">
                     {uploadingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
@@ -539,16 +592,20 @@ export default function SignUp() {
                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                   </label>
                 </div>
-                {form.imgLink && (
+                {form.imgLink ? (
                   <div className="mt-2 flex items-center gap-3">
                     <img src={form.imgLink} alt="Profile Preview" className="w-12 h-12 rounded-full object-cover border border-white/20" />
-                    <span className="text-[10px] text-emerald-400">✓ Photo attached</span>
+                    <span className="text-[10px] text-emerald-400 font-bold">✓ Profile photo attached</span>
                   </div>
+                ) : (
+                  <p className="mt-1 text-[10px] text-red-400">Photo upload is required for verification.</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-white/70 mb-1 font-bold">Short Bio</label>
+                <label className="block text-white/70 mb-1 font-bold">
+                  Short Bio <span className="text-white/40 font-normal">(Optional)</span>
+                </label>
                 <textarea
                   rows="2"
                   value={form.bio}
@@ -559,17 +616,66 @@ export default function SignUp() {
               </div>
             </div>
 
-            {/* Personal & Emergency Info Header */}
+            {/* Social & Involvements Optional Header */}
             <div className="space-y-4 pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 border-b border-white/10 pb-2 flex items-center gap-2">
-                <MapPin className="w-4 h-4" /> 2. Personal & Emergency Details
+                <Share2 className="w-4 h-4" /> 2. Social Profiles & Involvements (Optional)
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Date of Birth</label>
+                  <label className="block text-white/70 mb-1 font-bold">
+                    GitHub Link <span className="text-white/40 font-normal">(Optional)</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={form.github}
+                    onChange={(e) => setForm({ ...form, github: e.target.value })}
+                    placeholder="https://github.com/username"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">
+                    LinkedIn Link <span className="text-white/40 font-normal">(Optional)</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={form.linkedIn}
+                    onChange={(e) => setForm({ ...form, linkedIn: e.target.value })}
+                    placeholder="https://linkedin.com/in/username"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-white/70 mb-1 font-bold">
+                    Societies & Campus Involvements <span className="text-white/40 font-normal">(Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={form.soc}
+                    onChange={(e) => setForm({ ...form, soc: e.target.value })}
+                    placeholder="e.g. Technology Robotix Society, E-Cell"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Personal & Emergency Info Header */}
+            <div className="space-y-4 pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 border-b border-white/10 pb-2 flex items-center gap-2">
+                <MapPin className="w-4 h-4" /> 3. Address, Personal & Emergency Details
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Date of Birth *</label>
                   <input
                     type="date"
+                    required
                     value={form.dob}
                     onChange={(e) => setForm({ ...form, dob: e.target.value })}
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
@@ -577,7 +683,7 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Blood Group</label>
+                  <label className="block text-white/70 mb-1 font-bold">Blood Group *</label>
                   <select
                     value={form.bloodGroup}
                     onChange={(e) => setForm({ ...form, bloodGroup: e.target.value })}
@@ -592,9 +698,10 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Emergency Contact Number</label>
+                  <label className="block text-white/70 mb-1 font-bold">Emergency Contact Number *</label>
                   <input
                     type="text"
+                    required
                     value={form.emergencyContact}
                     onChange={(e) => setForm({ ...form, emergencyContact: e.target.value })}
                     placeholder="+91 9876543210"
@@ -603,13 +710,50 @@ export default function SignUp() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Pincode</label>
+                  <label className="block text-white/70 mb-1 font-bold">Address *</label>
                   <input
                     type="text"
+                    required
+                    value={form.address}
+                    onChange={(e) => setForm({ ...form, address: e.target.value })}
+                    placeholder="House/Street address"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">City *</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    placeholder="e.g. Kharagpur"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">State *</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.state}
+                    onChange={(e) => setForm({ ...form, state: e.target.value })}
+                    placeholder="e.g. West Bengal"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Pincode *</label>
+                  <input
+                    type="text"
+                    required
                     value={form.pincode}
                     onChange={(e) => setForm({ ...form, pincode: e.target.value })}
-                    placeholder="Type here"
-                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                    placeholder="721302"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
               </div>
@@ -697,7 +841,7 @@ export default function SignUp() {
 
             <div className="p-4 bg-white/5 border border-white/10 text-xs text-white/60 max-w-md mx-auto text-left space-y-1 font-mono">
               <p>Registered Phone: {formatFullPhone(form.phone)}</p>
-              <p>Batch & Branch: Batch {form.batch} · {form.branch}</p>
+              <p>Batch & Branch: Batch {form.batch} · {form.branch} (Semester {form.semester})</p>
               <p>Hall: {form.hall}</p>
               <p>Status: Pending Admin Review</p>
             </div>

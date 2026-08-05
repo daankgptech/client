@@ -157,6 +157,45 @@ export default function Profile() {
     const avg = values.reduce((a, b) => a + b, 0) / values.length;
     return avg.toFixed(2);
   })();
+
+  // Profile completion strength calculation
+  const getProfileCompletion = (u) => {
+    if (!u) return { percentage: 0, missing: [], total: 0, filledCount: 0 };
+
+    const fieldsToCheck = [
+      { key: "name", label: "Full Name", value: u.name },
+      { key: "imgLink", label: "Profile Photo", value: u.imgLink },
+      { key: "gender", label: "Gender", value: u.gender },
+      { key: "batch", label: "Batch", value: u.batch },
+      { key: "branch", label: "Branch", value: u.branch },
+      { key: "hall", label: "Hall of Residence", value: u.hall },
+      { key: "course", label: "Course / Degree", value: u.course },
+      { key: "semester", label: "Semester", value: u.semester || u.sem },
+      { key: "coe", label: "Dakshana COE", value: u.coe },
+      { key: "bio", label: "Short Bio", value: u.bio },
+      { key: "phone", label: "Phone Number", value: u.contacts?.phone || u.contacts?.[0]?.phone },
+      { key: "email", label: "Email Address", value: u.contacts?.email || u.contacts?.[0]?.email || u.username },
+      { key: "github", label: "GitHub Link", value: u.contacts?.github || u.contacts?.[0]?.github },
+      { key: "linkedIn", label: "LinkedIn Link", value: u.contacts?.linkedIn || u.contacts?.[0]?.linkedIn },
+      { key: "soc", label: "Society / Involvement", value: u.involvements?.soc || u.involvements?.[0]?.soc },
+      { key: "dob", label: "Date of Birth", value: u.personalInfo?.dob },
+      { key: "bloodGroup", label: "Blood Group", value: u.personalInfo?.bloodGroup },
+      { key: "emergencyContact", label: "Emergency Contact", value: u.personalInfo?.emergencyContact },
+      { key: "address", label: "Address", value: u.personalInfo?.address },
+      { key: "city", label: "City", value: u.personalInfo?.city },
+      { key: "state", label: "State", value: u.personalInfo?.state },
+      { key: "pincode", label: "Pincode", value: u.personalInfo?.pincode },
+    ];
+
+    const filled = fieldsToCheck.filter((f) => Boolean(f.value && String(f.value).trim() !== ""));
+    const missing = fieldsToCheck.filter((f) => !f.value || String(f.value).trim() === "");
+    const percentage = Math.round((filled.length / fieldsToCheck.length) * 100);
+
+    return { percentage, missing, total: fieldsToCheck.length, filledCount: filled.length };
+  };
+
+  const completionStats = getProfileCompletion(form || user);
+
   return (
     <>
       <SEO {...seoConfig.profile} />
@@ -219,6 +258,55 @@ export default function Profile() {
           <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xl">
             {user.bio || "—"}
           </p>
+        </div>
+      </div>
+
+      {/* Profile Completion Indicator */}
+      <div className="container mb-6">
+        <div className="p-5 rounded-2xl bg-[#09090b] border border-rose-500/20 shadow-xl space-y-3 font-space-grotesk text-white">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20">
+                <FiInfo className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold tracking-tight text-white">
+                  Profile Strength: {completionStats.percentage}% Completed
+                </h3>
+                <p className="text-xs text-white/60">
+                  {completionStats.percentage === 100
+                    ? "Great job! Your profile is 100% complete."
+                    : `Your profile is ${completionStats.percentage}% completed. Complete rest of the profile.`}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setEditing(true)}
+              className="self-start sm:self-auto px-4 py-2 text-xs font-bold bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all shadow-md shadow-rose-500/20"
+            >
+              {editing ? "Editing Mode Active" : "Complete Profile"}
+            </button>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-rose-500 to-red-600 transition-all duration-500 rounded-full"
+              style={{ width: `${completionStats.percentage}%` }}
+            />
+          </div>
+
+          {completionStats.missing.length > 0 && (
+            <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px] text-white/60">
+              <span className="font-bold text-rose-400">Missing fields:</span>
+              {completionStats.missing.map((m) => (
+                <span key={m.key} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/80">
+                  {m.label}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

@@ -200,11 +200,20 @@ export default function Notices() {
           </thead>
           <tbody className="divide-y divide-white/10">
             {loading ? (
-              <tr>
-                <td colSpan="5" className="py-8 text-center text-white/40 italic">
-                  Loading notices...
-                </td>
-              </tr>
+              [1, 2, 3, 4, 5].map((i) => (
+                <tr key={i} className="animate-pulse border-b border-white/5">
+                  <td className="py-3.5 px-4"><div className="h-4 w-20 bg-white/10 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-4 w-3/4 bg-white/10 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-4 w-16 bg-white/5 rounded-full" /></td>
+                  <td className="py-3.5 px-4"><div className="h-4 w-8 bg-white/5 rounded" /></td>
+                  <td className="py-3.5 px-4 text-right">
+                    <div className="flex justify-end gap-2">
+                      <div className="h-7 w-12 bg-white/5 rounded" />
+                      <div className="h-7 w-12 bg-white/10 rounded" />
+                    </div>
+                  </td>
+                </tr>
+              ))
             ) : filteredNotices.length === 0 ? (
               <tr>
                 <td colSpan="5" className="py-8 text-center text-white/40 italic">

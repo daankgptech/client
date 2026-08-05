@@ -11,14 +11,35 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    // If already authenticated, redirect to admin dashboard
-    const isAdminAuth = sessionStorage.getItem("adminAuthenticated") === "true";
-    const token = localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken");
-    if (isAdminAuth || token) {
-      navigate("/admin/dashboard", { replace: true });
-    }
+    // Only redirect if backend server verifies active admin token
+    const verifyExistingAdmin = async () => {
+      const token = localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken");
+      const isAdminAuth = sessionStorage.getItem("adminAuthenticated") === "true";
+
+      if (token || isAdminAuth) {
+        try {
+          const res = await api.get("/admin/verify");
+          if (res.data?.success && res.data?.authenticated) {
+            sessionStorage.setItem("adminAuthenticated", "true");
+            navigate("/admin/dashboard", { replace: true });
+            return;
+          }
+        } catch (err) {
+          console.warn("Stored admin token verification failed:", err.message);
+          // Token is invalid/expired -> clear stale session
+          sessionStorage.removeItem("adminAuthenticated");
+          sessionStorage.removeItem("adminUser");
+          sessionStorage.removeItem("adminToken");
+          localStorage.removeItem("adminToken");
+        }
+      }
+      setCheckingAuth(false);
+    };
+
+    verifyExistingAdmin();
   }, [navigate]);
 
   const handleFillDemo = () => {

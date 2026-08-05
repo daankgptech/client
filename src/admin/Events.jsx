@@ -195,8 +195,17 @@ export default function Events() {
       {/* Event Cards Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-64 bg-white/5 border border-white/10" />
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="border border-white/10 bg-white/5 p-4 space-y-3">
+              <div className="h-40 w-full bg-white/10 rounded" />
+              <div className="h-5 w-3/4 bg-white/10 rounded" />
+              <div className="h-3.5 w-full bg-white/5 rounded" />
+              <div className="h-3.5 w-2/3 bg-white/5 rounded" />
+              <div className="pt-2 flex justify-between border-t border-white/10">
+                <div className="h-6 w-16 bg-white/10 rounded" />
+                <div className="h-6 w-16 bg-white/10 rounded" />
+              </div>
+            </div>
           ))}
         </div>
       ) : filteredEvents.length === 0 ? (

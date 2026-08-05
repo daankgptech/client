@@ -305,11 +305,22 @@ export default function Users() {
           </thead>
           <tbody className="divide-y divide-white/10">
             {loading ? (
-              <tr>
-                <td colSpan="7" className="py-8 text-center text-white/40 italic">
-                  Loading user directory...
-                </td>
-              </tr>
+              [1, 2, 3, 4, 5, 6].map((n) => (
+                <tr key={n} className="animate-pulse border-b border-white/5">
+                  <td className="py-3.5 px-4"><div className="h-4 w-32 bg-white/10 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-3 w-40 bg-white/5 rounded font-mono" /></td>
+                  <td className="py-3.5 px-4"><div className="h-3.5 w-12 bg-white/10 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-3.5 w-16 bg-white/10 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-3.5 w-20 bg-white/5 rounded" /></td>
+                  <td className="py-3.5 px-4"><div className="h-3.5 w-10 bg-white/5 rounded" /></td>
+                  <td className="py-3.5 px-4 text-right">
+                    <div className="flex justify-end gap-2">
+                      <div className="h-7 w-12 bg-white/5 rounded" />
+                      <div className="h-7 w-12 bg-white/10 rounded" />
+                    </div>
+                  </td>
+                </tr>
+              ))
             ) : users.length === 0 ? (
               <tr>
                 <td colSpan="7" className="py-8 text-center text-white/40 italic">

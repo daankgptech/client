@@ -415,11 +415,23 @@ export default function AdminToolkit() {
       {/* Resources Table / Cards Grid */}
       <div className="space-y-3">
         {loading ? (
-          <div className="bg-zinc-950 border border-zinc-800 p-12 rounded-2xl text-center text-zinc-500">
-            <RefreshCw className="w-6 h-6 animate-spin text-red-500 mx-auto mb-2" />
-            Loading toolkit resources...
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div key={n} className="bg-zinc-950 border border-zinc-800 p-4 rounded-xl space-y-3">
+                <div className="flex justify-between items-center">
+                  <div className="h-4 w-32 bg-white/10 rounded" />
+                  <div className="h-4 w-16 bg-white/5 rounded-full" />
+                </div>
+                <div className="h-3 w-full bg-white/5 rounded" />
+                <div className="h-3 w-2/3 bg-white/5 rounded" />
+                <div className="pt-2 flex justify-between border-t border-zinc-900">
+                  <div className="h-6 w-20 bg-white/10 rounded" />
+                  <div className="h-6 w-16 bg-white/10 rounded" />
+                </div>
+              </div>
+            ))}
           </div>
-        ) : items.length === 0 ? (
+        ) : filteredItems.length === 0 ? (
           <div className="bg-zinc-950 border border-zinc-800 p-12 rounded-2xl text-center">
             <Wrench className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
             <h3 className="text-lg font-bold text-white mb-1">No Resources Found</h3>

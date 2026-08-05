@@ -30,8 +30,6 @@ import FormWrapper from "./components/Forms/FormWrapper";
 import FamCardDetails from "./components/OurFam/FamCardDetails";
 import SignOut from "./components/Secure/SignOut";
 import ProtectedRoute from "./components/Secure/ProtectedRoute";
-import ForgotPassword from "./components/Secure/ForgotPassword";
-import OuterForgotPassword from "./components/Secure/OuterForgotPassword";
 import SignIn from "./components/Secure/SignIn";
 import Info from "./components/Secure/Info";
 // import SignUp from "./components/Secure/SignUp";
@@ -109,8 +107,6 @@ export default function App() {
           <Route path="forms/:name" element={<FormWrapper />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/forgot-password" element={<ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute>} />
-          <Route path="/outer-forgot-password" element={<OuterForgotPassword />} />
           <Route path="/profile" element={<ProtectedRoute redirect> <Profile /> </ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute redirect> <Dashboard /> </ProtectedRoute>} />
           <Route path="/diary" element={<ProtectedRoute redirect> <Diary /> </ProtectedRoute>} />

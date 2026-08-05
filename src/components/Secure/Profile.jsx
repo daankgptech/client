@@ -18,7 +18,6 @@ import {
 import PersonalInfo from "./PersonalInfo";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import { Link } from "react-router-dom";
-import { MdLockReset } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import SEO, { seoConfig } from "../../utils/SEO";
 
@@ -630,22 +629,6 @@ export default function Profile() {
         >
           <RxDashboard size={14} />
           Dashboard
-        </Link>
-        {/* Reset Password */}
-        <Link
-          to="/forgot-password"
-          className="
-      flex items-center gap-2
-      px-3 py-1.5 rounded-md
-      bg-gray-100 dark:bg-gray-800
-      text-gray-700 dark:text-gray-200
-      text-[12px] font-medium
-      transition-colors duration-150
-      hover:bg-gray-200 dark:hover:bg-gray-700
-    "
-        >
-          <MdLockReset size={14} />
-          Reset
         </Link>
         {/* Sign Out */}
         <Link

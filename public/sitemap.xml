@@ -98,7 +98,6 @@
     Note: Protected pages are NOT included in sitemap:
     - /signin
     - /signup
-    - /forgot-password
     - /profile
     - /dashboard
     - /diary

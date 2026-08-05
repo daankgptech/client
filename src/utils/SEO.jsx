@@ -239,12 +239,6 @@ export const seoConfig = {
     canonical: "/signin",
     noindex: true,
   },
-  forgotPassword: {
-    title: "Forgot Password",
-    description: "Reset your DAAN KGP password. Enter your email to receive password reset instructions.",
-    canonical: "/forgot-password",
-    noindex: true,
-  },
   profile: {
     title: "My Profile",
     description: "Manage your DAAN KGP profile, update personal information, and track your activity.",

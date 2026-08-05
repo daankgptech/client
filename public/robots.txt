@@ -13,7 +13,6 @@ Allow: /events
 # Protected pages - disallow indexing
 Disallow: /signin
 Disallow: /signup
-Disallow: /forgot-password
 Disallow: /profile
 Disallow: /dashboard
 Disallow: /diary

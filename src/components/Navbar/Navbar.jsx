@@ -9,7 +9,6 @@ import {
   LayoutDashboard,
   BookOpen,
   User,
-  KeyRound,
   LogOut,
   Sparkles,
   ArrowRight,
@@ -29,7 +28,6 @@ const authRoutes = [
   { name: "Dashboard", link: "/dashboard", icon: LayoutDashboard },
   { name: "Diary", link: "/diary", icon: BookOpen },
   { name: "Profile", link: "/profile", icon: User },
-  { name: "Reset Password", link: "/forgot-password", icon: KeyRound },
   { name: "Sign Out", link: "/signout", icon: LogOut },
 ];
 
@@ -126,8 +124,7 @@ export default function Navbar() {
                 key={r.name}
                 to={r.link}
                 className={({ isActive }) =>
-                  `text-sm font-medium transition-colors duration-300 ${
-                    isActive ? "text-[#ff3130]" : "text-white/70 hover:text-white"
+                  `text-sm font-medium transition-colors duration-300 ${isActive ? "text-[#ff3130]" : "text-white/70 hover:text-white"
                   }`
                 }
               >
@@ -141,11 +138,10 @@ export default function Navbar() {
                   onClick={() => setPersonalOpen((p) => !p)}
                   className="flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors py-1 px-2.5 rounded-lg hover:bg-white/5"
                 >
-                  <span>Personal</span>
+                  <span>User</span>
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-300 ${
-                      personalOpen ? "rotate-180 text-[#ff3130]" : ""
-                    }`}
+                    className={`w-4 h-4 transition-transform duration-300 ${personalOpen ? "rotate-180 text-[#ff3130]" : ""
+                      }`}
                   />
                 </button>
 
@@ -248,9 +244,8 @@ export default function Navbar() {
                       <NavLink
                         to={r.link}
                         onClick={() => setMenuOpen(false)}
-                        className={`group flex items-center justify-between text-2xl sm:text-3xl font-space-grotesk font-bold tracking-tight transition-all duration-300 ${
-                          isActive ? "text-[#ff3130]" : "text-white/80 hover:text-white"
-                        }`}
+                        className={`group flex items-center justify-between text-2xl sm:text-3xl font-space-grotesk font-bold tracking-tight transition-all duration-300 ${isActive ? "text-[#ff3130]" : "text-white/80 hover:text-white"
+                          }`}
                       >
                         <span className="flex items-center gap-3">
                           {isActive && <span className="w-2.5 h-2.5 rounded-full bg-[#ff3130]" />}
@@ -271,13 +266,11 @@ export default function Navbar() {
                     className="w-full flex items-center justify-between text-xl font-space-grotesk font-bold text-white/90"
                   >
                     <span className="flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-[#ff3130]" />
-                      Personal Account
+                      User
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        personalOpen ? "rotate-180 text-[#ff3130]" : ""
-                      }`}
+                      className={`w-5 h-5 transition-transform duration-300 ${personalOpen ? "rotate-180 text-[#ff3130]" : ""
+                        }`}
                     />
                   </button>
 
@@ -298,9 +291,8 @@ export default function Navbar() {
                               key={r.name}
                               to={r.link}
                               onClick={() => setMenuOpen(false)}
-                              className={`flex items-center gap-3 py-2.5 text-base font-medium transition-colors ${
-                                isActive ? "text-[#ff3130]" : "text-white/70 hover:text-white"
-                              }`}
+                              className={`flex items-center gap-3 py-2.5 text-base font-medium transition-colors ${isActive ? "text-[#ff3130]" : "text-white/70 hover:text-white"
+                                }`}
                             >
                               <Icon className="w-4 h-4 text-[#ff3130]" />
                               <span>{r.name}</span>

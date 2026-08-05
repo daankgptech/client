@@ -13,6 +13,7 @@ import {
   Loader2,
   MapPin,
   Share2,
+  Info,
 } from "lucide-react";
 
 const GENDER_OPTIONS = ["Male", "Female", "Other"];
@@ -767,6 +768,10 @@ export default function SignUp() {
                 placeholder="Put here..."
                 className="w-full px-4 py-3 text-center text-lg font-mono tracking-[0.3em] bg-transparent border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-red-500"
               />
+              <p className="text-[11px] text-amber-300/80 flex items-center gap-1.5 pt-1">
+                <Info className="w-3.5 h-3.5 shrink-0 text-amber-400" />
+                Please check your spam or blocked messages folder if you haven't received the OTP.
+              </p>
             </div>
 
             <button

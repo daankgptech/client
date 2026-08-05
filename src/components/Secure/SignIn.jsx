@@ -6,7 +6,7 @@ import { auth } from "../../utils/firebase";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import SEO, { seoConfig } from "../../utils/SEO";
-import { ShieldAlert, ArrowRight } from "lucide-react";
+import { ShieldAlert, ArrowRight, Info } from "lucide-react";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -305,6 +305,10 @@ export default function SignIn() {
                 placeholder="6 digits OTP"
                 className="w-full px-4 py-3 text-center text-lg font-mono tracking-[0.3em] bg-transparent border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-red-500"
               />
+              <p className="text-[11px] text-amber-300/80 flex items-center gap-1.5 pt-1">
+                <Info className="w-3.5 h-3.5 shrink-0 text-amber-400" />
+                Please check your spam or blocked messages folder if you haven't received the OTP.
+              </p>
             </div>
 
             <button

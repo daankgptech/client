@@ -280,12 +280,14 @@ export default function Profile() {
               </div>
             </div>
 
-            <button
-              onClick={() => setEditing(true)}
-              className="self-start sm:self-auto px-4 py-2 text-xs font-bold bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all shadow-md shadow-rose-500/20"
-            >
-              {editing ? "Editing Mode Active" : "Complete Profile"}
-            </button>
+            {completionStats.percentage < 100 && (
+              <button
+                onClick={() => setEditing(true)}
+                className="self-start sm:self-auto px-4 py-2 text-xs font-bold bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all shadow-md shadow-rose-500/20"
+              >
+                {editing ? "Editing Mode Active" : "Complete Profile"}
+              </button>
+            )}
           </div>
 
           {/* Progress Bar */}

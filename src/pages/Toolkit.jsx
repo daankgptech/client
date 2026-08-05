@@ -5,23 +5,44 @@ import SEO, { seoConfig, Breadcrumbs } from "../utils/SEO";
 import { api } from "../utils/Secure/api";
 import { cache } from "../utils/cache";
 
+const DEFAULT_CATEGORIES = [
+  { key: "erp", label: "ERP" },
+  { key: "fresher", label: "Fresher" },
+  { key: "academic", label: "Academic" },
+  { key: "cdc", label: "CDC" },
+];
+
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes cache TTL
+
 // Lightweight, updated skeleton matching exact Toolkit item box design
 const SkeletonCard = () => (
-  <div className="flex flex-col justify-between bg-transparent border-white/10 border-[0.5px] p-5 animate-pulse min-h-[190px]">
+  <div className="flex flex-col justify-between bg-transparent border-white/10 border-[0.5px] p-5 animate-pulse min-h-[220px]">
     <div>
       <div className="flex items-center justify-between gap-2 mb-3">
-        <div className="w-16 h-4 rounded-full bg-white/10" />
-        <div className="w-12 h-4 rounded-full bg-white/5" />
+        <div className="w-20 h-5 rounded-full bg-white/10" />
+        <div className="w-14 h-5 rounded-full bg-white/5" />
       </div>
-      <div className="w-3/4 h-5 rounded bg-white/10 mb-2.5" />
-      <div className="space-y-1.5 mt-2">
+      <div className="w-4/5 h-6 rounded bg-white/10 mb-3" />
+      <div className="space-y-2 mt-2">
         <div className="w-full h-3.5 rounded bg-white/5" />
-        <div className="w-4/5 h-3.5 rounded bg-white/5" />
+        <div className="w-11/12 h-3.5 rounded bg-white/5" />
+        <div className="w-3/4 h-3.5 rounded bg-white/5" />
       </div>
     </div>
     <div className="mt-6 border-t border-white/10 pt-3">
-      <div className="w-28 h-4 mx-auto rounded bg-white/5" />
+      <div className="w-32 h-5 mx-auto rounded bg-white/10" />
     </div>
+  </div>
+);
+
+const SkeletonTabs = () => (
+  <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-0 mb-10 no-scrollbar select-none animate-pulse">
+    {[1, 2, 3, 4, 5].map((i) => (
+      <div
+        key={i}
+        className="h-11 w-32 bg-white/5 border-[0.5px] border-white/10 flex-shrink-0"
+      />
+    ))}
   </div>
 );
 
@@ -29,30 +50,64 @@ const Toolkit = () => {
   const { tab } = useParams();
   const navigate = useNavigate();
 
-  const [tabs, setTabs] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // 1. Categories State initialized from cache if available
+  const [tabs, setTabs] = useState(() => {
+    const cachedCats = cache.get("/toolkit/categories");
+    if (Array.isArray(cachedCats) && cachedCats.length > 0) {
+      return cachedCats;
+    }
+    return [];
+  });
+  const [categoriesLoading, setCategoriesLoading] = useState(() => tabs.length === 0);
 
-  // Fetch dynamic categories from backend API
+  // Determine active category tab
+  const effectiveTabs = tabs.length > 0 ? tabs : DEFAULT_CATEGORIES;
+  const activeTab = effectiveTabs.some(({ key }) => key === tab)
+    ? tab
+    : effectiveTabs[0]?.key || "erp";
+
+  // 2. Section Data & Loading State initialized from cache if available
+  const [data, setData] = useState(() => {
+    if (!activeTab) return [];
+    const cachedData = cache.get(`/toolkit/${activeTab}`);
+    return Array.isArray(cachedData) ? cachedData : [];
+  });
+
+  const [loading, setLoading] = useState(() => {
+    if (!activeTab) return true;
+    const cachedData = cache.get(`/toolkit/${activeTab}`);
+    return !cachedData;
+  });
+
+  // Fetch dynamic categories from backend API if not in cache
   useEffect(() => {
     let isMounted = true;
     const fetchCategories = async () => {
       try {
         const cachedCats = cache.get("/toolkit/categories");
-        if (cachedCats && Array.isArray(cachedCats) && cachedCats.length > 0 && isMounted) {
-          setTabs(cachedCats);
+        if (cachedCats && Array.isArray(cachedCats) && cachedCats.length > 0) {
+          if (isMounted) {
+            setTabs(cachedCats);
+            setCategoriesLoading(false);
+          }
           return;
         }
 
         const res = await api.get("/toolkit/categories");
         if (res.data?.success && Array.isArray(res.data.categories) && isMounted) {
-          setTabs(res.data.categories);
-          if (res.data.categories.length > 0) {
-            cache.set("/toolkit/categories", res.data.categories, 15 * 60 * 1000);
-          }
+          const catList = res.data.categories.length > 0 ? res.data.categories : DEFAULT_CATEGORIES;
+          setTabs(catList);
+          cache.set("/toolkit/categories", catList, CACHE_TTL);
+        } else if (isMounted && tabs.length === 0) {
+          setTabs(DEFAULT_CATEGORIES);
         }
       } catch (err) {
         console.warn("Failed to fetch public toolkit categories:", err.message);
+        if (isMounted && tabs.length === 0) {
+          setTabs(DEFAULT_CATEGORIES);
+        }
+      } finally {
+        if (isMounted) setCategoriesLoading(false);
       }
     };
 
@@ -61,8 +116,6 @@ const Toolkit = () => {
       isMounted = false;
     };
   }, []);
-
-  const activeTab = tabs.some(({ key }) => key === tab) ? tab : tabs[0]?.key || "";
 
   // Fetch data per section on-demand with caching
   useEffect(() => {
@@ -73,24 +126,26 @@ const Toolkit = () => {
 
     let isMounted = true;
     const fetchSectionData = async () => {
-      setLoading(true);
       const cacheKey = `/toolkit/${activeTab}`;
 
-      try {
-        // Check cache first
-        const cachedData = cache.get(cacheKey);
-        if (cachedData && Array.isArray(cachedData) && isMounted) {
+      // Check cache first
+      const cachedData = cache.get(cacheKey);
+      if (cachedData && Array.isArray(cachedData)) {
+        if (isMounted) {
           setData(cachedData);
           setLoading(false);
-          return;
         }
+        return;
+      }
 
-        // Section API fetch
+      if (isMounted) setLoading(true);
+
+      try {
         const response = await api.get(cacheKey);
         if (response.data && response.data.success && isMounted) {
           const items = response.data.data || [];
           setData(items);
-          cache.set(cacheKey, items, 15 * 60 * 1000);
+          cache.set(cacheKey, items, CACHE_TTL);
         } else if (isMounted) {
           setData([]);
         }
@@ -109,7 +164,7 @@ const Toolkit = () => {
   }, [activeTab]);
 
   const activeTabLabel =
-    tabs.find((t) => t.key === activeTab)?.label || "Toolkit";
+    effectiveTabs.find((t) => t.key === activeTab)?.label || "Toolkit";
 
   const handleTabChange = (key) => {
     navigate(`/toolkit/${key}`);
@@ -138,9 +193,11 @@ const Toolkit = () => {
         </div>
 
         {/* Category Tabs matching box design of toolkit items */}
-        {tabs.length > 0 ? (
+        {categoriesLoading && tabs.length === 0 ? (
+          <SkeletonTabs />
+        ) : (
           <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-0 mb-10 no-scrollbar select-none">
-            {tabs.map(({ key, label }) => {
+            {effectiveTabs.map(({ key, label }) => {
               const isActive = activeTab === key;
               return (
                 <button
@@ -161,13 +218,7 @@ const Toolkit = () => {
               );
             })}
           </div>
-        ) : loading ? (
-          <div className="flex justify-start md:justify-center flex-nowrap overflow-x-auto gap-2.5 mb-10 no-scrollbar select-none animate-pulse">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-10 w-28 bg-white/5 border-[0.5px] border-white/10 flex-shrink-0" />
-            ))}
-          </div>
-        ) : null}
+        )}
 
         {/* Content Section Cards */}
         {loading ? (

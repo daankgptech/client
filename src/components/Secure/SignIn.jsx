@@ -6,7 +6,7 @@ import { auth } from "../../utils/firebase";
 import { api } from "../../utils/Secure/api";
 import LoaderOverlay from "../../utils/LoaderOverlay";
 import SEO, { seoConfig } from "../../utils/SEO";
-import { ShieldAlert, ArrowRight, RefreshCw } from "lucide-react";
+import { ShieldAlert, ArrowRight } from "lucide-react";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -20,30 +20,6 @@ export default function SignIn() {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [phoneError, setPhoneError] = useState("");
   const [pendingApproval, setPendingApproval] = useState(false);
-
-  // Resend OTP Countdown
-  const [timer, setTimer] = useState(0);
-  const timerRef = useRef(null);
-
-  const startTimer = (seconds = 30) => {
-    setTimer(seconds);
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, []);
 
   // Setup Firebase RecaptchaVerifier
   const setupRecaptchaVerifier = () => {
@@ -142,7 +118,6 @@ export default function SignIn() {
       setConfirmationResult(confirmation);
 
       setStep(2);
-      startTimer(30);
       toast.success(`OTP sent to ${formattedPhone}`);
     } catch (err) {
       console.error("Firebase send OTP error:", err);
@@ -165,25 +140,6 @@ export default function SignIn() {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Resend OTP action: resets to Step 1 (phone number field) and clears reCAPTCHA instance to resolve reCAPTCHA already solved errors
-  const handleResendOtp = () => {
-    if (timer > 0) return;
-
-    if (window.recaptchaVerifier) {
-      try {
-        window.recaptchaVerifier.clear();
-      } catch (e) {
-        console.warn("Error clearing recaptcha verifier:", e);
-      }
-      window.recaptchaVerifier = null;
-    }
-
-    setOtpCode("");
-    setConfirmationResult(null);
-    setStep(1);
-    toast.info("Please verify your mobile number and click Send OTP Code.");
   };
 
   // Step 2: Verify OTP & Sign In Session
@@ -211,7 +167,7 @@ export default function SignIn() {
       if (firebaseErr.code === "auth/invalid-verification-code") {
         toast.error("Invalid OTP code. Please check the code and try again.");
       } else if (firebaseErr.code === "auth/code-expired") {
-        toast.error("OTP code has expired. Please click Resend OTP.");
+        toast.error("OTP code has expired. Please request OTP again.");
       } else {
         toast.error(firebaseErr.message || "Failed to verify OTP code.");
       }
@@ -351,16 +307,6 @@ export default function SignIn() {
               />
             </div>
 
-            <div className="flex justify-between items-center text-xs">
-              <button
-                type="button"
-                onClick={handleResendOtp}
-                disabled={timer > 0 || loading}
-                className="text-white/70 hover:text-white font-bold flex items-center gap-1.5 disabled:opacity-40"
-              >
-                {/* <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} /> */}
-                {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
-              </button>
             </div>
 
             <button

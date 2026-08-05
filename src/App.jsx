@@ -45,6 +45,7 @@ import AdminLogin from "./admin/Login";
 import AdminLayout from "./admin/AdminLayout";
 import DashboardOverview from "./admin/DashboardOverview";
 import AdminUsers from "./admin/Users";
+import AdminRequests from "./admin/Requests";
 import AdminEvents from "./admin/Events";
 import AdminNotices from "./admin/Notices";
 import AdminToolkit from "./admin/Toolkit";
@@ -106,8 +107,7 @@ export default function App() {
           <Route path="academic-stars" element={<AcademicStars />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="forms/:name" element={<FormWrapper />} />
-          {/* <Route path="/signup" element={<SignUp />} /> */}
-          <Route path="/signup" element={<Info />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ProtectedRoute redirect> <ForgotPassword /> </ProtectedRoute>} />
           <Route path="/outer-forgot-password" element={<OuterForgotPassword />} />
@@ -122,6 +122,7 @@ export default function App() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminLayout><DashboardOverview /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/requests" element={<AdminRoute><AdminLayout><AdminRequests /></AdminLayout></AdminRoute>} />
           <Route path="/admin/users" element={<AdminRoute><AdminLayout><AdminUsers /></AdminLayout></AdminRoute>} />
           <Route path="/admin/events" element={<AdminRoute><AdminLayout><AdminEvents /></AdminLayout></AdminRoute>} />
           <Route path="/admin/notices" element={<AdminRoute><AdminLayout><AdminNotices /></AdminLayout></AdminRoute>} />

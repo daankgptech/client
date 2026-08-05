@@ -1,137 +1,327 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 import { api } from "../../utils/Secure/api";
-import { isValidEmail, passwordRules } from "../../utils/Secure/validators";
 import LoaderOverlay from "../../utils/LoaderOverlay";
-import { PasswordHelper } from "./PasswordHelper";
-import SEO, { seoConfig } from "../../utils/SEO";
+import SEO from "../../utils/SEO";
+import {
+  User,
+  Upload,
+  ArrowRight,
+  Loader2,
+  MapPin,
+  RefreshCw,
+} from "lucide-react";
+
+const GENDER_OPTIONS = ["Male", "Female", "Other"];
+const BLOOD_GROUP_OPTIONS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+const COURSE_OPTIONS = [
+  "B.Tech",
+  "Dual Degree",
+  "B.S.",
+  "M.Tech",
+  "M.Sc",
+  "Ph.D",
+  "MBA",
+  "B.Arch",
+  "M.S.",
+];
+const BRANCH_OPTIONS = [
+  "AE", "AG", "AR", "BT", "CE", "CH", "CS", "CY", "EC", "EE",
+  "EX", "GG", "HS", "IE", "IM", "MA", "ME", "MF", "MI", "MT",
+  "NA", "PH", "QE", "TS",
+];
+const HALL_OPTIONS = [
+  "Azad", "BCR", "BRH", "HJB", "JBR", "LBS", "MMM",
+  "Patel", "RK", "RP", "VS", "SN / IG", "MT", "GKH",
+  "SNVH", "RLB", "SAM",
+];
+const COE_OPTIONS = ["Dakshana Valley", "JNV Bangalore Urban", "JNV Lucknow", "JNV Bundi", "Other"];
+const BATCH_OPTIONS = Array.from({ length: 14 }, (_, i) => (2016 + i).toString());
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1); // 1 = Details, 2 = Phone OTP, 3 = Submitted
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
-  const hallOptions = [
-    "ABV",
-    "Azad",
-    "BRH",
-    "Gokhale",
-    "HJB",
-    "JCB",
-    "LBS",
-    "LLR",
-    "MMM",
-    "MS",
-    "MT",
-    "Nehru",
-    "Patel",
-    "RK",
-    "RP",
-    "SN/IG",
-    "SNVH",
-    "VS",
-  ];
-  const coeOptions = [
-    "Dakshana Valley",
-    "JNV Bengaluru Rural",
-    "JNV Bengaluru Urban",
-    "JNV Bundi",
-    "JNV Kottayam",
-    "JNV Lucknow",
-    "JNV Rangareddi",
-  ];
-  const branches = [
-    "AE",
-    "AG",
-    "AI",
-    "BT",
-    "CE",
-    "CH",
-    "CI",
-    "CS",
-    "CY",
-    "EC",
-    "EE",
-    "EX",
-    "HS",
-    "IE",
-    "IM",
-    "MA",
-    "ME",
-    "MF",
-    "MI",
-    "NA",
-    "MT",
-    "GG",
-  ];
-  const batches = [2021, 2022, 2023, 2024, 2025];
-  const courses = ["4-year", "5-year"];
-  const graduatedOptions = ["Yes", "No"];
-  const genders = ["Male", "Female", "Other"];
+  // OTP Verification State
+  const [otpCode, setOtpCode] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState(null);
 
+  // Resend OTP Countdown Timer
+  const [timer, setTimer] = useState(0);
+  const timerRef = useRef(null);
+
+  const startTimer = (seconds = 30) => {
+    setTimer(seconds);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  // Form State
   const [form, setForm] = useState({
-    username: "",
-    password: "",
     name: "",
-    gender: "",
-    batch: "",
-    hall: "",
-    branch: "",
-    imgLink: "",
-    cgpa: "",
-    sgpa: "",
-    bio: "",
-    coe: "",
-    graduated: "",
-    course: "",
+    username: "", // Email
     phone: "",
+    gender: "Male",
+    batch: "2024",
+    hall: "Azad",
+    branch: "CS",
+    course: "B.Tech",
+    graduated: false,
+    cgpa: "",
+    bio: "",
+    coe: "Dakshana Valley",
+    parentJNV: "",
+    imgLink: "",
+    // Contacts
+    email: "",
     github: "",
     linkedIn: "",
+    // Involvements
     soc: "",
     involvementsHall: "",
     council: "",
     iit: "",
     extra: "",
-    q1: "",
-    a1: "",
-    q2: "",
-    a2: "",
+    // Personal Info
+    dob: "",
+    address: "",
+    city: "",
+    state: "",
+    pincode: "",
+    emergencyContact: "",
+    bloodGroup: "O+",
   });
 
-  const rules = passwordRules(form.password);
+  // Setup Firebase RecaptchaVerifier
+  const setupRecaptchaVerifier = () => {
+    if (window.recaptchaVerifier) {
+      try {
+        window.recaptchaVerifier.clear();
+      } catch (e) {
+        console.warn("Error clearing previous recaptcha verifier:", e);
+      }
+      window.recaptchaVerifier = null;
+    }
 
-  const submit = async () => {
-    if (!isValidEmail(form.username)) {
-      toast.error("Invalid email format");
-      return;
+    const container = document.getElementById("recaptcha-container");
+    if (!container) {
+      console.error("recaptcha-container element missing from DOM");
+      return null;
     }
-    if (!Object.values(rules).every(Boolean)) {
-      toast.error("Weak password");
-      return;
-    }
-    setLoading(true);
+    container.innerHTML = "";
+
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      auth,
+      container,
+      {
+        size: "invisible",
+        callback: () => {},
+        "expired-callback": () => {
+          toast.error("reCAPTCHA expired. Please request OTP again.");
+        },
+      }
+    );
+
+    return window.recaptchaVerifier;
+  };
+
+  // Cleanup on component unmount
+  useEffect(() => {
+    return () => {
+      if (window.recaptchaVerifier) {
+        try {
+          window.recaptchaVerifier.clear();
+        } catch (e) {}
+        window.recaptchaVerifier = null;
+      }
+    };
+  }, []);
+
+  const formatFullPhone = (numStr) => {
+    const cleaned = numStr.replace(/\D/g, "");
+    if (cleaned.length === 10) return `+91${cleaned}`;
+    if (cleaned.length === 12 && cleaned.startsWith("91")) return `+${cleaned}`;
+    return `+91${cleaned}`;
+  };
+
+  // Upload Profile Image to Cloudinary
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    const data = new FormData();
+    data.append("image", file);
+
     try {
-      await api.post("/signup", {
-        username: form.username,
-        password: form.password,
-        name: form.name,
+      const res = await api.post("/admin/upload", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      if (res.data?.success && res.data.url) {
+        setForm((prev) => ({ ...prev, imgLink: res.data.url }));
+        toast.success("Profile photo uploaded!");
+      }
+    } catch (err) {
+      console.error("Image upload error:", err);
+      toast.error("Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  // Step 1 -> Step 2: Validate details, pre-check phone & email, send Firebase OTP
+  const handleProceedToOtp = async (e) => {
+    e?.preventDefault();
+
+    if (!form.name.trim() || !form.username.trim() || !form.phone) {
+      toast.error("Full Name, Email, and Phone Number are required");
+      return;
+    }
+
+    const cleanedPhone = form.phone.replace(/\D/g, "");
+    if (cleanedPhone.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile phone number");
+      return;
+    }
+
+    const formattedPhone = formatFullPhone(cleanedPhone);
+    setLoading(true);
+
+    try {
+      // Check if phone or email/username already exists in DB
+      const checkRes = await api.post("/auth/check-phone", {
+        phone: formattedPhone,
+        username: form.username.trim(),
+      });
+
+      if (checkRes.data?.exists || checkRes.data?.hasPendingRequest) {
+        toast.error(
+          checkRes.data?.hasPendingRequest
+            ? "A registration request with this phone number or email is already under review."
+            : "An account with this phone number or email already exists."
+        );
+        setLoading(false);
+        return;
+      }
+
+      // Trigger Firebase Phone OTP
+      const appVerifier = setupRecaptchaVerifier();
+      if (!appVerifier) {
+        toast.error("reCAPTCHA initialization failed. Please refresh the page.");
+        setLoading(false);
+        return;
+      }
+
+      const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
+      setConfirmationResult(confirmation);
+
+      setStep(2);
+      startTimer(30);
+      toast.success(`OTP sent to ${formattedPhone}`);
+    } catch (err) {
+      console.error("OTP send error:", err);
+      if (window.recaptchaVerifier) {
+        try { window.recaptchaVerifier.clear(); } catch (e) {}
+        window.recaptchaVerifier = null;
+      }
+
+      if (err.code === "auth/invalid-app-credential") {
+        toast.error(
+          "Firebase Phone Auth Error (invalid-app-credential): Please check Firebase Console -> 1) Enable Phone Provider, 2) Add domain to Authorized Domains, 3) Verify API Key restrictions."
+        );
+      } else if (err.code === "auth/too-many-requests") {
+        toast.error("Too many OTP requests. Please wait a few minutes before trying again.");
+      } else if (err.code === "auth/invalid-phone-number") {
+        toast.error("Invalid phone number format. Please check your mobile number.");
+      } else {
+        toast.error(err.message || "Failed to send OTP. Check Firebase configuration.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Resend OTP action
+  const handleResendOtp = async () => {
+    if (timer > 0) return;
+    await handleProceedToOtp();
+  };
+
+  // Step 2 -> Step 3: Verify OTP & Submit Pending Registration Request
+  const handleVerifyAndSubmit = async (e) => {
+    e?.preventDefault();
+
+    if (!otpCode || otpCode.length < 6) {
+      toast.error("Please enter the 6-digit OTP code");
+      return;
+    }
+
+    if (!confirmationResult) {
+      toast.error("OTP session expired. Please request OTP again.");
+      setStep(1);
+      return;
+    }
+
+    setLoading(true);
+
+    // 1. Verify OTP with Firebase
+    try {
+      await confirmationResult.confirm(otpCode);
+    } catch (firebaseErr) {
+      console.error("Firebase OTP verification error:", firebaseErr);
+      setLoading(false);
+      if (firebaseErr.code === "auth/invalid-verification-code") {
+        toast.error("Invalid OTP code. Please check and try again.");
+      } else if (firebaseErr.code === "auth/code-expired") {
+        toast.error("OTP code has expired. Please click Resend OTP.");
+      } else {
+        toast.error(firebaseErr.message || "Failed to verify OTP code.");
+      }
+      return;
+    }
+
+    // 2. Submit Signup Request to Backend
+    try {
+      const formattedPhone = formatFullPhone(form.phone);
+
+      const payload = {
+        name: form.name.trim(),
+        username: form.username.trim(),
+        phone: formattedPhone,
         gender: form.gender,
         batch: form.batch,
         hall: form.hall,
         branch: form.branch,
-        imgLink: form.imgLink,
+        course: form.course,
+        graduated: form.graduated,
         cgpa: form.cgpa,
-        sgpa: form.sgpa,
         bio: form.bio,
         coe: form.coe,
-        graduated: form.graduated === "Yes",
-        course: form.course,
+        parentJNV: form.parentJNV,
+        imgLink: form.imgLink,
         contacts: [
           {
-            phone: form.phone,
-            email: form.username,
+            phone: formattedPhone,
+            email: form.username.trim(),
             github: form.github,
             linkedIn: form.linkedIn,
           },
@@ -145,289 +335,393 @@ export default function SignUp() {
             extra: form.extra,
           },
         ],
-        sec_q1: form.q1,
-        sec_a1: form.a1,
-        sec_q2: form.q2,
-        sec_a2: form.a2,
-      });
-      toast.success("Signed up successfully");
-      navigate("/signin");
-    } catch (e) {
-      toast.error(e.response?.data?.msg || "Signup failed");
+        personalInfo: {
+          dob: form.dob ? new Date(form.dob).toISOString() : null,
+          address: form.address,
+          city: form.city,
+          state: form.state,
+          pincode: form.pincode,
+          emergencyContact: form.emergencyContact,
+          bloodGroup: form.bloodGroup,
+        },
+      };
+
+      const signupRes = await api.post("/auth/otp-signup", payload);
+      if (signupRes.data?.success) {
+        setStep(3);
+        toast.success("Registration request submitted for Admin approval!");
+      }
+    } catch (apiErr) {
+      console.error("Signup submission error:", apiErr);
+      toast.error(apiErr.response?.data?.message || apiErr.message || "Failed to submit signup request.");
     } finally {
       setLoading(false);
     }
   };
 
-  const input =
-    "w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500";
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
-      <SEO {...seoConfig.signup} />
+    <div className="min-h-screen flex items-center justify-center bg-black text-white px-4 py-12 font-space-grotesk">
+      <SEO title="Sign Up | DAAN KGP" description="Register for DAAN KGP family account" />
       {loading && <LoaderOverlay />}
-      <div
-        className="
-          group relative overflow-hidden
-          rounded-3xl
-          bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
-          dark:from-slate-900 dark:via-slate-800 dark:to-gray-900
-          border border-rose-50 dark:border-slate-700/50
-          p-8
-          shadow-xl
-          w-full max-w-2xl
-          transition-all duration-500
-          hover:border-rose-400/40 dark:hover:border-rose-500/50
-          hover:shadow-lg hover:shadow-rose-900/20
-        "
-      >
-        {/* Ambient glow */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-rose-100/10 via-transparent to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 relative z-10">
-          Create Account
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 relative z-10">
-          Fill in your details to get started
-        </p>
+      <div id="recaptcha-container"></div>
 
-        {/* BASIC */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative z-10">
-          <input
-            className={input}
-            placeholder="Full name"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
-          <select
-            className={input}
-            value={form.gender}
-            onChange={(e) => setForm({ ...form, gender: e.target.value })}
-          >
-            <option value="">Select Gender</option>
-            {genders.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.batch}
-            onChange={(e) => setForm({ ...form, batch: e.target.value })}
-          >
-            <option value="">Select Batch</option>
-            {batches.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.hall}
-            onChange={(e) => setForm({ ...form, hall: e.target.value })}
-          >
-            <option value="">Select Hall</option>
-            {hallOptions.map((h) => (
-              <option key={h} value={h}>
-                {h}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.branch}
-            onChange={(e) => setForm({ ...form, branch: e.target.value })}
-          >
-            <option value="">Select Branch</option>
-            {branches.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.coe}
-            onChange={(e) => setForm({ ...form, coe: e.target.value })}
-          >
-            <option value="">Select COE</option>
-            {coeOptions.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.course}
-            onChange={(e) => setForm({ ...form, course: e.target.value })}
-          >
-            <option value="">Select Course</option>
-            {courses.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <select
-            className={input}
-            value={form.graduated}
-            onChange={(e) => setForm({ ...form, graduated: e.target.value })}
-          >
-            <option value="">Graduated?</option>
-            {graduatedOptions.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-          <input
-            className={input + " md:col-span-2"}
-            placeholder="Image URL"
-            onChange={(e) => setForm({ ...form, imgLink: e.target.value })}
-          />
+      <div className="w-full max-w-3xl mx-auto p-6 sm:p-8 bg-transparent border border-white/10 shadow-2xl space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            Sign Up
+          </h1>
+          <p className="text-xs text-white/50">
+            Submit your details for verification
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 z-10 my-4">
-          <input
-            className={input}
-            placeholder="Email"
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
-          />
+        {/* STEP 1: Full Profile Details & Photo Upload */}
+        {step === 1 && (
+          <form onSubmit={handleProceedToOtp} className="space-y-6 text-xs">
+            {/* Basic Info Header */}
+            <div className="space-y-4 pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 border-b border-white/10 pb-2 flex items-center gap-2">
+                <User className="w-4 h-4" /> 1. Primary Member Info
+              </h3>
 
-          {/* Password wrapper */}
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              className={input + " pr-10"}
-              placeholder="Password"
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-            />
-            <span
-              className="absolute right-3 top-2.5 cursor-pointer text-gray-500 dark:text-gray-400"
-              onClick={() => setShowPassword(!showPassword)}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Full Name*</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder="Type here"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Email*</label>
+                  <input
+                    type="email"
+                    required
+                    value={form.username}
+                    onChange={(e) => setForm({ ...form, username: e.target.value })}
+                    placeholder="user@gmail.com"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">10-Digit Phone Number*</label>
+                  <div className="relative flex items-center">
+                    <span className="absolute left-3 text-xs font-bold text-red-400 font-mono">+91</span>
+                    <input
+                      type="tel"
+                      maxLength={10}
+                      required
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, "") })}
+                      placeholder="9876543210"
+                      className="w-full pl-12 pr-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Gender*</label>
+                  <select
+                    value={form.gender}
+                    onChange={(e) => setForm({ ...form, gender: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {GENDER_OPTIONS.map((g) => (
+                      <option key={g} value={g} className="bg-[#09090b]">
+                        {g}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Joining Year*</label>
+                  <select
+                    value={form.batch}
+                    onChange={(e) => setForm({ ...form, batch: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {BATCH_OPTIONS.map((b) => (
+                      <option key={b} value={b} className="bg-[#09090b]">
+                        Batch {b}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Branch*</label>
+                  <select
+                    value={form.branch}
+                    onChange={(e) => setForm({ ...form, branch: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {BRANCH_OPTIONS.map((br) => (
+                      <option key={br} value={br} className="bg-[#09090b]">
+                        {br}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Hall of Residence*</label>
+                  <select
+                    value={form.hall}
+                    onChange={(e) => setForm({ ...form, hall: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {HALL_OPTIONS.map((h) => (
+                      <option key={h} value={h} className="bg-[#09090b]">
+                        {h}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Course/Degree*</label>
+                  <select
+                    value={form.course}
+                    onChange={(e) => setForm({ ...form, course: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {COURSE_OPTIONS.map((c) => (
+                      <option key={c} value={c} className="bg-[#09090b]">
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Dakshana COE*</label>
+                  <select
+                    value={form.coe}
+                    onChange={(e) => setForm({ ...form, coe: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {COE_OPTIONS.map((c) => (
+                      <option key={c} value={c} className="bg-[#09090b]">
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Parent JNV School</label>
+                  <input
+                    type="text"
+                    value={form.parentJNV}
+                    onChange={(e) => setForm({ ...form, parentJNV: e.target.value })}
+                    placeholder="e.g. JNV Lucknow"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              </div>
+
+              {/* Profile Photo Upload */}
+              <div>
+                <label className="block text-white/70 mb-1 font-bold">Profile Photo</label>
+                <div className="flex items-center gap-2">
+                  <label className="flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 cursor-pointer font-bold shrink-0">
+                    {uploadingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+                    Upload Photo
+                    <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                  </label>
+                </div>
+                {form.imgLink && (
+                  <div className="mt-2 flex items-center gap-3">
+                    <img src={form.imgLink} alt="Profile Preview" className="w-12 h-12 rounded-full object-cover border border-white/20" />
+                    <span className="text-[10px] text-emerald-400">✓ Photo attached</span>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-white/70 mb-1 font-bold">Short Bio</label>
+                <textarea
+                  rows="2"
+                  value={form.bio}
+                  onChange={(e) => setForm({ ...form, bio: e.target.value })}
+                  placeholder="Tell us a bit about yourself..."
+                  className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 resize-none"
+                />
+              </div>
+            </div>
+
+            {/* Personal & Emergency Info Header */}
+            <div className="space-y-4 pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 border-b border-white/10 pb-2 flex items-center gap-2">
+                <MapPin className="w-4 h-4" /> 2. Personal & Emergency Details
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Date of Birth</label>
+                  <input
+                    type="date"
+                    value={form.dob}
+                    onChange={(e) => setForm({ ...form, dob: e.target.value })}
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Blood Group</label>
+                  <select
+                    value={form.bloodGroup}
+                    onChange={(e) => setForm({ ...form, bloodGroup: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#09090b] border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  >
+                    {BLOOD_GROUP_OPTIONS.map((bg) => (
+                      <option key={bg} value={bg} className="bg-[#09090b]">
+                        {bg}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Emergency Contact Number</label>
+                  <input
+                    type="text"
+                    value={form.emergencyContact}
+                    onChange={(e) => setForm({ ...form, emergencyContact: e.target.value })}
+                    placeholder="+91 9876543210"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white/70 mb-1 font-bold">Pincode</label>
+                  <input
+                    type="text"
+                    value={form.pincode}
+                    onChange={(e) => setForm({ ...form, pincode: e.target.value })}
+                    placeholder="Type here"
+                    className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3.5 bg-red-500 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
             >
-              {showPassword ? (
-                <AiFillEyeInvisible size={20} />
-              ) : (
-                <AiFillEye size={20} />
-              )}
-            </span>
+              Send OTP <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+        )}
+
+        {/* STEP 2: Phone OTP Verification */}
+        {step === 2 && (
+          <form onSubmit={handleVerifyAndSubmit} className="space-y-5">
+            <div className="p-3 bg-white/5 border border-white/10 text-xs text-white/70 flex justify-between items-center">
+              <span>Sending OTP to <strong className="text-white font-mono">{formatFullPhone(form.phone)}</strong></span>
+              <button
+                type="button"
+                onClick={() => {
+                  setStep(1);
+                  setOtpCode("");
+                }}
+                className="text-red-400 hover:underline font-bold text-[11px]"
+              >
+                Back to Details
+              </button>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
+                Enter 6-Digit OTP Code *
+              </label>
+              <input
+                type="text"
+                maxLength={6}
+                required
+                value={otpCode}
+                onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
+                placeholder="123456"
+                className="w-full px-4 py-3 text-center text-lg font-mono tracking-[0.3em] bg-transparent border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-red-500"
+              />
+            </div>
+
+            <div className="flex justify-between items-center text-xs">
+              <button
+                type="button"
+                onClick={handleResendOtp}
+                disabled={timer > 0 || loading}
+                className="text-white/70 hover:text-white font-bold flex items-center gap-1.5 disabled:opacity-40"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} />
+                {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
+              </button>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || otpCode.length < 6}
+              className="w-full py-3.5 bg-red-500 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-widest transition-all disabled:opacity-40"
+            >
+              Verify OTP & Submit Request
+            </button>
+          </form>
+        )}
+
+        {/* STEP 3: Request Submitted Screen */}
+        {step === 3 && (
+          <div className="text-center py-8 space-y-5">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-3xl">
+              ✓
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-white">
+                Registration Request Submitted!
+              </h2>
+              <p className="text-xs text-white/70 max-w-md mx-auto leading-relaxed">
+                Thank you, <strong className="text-white">{form.name}</strong>. Your member signup application has been created and sent to the DAAN KGP Admin Team for verification.
+              </p>
+            </div>
+
+            <div className="p-4 bg-white/5 border border-white/10 text-xs text-white/60 max-w-md mx-auto text-left space-y-1 font-mono">
+              <p>Registered Phone: {formatFullPhone(form.phone)}</p>
+              <p>Batch & Branch: Batch {form.batch} · {form.branch}</p>
+              <p>Hall: {form.hall}</p>
+              <p>Status: Pending Admin Review</p>
+            </div>
+
+            <div className="pt-4">
+              <Link
+                to="/signin"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-red-500 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-widest transition-all"
+              >
+                Go to Sign In Page <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
-        <PasswordHelper password={form.password} />
-
-        {/* ACADEMICS */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10 mt-4">
-          <input
-            className={input}
-            placeholder="CGPA (optional)"
-            onChange={(e) => setForm({ ...form, cgpa: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="SGPA (optional)"
-            onChange={(e) => setForm({ ...form, sgpa: e.target.value })}
-          />
-          <textarea
-            className={input}
-            placeholder="Bio (optional)"
-            onChange={(e) => setForm({ ...form, bio: e.target.value })}
-          />
-        </div>
-
-        {/* CONTACTS */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10 my-4">
-          <input
-            className={input}
-            placeholder="Phone"
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="GitHub (optional)"
-            onChange={(e) => setForm({ ...form, github: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="LinkedIn (optional)"
-            onChange={(e) => setForm({ ...form, linkedIn: e.target.value })}
-          />
-        </div>
-
-        {/* INVOLVEMENTS */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
-          <input
-            className={input}
-            placeholder="Society (optional)"
-            onChange={(e) => setForm({ ...form, soc: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="Hall involvement (optional)"
-            onChange={(e) =>
-              setForm({ ...form, involvementsHall: e.target.value })
-            }
-          />
-          <input
-            className={input}
-            placeholder="Council (optional)"
-            onChange={(e) => setForm({ ...form, council: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="IIT involvement (optional)"
-            onChange={(e) => setForm({ ...form, iit: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="Extra (optional)"
-            onChange={(e) => setForm({ ...form, extra: e.target.value })}
-          />
-        </div>
-
-        {/* SECURITY QUESTIONS */}
-        <div className=" my-4 grid grid-cols-2 gap-4 relative z-10">
-          <input
-            className={input}
-            placeholder="Security question 1 (optional)"
-            onChange={(e) => setForm({ ...form, q1: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="Answer 1"
-            onChange={(e) => setForm({ ...form, a1: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="Security question 2 (optional)"
-            onChange={(e) => setForm({ ...form, q2: e.target.value })}
-          />
-          <input
-            className={input}
-            placeholder="Answer 2"
-            onChange={(e) => setForm({ ...form, a2: e.target.value })}
-          />
-        </div>
-<div className="flex w-full justify-center items-center">
-        <button
-          onClick={submit}
-          className="align-middle text-center rounded-3xl bg-rose-600 py-3 px-6 text-white font-medium hover:bg-rose-500 active:scale-[0.98] transition-all duration-300 hover:scale-95 relative z-10"
-        >
-          Sign Up
-        </button>
-</div>
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400 relative z-10">
-          Already have an account?{" "}
-          <Link
-            to="/signin"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
-          >
-            Sign in
-          </Link>
-        </p>
+        {/* Footer Navigation */}
+        {step !== 3 && (
+          <div className="pt-4 border-t border-white/10 text-center text-xs text-white/50">
+            Already have an approved account?{" "}
+            <Link to="/signup" onClick={() => navigate("/signin")} className="text-red-400 hover:underline font-bold">
+              Sign In Here
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

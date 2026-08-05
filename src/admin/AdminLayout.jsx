@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import {
   LayoutDashboard,
   Users,
+  UserCheck,
   Calendar,
   Megaphone,
   Wrench,
@@ -30,6 +31,7 @@ export default function AdminLayout({ children }) {
 
   const navItems = [
     { label: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
+    { label: "Requests", path: "/admin/requests", icon: UserCheck },
     { label: "Users", path: "/admin/users", icon: Users },
     { label: "Events", path: "/admin/events", icon: Calendar },
     { label: "Notices", path: "/admin/notices", icon: Megaphone },

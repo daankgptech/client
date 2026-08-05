@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import defaultNotices from './Notice';
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/Secure/api';
 import { Cake, Sparkles } from 'lucide-react';
+import { getCachedNotices, setCachedNotices } from '../../utils/noticeCache';
 
 const Hero = () => {
-  const [notices, setNotices] = useState(defaultNotices);
+  const [notices, setNotices] = useState(() => {
+    const cached = getCachedNotices();
+    return cached?.data ? cached.data : [];
+  });
+  const [loading, setLoading] = useState(() => {
+    const cached = getCachedNotices();
+    return !cached?.data;
+  });
 
   useEffect(() => {
     const fetchNotices = async () => {
       try {
         const res = await api.get('/notices');
-        if (res.data?.success && Array.isArray(res.data.notices) && res.data.notices.length > 0) {
+        if (res.data?.success && Array.isArray(res.data.notices)) {
           setNotices(res.data.notices);
+          setCachedNotices(res.data.notices);
         }
       } catch (err) {
-        console.warn("Using fallback static notices for Hero Noticeboard:", err.message);
+        console.warn("Hero Noticeboard fetch error:", err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -98,51 +108,68 @@ const Hero = () => {
               </div>
 
               <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                {notices.map((item, index) => {
-                  const key = item._id || index;
-                  const isBirthdayNotice = Boolean(item.isBirthday);
-                  const Content = (
-                    <div className="group/item cursor-pointer">
-                      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-1 flex items-center gap-1.5 ${
-                        isBirthdayNotice ? "text-amber-400 font-extrabold" : "text-[#ff3130]"
-                      }`}>
-                        {isBirthdayNotice ? (
-                          <Cake className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                        ) : (
-                          <Sparkles className="w-3 h-3 text-[#ff3130]" />
-                        )}
-                        <span>{item.date}</span>
-                      </p>
-                      <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
-                        {item.text}
-                      </h4>
-                      <div className="mt-4 h-[0.5px] w-full bg-white/10 group-hover/item:bg-[#ff3130]/30 transition-all duration-500" />
-                    </div>
-                  );
+                {loading ? (
+                  <div className="space-y-6 animate-pulse">
+                    {[1, 2, 3].map((n) => (
+                      <div key={n} className="space-y-2">
+                        <div className="h-3.5 w-24 bg-white/10 rounded" />
+                        <div className="h-5 w-4/5 bg-white/10 rounded" />
+                        <div className="h-4 w-3/5 bg-white/10 rounded" />
+                        <div className="mt-4 h-[0.5px] w-full bg-white/10" />
+                      </div>
+                    ))}
+                  </div>
+                ) : notices.length > 0 ? (
+                  notices.map((item, index) => {
+                    const key = item._id || index;
+                    const isBirthdayNotice = Boolean(item.isBirthday);
+                    const Content = (
+                      <div className="group/item cursor-pointer">
+                        <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-1 flex items-center gap-1.5 ${
+                          isBirthdayNotice ? "text-amber-400 font-extrabold" : "text-[#ff3130]"
+                        }`}>
+                          {isBirthdayNotice ? (
+                            <Cake className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                          ) : (
+                            <Sparkles className="w-3 h-3 text-[#ff3130]" />
+                          )}
+                          <span>{item.date}</span>
+                        </p>
+                        <h4 className="font-['Inter'] text-white group-hover/item:text-[#ff3130] transition-colors duration-300 text-lg font-medium leading-snug">
+                          {item.text}
+                        </h4>
+                        <div className="mt-4 h-[0.5px] w-full bg-white/10 group-hover/item:bg-[#ff3130]/30 transition-all duration-500" />
+                      </div>
+                    );
 
-                  if (item.link) {
-                    if (item.link.startsWith("http")) {
+                    if (item.link) {
+                      if (item.link.startsWith("http")) {
+                        return (
+                          <a
+                            key={key}
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block"
+                          >
+                            {Content}
+                          </a>
+                        );
+                      }
                       return (
-                        <a
-                          key={key}
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block"
-                        >
+                        <Link key={key} to={item.link} className="block">
                           {Content}
-                        </a>
+                        </Link>
                       );
                     }
-                    return (
-                      <Link key={key} to={item.link} className="block">
-                        {Content}
-                      </Link>
-                    );
-                  }
 
-                  return <div key={key}>{Content}</div>;
-                })}
+                    return <div key={key}>{Content}</div>;
+                  })
+                ) : (
+                  <div className="py-8 text-center text-white/40 text-sm font-['Inter']">
+                    No active notices at this time.
+                  </div>
+                )}
               </div>
             </div>
           </div>

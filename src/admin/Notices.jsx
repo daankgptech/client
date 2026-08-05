@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { api } from "../utils/Secure/api";
+import { clearCachedNotices } from "../utils/noticeCache";
 
 export default function Notices() {
   const [notices, setNotices] = useState([]);
@@ -90,6 +91,7 @@ export default function Notices() {
         const res = await api.put(`/admin/notices/${editingNotice._id}`, formData);
         if (res.data?.success) {
           toast.success("Notice updated successfully");
+          clearCachedNotices();
           setModalOpen(false);
           fetchNotices();
         }
@@ -97,6 +99,7 @@ export default function Notices() {
         const res = await api.post("/admin/notices", formData);
         if (res.data?.success) {
           toast.success("Notice created successfully");
+          clearCachedNotices();
           setModalOpen(false);
           fetchNotices();
         }
@@ -116,6 +119,7 @@ export default function Notices() {
       });
       if (res.data?.success) {
         toast.success(`Notice ${!notice.isActive ? "activated" : "deactivated"}`);
+        clearCachedNotices();
         fetchNotices();
       }
     } catch (err) {
@@ -131,6 +135,7 @@ export default function Notices() {
       const res = await api.delete(`/admin/notices/${notice._id}`);
       if (res.data?.success) {
         toast.success("Notice deleted");
+        clearCachedNotices();
         fetchNotices();
       }
     } catch (err) {

@@ -505,7 +505,7 @@ const Overview = ({ batchDataMap, goToYear }) => {
           {isAuthenticated ? (
             <>
               <h2 className="text-sm font-bold font-space-grotesk uppercase tracking-wider text-white mb-4">
-                Select Year
+                Select Batch
               </h2>
 
               {/* horizontal scroll matching Toolkit category box design */}

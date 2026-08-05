@@ -5,7 +5,7 @@ export const CouncilData24 = [
     portfolio: "Vice President, Events - DST & Freshmen",
     mobile: "+91 9058887078",
     mail: "ashutosh.daan@gmail.com",
-    year: "5th",
+    year: "Batch 20",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723339/Paramjeet_Saini_xolxxj.avif",
@@ -13,7 +13,7 @@ export const CouncilData24 = [
     portfolio: "Senior Secretary, DST(JNV)",
     mail: "paramjeetsaini@kgpian.iitkgp.ac.in",
     mobile: "+91 6397189676",
-    year: "4th",
+    year: "Batch 21",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
@@ -21,7 +21,7 @@ export const CouncilData24 = [
     portfolio: "College Representative, IIT Kharagpur",
     mail: "shauryashanisaini@gmail.com",
     mobile: "+91 9555439091",
-    year: "3rd",
+    year: "Batch 22",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723437/Mohit_Kumar_h57d5w.avif",
@@ -29,7 +29,7 @@ export const CouncilData24 = [
     portfolio: "Junior Secretary, DST(Non-JNV)",
     mail: "mk8750351763@kgpian.iitkgp.ac.in",
     mobile: "+91 8384078167",
-    year: "3rd",
+    year: "Batch 22",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723597/Swarup_Dhanavade_ncjz8k.avif",
@@ -37,7 +37,7 @@ export const CouncilData24 = [
     portfolio: "Junior Secretary, DST(JNV)",
     mail: "swarupd@kgpian.iitkgp.ac.in",
     mobile: "+91 9423751729",
-    year: "3rd",
+    year: "Batch 22",
   },
 ];
 
@@ -48,7 +48,7 @@ export const CouncilData25 = [
     portfolio: "VP, Events - DST & Freshmen",
     mail: "paramjeetsaini@kgpian.iitkgp.ac.in",
     mobile: "+91 6397189676",
-    year: "4th",
+    year: "Batch 21",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1748023103/Shani_Maurya_cpux6d.avif",
@@ -56,7 +56,7 @@ export const CouncilData25 = [
     portfolio: "Sr. Secy, Placement Committee",
     mail: "shauryashanisaini@gmail.com",
     mobile: "+91 9555439091",
-    year: "3rd",
+    year: "Batch 22",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747723597/Swarup_Dhanavade_ncjz8k.avif",
@@ -64,7 +64,7 @@ export const CouncilData25 = [
     portfolio: "Sr. Secy, DST(JNV)",
     mail: "swarupd@kgpian.iitkgp.ac.in",
     mobile: "+91 9423751729",
-    year: "3rd",
+    year: "Batch 22",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760806421/UttamMeghwal_ju8s0v.avif",
@@ -72,7 +72,7 @@ export const CouncilData25 = [
     portfolio: "CR-I, IIT Kharagpur",
     mail: "Uttammeghwal.24@kgpian.iitkgp.ac.in",
     mobile: "+916264607383",
-    year: "2nd",
+    year: "Batch 24",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1760805714/ShivamAhirwar_mlrqzr.avif",
@@ -80,14 +80,15 @@ export const CouncilData25 = [
     portfolio: "CR-II, IIT Kharagpur",
     mail: "ahirwarshivam7049@gmail.com",
     mobile: "+917049996597",
-    year: "2nd",
-  },{
+    year: "Batch 24",
+  },
+  {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676250/AbhinamDutta_xqj8rt.avif",
     title: "Mr. Abhinam Dutta",
     portfolio: "Jr. Secy, DST(JNV)",
     mail: "abhinamdutta.24@kgpian.iitkgp.ac.in",
     mobile: "+917631504442",
-    year: "2nd",
+    year: "Batch 24",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1759676251/Monika_afmvu1.avif",
@@ -95,7 +96,7 @@ export const CouncilData25 = [
     portfolio: "Jr. Secy, DST(Non-JNV)",
     mail: "monikadhakad135.24@kgpian.iitkgp.ac.in",
     mobile: "+91 7770951080",
-    year: "2nd",
+    year: "Batch 24",
   },
   {
     img: "https://res.cloudinary.com/dcwwptwzt/image/upload/v1747753917/Akhil_Dixit_qlwruw_s0bq6w.avif",
@@ -103,18 +104,14 @@ export const CouncilData25 = [
     portfolio: "Jr. Secy, Placement Committee",
     mail: "akhileshdixit07.24@kgpian.iitkgp.ac.in",
     mobile: "+917307044974",
-    year: "2nd",
+    year: "Batch 24",
   },
 ];
-export const demo=[
-  
-    {
+export const demo = [
+  {
     img: "",
     title: "Will be declared soon.",
     portfolio: "---",
     mail: "---",
-    mobile: "+91 XXXXXXXXXX",
-    year: "-",
   },
-  
-]
+];

@@ -17,19 +17,8 @@ const CouncilCard = ({
   const mail = contacts[0]?.email || "N/A";
   const councilInfo = involvements[0]?.council || "No Portfolio";
 
-  const currentYear = new Date().getFullYear();
-  const batchYear = parseInt(batch, 10);
-  const studyYear = currentYear - batchYear;
-
-  const yearLabel = `${studyYear}${
-    studyYear === 1
-      ? "st"
-      : studyYear === 2
-      ? "nd"
-      : studyYear === 3
-      ? "rd"
-      : "th"
-  } Yr`;
+  const batchShort = batch ? batch.toString().slice(-2) : "";
+  const yearLabel = batchShort ? `Batch ${batchShort}` : "";
 
   return (
     <div className="group p-3 bg-transparent hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 w-[280px]">

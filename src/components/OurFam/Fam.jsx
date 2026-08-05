@@ -208,7 +208,7 @@ const Fam = () => {
         <div>
           {/* Year Buttons */}
           <h2 className="text-sm text-center font-semibold text-gray-700 dark:text-gray-200 mb-2">
-            Other Years
+            Other Batches
           </h2>
 
           <div className="w-full overflow-x-auto no-scrollbar">

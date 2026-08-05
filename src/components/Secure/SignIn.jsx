@@ -307,8 +307,6 @@ export default function SignIn() {
               />
             </div>
 
-            </div>
-
             <button
               type="submit"
               disabled={loading || otpCode.length < 6}

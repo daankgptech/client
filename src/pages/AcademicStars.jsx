@@ -157,7 +157,7 @@ const AcademicStars = () => {
                         }
                       `}
                     >
-                      '{year.slice(-2)}
+                      Batch {year.slice(-2)}
                     </button>
                   );
                 })}

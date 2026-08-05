@@ -82,16 +82,16 @@ export default function SignUp() {
     name: "",
     username: "", // Email
     phone: "",
-    gender: "Male",
+    gender: "",
     batch: "2026", // Default 2026 batch
     hall: "LBS", // Default LBS hall
-    branch: "CS",
+    branch: "",
     course: "B.Tech",
     semester: 1, // Default Semester 1
     graduated: false,
     cgpa: "",
     bio: "",
-    coe: "Dakshana Valley",
+    coe: "",
     parentJNV: "",
     imgLink: "",
     // Contacts & Social
@@ -111,7 +111,7 @@ export default function SignUp() {
     state: "",
     pincode: "",
     emergencyContact: "",
-    bloodGroup: "O+",
+    bloodGroup: "",
   });
 
   // Setup Firebase RecaptchaVerifier
@@ -443,7 +443,7 @@ export default function SignUp() {
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="e.g. Rahul Sharma"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
                   />
                 </div>
@@ -455,7 +455,7 @@ export default function SignUp() {
                     required
                     value={form.username}
                     onChange={(e) => setForm({ ...form, username: e.target.value })}
-                    placeholder="user@gmail.com"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
@@ -470,7 +470,7 @@ export default function SignUp() {
                       required
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, "") })}
-                      placeholder="9876543210"
+                      placeholder="Only 10 digits"
                       className="w-full pl-12 pr-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                     />
                   </div>
@@ -500,7 +500,7 @@ export default function SignUp() {
                   >
                     {BATCH_OPTIONS.map((b) => (
                       <option key={b} value={b} className="bg-[#09090b]">
-                        Batch {b} {b === "2026" ? "(Default)" : ""}
+                        Batch {b}
                       </option>
                     ))}
                   </select>
@@ -530,7 +530,7 @@ export default function SignUp() {
                   >
                     {HALL_OPTIONS.map((h) => (
                       <option key={h} value={h} className="bg-[#09090b]">
-                        {h} {h === "LBS" ? "(Default)" : ""}
+                        {h}
                       </option>
                     ))}
                   </select>
@@ -560,7 +560,7 @@ export default function SignUp() {
                   >
                     {SEMESTER_OPTIONS.map((s) => (
                       <option key={s} value={s} className="bg-[#09090b]">
-                        Semester {s} {s === 1 ? "(Default)" : ""}
+                        Semester {s}
                       </option>
                     ))}
                   </select>
@@ -583,13 +583,13 @@ export default function SignUp() {
 
                 <div>
                   <label className="block text-white/70 mb-1 font-bold">
-                    Parent JNV School <span className="text-white/40 font-normal">(Optional)</span>
+                    Parent JNV School *
                   </label>
                   <input
                     type="text"
                     value={form.parentJNV}
                     onChange={(e) => setForm({ ...form, parentJNV: e.target.value })}
-                    placeholder="e.g. JNV Lucknow"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
                   />
                 </div>
@@ -617,7 +617,7 @@ export default function SignUp() {
 
               <div>
                 <label className="block text-white/70 mb-1 font-bold">
-                  Short Bio <span className="text-white/40 font-normal">(Optional)</span>
+                  About yourself *
                 </label>
                 <textarea
                   rows="2"
@@ -644,7 +644,7 @@ export default function SignUp() {
                     type="url"
                     value={form.github}
                     onChange={(e) => setForm({ ...form, github: e.target.value })}
-                    placeholder="https://github.com/username"
+                    placeholder="eg. https://github.com/username"
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
@@ -657,7 +657,7 @@ export default function SignUp() {
                     type="url"
                     value={form.linkedIn}
                     onChange={(e) => setForm({ ...form, linkedIn: e.target.value })}
-                    placeholder="https://linkedin.com/in/username"
+                    placeholder="eg. https://linkedin.com/in/username"
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
@@ -685,7 +685,7 @@ export default function SignUp() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white/70 mb-1 font-bold">Date of Birth *</label>
+                  <label className="block text-white mb-1 font-bold">Date of Birth *</label>
                   <input
                     type="date"
                     required
@@ -717,7 +717,7 @@ export default function SignUp() {
                     required
                     value={form.emergencyContact}
                     onChange={(e) => setForm({ ...form, emergencyContact: e.target.value })}
-                    placeholder="+91 9876543210"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
@@ -741,7 +741,7 @@ export default function SignUp() {
                     required
                     value={form.city}
                     onChange={(e) => setForm({ ...form, city: e.target.value })}
-                    placeholder="e.g. Kharagpur"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
                   />
                 </div>
@@ -753,7 +753,7 @@ export default function SignUp() {
                     required
                     value={form.state}
                     onChange={(e) => setForm({ ...form, state: e.target.value })}
-                    placeholder="e.g. West Bengal"
+                    placeholder="Type here..."
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500"
                   />
                 </div>
@@ -765,7 +765,7 @@ export default function SignUp() {
                     required
                     value={form.pincode}
                     onChange={(e) => setForm({ ...form, pincode: e.target.value })}
-                    placeholder="721302"
+                    placeholder="6 digits"
                     className="w-full px-3 py-2 bg-transparent border border-white/10 text-white focus:outline-none focus:border-red-500 font-mono"
                   />
                 </div>
@@ -801,7 +801,7 @@ export default function SignUp() {
 
             <div className="space-y-1.5">
               <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                Enter 6-Digit OTP Code *
+                Enter 6-Digit OTP *
               </label>
               <input
                 type="text"
@@ -809,7 +809,7 @@ export default function SignUp() {
                 required
                 value={otpCode}
                 onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
-                placeholder="123456"
+                placeholder="Put here..."
                 className="w-full px-4 py-3 text-center text-lg font-mono tracking-[0.3em] bg-transparent border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-red-500"
               />
             </div>
@@ -821,7 +821,7 @@ export default function SignUp() {
                 disabled={timer > 0 || loading}
                 className="text-white/70 hover:text-white font-bold flex items-center gap-1.5 disabled:opacity-40"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} />
+                {/* <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} /> */}
                 {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
               </button>
             </div>
@@ -848,7 +848,7 @@ export default function SignUp() {
                 Registration Request Submitted!
               </h2>
               <p className="text-xs text-white/70 max-w-md mx-auto leading-relaxed">
-                Thank you, <strong className="text-white">{form.name}</strong>. Your member signup application has been created and sent to the DAAN KGP Admin Team for verification.
+                Thank you, <strong className="text-white">{form.name}</strong>. Your member signup application has been created and sent to the DAAN KGP Team for verification.
               </p>
             </div>
 

@@ -68,7 +68,7 @@ export default function SignIn() {
       container,
       {
         size: "invisible",
-        callback: () => {},
+        callback: () => { },
         "expired-callback": () => {
           toast.error("reCAPTCHA expired. Please request OTP again.");
         },
@@ -83,7 +83,7 @@ export default function SignIn() {
       if (window.recaptchaVerifier) {
         try {
           window.recaptchaVerifier.clear();
-        } catch (e) {}
+        } catch (e) { }
         window.recaptchaVerifier = null;
       }
     };
@@ -147,7 +147,7 @@ export default function SignIn() {
     } catch (err) {
       console.error("Firebase send OTP error:", err);
       if (window.recaptchaVerifier) {
-        try { window.recaptchaVerifier.clear(); } catch (e) {}
+        try { window.recaptchaVerifier.clear(); } catch (e) { }
         window.recaptchaVerifier = null;
       }
 
@@ -252,9 +252,6 @@ export default function SignIn() {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             Sign In
           </h1>
-          <p className="text-xs text-white/50">
-            For DAAN KGPians
-          </p>
         </div>
 
         {/* STEP 1: Phone Input Form */}
@@ -278,7 +275,7 @@ export default function SignIn() {
                     setPhoneError("");
                     setPendingApproval(false);
                   }}
-                  placeholder="9876543210"
+                  placeholder="10 digits only"
                   className="w-full pl-12 pr-4 py-3 text-sm font-mono bg-transparent border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-red-500 transition-colors"
                 />
               </div>
@@ -349,7 +346,7 @@ export default function SignIn() {
                 required
                 value={otpCode}
                 onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
-                placeholder="123456"
+                placeholder="6 digits OTP"
                 className="w-full px-4 py-3 text-center text-lg font-mono tracking-[0.3em] bg-transparent border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-red-500"
               />
             </div>
@@ -361,7 +358,7 @@ export default function SignIn() {
                 disabled={timer > 0 || loading}
                 className="text-white/70 hover:text-white font-bold flex items-center gap-1.5 disabled:opacity-40"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} />
+                {/* <RefreshCw className={`w-3.5 h-3.5 ${timer > 0 ? "animate-spin" : ""}`} /> */}
                 {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
               </button>
             </div>

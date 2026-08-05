@@ -42,9 +42,7 @@ export const Logo = ({ onClick }) => (
       alt="DAAN KGP Logo"
       className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm rounded-sm transition-transform duration-300 group-hover:scale-105"
     />
-    <div className="text-lg sm:text-xl font-space-grotesk font-bold text-white tracking-tighter flex items-center gap-0.5">
-      DAAN<span className="text-[#ff3130] text-xs font-mono">@</span>KGP
-    </div>
+    <div className="text-lg font-space-grotesk font-bold text-primary tracking-tighter">DAAN<span className="font-space-grotesk text-primary-hover text-[10px]">@</span>KGP</div>
   </Link>
 );
 
@@ -204,7 +202,7 @@ export default function Navbar() {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open Navigation Menu"
-              className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 active:scale-95 transition-all"
+              className=" text-white hover:text-white/90 active:scale-95 transition-all"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -229,7 +227,7 @@ export default function Navbar() {
               <button
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close Navigation Menu"
-                className="p-2.5 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-red-500/20 hover:border-red-500/40 active:scale-95 transition-all"
+                className=" text-white hover:text-white/90 active:scale-95 transition-all"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -338,7 +336,7 @@ export default function Navbar() {
 
             {/* Footer info in Overlay */}
             <div className="p-6 text-center text-xs text-white/40 border-t border-white/10 shrink-0 font-mono">
-              DAAN KGP · Dakshana Alumni Association Network IIT Kharagpur
+              DAAN@KGP · DakshanA Alumni Network at IIT Kharagpur
             </div>
           </motion.div>
         )}

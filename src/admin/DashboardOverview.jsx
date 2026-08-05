@@ -136,7 +136,7 @@ export default function DashboardOverview() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold font-space-grotesk tracking-tight text-white flex items-center gap-2">
-            <Activity className="w-6 h-6 text-rose-500" />
+            {/* <Activity className="w-6 h-6 text-rose-500" /> */}
             System Overview
           </h1>
           <p className="text-xs text-white/50 font-space-grotesk mt-1">

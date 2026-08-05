@@ -162,7 +162,7 @@ export default function Events() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-            <CalendarIcon className="w-6 h-6 text-rose-500" />
+            {/* <CalendarIcon className="w-6 h-6 text-rose-500" /> */}
             Manage Events
           </h1>
           <p className="text-xs text-white/50 mt-1">

@@ -156,7 +156,7 @@ export default function Notices() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Megaphone className="w-6 h-6 text-rose-500" />
+            {/* <Megaphone className="w-6 h-6 text-rose-500" /> */}
             Noticeboard Management
           </h1>
           <p className="text-xs text-white/50 mt-1">

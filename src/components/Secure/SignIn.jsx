@@ -167,10 +167,23 @@ export default function SignIn() {
     }
   };
 
-  // Resend OTP action
-  const handleResendOtp = async () => {
+  // Resend OTP action: resets to Step 1 (phone number field) and clears reCAPTCHA instance to resolve reCAPTCHA already solved errors
+  const handleResendOtp = () => {
     if (timer > 0) return;
-    await handleSendOtp();
+
+    if (window.recaptchaVerifier) {
+      try {
+        window.recaptchaVerifier.clear();
+      } catch (e) {
+        console.warn("Error clearing recaptcha verifier:", e);
+      }
+      window.recaptchaVerifier = null;
+    }
+
+    setOtpCode("");
+    setConfirmationResult(null);
+    setStep(1);
+    toast.info("Please verify your mobile number and click Send OTP Code.");
   };
 
   // Step 2: Verify OTP & Sign In Session
